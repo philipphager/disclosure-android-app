@@ -45,6 +45,9 @@ dependencies {
   compile "com.google.dagger:dagger:${daggerVersion}"
   apt "com.google.dagger:dagger-compiler:${daggerVersion}"
 
+  // Datetime
+  compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
+
   testCompile 'junit:junit:4.12'
 
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
