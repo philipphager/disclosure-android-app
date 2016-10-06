@@ -1,15 +1,20 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.noveogroup.android.check'
 
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 1
+def versionBuild = 0
+
 android {
   compileSdkVersion 24
-  buildToolsVersion "24.0.2"
+  buildToolsVersion '24.0.2'
   defaultConfig {
-    applicationId "de.philipphager.disclosure"
+    applicationId 'de.philipphager.disclosure'
     minSdkVersion 21
     targetSdkVersion 24
-    versionCode 1
-    versionName "1.0"
+    versionCode versionMajor * 100000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
