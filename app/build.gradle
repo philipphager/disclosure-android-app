@@ -53,6 +53,11 @@ dependencies {
   // Datetime
   compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
 
+  // Functional reactive
+  compile 'io.reactivex:rxjava:1.1.10'
+  compile 'io.reactivex:rxandroid:1.2.1'
+  compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
+
   // Value classes
   provided "com.google.auto.value:auto-value:${autovalueVersion}"
   apt "com.google.auto.value:auto-value:${autovalueVersion}"
