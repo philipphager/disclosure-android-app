@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.noveogroup.android.check'
 
 def versionMajor = 0
@@ -23,6 +24,10 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
+  compileOptions {
+    targetCompatibility 1.8
+    sourceCompatibility 1.8
   }
   lintOptions {
     abortOnError false
