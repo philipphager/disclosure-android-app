@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.noveogroup.android.check'
 
 def versionMajor = 0
@@ -23,17 +25,52 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  compileOptions {
+    targetCompatibility 1.8
+    sourceCompatibility 1.8
+  }
   lintOptions {
     abortOnError false
   }
 }
 
+def supportVersion = '24.2.1'
+def autovalueVersion = '1.2'
+def butterknifeVersion = '8.4.0'
+def daggerVersion = '2.6.1'
+
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
-  compile 'com.android.support:appcompat-v7:24.2.1'
+  // Design
+  compile "com.android.support:appcompat-v7:${supportVersion}"
+  compile "com.android.support:design:${supportVersion}"
 
+  // Dependency injection with dagger 2
+  compile "com.google.dagger:dagger:${daggerVersion}"
+  apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+  // Datetime
+  compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
+
+  // Functional reactive
+  compile 'io.reactivex:rxjava:1.1.10'
+  compile 'io.reactivex:rxandroid:1.2.1'
+  compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
+
+  // Value classes
+  provided "com.google.auto.value:auto-value:${autovalueVersion}"
+  apt "com.google.auto.value:auto-value:${autovalueVersion}"
+  apt 'frankiesardo:auto-parcel:1.0.3'
+
+  // View
+  apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+  compile "com.jakewharton:butterknife:${butterknifeVersion}"
+
+  // Testing
   testCompile 'junit:junit:4.12'
+  testCompile 'org.mockito:mockito-core:1.10.19'
+  testCompile 'org.assertj:assertj-core:3.5.2'
 
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
