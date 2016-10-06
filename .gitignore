@@ -1,9 +1,24 @@
-*.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
 /build
 /captures
 .externalNativeBuild
+
+# Windows
+Thumbs.db
+
+# Mac
+.DS_Store
+
+# Intellij IDEA (see https://intellij-support.jetbrains.com/entries/23393067)
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/datasources.xml
+.idea/dataSources.ids
+.idea/libraries
+.idea/gradle.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/codeStyleSettings.xml
+# Not recommended to ignore, but damn are they annoying, and should be autogeneratable
+*.iml
