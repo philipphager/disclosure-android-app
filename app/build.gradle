@@ -34,10 +34,16 @@ android {
   }
 }
 
+def daggerVersion = '2.6.1'
+
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
   compile 'com.android.support:appcompat-v7:24.2.1'
+
+  // Dependency injection with dagger 2
+  compile "com.google.dagger:dagger:${daggerVersion}"
+  apt "com.google.dagger:dagger-compiler:${daggerVersion}"
 
   testCompile 'junit:junit:4.12'
 
