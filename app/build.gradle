@@ -34,6 +34,7 @@ android {
   }
 }
 
+def autovalueVersion = '1.2'
 def daggerVersion = '2.6.1'
 
 dependencies {
@@ -47,6 +48,11 @@ dependencies {
 
   // Datetime
   compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
+
+  // Value classes
+  provided "com.google.auto.value:auto-value:${autovalueVersion}"
+  apt "com.google.auto.value:auto-value:${autovalueVersion}"
+  apt 'frankiesardo:auto-parcel:1.0.3'
 
   testCompile 'junit:junit:4.12'
 
