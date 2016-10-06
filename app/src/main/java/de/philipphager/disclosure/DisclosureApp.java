@@ -1,6 +1,7 @@
 package de.philipphager.disclosure;
 
 import android.app.Application;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class DisclosureApp extends Application {
   private ApplicationComponent applicationComponent;
@@ -15,6 +16,8 @@ public class DisclosureApp extends Application {
     applicationComponent = DaggerApplicationComponent.builder()
         .applicationModule(new ApplicationModule(this))
         .build();
+
+    AndroidThreeTen.init(this);
   }
 
   public ApplicationComponent getApplicationComponent() {
