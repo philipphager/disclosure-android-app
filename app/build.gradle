@@ -35,6 +35,7 @@ android {
 }
 
 def autovalueVersion = '1.2'
+def butterknifeVersion = '8.4.0'
 def daggerVersion = '2.6.1'
 
 dependencies {
@@ -53,6 +54,10 @@ dependencies {
   provided "com.google.auto.value:auto-value:${autovalueVersion}"
   apt "com.google.auto.value:auto-value:${autovalueVersion}"
   apt 'frankiesardo:auto-parcel:1.0.3'
+
+  // View
+  apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+  compile "com.jakewharton:butterknife:${butterknifeVersion}"
 
   testCompile 'junit:junit:4.12'
 
