@@ -1,0 +1,18 @@
+import org.threeten.bp.LocalDateTime;
+
+CREATE TABLE Version (
+  appId INTEGER NOT NULL,
+  versionNumber INTEGER NOT NULL,
+  createdAt INTEGER AS LocalDateTime NOT NULL,
+  PRIMARY KEY(appId, versionNumber),
+  FOREIGN KEY(appId) REFERENCES App(id)
+);
+
+selectAll:
+SELECT *
+FROM Version;
+
+selectByApp:
+SELECT *
+FROM Version
+WHERE appId = ?;

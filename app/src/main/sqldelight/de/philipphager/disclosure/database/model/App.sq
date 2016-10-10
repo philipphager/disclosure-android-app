@@ -1,0 +1,17 @@
+CREATE TABLE App (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  label TEXT,
+  packageName TEXT NOT NULL,
+  process TEXT NOT NULL,
+  sourceDir TEXT NOT NULL,
+  flags INTEGER AS Integer
+);
+
+selectAll:
+SELECT *
+FROM App;
+
+selectByName:
+SELECT *
+FROM App
+WHERE label like ?;
