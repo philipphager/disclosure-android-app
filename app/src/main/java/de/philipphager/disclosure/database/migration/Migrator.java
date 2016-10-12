@@ -48,7 +48,8 @@ public class Migrator {
       try {
         migration = migrationClass.newInstance();
       } catch (InstantiationException | IllegalAccessException e) {
-        throw new IllegalArgumentException("Migration class needs empty and accessible constructor!", e);
+        throw new IllegalArgumentException(
+            "Migration class needs empty and accessible constructor!", e);
       }
 
       if (migration != null) {
