@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.model;
+package de.philipphager.disclosure.database.app.model;
 
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
@@ -13,12 +13,13 @@ import com.google.auto.value.AutoValue;
           .flags(flags)
           .build());
 
+  public static final Mapper<App> MAPPER = FACTORY.selectAllMapper();
+
   public static Builder builder() {
     return new AutoValue_App.Builder();
   }
 
-  @SuppressWarnings("PMD.ShortMethodName")
-  public abstract Long id();
+  @SuppressWarnings("PMD.ShortMethodName") public abstract Long id();
 
   @Nullable public abstract String label();
 
@@ -35,8 +36,7 @@ import com.google.auto.value.AutoValue;
   }
 
   @AutoValue.Builder public interface Builder {
-    @SuppressWarnings("PMD.ShortMethodName")
-    Builder id(Long id);
+    @SuppressWarnings("PMD.ShortMethodName") Builder id(Long id);
 
     Builder label(@Nullable String label);
 
