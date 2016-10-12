@@ -3,7 +3,7 @@ package de.philipphager.disclosure.database.version;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.util.BriteQuery;
-import de.philipphager.disclosure.database.util.CursorListMapper;
+import de.philipphager.disclosure.database.util.CursorToListMapper;
 import de.philipphager.disclosure.database.util.Repository;
 import de.philipphager.disclosure.database.version.model.Version;
 import java.util.List;
@@ -38,8 +38,8 @@ public class VersionRepository implements Repository<Version> {
   @Override public Observable<List<Version>> query(BriteQuery<Version> query) {
     try (BriteDatabase db = databaseManager.open()) {
 
-      CursorListMapper<Version> versionListMapper = new CursorListMapper<>(query.rowMapper());
-      return query.createQuery(db).map(versionListMapper);
+      CursorToListMapper<Version> cursorToVersionList = new CursorToListMapper<>(query.rowMapper());
+      return query.createQuery(db).map(cursorToVersionList);
     }
   }
 }

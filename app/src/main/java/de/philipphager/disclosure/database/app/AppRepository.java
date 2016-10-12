@@ -4,7 +4,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.util.BriteQuery;
-import de.philipphager.disclosure.database.util.CursorListMapper;
+import de.philipphager.disclosure.database.util.CursorToListMapper;
 import de.philipphager.disclosure.database.util.Repository;
 import java.util.List;
 import javax.inject.Inject;
@@ -50,8 +50,8 @@ public class AppRepository implements Repository<App> {
   @Override public Observable<List<App>> query(BriteQuery<App> query) {
     try (BriteDatabase db = databaseManager.open()) {
 
-      CursorListMapper<App> appListMapper = new CursorListMapper<>(query.rowMapper());
-      return query.createQuery(db).map(appListMapper);
+      CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
+      return query.createQuery(db).map(cursorToAppList);
     }
   }
 }

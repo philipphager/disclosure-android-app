@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import rx.functions.Func1;
 
-public class CursorListMapper<T> implements Func1<SqlBrite.Query, List<T>> {
+public class CursorToListMapper<T> implements Func1<SqlBrite.Query, List<T>> {
   private final RowMapper<T> rowMapper;
 
-  public CursorListMapper(RowMapper<T> rowMapper) {
+  public CursorToListMapper(RowMapper<T> rowMapper) {
     this.rowMapper = rowMapper;
   }
 

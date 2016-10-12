@@ -19,12 +19,12 @@ import static org.mockito.Mockito.when;
   @Mock Cursor cursor;
   @Mock RowMapper<App> rowMapper;
   @Mock SqlBrite.Query briteQuery;
-  @InjectMocks CursorListMapper<App> appCursorListMapper;
+  @InjectMocks CursorToListMapper<App> cursorToListMapper;
 
   @Test public void returnEmptyListOnFailingCursor() {
     when(briteQuery.run()).thenReturn(null);
 
-    List<App> result = appCursorListMapper.call(briteQuery);
+    List<App> result = cursorToListMapper.call(briteQuery);
     assertThat(result.size()).isEqualTo(0);
   }
 
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
     when(cursor.moveToNext()).thenReturn(true).thenReturn(true).thenReturn(false);
     when(rowMapper.map(cursor)).thenReturn(MockApp.TEST_APP);
 
-    List<App> result = appCursorListMapper.call(briteQuery);
+    List<App> result = cursorToListMapper.call(briteQuery);
     assertThat(result.size()).isEqualTo(2);
   }
 }
