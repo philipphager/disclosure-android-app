@@ -18,4 +18,10 @@ public final class Assertions {
     }
     return t;
   }
+
+  public static void check(boolean argument, String message) {
+    if (!argument) {
+      throw new IllegalStateException(message);
+    }
+  }
 }
