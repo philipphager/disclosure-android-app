@@ -32,7 +32,7 @@ public class Stopwatch {
   }
 
   private double toSecs() {
-    return duration.toMillis() / MILLIS;
+    return duration.toMillis() / (double) MILLIS;
   }
 
   @Override public String toString() {
