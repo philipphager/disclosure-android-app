@@ -32,11 +32,11 @@ public class FetchOutdatedPackagesShould {
 
   @Before public void setUp() throws Exception {
     facebookInfo =
-        App.Info.create(MockPackage.test().packageName, MockPackage.test().versionCode);
+        App.Info.create(MockPackage.TEST.packageName, MockPackage.TEST.versionCode);
     facebookInfoVersion2 =
-        App.Info.create(MockPackage.test().packageName, 2);
+        App.Info.create(MockPackage.TEST.packageName, 2);
     instagramInfo =
-        App.Info.create(MockPackage.test2().packageName, MockPackage.test2().versionCode);
+        App.Info.create(MockPackage.TEST2.packageName, MockPackage.TEST2.versionCode);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -74,7 +74,7 @@ public class FetchOutdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void doNotFetchPackagesThatAreStillInstalled() {
     List<App.Info> savedPackages = Collections.singletonList(facebookInfo);
-    List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.test());
+    List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.TEST);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appRepository.allInfos()).thenReturn(Observable.just(savedPackages));

@@ -46,27 +46,27 @@ public class DBSyncerShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void insertUpdatedPackages() {
-    newPackages.addAll(Arrays.asList(MockPackage.test(), MockPackage.test2()));
+    newPackages.addAll(Arrays.asList(MockPackage.TEST, MockPackage.TEST2));
 
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
-    verify(appService).add(MockPackage.test());
-    verify(appService).add(MockPackage.test2());
-    verify(versionService).add(0, MockPackage.test());
-    verify(versionService).add(0, MockPackage.test2());
+    verify(appService).add(MockPackage.TEST);
+    verify(appService).add(MockPackage.TEST2);
+    verify(versionService).add(0, MockPackage.TEST);
+    verify(versionService).add(0, MockPackage.TEST2);
     subscriber.assertCompleted();
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void deleteOutdatedPackages() {
-    oldPackages.addAll(Arrays.asList(MockPackage.test().packageName, MockPackage.test2().packageName));
+    oldPackages.addAll(Arrays.asList(MockPackage.TEST.packageName, MockPackage.TEST2.packageName));
 
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
-    verify(appService).removeByPackageName(MockPackage.test().packageName);
-    verify(appService).removeByPackageName(MockPackage.test2().packageName);
+    verify(appService).removeByPackageName(MockPackage.TEST.packageName);
+    verify(appService).removeByPackageName(MockPackage.TEST2.packageName);
     subscriber.assertCompleted();
   }
 
@@ -90,8 +90,8 @@ public class DBSyncerShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void syncAlwaysCompletes() {
-    newPackages.addAll(Arrays.asList(MockPackage.test(), MockPackage.test2()));
-    oldPackages.addAll(Arrays.asList(MockPackage.test().packageName, MockPackage.test2().packageName));
+    newPackages.addAll(Arrays.asList(MockPackage.TEST, MockPackage.TEST2));
+    oldPackages.addAll(Arrays.asList(MockPackage.TEST.packageName, MockPackage.TEST2.packageName));
 
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
@@ -100,7 +100,7 @@ public class DBSyncerShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void doUpdateBeforeRemovingOutdatedPackages() {
-    newPackages.addAll(Arrays.asList(MockPackage.test(), MockPackage.test2()));
+    newPackages.addAll(Arrays.asList(MockPackage.TEST, MockPackage.TEST2));
 
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
