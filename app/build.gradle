@@ -45,11 +45,12 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
   // Database
-  compile 'com.squareup.sqlbrite:sqlbrite:0.7.0'
+  compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
 
   // Design
   compile "com.android.support:appcompat-v7:${supportVersion}"
   compile "com.android.support:design:${supportVersion}"
+  compile "com.android.support:support-annotations:${supportVersion}"
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"
