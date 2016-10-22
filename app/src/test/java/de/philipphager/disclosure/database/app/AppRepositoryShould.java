@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @PrepareForTest({BriteDatabase.class, SQLiteDatabase.class, BriteDatabase.Transaction.class})
 public class AppRepositoryShould {
   @Mock protected BriteQuery briteQuery;
@@ -42,13 +43,15 @@ public class AppRepositoryShould {
     MockitoAnnotations.initMocks(this);
   }
 
-  @Test public void insertAppIntoDatabase() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void insertAppIntoDatabase() {
     appRepository.add(MockApp.TEST);
 
     verify(writeableDB).replace(App.TABLE_NAME, null, getTestContentValues(MockApp.TEST));
   }
 
-  @Test public void insertMultipleAppsIntoDatabase() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void insertMultipleAppsIntoDatabase() {
     List<App> appList = Arrays.asList(MockApp.TEST, MockApp.TEST, MockApp.TEST);
     appRepository.add(appList);
 
@@ -57,7 +60,8 @@ public class AppRepositoryShould {
     verify(transaction).markSuccessful();
   }
 
-  @Test public void updateAppInDatabase() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void updateAppInDatabase() {
     appRepository.update(MockApp.TEST);
 
     String where = String.format("id=%s", MockApp.TEST.id());
@@ -65,7 +69,8 @@ public class AppRepositoryShould {
     verify(readableDB).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
   }
 
-  @Test public void removeAppFromDatabase() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void removeAppFromDatabase() {
     appRepository.remove(MockApp.TEST);
 
     String where = String.format("id=%s", MockApp.TEST.id());

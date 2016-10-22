@@ -25,6 +25,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    //migrator.migrate(db, oldVersion, newVersion);
+    migrator.migrate(db, oldVersion, newVersion);
   }
 }

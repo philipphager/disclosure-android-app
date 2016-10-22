@@ -5,7 +5,8 @@ import de.philipphager.disclosure.util.Mapper;
 import javax.inject.Inject;
 
 public class ToInfoMapper implements Mapper<PackageInfo, App.Info> {
-  @Inject public ToInfoMapper() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public ToInfoMapper() {
+    // Needed for dagger injection.
   }
 
   @Override public App.Info map(PackageInfo from) {

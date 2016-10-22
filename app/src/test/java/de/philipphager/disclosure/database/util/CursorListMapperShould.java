@@ -16,10 +16,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) public class CursorListMapperShould {
-  @Mock Cursor cursor;
-  @Mock RowMapper<App> rowMapper;
-  @Mock SqlBrite.Query briteQuery;
-  @InjectMocks CursorToListMapper<App> cursorToListMapper;
+  @Mock protected Cursor cursor;
+  @Mock protected RowMapper<App> rowMapper;
+  @Mock protected SqlBrite.Query briteQuery;
+  @InjectMocks protected CursorToListMapper<App> cursorToListMapper;
 
   @Test public void returnEmptyListOnFailingCursor() {
     when(briteQuery.run()).thenReturn(null);
