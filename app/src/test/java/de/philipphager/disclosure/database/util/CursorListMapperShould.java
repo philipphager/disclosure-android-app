@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
   @Test public void iterateAllCursorValues() {
     when(briteQuery.run()).thenReturn(cursor);
     when(cursor.moveToNext()).thenReturn(true).thenReturn(true).thenReturn(false);
-    when(rowMapper.map(cursor)).thenReturn(MockApp.TEST_APP);
+    when(rowMapper.map(cursor)).thenReturn(MockApp.TEST);
 
     List<App> result = cursorToListMapper.call(briteQuery);
     assertThat(result.size()).isEqualTo(2);

@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.database.app;
 
+import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
@@ -22,54 +23,53 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ BriteDatabase.class, BriteDatabase.Transaction.class })
+@PrepareForTest({BriteDatabase.class, SQLiteDatabase.class, BriteDatabase.Transaction.class})
 public class AppRepositoryShould {
   @Mock protected BriteQuery briteQuery;
   @Mock protected DatabaseManager databaseManager;
   @InjectMocks protected AppRepository appRepository;
-  protected BriteDatabase database;
+  protected SQLiteDatabase writeableDB;
+  protected BriteDatabase readableDB;
   protected BriteDatabase.Transaction transaction;
 
   @Before public void setUp() {
-    database = PowerMockito.mock(BriteDatabase.class);
+    readableDB = PowerMockito.mock(BriteDatabase.class);
     transaction = PowerMockito.mock(BriteDatabase.Transaction.class);
-    when(database.newTransaction()).thenReturn(transaction);
-    when(databaseManager.open()).thenReturn(database);
+    writeableDB = PowerMockito.mock(SQLiteDatabase.class);
+    when(readableDB.newTransaction()).thenReturn(transaction);
+    when(databaseManager.openReadable()).thenReturn(readableDB);
+    when(databaseManager.openWriteable()).thenReturn(writeableDB);
     MockitoAnnotations.initMocks(this);
   }
 
   @Test public void insertAppIntoDatabase() {
-    appRepository.add(MockApp.TEST_APP);
+    appRepository.add(MockApp.TEST);
 
-    verify(database).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST_APP));
-    verify(database).close();
+    verify(writeableDB).replace(App.TABLE_NAME, null, getTestContentValues(MockApp.TEST));
   }
 
   @Test public void insertMultipleAppsIntoDatabase() {
-    List<App> appList = Arrays.asList(MockApp.TEST_APP, MockApp.TEST_APP, MockApp.TEST_APP);
+    List<App> appList = Arrays.asList(MockApp.TEST, MockApp.TEST, MockApp.TEST);
     appRepository.add(appList);
 
-    verify(database, times(appList.size())).insert(App.TABLE_NAME,
-        getTestContentValues(MockApp.TEST_APP));
+    verify(readableDB, times(appList.size()))
+        .insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST));
     verify(transaction).markSuccessful();
-    verify(database).close();
   }
 
   @Test public void updateAppInDatabase() {
-    appRepository.update(MockApp.TEST_APP);
+    appRepository.update(MockApp.TEST);
 
-    String where = String.format("id=%s", MockApp.TEST_APP.id());
+    String where = String.format("id=%s", MockApp.TEST.id());
 
-    verify(database).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST_APP), where);
-    verify(database).close();
+    verify(readableDB).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
   }
 
   @Test public void removeAppFromDatabase() {
-    appRepository.remove(MockApp.TEST_APP);
+    appRepository.remove(MockApp.TEST);
 
-    String where = String.format("id=%s", MockApp.TEST_APP.id());
+    String where = String.format("id=%s", MockApp.TEST.id());
 
-    verify(database).delete(App.TABLE_NAME, where);
-    verify(database).close();
+    verify(readableDB).delete(App.TABLE_NAME, where);
   }
 }
