@@ -18,7 +18,7 @@ public class CursorToListMapper<T> implements Func1<SqlBrite.Query, List<T>> {
     Cursor cursor = query.run();
 
     boolean cursorPresent = cursor != null;
-    int resultSize = cursorPresent ? cursor.getColumnCount() : 0;
+    int resultSize = cursorPresent ? cursor.getCount() : 0;
     List<T> items = new ArrayList<>(resultSize);
 
     if (cursorPresent) {
