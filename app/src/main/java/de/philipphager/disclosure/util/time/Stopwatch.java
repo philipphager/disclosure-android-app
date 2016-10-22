@@ -20,7 +20,6 @@ public class Stopwatch {
     startedAt = clock.now();
   }
 
-
   public void stop() {
     ensureNotNull(startedAt, "called stop() before start()");
     LocalDateTime endedAt = clock.now();

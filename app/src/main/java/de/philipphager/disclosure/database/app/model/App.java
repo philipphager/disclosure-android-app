@@ -56,8 +56,8 @@ import com.squareup.sqldelight.RowMapper;
     public static final RowMapper<Info> MAPPER =
         FACTORY.selectAllInfosMapper(AutoValue_App_Info::create);
 
-   public static Info create(String packageName, int versionCode) {
-     return new AutoValue_App_Info(packageName, versionCode);
-   }
+    public static Info create(String packageName, int versionCode) {
+      return new AutoValue_App_Info(packageName, versionCode);
+    }
   }
 }
