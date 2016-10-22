@@ -15,3 +15,8 @@ selectByName:
 SELECT *
 FROM App
 WHERE label like ?;
+
+selectAllInfos:
+SELECT packageName, versionCode
+FROM App, Version
+WHERE id = appId;

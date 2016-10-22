@@ -2,6 +2,7 @@ package de.philipphager.disclosure.database.app.model;
 
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
+import com.squareup.sqldelight.RowMapper;
 
 @AutoValue public abstract class App implements AppModel {
   public static final Factory<App> FACTORY = new Factory<>(
@@ -19,7 +20,7 @@ import com.google.auto.value.AutoValue;
     return new AutoValue_App.Builder();
   }
 
-  @SuppressWarnings("PMD.ShortMethodName") public abstract Long id();
+  @SuppressWarnings("PMD.ShortMethodName") @Nullable public abstract Long id();
 
   @Nullable public abstract String label();
 
@@ -49,5 +50,14 @@ import com.google.auto.value.AutoValue;
     Builder flags(Integer flags);
 
     App build();
+  }
+
+  @AutoValue public static abstract class Info implements SelectAllInfosModel {
+    public static final RowMapper<Info> MAPPER =
+        FACTORY.selectAllInfosMapper(AutoValue_App_Info::create);
+
+   public static Info create(String packageName, int versionCode) {
+     return new AutoValue_App_Info(packageName, versionCode);
+   }
   }
 }
