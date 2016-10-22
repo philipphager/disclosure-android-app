@@ -1,12 +1,10 @@
 package de.philipphager.disclosure.feature.sync;
 
 import android.content.pm.PackageInfo;
-import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.MockPackage;
 import de.philipphager.disclosure.feature.sync.usecases.FetchOutdatedPackages;
 import de.philipphager.disclosure.feature.sync.usecases.FetchUpdatedPackages;
 import de.philipphager.disclosure.service.AppService;
-import de.philipphager.disclosure.service.VersionService;
 import de.philipphager.disclosure.util.time.Stopwatch;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,12 +24,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DBSyncerShould {
-  @Mock protected AppRepository appRepository;
   @Mock protected Stopwatch stopwatch;
   @Mock protected FetchUpdatedPackages fetchUpdatedPackages;
   @Mock protected FetchOutdatedPackages fetchOutdatedApps;
   @Mock protected AppService appService;
-  @Mock protected VersionService versionService;
   @InjectMocks protected DBSyncer dbSyncer;
   private List<PackageInfo> newPackages;
   private List<String> oldPackages;
@@ -51,10 +47,8 @@ public class DBSyncerShould {
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
-    verify(appService).add(MockPackage.TEST);
-    verify(appService).add(MockPackage.TEST2);
-    verify(versionService).add(0, MockPackage.TEST);
-    verify(versionService).add(0, MockPackage.TEST2);
+    List<PackageInfo> expectedPackages = Arrays.asList(MockPackage.TEST, MockPackage.TEST2);
+    verify(appService).addAll(expectedPackages);
     subscriber.assertCompleted();
   }
 
@@ -65,8 +59,9 @@ public class DBSyncerShould {
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
-    verify(appService).removeByPackageName(MockPackage.TEST.packageName);
-    verify(appService).removeByPackageName(MockPackage.TEST2.packageName);
+    List<String> expectedPackages =
+        Arrays.asList(MockPackage.TEST.packageName, MockPackage.TEST2.packageName);
+    verify(appService).removeAllByPackageName(expectedPackages);
     subscriber.assertCompleted();
   }
 
@@ -96,14 +91,5 @@ public class DBSyncerShould {
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
     subscriber.assertCompleted();
-  }
-
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void doUpdateBeforeRemovingOutdatedPackages() {
-    newPackages.addAll(Arrays.asList(MockPackage.TEST, MockPackage.TEST2));
-
-    TestSubscriber<Integer> subscriber = new TestSubscriber<>();
-    dbSyncer.sync().toBlocking().subscribe(subscriber);
-    subscriber.assertValues(2, 0);
   }
 }

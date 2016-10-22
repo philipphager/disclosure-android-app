@@ -11,21 +11,29 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.query.SelectAllAppsQuery;
 import de.philipphager.disclosure.database.app.query.SelectAppsByNameQuery;
 import de.philipphager.disclosure.database.util.Queryable;
+import de.philipphager.disclosure.database.util.Repository;
+import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
+import de.philipphager.disclosure.database.version.model.Version;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
+import timber.log.Timber;
 
 public class AppService {
   private final AppRepository appRepository;
   private final Queryable<App.Info> appInfoRepository;
+  private final Repository<Version> versionRepository;
   private final DatabaseManager databaseManager;
   private final ToAppMapper toAppMapper;
 
   @Inject public AppService(AppRepository appRepository,
-      Queryable<App.Info> appInfoRepository, DatabaseManager databaseManager,
+      Queryable<App.Info> appInfoRepository,
+      Repository<Version> versionRepository,
+      DatabaseManager databaseManager,
       ToAppMapper toAppMapper) {
     this.appRepository = appRepository;
     this.appInfoRepository = appInfoRepository;
+    this.versionRepository = versionRepository;
     this.databaseManager = databaseManager;
     this.toAppMapper = toAppMapper;
   }
@@ -57,11 +65,38 @@ public class AppService {
     }
   }
 
-  public long add(PackageInfo packageInfo) {
+  public void add(PackageInfo packageInfo) {
     try {
       SQLiteDatabase db = databaseManager.openWriteable();
       App app = toAppMapper.map(packageInfo.applicationInfo);
-      return appRepository.add(db, app);
+      long appId = appRepository.add(db, app);
+      Version version = new ToVersionMapper(appId).map(packageInfo);
+      versionRepository.add(db, version);
+
+      String thread = Thread.currentThread().getName();
+      Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
+    } finally {
+      databaseManager.closeWriteable();
+    }
+  }
+
+  public void addAll(List<PackageInfo> packageInfos) {
+    try {
+      SQLiteDatabase db = databaseManager.openWriteable();
+      db.beginTransaction();
+
+      for (PackageInfo packageInfo : packageInfos) {
+        App app = toAppMapper.map(packageInfo.applicationInfo);
+        long appId = appRepository.add(db, app);
+        Version version = new ToVersionMapper(appId).map(packageInfo);
+        versionRepository.add(db, version);
+
+        String thread = Thread.currentThread().getName();
+        Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
+      }
+
+      db.setTransactionSuccessful();
+      db.endTransaction();
     } finally {
       databaseManager.closeWriteable();
     }
@@ -71,6 +106,9 @@ public class AppService {
     try {
       SQLiteDatabase db = databaseManager.openWriteable();
       appRepository.remove(db, String.format("%s = '%s'", App.PACKAGENAME, packageName));
+
+      String thread = Thread.currentThread().getName();
+      Timber.d("%s : delete app %s", thread, packageName);
     } finally {
       databaseManager.closeWriteable();
     }
@@ -83,6 +121,9 @@ public class AppService {
 
       for (String packageName : packageNames) {
         appRepository.remove(db, String.format("%s = '%s'", App.PACKAGENAME, packageName));
+
+        String thread = Thread.currentThread().getName();
+        Timber.d("%s : delete app %s", thread, packageName);
       }
 
       db.setTransactionSuccessful();
