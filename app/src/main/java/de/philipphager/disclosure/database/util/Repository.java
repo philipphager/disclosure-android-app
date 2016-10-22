@@ -4,7 +4,7 @@ import java.util.List;
 import rx.Observable;
 
 public interface Repository<T> {
-  void add(T item);
+  long add(T item);
 
   void add(Iterable<T> items);
 
