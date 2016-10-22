@@ -7,13 +7,17 @@ public final class MockPackage {
     //No instances of helper classes.
   }
 
-  public static final PackageInfo TEST = new PackageInfo() {{
-    packageName = MockApp.TEST.packageName();
-    versionCode = MockApp.TEST_INFO.versionCode();
-  }};
+  public static PackageInfo test() {
+    PackageInfo packageInfo = new PackageInfo();
+    packageInfo.packageName = MockApp.TEST.packageName();
+    packageInfo.versionCode = MockApp.TEST_INFO.versionCode();
+    return packageInfo;
+  }
 
-  public static final PackageInfo TEST2 = new PackageInfo() {{
-    packageName = MockApp.TEST2.packageName();
-    versionCode = MockApp.TEST2_INFO.versionCode();
-  }};
+  public static PackageInfo test2() {
+    PackageInfo packageInfo = new PackageInfo();
+    packageInfo.packageName = MockApp.TEST2.packageName();
+    packageInfo.versionCode = MockApp.TEST2_INFO.versionCode();
+    return packageInfo;
+  }
 }

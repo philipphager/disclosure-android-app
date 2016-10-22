@@ -23,18 +23,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class FetchUpdatedPackagesShould {
-  @Mock DevicePackageProvider appProvider;
-  @Mock AppRepository appRepository;
-  @Mock ToInfoMapper toInfoMapper;
-  @InjectMocks FetchUpdatedPackages fetchUpdatedPackages;
+  @Mock protected DevicePackageProvider appProvider;
+  @Mock protected AppRepository appRepository;
+  @Mock protected ToInfoMapper toInfoMapper;
+  @InjectMocks protected FetchUpdatedPackages fetchUpdatedPackages;
 
-  @Before public void setUp() throws Exception {
-    when(toInfoMapper.map(MockPackage.TEST)).thenReturn(MockApp.TEST_INFO);
-    when(toInfoMapper.map(MockPackage.TEST2)).thenReturn(MockApp.TEST2_INFO);
+  @Before public void setUp() {
+    when(toInfoMapper.map(MockPackage.test())).thenReturn(MockApp.TEST_INFO);
+    when(toInfoMapper.map(MockPackage.test2())).thenReturn(MockApp.TEST2_INFO);
   }
 
-  @Test public void fetchNoAppsIfNoneInstalledOnDevice() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchNoAppsIfNoneInstalledOnDevice() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
@@ -45,8 +47,9 @@ public class FetchUpdatedPackagesShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test public void fetchAllAppsFromDeviceIfNoneAreSavedInDB() {
-    List<PackageInfo> installedPackages = Arrays.asList(MockPackage.TEST, MockPackage.TEST2);
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchAllAppsFromDeviceIfNoneAreSavedInDB() {
+    List<PackageInfo> installedPackages = Arrays.asList(MockPackage.test(), MockPackage.test2());
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
@@ -54,14 +57,15 @@ public class FetchUpdatedPackagesShould {
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
     fetchUpdatedPackages.get().toBlocking().subscribe(testSubscriber);
 
-    List<PackageInfo> expectedPackages = Arrays.asList(MockPackage.TEST, MockPackage.TEST2);
+    List<PackageInfo> expectedPackages = Arrays.asList(MockPackage.test(), MockPackage.test2());
     List<PackageInfo> receivedPackages = testSubscriber.getOnNextEvents().get(0);
     assertThat(receivedPackages).containsAll(expectedPackages);
     testSubscriber.assertCompleted();
   }
 
-  @Test public void fetchOnlyNewAppsFromDevice() {
-    List<PackageInfo> installedPackages = Arrays.asList(MockPackage.TEST, MockPackage.TEST2);
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchOnlyNewAppsFromDevice() {
+    List<PackageInfo> installedPackages = Arrays.asList(MockPackage.test(), MockPackage.test2());
     List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
@@ -70,16 +74,17 @@ public class FetchUpdatedPackagesShould {
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
     fetchUpdatedPackages.get().toBlocking().subscribe(testSubscriber);
 
-    List<PackageInfo> expectedPackages = Collections.singletonList(MockPackage.TEST2);
+    List<PackageInfo> expectedPackages = Collections.singletonList(MockPackage.test2());
     List<PackageInfo> receivedPackages = testSubscriber.getOnNextEvents().get(0);
     assertThat(receivedPackages).containsAll(expectedPackages);
     testSubscriber.assertCompleted();
   }
 
-  @Test public void fetchUpdatedAppVersions() {
-    int newVersion = MockPackage.TEST.versionCode + 1;
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchUpdatedAppVersions() {
+    int newVersion = MockPackage.test().versionCode + 1;
 
-    PackageInfo testPackageVersion2 = MockPackage.TEST;
+    PackageInfo testPackageVersion2 = MockPackage.test();
     testPackageVersion2.versionCode = newVersion;
     App.Info testAppInfoVersion2 = App.Info.create(testPackageVersion2.packageName, newVersion);
 
@@ -99,7 +104,8 @@ public class FetchUpdatedPackagesShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test public void alwaysCompleteAFetch() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 

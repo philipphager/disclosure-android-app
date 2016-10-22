@@ -13,8 +13,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StopwatchShould {
-  @Mock Clock clock;
-  @InjectMocks Stopwatch stopwatch;
+  @Mock protected Clock clock;
+  @InjectMocks protected Stopwatch stopwatch;
 
   @Test(expected = IllegalStateException.class)
   public void forbidCallingStopBeforeCallStart() {
@@ -34,7 +34,8 @@ public class StopwatchShould {
     assertThat(stopwatch.getDuration()).isEqualTo(Duration.between(mockStart, mockEnd));
   }
 
-  @Test public void resetAfterRestart() {
+  @Test @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
+  public void resetAfterRestart() {
     LocalDateTime firstMockStart = LocalDateTime.of(2016, 1, 1, 0, 0, 0);
     LocalDateTime firstMockEnd = LocalDateTime.of(2016, 1, 1, 0, 1, 0);
 

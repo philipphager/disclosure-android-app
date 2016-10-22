@@ -21,6 +21,7 @@ import rx.observers.TestSubscriber;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class FetchOutdatedPackagesShould {
   @Mock protected DevicePackageProvider appProvider;
   @Mock protected AppRepository appRepository;
@@ -31,14 +32,15 @@ public class FetchOutdatedPackagesShould {
 
   @Before public void setUp() throws Exception {
     facebookInfo =
-        App.Info.create(MockPackage.TEST.packageName, MockPackage.TEST.versionCode);
+        App.Info.create(MockPackage.test().packageName, MockPackage.test().versionCode);
     facebookInfoVersion2 =
-        App.Info.create(MockPackage.TEST.packageName, 2);
+        App.Info.create(MockPackage.test().packageName, 2);
     instagramInfo =
-        App.Info.create(MockPackage.TEST2.packageName, MockPackage.TEST2.versionCode);
+        App.Info.create(MockPackage.test2().packageName, MockPackage.test2().versionCode);
   }
 
-  @Test public void loadNoPackagesIfNoneAreInstalled() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void loadNoPackagesIfNoneAreInstalled() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
@@ -51,7 +53,8 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test public void fetchAllOutdatedPackagesThatWereUninstalled() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchAllOutdatedPackagesThatWereUninstalled() {
     List<App.Info> savedPackages = Arrays.asList(facebookInfo, instagramInfo);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
@@ -68,9 +71,10 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test public void doNotFetchPackagesThatAreStillInstalled() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void doNotFetchPackagesThatAreStillInstalled() {
     List<App.Info> savedPackages = Collections.singletonList(facebookInfo);
-    List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.TEST);
+    List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.test());
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appRepository.allInfos()).thenReturn(Observable.just(savedPackages));
@@ -85,7 +89,8 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test public void fetchOnlyOnePackageIfMoreVersionsOfAnAppHaveBeenSaved() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchOnlyOnePackageIfMoreVersionsOfAnAppHaveBeenSaved() {
     List<App.Info> savedPackages = Arrays.asList(facebookInfo, facebookInfoVersion2);
     List<PackageInfo> installedPackages = Collections.emptyList();
 
@@ -102,7 +107,8 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test public void alwaysCompleteAFetch() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
