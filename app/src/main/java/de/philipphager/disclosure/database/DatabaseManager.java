@@ -17,25 +17,31 @@ public class DatabaseManager {
     this.sqlBrite = sqlBrite;
   }
 
-  public synchronized BriteDatabase openReadable() {
-    ensureDatabase();
-    return readableDB;
-  }
-
-  public synchronized SQLiteDatabase openWriteable() {
-    ensureDatabase();
-    return writeableDB;
-  }
-
-  public synchronized void close() {
-    if (readableDB != null) {
-      readableDB.close();
-      readableDB = null;
+  public BriteDatabase openReadable() {
+    synchronized (this) {
+      ensureDatabase();
+      return readableDB;
     }
+  }
 
-    if (writeableDB != null) {
-      writeableDB.close();
-      writeableDB = null;
+  public SQLiteDatabase openWriteable() {
+    synchronized (this) {
+      ensureDatabase();
+      return writeableDB;
+    }
+  }
+
+  public void close() {
+    synchronized (this) {
+      if (readableDB != null) {
+        readableDB.close();
+        readableDB = null;
+      }
+
+      if (writeableDB != null) {
+        writeableDB.close();
+        writeableDB = null;
+      }
     }
   }
 

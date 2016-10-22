@@ -18,9 +18,11 @@ public class AppRepository implements Repository<App> {
     this.databaseManager = databaseManager;
   }
 
-  @Override public synchronized long add(App app) {
-    SQLiteDatabase db = databaseManager.openWriteable();
-    return db.replace(App.TABLE_NAME, null, App.FACTORY.marshal(app).asContentValues());
+  @Override public long add(App app) {
+    synchronized (this) {
+      SQLiteDatabase db = databaseManager.openWriteable();
+      return db.replace(App.TABLE_NAME, null, App.FACTORY.marshal(app).asContentValues());
+    }
   }
 
   @Override public void add(Iterable<App> apps) {

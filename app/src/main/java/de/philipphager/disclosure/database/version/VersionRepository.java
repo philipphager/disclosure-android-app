@@ -18,9 +18,12 @@ public class VersionRepository implements Repository<Version> {
     this.databaseManager = databaseManager;
   }
 
-  @Override public synchronized long add(Version version) {
-    SQLiteDatabase db = databaseManager.openWriteable();
-    return db.replace(Version.TABLE_NAME, null, Version.FACTORY.marshal(version).asContentValues());
+  @Override public long add(Version version) {
+    synchronized (this) {
+      SQLiteDatabase db = databaseManager.openWriteable();
+      return db.replace(Version.TABLE_NAME, null,
+          Version.FACTORY.marshal(version).asContentValues());
+    }
   }
 
   @Override public void add(Iterable<Version> versions) {
