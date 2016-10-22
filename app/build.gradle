@@ -119,4 +119,5 @@ unMock {
   keep 'android.util.SparseArray'
   keep 'com.android.internal.util.ArrayUtils'
   keep 'android.content.ContentValues'
+  keep 'android.content.pm.PackageInfo'
 }
