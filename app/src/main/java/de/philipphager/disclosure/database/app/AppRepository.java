@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.database.app;
 
+import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
@@ -17,41 +18,47 @@ public class AppRepository implements Repository<App> {
     this.databaseManager = databaseManager;
   }
 
-  @Override public void add(App app) {
-    try (BriteDatabase db = databaseManager.open()) {
-      db.insert(App.TABLE_NAME, App.FACTORY.marshal(app).asContentValues());
-    }
+  @Override public synchronized long add(App app) {
+    SQLiteDatabase db = databaseManager.openWriteable();
+    return db.replace(App.TABLE_NAME, null, App.FACTORY.marshal(app).asContentValues());
   }
 
   @Override public void add(Iterable<App> apps) {
-    try (BriteDatabase db = databaseManager.open();
-         BriteDatabase.Transaction transaction = db.newTransaction()) {
+    BriteDatabase db = databaseManager.openReadable();
+    BriteDatabase.Transaction transaction = db.newTransaction();
 
-      for (App app : apps) {
-        db.insert(App.TABLE_NAME, App.FACTORY.marshal(app).asContentValues());
-      }
-      transaction.markSuccessful();
+    for (App app : apps) {
+      db.insert(App.TABLE_NAME, App.FACTORY.marshal(app).asContentValues());
     }
+    transaction.markSuccessful();
   }
 
   @Override public void update(App app) {
-    try (BriteDatabase db = databaseManager.open()) {
-      db.update(App.TABLE_NAME, App.FACTORY.marshal(app).asContentValues(),
-          String.format("%s=%s", App.ID, app.id()));
-    }
+    BriteDatabase db = databaseManager.openReadable();
+    db.update(App.TABLE_NAME, App.FACTORY.marshal(app).asContentValues(),
+        String.format("%s=%s", App.ID, app.id()));
   }
 
   @Override public void remove(App app) {
-    try (BriteDatabase db = databaseManager.open()) {
-      db.delete(App.TABLE_NAME, String.format("%s=%s", App.ID, app.id()));
-    }
+    BriteDatabase db = databaseManager.openReadable();
+    db.delete(App.TABLE_NAME, String.format("%s=%s", App.ID, app.id()));
+  }
+
+  public void remove(String sql) {
+    BriteDatabase db = databaseManager.openReadable();
+    db.delete(App.TABLE_NAME, sql);
   }
 
   @Override public Observable<List<App>> query(BriteQuery<App> query) {
-    try (BriteDatabase db = databaseManager.open()) {
+    BriteDatabase db = databaseManager.openReadable();
+    CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
+    return query.createQuery(db).map(cursorToAppList);
+  }
 
-      CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
-      return query.createQuery(db).map(cursorToAppList);
-    }
+  public Observable<List<App.Info>> allInfos() {
+    BriteDatabase db = databaseManager.openReadable();
+    CursorToListMapper<App.Info> cursorToInfoList = new CursorToListMapper<>(App.Info.MAPPER);
+
+    return db.createQuery(App.TABLE_NAME, App.SELECTALLINFOS, new String[0]).map(cursorToInfoList);
   }
 }

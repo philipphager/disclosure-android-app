@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.database.version;
 
+import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.util.BriteQuery;
@@ -17,10 +18,9 @@ public class VersionRepository implements Repository<Version> {
     this.databaseManager = databaseManager;
   }
 
-  @Override public void add(Version version) {
-    try (BriteDatabase db = databaseManager.open()) {
-      db.insert(Version.TABLE_NAME, Version.FACTORY.marshal(version).asContentValues());
-    }
+  @Override public synchronized long add(Version version) {
+    SQLiteDatabase db = databaseManager.openWriteable();
+    return db.replace(Version.TABLE_NAME, null, Version.FACTORY.marshal(version).asContentValues());
   }
 
   @Override public void add(Iterable<Version> versions) {
@@ -36,7 +36,7 @@ public class VersionRepository implements Repository<Version> {
   }
 
   @Override public Observable<List<Version>> query(BriteQuery<Version> query) {
-    try (BriteDatabase db = databaseManager.open()) {
+    try (BriteDatabase db = databaseManager.openReadable()) {
 
       CursorToListMapper<Version> cursorToVersionList = new CursorToListMapper<>(query.rowMapper());
       return query.createQuery(db).map(cursorToVersionList);
