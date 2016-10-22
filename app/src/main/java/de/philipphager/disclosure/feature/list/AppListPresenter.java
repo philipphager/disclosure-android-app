@@ -11,5 +11,10 @@ public class AppListPresenter {
 
   public void onCreate(AppListView view) {
     this.view = view;
+    sayHello();
+  }
+
+  private void sayHello() {
+    view.notify("Hello World");
   }
 }
