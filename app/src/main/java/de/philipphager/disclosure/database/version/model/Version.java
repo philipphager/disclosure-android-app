@@ -21,13 +21,16 @@ import org.threeten.bp.ZoneId;
         }
       });
 
-  public static Version create(Long appId, Long versionNumber, LocalDateTime createdAt) {
-    return new AutoValue_Version(appId, versionNumber, createdAt);
+  public static Version create(Long appId, int versionCode, String versionName,
+      LocalDateTime createdAt) {
+    return new AutoValue_Version(appId, versionCode, versionName, createdAt);
   }
 
   public abstract long appId();
 
-  public abstract long versionNumber();
+  public abstract int versionCode();
+
+  public abstract String versionName();
 
   public abstract LocalDateTime createdAt();
 }
