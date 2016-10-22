@@ -2,7 +2,11 @@ package de.philipphager.disclosure.database.app;
 
 import android.content.pm.PackageInfo;
 
-public class MockPackage {
+public final class MockPackage {
+  @SuppressWarnings("PMD.UnnecessaryConstructor") private MockPackage() {
+    //No instances of helper classes.
+  }
+
   public static final PackageInfo TEST = new PackageInfo() {{
     packageName = MockApp.TEST.packageName();
     versionCode = MockApp.TEST_INFO.versionCode();

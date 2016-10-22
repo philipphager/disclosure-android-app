@@ -3,7 +3,11 @@ package de.philipphager.disclosure.database.app;
 import android.content.ContentValues;
 import de.philipphager.disclosure.database.app.model.App;
 
-public class MockApp {
+public final class MockApp {
+  @SuppressWarnings("PMD.UnnecessaryConstructor") private MockApp() {
+    //No instances of helper classes.
+  }
+
   public static final App TEST = App.builder()
       .id(1L)
       .label("facebook")
