@@ -6,11 +6,13 @@ import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
 import dagger.Provides;
 import de.philipphager.disclosure.database.app.AppRepository;
+import de.philipphager.disclosure.database.app.info.AppInfoRepository;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.migration.version.AddAppVersionMigration;
 import de.philipphager.disclosure.database.migration.version.AddVersionNameMigration;
+import de.philipphager.disclosure.database.util.Queryable;
 import de.philipphager.disclosure.database.util.Repository;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.model.Version;
@@ -30,14 +32,18 @@ import javax.inject.Singleton;
   }
 
   @Provides @Singleton public SqlBrite getSqlBrite() {
-    return SqlBrite.create();
+    return new SqlBrite.Builder().build();
   }
 
-  @Provides public Repository<App> getAppRepository(DatabaseManager databaseManager) {
-    return new AppRepository(databaseManager);
+  @Provides public Repository<App> getAppRepository() {
+    return new AppRepository();
   }
 
-  @Provides public Repository<Version> getVersionRepository(DatabaseManager databaseManager) {
-    return new VersionRepository(databaseManager);
+  @Provides public Repository<Version> getVersionRepository() {
+    return new VersionRepository();
+  }
+
+  @Provides public Queryable<App.Info> getAppInfoRepository() {
+    return new AppInfoRepository();
   }
 }

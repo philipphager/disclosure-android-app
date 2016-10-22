@@ -1,10 +1,10 @@
 package de.philipphager.disclosure.feature.sync.usecases;
 
 import android.content.pm.PackageInfo;
-import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.ToInfoMapper;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
+import de.philipphager.disclosure.service.AppService;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -15,15 +15,15 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 
 public class FetchUpdatedPackages {
   private final DevicePackageProvider appProvider;
-  private final AppRepository appRepository;
+  private final AppService appService;
   private final ToInfoMapper toInfoMapper;
   private Observable<App.Info> savedApps;
 
   @Inject public FetchUpdatedPackages(DevicePackageProvider appProvider,
-      AppRepository appRepository,
+      AppService appService,
       ToInfoMapper toInfoMapper) {
     this.appProvider = appProvider;
-    this.appRepository = appRepository;
+    this.appService = appService;
     this.toInfoMapper = toInfoMapper;
   }
 
@@ -43,7 +43,7 @@ public class FetchUpdatedPackages {
   private void loadSavedApps() {
     Timber.d("operating on thread %s", Thread.currentThread().getName());
 
-    savedApps = appRepository.allInfos()
+    savedApps = appService.allAppInfos()
         .first()
         .flatMap(Observable::from)
         .cache();

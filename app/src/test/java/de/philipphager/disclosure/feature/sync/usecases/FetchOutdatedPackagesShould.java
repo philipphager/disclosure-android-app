@@ -1,10 +1,10 @@
 package de.philipphager.disclosure.feature.sync.usecases;
 
 import android.content.pm.PackageInfo;
-import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.MockPackage;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
+import de.philipphager.disclosure.service.AppService;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class FetchOutdatedPackagesShould {
   @Mock protected DevicePackageProvider appProvider;
-  @Mock protected AppRepository appRepository;
+  @Mock protected AppService appService;
   @InjectMocks protected FetchOutdatedPackages fetchOutdatedPackages;
   private App.Info facebookInfo;
   private App.Info facebookInfoVersion2;
@@ -42,7 +42,7 @@ public class FetchOutdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void loadNoPackagesIfNoneAreInstalled() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().subscribe(subscriber);
@@ -58,7 +58,7 @@ public class FetchOutdatedPackagesShould {
     List<App.Info> savedPackages = Arrays.asList(facebookInfo, instagramInfo);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appRepository.allInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().toBlocking().subscribe(subscriber);
@@ -77,7 +77,7 @@ public class FetchOutdatedPackagesShould {
     List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.TEST);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appRepository.allInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().toBlocking().subscribe(subscriber);
@@ -95,7 +95,7 @@ public class FetchOutdatedPackagesShould {
     List<PackageInfo> installedPackages = Collections.emptyList();
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appRepository.allInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().toBlocking().subscribe(subscriber);
@@ -110,7 +110,7 @@ public class FetchOutdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appRepository.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().subscribe(subscriber);

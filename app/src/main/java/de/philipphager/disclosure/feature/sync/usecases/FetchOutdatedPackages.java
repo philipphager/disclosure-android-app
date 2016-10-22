@@ -1,8 +1,8 @@
 package de.philipphager.disclosure.feature.sync.usecases;
 
-import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
+import de.philipphager.disclosure.service.AppService;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -12,19 +12,19 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 
 public class FetchOutdatedPackages {
   private final DevicePackageProvider appProvider;
-  private final AppRepository appRepository;
+  private final AppService appService;
   private Observable<String> installedApps;
 
   @Inject public FetchOutdatedPackages(DevicePackageProvider appProvider,
-      AppRepository appRepository) {
+      AppService appService) {
     this.appProvider = appProvider;
-    this.appRepository = appRepository;
+    this.appService = appService;
   }
 
   public Observable<List<String>> get() {
     loadInstalledApps();
 
-    return appRepository.allInfos()
+    return appService.allAppInfos()
         .first()
         .flatMap(Observable::from)
         .flatMap(info -> Observable.just(info)
