@@ -12,7 +12,7 @@ public final class MockPackage {
     versionCode = MockApp.TEST_INFO.versionCode();
   }};
 
-  public static PackageInfo TEST2 = new PackageInfo() {{
+  public static final PackageInfo TEST2 = new PackageInfo() {{
     packageName = MockApp.TEST2.packageName();
     versionCode = MockApp.TEST2_INFO.versionCode();
   }};
