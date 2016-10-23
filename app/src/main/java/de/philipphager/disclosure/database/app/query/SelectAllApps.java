@@ -6,7 +6,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.util.BriteQuery;
 
-public class SelectAllAppsQuery implements BriteQuery<App> {
+public class SelectAllApps implements BriteQuery<App> {
   @Override public QueryObservable createQuery(BriteDatabase db) {
     return db.createQuery(App.TABLE_NAME, App.SELECTALL);
   }

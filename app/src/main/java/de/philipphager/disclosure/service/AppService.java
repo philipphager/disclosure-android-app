@@ -8,8 +8,8 @@ import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.app.query.SelectAllAppsQuery;
-import de.philipphager.disclosure.database.app.query.SelectAppsByNameQuery;
+import de.philipphager.disclosure.database.app.query.SelectAllApps;
+import de.philipphager.disclosure.database.app.query.SelectAppsByName;
 import de.philipphager.disclosure.database.util.Queryable;
 import de.philipphager.disclosure.database.util.Repository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
@@ -41,7 +41,7 @@ public class AppService {
   public Observable<List<App>> all() {
     try {
       BriteDatabase db = databaseManager.openObservable();
-      return appRepository.query(db, new SelectAllAppsQuery());
+      return appRepository.query(db, new SelectAllApps());
     } finally {
       databaseManager.closeObservable();
     }
@@ -50,7 +50,7 @@ public class AppService {
   public Observable<List<App>> byName(String name) {
     try {
       BriteDatabase db = databaseManager.openObservable();
-      return appRepository.query(db, new SelectAppsByNameQuery(name));
+      return appRepository.query(db, new SelectAppsByName(name));
     } finally {
       databaseManager.closeObservable();
     }

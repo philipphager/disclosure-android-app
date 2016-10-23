@@ -6,10 +6,10 @@ import com.squareup.sqldelight.RowMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.util.BriteQuery;
 
-public class SelectAppsByNameQuery implements BriteQuery<App> {
+public class SelectAppsByName implements BriteQuery<App> {
   private final String name;
 
-  public SelectAppsByNameQuery(String name) {
+  public SelectAppsByName(String name) {
     this.name = name;
   }
 
