@@ -40,12 +40,11 @@ public class AppServiceShould {
   @Mock protected DatabaseManager databaseManager;
   @Mock protected ToAppMapper toAppMapper;
   private AppService appService;
-  private SQLiteDatabase writeableDB;
 
   @Before public void setUp() {
     MockitoAnnotations.initMocks(this);
 
-    writeableDB = PowerMockito.mock(SQLiteDatabase.class);
+    SQLiteDatabase writeableDB = PowerMockito.mock(SQLiteDatabase.class);
 
     when(databaseManager.openWriteable()).thenReturn(writeableDB).thenReturn(null);
 
