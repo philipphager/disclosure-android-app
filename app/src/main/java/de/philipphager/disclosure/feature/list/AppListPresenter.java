@@ -8,7 +8,7 @@ public class AppListPresenter {
   private AppListView view;
 
   @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public AppListPresenter(DBSyncer dbSyncer) {
-    // needed for dagger injection.
+    // Needed for dagger injection.
     this.dbSyncer = dbSyncer;
   }
 

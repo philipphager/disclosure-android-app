@@ -8,7 +8,7 @@ public class Navigator {
   private Activity activity;
 
   @SuppressWarnings("PMD.UnnecessaryConstructor") @Inject public Navigator() {
-    // This is needed for dagger injection.
+    // Needed for dagger injection.
   }
 
   public void setActivity(Activity activity) {
