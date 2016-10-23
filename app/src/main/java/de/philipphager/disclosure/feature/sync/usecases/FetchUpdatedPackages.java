@@ -2,7 +2,7 @@ package de.philipphager.disclosure.feature.sync.usecases;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.app.model.ToInfoMapper;
+import de.philipphager.disclosure.database.info.mapper.ToInfoMapper;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.AppService;
 import java.util.List;
