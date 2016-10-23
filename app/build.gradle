@@ -26,11 +26,18 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+
+    debug {
+      applicationIdSuffix ".dev"
+      versionNameSuffix "-dev"
+    }
   }
+
   compileOptions {
     targetCompatibility 1.8
     sourceCompatibility 1.8
   }
+
   lintOptions {
     abortOnError false
   }

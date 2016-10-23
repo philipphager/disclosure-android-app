@@ -21,8 +21,11 @@ public class DisclosureApp extends Application {
         .build();
 
     AndroidThreeTen.init(this);
-    Stetho.initializeWithDefaults(this);
-    Timber.plant(new Timber.DebugTree());
+
+    if (BuildConfig.DEBUG) {
+      Stetho.initializeWithDefaults(this);
+      Timber.plant(new Timber.DebugTree());
+    }
   }
 
   public ApplicationComponent getApplicationComponent() {
