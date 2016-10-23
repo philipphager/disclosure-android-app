@@ -63,13 +63,4 @@ public class AppRepositoryShould {
 
     verify(writeableDB).update(App.TABLE_NAME,  getTestContentValues(MockApp.TEST), where, null);
   }
-
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void removeAppFromDatabase() {
-    appRepository.remove(writeableDB, MockApp.TEST);
-
-    String where = String.format("id=%s", MockApp.TEST.id());
-
-    verify(writeableDB).delete(App.TABLE_NAME, where, null);
-  }
 }
