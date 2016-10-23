@@ -4,7 +4,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.MockApp;
-import de.philipphager.disclosure.database.app.MockPackage;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.query.SelectAllApps;
