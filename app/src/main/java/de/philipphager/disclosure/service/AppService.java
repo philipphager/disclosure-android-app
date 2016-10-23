@@ -23,7 +23,7 @@ public class AppService {
   private final AppRepository appRepository;
   private final Queryable<App.Info> appInfoRepository;
   private final Repository<Version> versionRepository;
-  private final DatabaseManager databaseManager;^
+  private final DatabaseManager databaseManager;
   private final ToAppMapper toAppMapper;
 
   @Inject public AppService(AppRepository appRepository,
