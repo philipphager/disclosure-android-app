@@ -4,7 +4,6 @@ import android.content.pm.PackageInfo;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
-import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.query.DeleteAppsByPackageName;
@@ -21,13 +20,13 @@ import rx.Observable;
 import timber.log.Timber;
 
 public class AppService {
-  private final AppRepository appRepository;
+  private final Repository<App> appRepository;
   private final Queryable<App.Info> appInfoRepository;
   private final Repository<Version> versionRepository;
   private final DatabaseManager databaseManager;
   private final ToAppMapper toAppMapper;
 
-  @Inject public AppService(AppRepository appRepository,
+  @Inject public AppService(Repository<App> appRepository,
       Queryable<App.Info> appInfoRepository,
       Repository<Version> versionRepository,
       DatabaseManager databaseManager,

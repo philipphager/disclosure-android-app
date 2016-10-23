@@ -26,24 +26,20 @@ public class DatabaseManagerShould {
   @Mock protected DatabaseOpenHelper openHelper;
   private SqlBrite sqlBrite;
   private BriteDatabase observableDB;
-  private BriteDatabase secondObservableDB;
   private SQLiteDatabase writeableDB;
-  private SQLiteDatabase secondWritableDB;
   private DatabaseManager databaseManager;
 
   @Before public void setUp() {
     sqlBrite = PowerMockito.mock(SqlBrite.class);
     observableDB = PowerMockito.mock(BriteDatabase.class);
-    secondObservableDB = PowerMockito.mock(BriteDatabase.class);
     writeableDB = PowerMockito.mock(SQLiteDatabase.class);
-    secondWritableDB = PowerMockito.mock(SQLiteDatabase.class);
 
     MockitoAnnotations.initMocks(this);
     databaseManager = new DatabaseManager(openHelper, sqlBrite);
 
-    when(openHelper.getWritableDatabase()).thenReturn(writeableDB).thenReturn(secondWritableDB);
+    when(openHelper.getWritableDatabase()).thenReturn(writeableDB);
     when(sqlBrite.wrapDatabaseHelper(any(DatabaseOpenHelper.class),
-        any(Scheduler.class))).thenReturn(observableDB).thenReturn(secondObservableDB);
+        any(Scheduler.class))).thenReturn(observableDB);
   }
 
   @Test public void openNewWritableDBOnFirstOpenCall() {
