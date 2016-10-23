@@ -1,0 +1,20 @@
+import java.lang.Integer;
+import org.threeten.bp.LocalDateTime;
+
+CREATE TABLE Version (
+  appId INTEGER NOT NULL,
+  versionCode INTEGER AS Integer NOT NULL,
+  versionName TEXT NOT NULL,
+  createdAt INTEGER AS LocalDateTime NOT NULL,
+  PRIMARY KEY(appId, versionCode),
+  FOREIGN KEY(appId) REFERENCES App(id)
+);
+
+selectAll:
+SELECT *
+FROM Version;
+
+selectByApp:
+SELECT *
+FROM Version
+WHERE appId = ?;
