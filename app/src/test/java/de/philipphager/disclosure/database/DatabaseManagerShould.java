@@ -24,12 +24,12 @@ import static org.mockito.Mockito.when;
 @PrepareForTest({SqlBrite.class, BriteDatabase.class, SQLiteDatabase.class})
 public class DatabaseManagerShould {
   @Mock protected DatabaseOpenHelper openHelper;
-  protected SqlBrite sqlBrite;
-  protected BriteDatabase observableDB;
-  protected BriteDatabase secondObservableDB;
-  protected SQLiteDatabase writeableDB;
-  protected SQLiteDatabase secondWritableDB;
-  protected DatabaseManager databaseManager;
+  private SqlBrite sqlBrite;
+  private BriteDatabase observableDB;
+  private BriteDatabase secondObservableDB;
+  private SQLiteDatabase writeableDB;
+  private SQLiteDatabase secondWritableDB;
+  private DatabaseManager databaseManager;
 
   @Before public void setUp() {
     sqlBrite = PowerMockito.mock(SqlBrite.class);
