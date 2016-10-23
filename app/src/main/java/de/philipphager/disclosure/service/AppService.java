@@ -5,11 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
-import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.query.DeleteAppsByPackageName;
 import de.philipphager.disclosure.database.app.query.SelectAllApps;
 import de.philipphager.disclosure.database.app.query.SelectAppsByName;
+import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
 import de.philipphager.disclosure.database.util.Queryable;
 import de.philipphager.disclosure.database.util.Repository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
@@ -105,7 +106,7 @@ public class AppService {
   public void removeByPackageName(String packageName) {
     try {
       SQLiteDatabase db = databaseManager.openWriteable();
-      appRepository.remove(db, String.format("%s = '%s'", App.PACKAGENAME, packageName));
+      appRepository.remove(db, new DeleteAppsByPackageName(packageName));
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : delete app %s", thread, packageName);
@@ -120,7 +121,7 @@ public class AppService {
       db.beginTransaction();
 
       for (String packageName : packageNames) {
-        appRepository.remove(db, String.format("%s = '%s'", App.PACKAGENAME, packageName));
+        appRepository.remove(db, new DeleteAppsByPackageName(packageName));
 
         String thread = Thread.currentThread().getName();
         Timber.d("%s : delete app %s", thread, packageName);

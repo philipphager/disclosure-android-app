@@ -6,6 +6,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.util.BriteQuery;
 import de.philipphager.disclosure.database.util.CursorToListMapper;
 import de.philipphager.disclosure.database.util.Repository;
+import de.philipphager.disclosure.database.util.SQLQuery;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -32,12 +33,8 @@ public class AppRepository implements Repository<App> {
         String.format("%s=%s", App.ID, app.id()), null);
   }
 
-  @Override public void remove(SQLiteDatabase db, App app) {
-    db.delete(App.TABLE_NAME, String.format("%s=%s", App.ID, app.id()), null);
-  }
-
-  public void remove(SQLiteDatabase db, String sql) {
-    db.delete(App.TABLE_NAME, sql, null);
+  @Override public void remove(SQLiteDatabase db, SQLQuery query) {
+    db.delete(App.TABLE_NAME, query.toSQL(), null);
   }
 
   @Override public Observable<List<App>> query(BriteDatabase db, BriteQuery<App> query) {

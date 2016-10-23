@@ -9,5 +9,5 @@ public interface Editable<T> {
 
   void update(SQLiteDatabase db, T item);
 
-  void remove(SQLiteDatabase db, T item);
+  void remove(SQLiteDatabase db, SQLQuery query);
 }

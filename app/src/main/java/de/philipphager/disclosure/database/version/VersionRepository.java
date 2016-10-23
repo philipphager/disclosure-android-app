@@ -5,6 +5,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.util.BriteQuery;
 import de.philipphager.disclosure.database.util.CursorToListMapper;
 import de.philipphager.disclosure.database.util.Repository;
+import de.philipphager.disclosure.database.util.SQLQuery;
 import de.philipphager.disclosure.database.version.model.Version;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class VersionRepository implements Repository<Version> {
     // TODO: Implement
   }
 
-  @Override public void remove(SQLiteDatabase db, Version version) {
+  @Override public void remove(SQLiteDatabase db, SQLQuery sqlQuery) {
     // TODO: Implement
   }
 
