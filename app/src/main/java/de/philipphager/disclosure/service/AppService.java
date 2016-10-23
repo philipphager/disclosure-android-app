@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
-import de.philipphager.disclosure.database.app.info.query.SelectAllAppInfos;
+import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.query.SelectAllAppsQuery;
@@ -23,7 +23,7 @@ public class AppService {
   private final AppRepository appRepository;
   private final Queryable<App.Info> appInfoRepository;
   private final Repository<Version> versionRepository;
-  private final DatabaseManager databaseManager;
+  private final DatabaseManager databaseManager;^
   private final ToAppMapper toAppMapper;
 
   @Inject public AppService(AppRepository appRepository,

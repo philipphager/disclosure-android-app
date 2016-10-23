@@ -6,7 +6,7 @@ import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
 import dagger.Provides;
 import de.philipphager.disclosure.database.app.AppRepository;
-import de.philipphager.disclosure.database.app.info.AppInfoRepository;
+import de.philipphager.disclosure.database.info.AppInfoRepository;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;

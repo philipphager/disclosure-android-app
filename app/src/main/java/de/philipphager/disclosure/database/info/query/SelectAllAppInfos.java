@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.app.info.query;
+package de.philipphager.disclosure.database.info.query;
 
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.QueryObservable;

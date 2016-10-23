@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.app.info;
+package de.philipphager.disclosure.database.info;
 
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
