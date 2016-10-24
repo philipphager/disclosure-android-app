@@ -6,8 +6,8 @@ import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
 import dagger.Provides;
 import de.philipphager.disclosure.database.app.AppRepository;
-import de.philipphager.disclosure.database.info.AppInfoRepository;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.info.AppInfoRepository;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.migration.version.AddAppVersionMigration;
@@ -45,5 +45,10 @@ import javax.inject.Singleton;
 
   @Provides public Queryable<App.Info> getAppInfoRepository() {
     return new AppInfoRepository();
+  }
+
+  @Provides @Singleton
+  public DatabaseManager getDatabaseManager(DatabaseOpenHelper openHelper, SqlBrite sqlBrite) {
+    return new DatabaseManager(openHelper, sqlBrite);
   }
 }
