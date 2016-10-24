@@ -1,6 +1,5 @@
 package de.philipphager.disclosure.service;
 
-import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.MockApp;
@@ -31,7 +30,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({BriteDatabase.class, SQLiteDatabase.class})
+@PrepareForTest({BriteDatabase.class})
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AppServiceShould {
   @Mock protected Repository<App> appRepository;
@@ -44,9 +43,8 @@ public class AppServiceShould {
   @Before public void setUp() {
     MockitoAnnotations.initMocks(this);
 
-    SQLiteDatabase writeableDB = PowerMockito.mock(SQLiteDatabase.class);
-
-    when(databaseManager.openWriteable()).thenReturn(writeableDB).thenReturn(null);
+    BriteDatabase database = PowerMockito.mock(BriteDatabase.class);
+    when(databaseManager.get()).thenReturn(database).thenReturn(null);
 
     appService = new AppService(appRepository, appInfoRepository,
         versionRepository, databaseManager, toAppMapper);
@@ -64,8 +62,7 @@ public class AppServiceShould {
         .toBlocking()
         .subscribe(subscriber);
 
-    verify(databaseManager).openObservable();
-    verify(databaseManager).closeObservable();
+    verify(databaseManager).get();
     subscriber.assertReceivedOnNext(Collections.singletonList(testApps));
     subscriber.assertCompleted();
   }
@@ -82,8 +79,7 @@ public class AppServiceShould {
         .toBlocking()
         .subscribe(subscriber);
 
-    verify(databaseManager).openObservable();
-    verify(databaseManager).closeObservable();
+    verify(databaseManager).get();
     subscriber.assertReceivedOnNext(Collections.singletonList(testApps));
     subscriber.assertCompleted();
   }
@@ -100,8 +96,7 @@ public class AppServiceShould {
         .toBlocking()
         .subscribe(subscriber);
 
-    verify(databaseManager).openObservable();
-    verify(databaseManager).closeObservable();
+    verify(databaseManager).get();
     subscriber.assertReceivedOnNext(Collections.singletonList(testInfos));
     subscriber.assertCompleted();
   }
