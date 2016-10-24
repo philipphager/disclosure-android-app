@@ -1,13 +1,13 @@
 package de.philipphager.disclosure.database.util;
 
-import android.database.sqlite.SQLiteDatabase;
+import com.squareup.sqlbrite.BriteDatabase;
 
 public interface Editable<T> {
-  long add(SQLiteDatabase db, T item);
+  long add(BriteDatabase db, T item);
 
-  void add(SQLiteDatabase db, Iterable<T> items);
+  void add(BriteDatabase db, Iterable<T> items);
 
-  void update(SQLiteDatabase db, T item);
+  void update(BriteDatabase db, T item);
 
-  void remove(SQLiteDatabase db, SQLQuery query);
+  void remove(BriteDatabase db, SQLQuery query);
 }

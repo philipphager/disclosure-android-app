@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.database.app;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
@@ -16,25 +17,27 @@ public class AppRepository implements Repository<App> {
     // Needed for dagger injection.
   }
 
-  @Override public long add(SQLiteDatabase db, App app) {
+  @Override public long add(BriteDatabase db, App app) {
     synchronized (this) {
-      return db.replace(App.TABLE_NAME, null, App.FACTORY.marshal(app).asContentValues());
+      ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
+      return db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_REPLACE);
     }
   }
 
-  @Override public void add(SQLiteDatabase db, Iterable<App> apps) {
+  @Override public void add(BriteDatabase db, Iterable<App> apps) {
     for (App app : apps) {
-      db.insert(App.TABLE_NAME, null, App.FACTORY.marshal(app).asContentValues());
+      ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
+      db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_REPLACE);
     }
   }
 
-  @Override public void update(SQLiteDatabase db, App app) {
-    db.update(App.TABLE_NAME, App.FACTORY.marshal(app).asContentValues(),
-        String.format("%s=%s", App.ID, app.id()), null);
+  @Override public void update(BriteDatabase db, App app) {
+    ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
+    db.update(App.TABLE_NAME, appContent, String.format("%s=%s", App.ID, app.id()));
   }
 
-  @Override public void remove(SQLiteDatabase db, SQLQuery query) {
-    db.delete(App.TABLE_NAME, query.toSQL(), null);
+  @Override public void remove(BriteDatabase db, SQLQuery query) {
+    db.delete(App.TABLE_NAME, query.toSQL());
   }
 
   @Override public Observable<List<App>> query(BriteDatabase db, BriteQuery<App> query) {

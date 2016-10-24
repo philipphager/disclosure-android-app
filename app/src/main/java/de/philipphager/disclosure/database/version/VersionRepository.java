@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.database.version;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.util.BriteQuery;
@@ -17,22 +18,22 @@ public class VersionRepository implements Repository<Version> {
     // Needed for dagger injection.
   }
 
-  @Override public long add(SQLiteDatabase db, Version version) {
+  @Override public long add(BriteDatabase db, Version version) {
     synchronized (this) {
-      return db.replace(Version.TABLE_NAME, null,
-          Version.FACTORY.marshal(version).asContentValues());
+      ContentValues versionContent = Version.FACTORY.marshal(version).asContentValues();
+      return db.insert(Version.TABLE_NAME, versionContent, SQLiteDatabase.CONFLICT_REPLACE);
     }
   }
 
-  @Override public void add(SQLiteDatabase db, Iterable<Version> versions) {
+  @Override public void add(BriteDatabase db, Iterable<Version> versions) {
     // TODO: Implement
   }
 
-  @Override public void update(SQLiteDatabase db, Version version) {
+  @Override public void update(BriteDatabase db, Version version) {
     // TODO: Implement
   }
 
-  @Override public void remove(SQLiteDatabase db, SQLQuery sqlQuery) {
+  @Override public void remove(BriteDatabase db, SQLQuery sqlQuery) {
     // TODO: Implement
   }
 
