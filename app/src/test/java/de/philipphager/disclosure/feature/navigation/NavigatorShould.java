@@ -21,8 +21,8 @@ import static org.mockito.Mockito.verify;
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void navigateToAppListActivity() {
-    navigator.toList();
+  public void navigateToHomeActivity() {
+    navigator.toHome();
 
     verify(activity).startActivity(any(Intent.class));
   }
