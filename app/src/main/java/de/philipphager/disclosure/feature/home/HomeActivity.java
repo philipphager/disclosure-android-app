@@ -13,8 +13,8 @@ import de.philipphager.disclosure.util.ui.BaseActivity;
 public class HomeActivity extends BaseActivity {
   private static final boolean SMOOTH_SCROLL_ENABLED = true;
 
-  @BindView(R.id.view_pager) ViewPager viewPager;
-  @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+  @BindView(R.id.view_pager) protected ViewPager viewPager;
+  @BindView(R.id.bottom_navigation) protected AHBottomNavigation bottomNavigation;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

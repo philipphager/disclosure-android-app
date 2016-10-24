@@ -17,7 +17,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
       case POSITION_APP_OVERVIEW:
         return AppOverviewFragment.newInstance();
       default:
-        throw new RuntimeException(
+        throw new IllegalArgumentException(
             String.format("Out of bounds! HomeAdapter only manages %s fragments", getCount()));
     }
   }

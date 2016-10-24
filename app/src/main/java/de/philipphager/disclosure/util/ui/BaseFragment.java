@@ -14,7 +14,7 @@ import de.philipphager.disclosure.feature.navigation.Navigator;
 import javax.inject.Inject;
 
 public abstract class BaseFragment extends Fragment implements Navigates {
-  @Inject Navigator navigator;
+  @Inject protected Navigator navigator;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
