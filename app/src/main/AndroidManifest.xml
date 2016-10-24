@@ -12,6 +12,10 @@
 
     <activity
         android:name=".feature.list.AppListActivity">
+    </activity>
+
+    <activity
+        android:name=".feature.home.HomeActivity">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

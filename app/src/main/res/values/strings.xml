@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Disclosure</string>
+  <string name="fragment_app_overview_title">Overview</string>
 </resources>
