@@ -3,7 +3,7 @@ package de.philipphager.disclosure.feature.home;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import de.philipphager.disclosure.feature.list.AppOverviewFragment;
+import de.philipphager.disclosure.feature.overview.AppOverviewFragment;
 
 public class HomeAdapter extends FragmentPagerAdapter {
   private static final int POSITION_APP_OVERVIEW = 0;
