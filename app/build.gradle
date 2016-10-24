@@ -58,6 +58,7 @@ dependencies {
   compile "com.android.support:appcompat-v7:${supportVersion}"
   compile "com.android.support:design:${supportVersion}"
   compile "com.android.support:support-annotations:${supportVersion}"
+  compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"
