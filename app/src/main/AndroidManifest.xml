@@ -11,11 +11,8 @@
       android:theme="@style/AppTheme">
 
     <activity
-        android:name=".feature.list.AppListActivity">
-    </activity>
-
-    <activity
-        android:name=".feature.home.HomeActivity">
+        android:name=".feature.home.HomeActivity"
+        android:launchMode="singleTop">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

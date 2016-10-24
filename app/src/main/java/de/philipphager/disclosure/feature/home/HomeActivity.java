@@ -1,5 +1,7 @@
 package de.philipphager.disclosure.feature.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -9,12 +11,18 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.util.ui.BaseActivity;
+import javax.inject.Inject;
 
 public class HomeActivity extends BaseActivity {
   private static final boolean SMOOTH_SCROLL_ENABLED = true;
 
   @BindView(R.id.view_pager) protected ViewPager viewPager;
   @BindView(R.id.bottom_navigation) protected AHBottomNavigation bottomNavigation;
+  @Inject protected HomePresenter presenter;
+
+  public static Intent launch(Context context) {
+    return new Intent(context, HomeActivity.class);
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -22,6 +30,8 @@ public class HomeActivity extends BaseActivity {
 
     setupViewPager();
     setupBottomNavigation();
+
+    presenter.onCreate();
   }
 
   @Override protected void injectActivity(ApplicationComponent appComponent) {

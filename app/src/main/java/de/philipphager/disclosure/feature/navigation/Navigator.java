@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.navigation;
 
 import android.app.Activity;
-import de.philipphager.disclosure.feature.list.AppListActivity;
+import de.philipphager.disclosure.feature.home.HomeActivity;
 import javax.inject.Inject;
 
 public class Navigator {
@@ -15,7 +15,7 @@ public class Navigator {
     this.activity = activity;
   }
 
-  public void toList() {
-    activity.startActivity(AppListActivity.launch(activity));
+  public void toHome() {
+    activity.startActivity(HomeActivity.launch(activity));
   }
 }
