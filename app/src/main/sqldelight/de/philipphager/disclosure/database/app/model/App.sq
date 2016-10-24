@@ -20,3 +20,8 @@ selectAllInfos:
 SELECT packageName, versionCode
 FROM App, Version
 WHERE id = appId;
+
+selectUserApps:
+SELECT *
+FROM App
+WHERE flags & ? != 1;

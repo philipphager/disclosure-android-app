@@ -8,6 +8,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.query.DeleteAppsByPackageName;
 import de.philipphager.disclosure.database.app.query.SelectAllApps;
 import de.philipphager.disclosure.database.app.query.SelectAppsByName;
+import de.philipphager.disclosure.database.app.query.SelectUserApps;
 import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
 import de.philipphager.disclosure.database.util.Queryable;
 import de.philipphager.disclosure.database.util.Repository;
@@ -40,6 +41,11 @@ public class AppService {
   public Observable<List<App>> all() {
     BriteDatabase db = databaseManager.get();
     return appRepository.query(db, new SelectAllApps());
+  }
+
+  public Observable<List<App>> userApps() {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.query(db, new SelectUserApps());
   }
 
   public Observable<List<App>> byName(String name) {

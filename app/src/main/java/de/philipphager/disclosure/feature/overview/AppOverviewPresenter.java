@@ -20,7 +20,7 @@ public class AppOverviewPresenter {
   }
 
   private void loadApps() {
-    appService.all()
+    appService.userApps()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(apps -> view.show(apps), Timber::e);
   }
