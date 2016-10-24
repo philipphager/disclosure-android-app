@@ -18,7 +18,7 @@ public class HomePresenter {
         }, throwable -> {
           Timber.e(throwable, "while syncing apps with the device.");
         }, () -> {
-          Timber.d("database sync is completed.");
+          Timber.d("database sync completed.");
         });
   }
 }
