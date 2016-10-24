@@ -47,6 +47,7 @@ public class HomeActivity extends BaseActivity {
     AHBottomNavigationAdapter adapter = new AHBottomNavigationAdapter(this, R.menu.navigation_home);
     adapter.setupWithBottomNavigation(bottomNavigation, null);
 
+    bottomNavigation.setBehaviorTranslationEnabled(false);
     bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
       viewPager.setCurrentItem(position, SMOOTH_SCROLL_ENABLED);
       return true;
