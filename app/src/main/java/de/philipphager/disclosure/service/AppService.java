@@ -1,7 +1,6 @@
 package de.philipphager.disclosure.service;
 
 import android.content.pm.PackageInfo;
-import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
@@ -39,35 +38,24 @@ public class AppService {
   }
 
   public Observable<List<App>> all() {
-    try {
-      BriteDatabase db = databaseManager.openObservable();
-      return appRepository.query(db, new SelectAllApps());
-    } finally {
-      databaseManager.closeObservable();
-    }
+    BriteDatabase db = databaseManager.get();
+    return appRepository.query(db, new SelectAllApps());
   }
 
   public Observable<List<App>> byName(String name) {
-    try {
-      BriteDatabase db = databaseManager.openObservable();
-      return appRepository.query(db, new SelectAppsByName(name));
-    } finally {
-      databaseManager.closeObservable();
-    }
+    BriteDatabase db = databaseManager.get();
+    return appRepository.query(db, new SelectAppsByName(name));
   }
 
   public Observable<List<App.Info>> allAppInfos() {
-    try {
-      BriteDatabase db = databaseManager.openObservable();
-      return appInfoRepository.query(db, new SelectAllAppInfos());
-    } finally {
-      databaseManager.closeObservable();
-    }
+    BriteDatabase db = databaseManager.get();
+    return appInfoRepository.query(db, new SelectAllAppInfos());
   }
 
   public void add(PackageInfo packageInfo) {
-    try {
-      SQLiteDatabase db = databaseManager.openWriteable();
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+
       App app = toAppMapper.map(packageInfo.applicationInfo);
       long appId = appRepository.add(db, app);
       Version version = new ToVersionMapper(appId).map(packageInfo);
@@ -75,15 +63,14 @@ public class AppService {
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
-    } finally {
-      databaseManager.closeWriteable();
+
+      transaction.markSuccessful();
     }
   }
 
   public void addAll(List<PackageInfo> packageInfos) {
-    try {
-      SQLiteDatabase db = databaseManager.openWriteable();
-      db.beginTransaction();
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
       for (PackageInfo packageInfo : packageInfos) {
         App app = toAppMapper.map(packageInfo.applicationInfo);
@@ -95,29 +82,25 @@ public class AppService {
         Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
       }
 
-      db.setTransactionSuccessful();
-      db.endTransaction();
-    } finally {
-      databaseManager.closeWriteable();
+      transaction.markSuccessful();
     }
   }
 
   public void removeByPackageName(String packageName) {
-    try {
-      SQLiteDatabase db = databaseManager.openWriteable();
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
       appRepository.remove(db, new DeleteAppsByPackageName(packageName));
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : delete app %s", thread, packageName);
-    } finally {
-      databaseManager.closeWriteable();
+
+      transaction.markSuccessful();
     }
   }
 
   public void removeAllByPackageName(List<String> packageNames) {
-    try {
-      SQLiteDatabase db = databaseManager.openWriteable();
-      db.beginTransaction();
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
       for (String packageName : packageNames) {
         appRepository.remove(db, new DeleteAppsByPackageName(packageName));
@@ -126,10 +109,7 @@ public class AppService {
         Timber.d("%s : delete app %s", thread, packageName);
       }
 
-      db.setTransactionSuccessful();
-      db.endTransaction();
-    } finally {
-      databaseManager.closeWriteable();
+      transaction.markSuccessful();
     }
   }
 }
