@@ -24,4 +24,5 @@ WHERE id = appId;
 selectUserApps:
 SELECT *
 FROM App
-WHERE flags & ? != 1;
+WHERE flags & ? != 1
+ORDER BY label ASC;
