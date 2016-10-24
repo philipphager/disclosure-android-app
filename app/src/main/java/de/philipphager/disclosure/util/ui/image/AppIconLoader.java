@@ -18,7 +18,8 @@ public final class AppIconLoader {
   private final ImageView view;
   private final Scheduler scheduler;
 
-  private AppIconLoader(Builder builder) {
+
+  public AppIconLoader(Builder builder) {
     this.packageName = builder.packageName;
     this.placeholderRes = builder.placeholderRes;
     this.scheduler = builder.scheduler;
