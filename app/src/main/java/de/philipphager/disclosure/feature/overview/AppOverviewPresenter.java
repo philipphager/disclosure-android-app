@@ -20,9 +20,14 @@ public class AppOverviewPresenter {
   }
 
   private void loadApps() {
+    view.showProgress();
+
     appService.userApps()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(apps -> view.show(apps), Timber::e);
+        .subscribe(apps -> {
+          view.show(apps);
+          view.hideProgress();
+        }, Timber::e);
   }
 
   public void onAppClicked(App app) {

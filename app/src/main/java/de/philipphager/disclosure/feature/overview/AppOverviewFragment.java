@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 public class AppOverviewFragment extends BaseFragment implements AppOverviewView {
   @Inject protected AppOverviewPresenter presenter;
   @BindView(R.id.overview_app_list) protected RecyclerView appListRecyclerView;
+  @BindView(R.id.progressBar) protected ProgressBar progressBar;
   private AppRecyclerAdapter adapter;
 
   public static AppOverviewFragment newInstance() {
@@ -54,5 +56,13 @@ public class AppOverviewFragment extends BaseFragment implements AppOverviewView
 
   @Override public void show(List<App> apps) {
     adapter.setApps(apps);
+  }
+
+  @Override public void showProgress() {
+    progressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideProgress() {
+    progressBar.setVisibility(View.GONE);
   }
 }

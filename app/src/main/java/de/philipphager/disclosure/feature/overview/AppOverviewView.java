@@ -7,4 +7,8 @@ public interface AppOverviewView {
   void notify(String message);
 
   void show(List<App> apps);
+
+  void showProgress();
+
+  void hideProgress();
 }
