@@ -24,6 +24,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     db.execSQL(Version.CREATE_TABLE);
   }
 
+  @Override public void onConfigure(SQLiteDatabase db) {
+    db.setForeignKeyConstraintsEnabled(true);
+  }
+
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     migrator.migrate(db, oldVersion, newVersion);
   }
