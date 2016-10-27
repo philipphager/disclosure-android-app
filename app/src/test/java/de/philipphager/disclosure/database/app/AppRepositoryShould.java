@@ -42,7 +42,7 @@ public class AppRepositoryShould {
     appRepository.add(database, MockApp.TEST);
 
     verify(database).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST),
-        SQLiteDatabase.CONFLICT_REPLACE);
+        SQLiteDatabase.CONFLICT_IGNORE);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -51,7 +51,7 @@ public class AppRepositoryShould {
     appRepository.add(database, appList);
 
     verify(database, times(3)).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST),
-        SQLiteDatabase.CONFLICT_REPLACE);
+        SQLiteDatabase.CONFLICT_IGNORE);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
