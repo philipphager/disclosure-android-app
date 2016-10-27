@@ -1,6 +1,7 @@
 package de.philipphager.disclosure.database.app;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
@@ -20,14 +21,19 @@ public class AppRepository implements Repository<App> {
   @Override public long add(BriteDatabase db, App app) {
     synchronized (this) {
       ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
-      return db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_REPLACE);
+      long result = db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_IGNORE);
+
+      if (result == SQL_ERROR) {
+        // App might already exist in the db, try to load app's id.
+        return loadAppId(db, app.packageName());
+      }
+      return result;
     }
   }
 
   @Override public void add(BriteDatabase db, Iterable<App> apps) {
     for (App app : apps) {
-      ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
-      db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_REPLACE);
+      add(db, app);
     }
   }
 
@@ -43,5 +49,15 @@ public class AppRepository implements Repository<App> {
   @Override public Observable<List<App>> query(BriteDatabase db, BriteQuery<App> query) {
     CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
     return query.createQuery(db).map(cursorToAppList);
+  }
+
+  private long loadAppId(BriteDatabase database, String packageName) {
+    Cursor cursor = database.query(App.SELECTBYPACKAGE, packageName);
+
+    if (cursor.getCount() > 0) {
+      cursor.moveToFirst();
+      return cursor.getLong(0);
+    }
+    return SQL_ERROR;
   }
 }
