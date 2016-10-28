@@ -34,6 +34,6 @@ public class AppOverviewPresenter {
   }
 
   public void onAppClicked(App app) {
-    view.notify(app.toString());
+    view.navigate().toDetail(app);
   }
 }
