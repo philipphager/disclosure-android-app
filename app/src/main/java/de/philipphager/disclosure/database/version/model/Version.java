@@ -2,13 +2,14 @@ package de.philipphager.disclosure.database.version.model;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Parcelable;
 import com.google.auto.value.AutoValue;
 import com.squareup.sqldelight.ColumnAdapter;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 
-@AutoValue public abstract class Version implements VersionModel {
+@AutoValue public abstract class Version implements VersionModel, Parcelable {
   public static final Factory<Version> FACTORY =
       new Factory<>(Version::create, new ColumnAdapter<LocalDateTime>() {
         @Override public LocalDateTime map(Cursor cursor, int columnIndex) {

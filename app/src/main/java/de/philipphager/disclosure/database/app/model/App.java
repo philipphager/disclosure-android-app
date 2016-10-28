@@ -1,10 +1,11 @@
 package de.philipphager.disclosure.database.app.model;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.squareup.sqldelight.RowMapper;
 
-@AutoValue public abstract class App implements AppModel {
+@AutoValue public abstract class App implements AppModel, Parcelable {
   public static final Factory<App> FACTORY = new Factory<>(
       (id, label, packageName, process, sourceDir, flags) -> builder().id(id)
           .label(label)
