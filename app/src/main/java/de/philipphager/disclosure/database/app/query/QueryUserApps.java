@@ -5,10 +5,10 @@ import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.QueryObservable;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
-import de.philipphager.disclosure.database.util.BriteQuery;
+import de.philipphager.disclosure.database.util.query.BriteQuery;
 
-public class SelectUserApps implements BriteQuery<App> {
-  @Override public QueryObservable createQuery(BriteDatabase db) {
+public class QueryUserApps implements BriteQuery<App> {
+  @Override public QueryObservable create(BriteDatabase db) {
     return db.createQuery(App.TABLE_NAME, App.SELECTUSERAPPS,
         String.valueOf(ApplicationInfo.FLAG_SYSTEM));
   }

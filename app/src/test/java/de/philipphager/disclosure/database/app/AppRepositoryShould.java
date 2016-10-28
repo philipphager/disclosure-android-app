@@ -3,7 +3,7 @@ package de.philipphager.disclosure.database.app;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.util.BriteQuery;
+import de.philipphager.disclosure.database.util.query.BriteQuery;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
