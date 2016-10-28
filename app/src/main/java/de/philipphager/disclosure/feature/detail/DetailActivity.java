@@ -19,14 +19,14 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 public class DetailActivity extends BaseActivity implements DetailView {
   private static final String EXTRA_APP = "EXTRA_APP";
 
+  @BindView(R.id.icon) protected ImageView icon;
+  @Inject protected DetailPresenter presenter;
+
   public static Intent launch(Context context, App app) {
     Intent intent = new Intent(context, DetailActivity.class);
     intent.putExtra(EXTRA_APP, app);
     return intent;
   }
-
-  @BindView(R.id.icon) ImageView icon;
-  @Inject DetailPresenter presenter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

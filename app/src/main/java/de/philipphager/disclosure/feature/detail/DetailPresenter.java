@@ -7,13 +7,18 @@ public class DetailPresenter {
   private DetailView view;
   private App app;
 
-  @Inject public DetailPresenter() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public DetailPresenter() {
+    // Needed for dagger injection.
   }
 
   public void onCreate(DetailView view, App app) {
     this.view = view;
     this.app = app;
 
+    intiView();
+  }
+
+  private void intiView() {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
   }
