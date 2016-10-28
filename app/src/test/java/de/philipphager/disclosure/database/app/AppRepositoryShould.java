@@ -4,8 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.util.query.BriteQuery;
-import java.util.Arrays;
-import java.util.List;
+import de.philipphager.disclosure.database.util.query.SQLSelector;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static de.philipphager.disclosure.database.app.MockApp.getTestContentValues;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -46,20 +44,20 @@ public class AppRepositoryShould {
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void insertMultipleAppsIntoDatabase() {
-    List<App> appList = Arrays.asList(MockApp.TEST, MockApp.TEST, MockApp.TEST);
-    appRepository.add(database, appList);
-
-    verify(database, times(3)).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST),
-        SQLiteDatabase.CONFLICT_IGNORE);
-  }
-
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void updateAppInDatabase() {
     appRepository.update(database, MockApp.TEST);
 
     String where = String.format("id=%s", MockApp.TEST.id());
 
     verify(database).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
+  }
+
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void removeAppFromDatabase() {
+    String where = String.format("id=%s", MockApp.TEST.id());
+    SQLSelector mockSelector = () -> where;
+    appRepository.remove(database, mockSelector);
+
+    verify(database).delete(App.TABLE_NAME, where);
   }
 }
