@@ -6,12 +6,19 @@ import timber.log.Timber;
 
 public class HomePresenter {
   private final DBSyncer dbSyncer;
+  private HomeView homeView;
 
   @Inject public HomePresenter(DBSyncer dbSyncer) {
     this.dbSyncer = dbSyncer;
   }
 
-  public void onCreate() {
+  public void onCreate(HomeView homeView) {
+    this.homeView = homeView;
+
+    syncDBWithDevice();
+  }
+
+  private void syncDBWithDevice() {
     dbSyncer.sync()
         .subscribe(i -> {
 
@@ -20,5 +27,12 @@ public class HomePresenter {
         }, () -> {
           Timber.d("database sync completed.");
         });
+  }
+
+  public boolean onTabSelected(int position, boolean wasSelected) {
+    if (!wasSelected) {
+      homeView.setCurrentTab(position);
+    }
+    return true;
   }
 }

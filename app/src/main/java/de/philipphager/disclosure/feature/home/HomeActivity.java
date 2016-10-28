@@ -13,7 +13,7 @@ import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements HomeView {
   private static final boolean SMOOTH_SCROLL_ENABLED = true;
 
   @BindView(R.id.view_pager) protected ViewPager viewPager;
@@ -26,12 +26,12 @@ public class HomeActivity extends BaseActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_home);
 
+    setContentView(R.layout.activity_home);
     setupViewPager();
     setupBottomNavigation();
 
-    presenter.onCreate();
+    presenter.onCreate(this);
   }
 
   @Override protected void injectActivity(ApplicationComponent appComponent) {
@@ -49,8 +49,12 @@ public class HomeActivity extends BaseActivity {
 
     bottomNavigation.setBehaviorTranslationEnabled(false);
     bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
-      viewPager.setCurrentItem(position, SMOOTH_SCROLL_ENABLED);
+      presenter.onTabSelected(position, wasSelected);
       return true;
     });
+  }
+
+  @Override public void setCurrentTab(int position) {
+    viewPager.setCurrentItem(position, SMOOTH_SCROLL_ENABLED);
   }
 }

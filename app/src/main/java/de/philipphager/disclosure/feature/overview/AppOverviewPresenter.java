@@ -25,9 +25,12 @@ public class AppOverviewPresenter {
     appService.userApps()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(apps -> {
-          view.show(apps);
           view.hideProgress();
-        }, Timber::e);
+          view.show(apps);
+        }, throwable -> {
+          view.hideProgress();
+          Timber.e(throwable, "while loading all apps");
+        });
   }
 
   public void onAppClicked(App app) {
