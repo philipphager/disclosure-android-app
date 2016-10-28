@@ -4,11 +4,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
+import com.squareup.sqlbrite.SqlBrite;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.util.BriteQuery;
-import de.philipphager.disclosure.database.util.CursorToListMapper;
-import de.philipphager.disclosure.database.util.Repository;
-import de.philipphager.disclosure.database.util.SQLQuery;
+import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
+import de.philipphager.disclosure.database.util.query.BriteQuery;
+import de.philipphager.disclosure.database.util.query.SQLQuery;
+import de.philipphager.disclosure.database.util.query.SQLSelector;
+import de.philipphager.disclosure.database.util.repository.Repository;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -21,34 +23,35 @@ public class AppRepository implements Repository<App> {
   @Override public long add(BriteDatabase db, App app) {
     synchronized (this) {
       ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
-      long result = db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_IGNORE);
+      long appId = db.insert(App.TABLE_NAME, appContent, SQLiteDatabase.CONFLICT_IGNORE);
 
-      if (result == SQL_ERROR) {
-        // App might already exist in the db, try to load app's id.
+      if (appId == SQL_ERROR) {
+        // If the app already exists, return it's id.
+        update(db, app);
         return loadAppId(db, app.packageName());
       }
-      return result;
+      return appId;
     }
   }
 
-  @Override public void add(BriteDatabase db, Iterable<App> apps) {
-    for (App app : apps) {
-      add(db, app);
-    }
-  }
-
-  @Override public void update(BriteDatabase db, App app) {
+  @Override public int update(BriteDatabase db, App app) {
     ContentValues appContent = App.FACTORY.marshal(app).asContentValues();
-    db.update(App.TABLE_NAME, appContent, String.format("%s=%s", App.ID, app.id()));
+    return db.update(App.TABLE_NAME, appContent, String.format("%s=%s", App.ID, app.id()));
   }
 
-  @Override public void remove(BriteDatabase db, SQLQuery query) {
-    db.delete(App.TABLE_NAME, query.toSQL());
+  @Override public int remove(BriteDatabase db, SQLSelector selector) {
+    return db.delete(App.TABLE_NAME, selector.create());
   }
 
   @Override public Observable<List<App>> query(BriteDatabase db, BriteQuery<App> query) {
     CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
-    return query.createQuery(db).map(cursorToAppList);
+    return query.create(db).map(SqlBrite.Query::run).map(cursorToAppList);
+  }
+
+  @Override public List<App> query(BriteDatabase db, SQLQuery<App> query) {
+    CursorToListMapper<App> cursorToListMapper = new CursorToListMapper<>(query.rowMapper());
+    Cursor cursor = db.query(query.create());
+    return cursorToListMapper.call(cursor);
   }
 
   private long loadAppId(BriteDatabase database, String packageName) {

@@ -5,11 +5,11 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.MockApp;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.app.query.SelectAllApps;
-import de.philipphager.disclosure.database.app.query.SelectAppsByName;
-import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
-import de.philipphager.disclosure.database.util.Queryable;
-import de.philipphager.disclosure.database.util.Repository;
+import de.philipphager.disclosure.database.app.query.QueryAllApps;
+import de.philipphager.disclosure.database.app.query.QueryAppsByName;
+import de.philipphager.disclosure.database.info.query.QueryAllAppInfos;
+import de.philipphager.disclosure.database.util.repository.Queryable;
+import de.philipphager.disclosure.database.util.repository.Repository;
 import de.philipphager.disclosure.database.version.model.Version;
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,7 +53,7 @@ public class AppServiceShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchAllApps() {
     List<App> testApps = Arrays.asList(MockApp.TEST, MockApp.TEST2);
-    when(appRepository.query(any(BriteDatabase.class), any(SelectAllApps.class)))
+    when(appRepository.query(any(BriteDatabase.class), any(QueryAllApps.class)))
         .thenReturn(Observable.just(testApps));
 
     TestSubscriber<List<App>> subscriber = new TestSubscriber<>();
@@ -70,7 +70,7 @@ public class AppServiceShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchAllAppsByName() {
     List<App> testApps = Arrays.asList(MockApp.TEST2);
-    when(appRepository.query(any(BriteDatabase.class), any(SelectAppsByName.class)))
+    when(appRepository.query(any(BriteDatabase.class), any(QueryAppsByName.class)))
         .thenReturn(Observable.just(testApps));
 
     TestSubscriber<List<App>> subscriber = new TestSubscriber<>();
@@ -87,7 +87,7 @@ public class AppServiceShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchAllAppInfos() {
     List<App.Info> testInfos = Arrays.asList(MockApp.TEST_INFO, MockApp.TEST2_INFO);
-    when(appInfoRepository.query(any(BriteDatabase.class), any(SelectAllAppInfos.class)))
+    when(appInfoRepository.query(any(BriteDatabase.class), any(QueryAllAppInfos.class)))
         .thenReturn(Observable.just(testInfos));
 
     TestSubscriber<List<App.Info>> subscriber = new TestSubscriber<>();
