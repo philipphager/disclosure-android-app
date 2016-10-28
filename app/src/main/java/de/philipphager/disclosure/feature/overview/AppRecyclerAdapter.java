@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.list;
+package de.philipphager.disclosure.feature.overview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,69 +9,85 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import rx.schedulers.Schedulers;
 
-public class InfoRecyclerAdapter extends RecyclerView.Adapter<InfoRecyclerAdapter.ViewHolder> {
-  private final List<App> items;
+public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.ViewHolder> {
+  private final List<App> apps;
   private final Context context;
-  private OnItemClickListener listener;
+  private OnAppClickListener listener;
 
-  @Inject public InfoRecyclerAdapter(Context context) {
+  @Inject public AppRecyclerAdapter(Context context) {
     super();
     this.context = context;
-    this.items = new ArrayList<>();
+    this.apps = new ArrayList<>();
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View v = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.view_info_list_item, parent, false);
+        .inflate(R.layout.view_app_list_item, parent, false);
+
     return new ViewHolder(v, context);
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    App item = items.get(position);
+    App item = apps.get(position);
     holder.bind(item, listener);
   }
 
   @Override public int getItemCount() {
-    return items.size();
+    return apps.size();
   }
 
-  public void setItems(List<App> items) {
+  public void setApps(List<App> apps) {
     clear();
-    this.items.addAll(items);
+    this.apps.addAll(apps);
     notifyDataSetChanged();
   }
 
   public void clear() {
-    this.items.clear();
+    this.apps.clear();
     notifyDataSetChanged();
   }
 
-  public void setOnItemClickListener(OnItemClickListener listener) {
+  public void setOnAppClickListener(OnAppClickListener listener) {
     this.listener = listener;
   }
 
-  public interface OnItemClickListener {
-    void onItemClick(App info);
+  public interface OnAppClickListener {
+    void onItemClick(App app);
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
     private final ImageView icon;
     private final TextView title;
+    private final TextView subtitle;
     private final Context context;
 
     ViewHolder(View itemView, Context context) {
       super(itemView);
       this.icon = (ImageView) itemView.findViewById(R.id.icon);
       this.title = (TextView) itemView.findViewById(R.id.title);
+      this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
       this.context = context;
     }
 
-    public void bind(final App info, final OnItemClickListener listener) {
-      // Bind app info to views.
+    public void bind(final App app, final OnAppClickListener listener) {
+      title.setText(app.label());
+      subtitle.setText(app.packageName());
+      new AppIconLoader.Builder(context)
+          .load(app.packageName())
+          .onThread(Schedulers.io())
+          .into(icon);
+
+      itemView.setOnClickListener(view -> {
+        if (listener != null) {
+          listener.onItemClick(app);
+        }
+      });
     }
   }
 }

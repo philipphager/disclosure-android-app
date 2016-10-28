@@ -1,7 +1,7 @@
 CREATE TABLE App (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   label TEXT,
-  packageName TEXT NOT NULL,
+  packageName TEXT UNIQUE NOT NULL,
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,
   flags INTEGER AS Integer
@@ -16,7 +16,18 @@ SELECT *
 FROM App
 WHERE label like ?;
 
+selectByPackage:
+SELECT *
+FROM App
+WHERE packageName = ?;
+
 selectAllInfos:
 SELECT packageName, versionCode
 FROM App, Version
 WHERE id = appId;
+
+selectUserApps:
+SELECT *
+FROM App
+WHERE flags & ? != 1
+ORDER BY label ASC;

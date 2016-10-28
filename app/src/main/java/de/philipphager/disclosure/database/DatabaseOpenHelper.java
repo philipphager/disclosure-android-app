@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
   private static final String DB_NAME = "disclosure.db";
-  private static final int DB_VERSION = 4;
+  private static final int DB_VERSION = 8;
   private final Migrator migrator;
 
   @Inject public DatabaseOpenHelper(Context context, Migrator migrator) {
@@ -22,6 +22,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     //Initial SQL schema creation
     db.execSQL(App.CREATE_TABLE);
     db.execSQL(Version.CREATE_TABLE);
+  }
+
+  @Override public void onConfigure(SQLiteDatabase db) {
+    db.setForeignKeyConstraintsEnabled(true);
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

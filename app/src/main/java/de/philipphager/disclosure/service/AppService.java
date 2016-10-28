@@ -5,12 +5,13 @@ import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.app.query.DeleteAppsByPackageName;
-import de.philipphager.disclosure.database.app.query.SelectAllApps;
-import de.philipphager.disclosure.database.app.query.SelectAppsByName;
-import de.philipphager.disclosure.database.info.query.SelectAllAppInfos;
-import de.philipphager.disclosure.database.util.Queryable;
-import de.philipphager.disclosure.database.util.Repository;
+import de.philipphager.disclosure.database.app.query.SelectByPackageName;
+import de.philipphager.disclosure.database.app.query.QueryAllApps;
+import de.philipphager.disclosure.database.app.query.QueryAppsByName;
+import de.philipphager.disclosure.database.app.query.QueryUserApps;
+import de.philipphager.disclosure.database.info.query.QueryAllAppInfos;
+import de.philipphager.disclosure.database.util.repository.Queryable;
+import de.philipphager.disclosure.database.util.repository.Repository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
 import java.util.List;
@@ -39,17 +40,22 @@ public class AppService {
 
   public Observable<List<App>> all() {
     BriteDatabase db = databaseManager.get();
-    return appRepository.query(db, new SelectAllApps());
+    return appRepository.query(db, new QueryAllApps());
+  }
+
+  public Observable<List<App>> userApps() {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.query(db, new QueryUserApps());
   }
 
   public Observable<List<App>> byName(String name) {
     BriteDatabase db = databaseManager.get();
-    return appRepository.query(db, new SelectAppsByName(name));
+    return appRepository.query(db, new QueryAppsByName(name));
   }
 
   public Observable<List<App.Info>> allAppInfos() {
     BriteDatabase db = databaseManager.get();
-    return appInfoRepository.query(db, new SelectAllAppInfos());
+    return appInfoRepository.query(db, new QueryAllAppInfos());
   }
 
   public void add(PackageInfo packageInfo) {
@@ -89,7 +95,7 @@ public class AppService {
   public void removeByPackageName(String packageName) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-      appRepository.remove(db, new DeleteAppsByPackageName(packageName));
+      appRepository.remove(db, new SelectByPackageName(packageName));
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : delete app %s", thread, packageName);
@@ -103,7 +109,7 @@ public class AppService {
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
       for (String packageName : packageNames) {
-        appRepository.remove(db, new DeleteAppsByPackageName(packageName));
+        appRepository.remove(db, new SelectByPackageName(packageName));
 
         String thread = Thread.currentThread().getName();
         Timber.d("%s : delete app %s", thread, packageName);

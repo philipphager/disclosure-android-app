@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
-@Module public class AndroidModule {
+@Module public class DeviceModule {
   @Provides @Singleton public PackageManager providePackageManager(Context context) {
     return context.getPackageManager();
   }

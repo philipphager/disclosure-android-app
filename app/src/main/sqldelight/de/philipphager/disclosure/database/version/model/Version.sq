@@ -7,7 +7,7 @@ CREATE TABLE Version (
   versionName TEXT NOT NULL,
   createdAt INTEGER AS LocalDateTime NOT NULL,
   PRIMARY KEY(appId, versionCode),
-  FOREIGN KEY(appId) REFERENCES App(id)
+  FOREIGN KEY(appId) REFERENCES App(id) ON DELETE CASCADE
 );
 
 selectAll:
