@@ -43,15 +43,15 @@ public class AppRepository implements Repository<App> {
     return db.delete(App.TABLE_NAME, selector.create());
   }
 
-  @Override public Observable<List<App>> query(BriteDatabase db, BriteQuery<App> query) {
-    CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
-    return query.create(db).map(SqlBrite.Query::run).map(cursorToAppList);
-  }
-
   @Override public List<App> query(BriteDatabase db, SQLQuery<App> query) {
     CursorToListMapper<App> cursorToListMapper = new CursorToListMapper<>(query.rowMapper());
     Cursor cursor = db.query(query.create());
     return cursorToListMapper.call(cursor);
+  }
+
+  @Override public Observable<List<App>> query(BriteDatabase db, BriteQuery<App> query) {
+    CursorToListMapper<App> cursorToAppList = new CursorToListMapper<>(query.rowMapper());
+    return query.create(db).map(SqlBrite.Query::run).map(cursorToAppList);
   }
 
   private long loadAppId(BriteDatabase database, String packageName) {

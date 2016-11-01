@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
@@ -20,6 +22,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   private static final String EXTRA_APP = "EXTRA_APP";
 
   @BindView(R.id.icon) protected ImageView icon;
+  @BindView(R.id.activity_detail) protected View view;
   @Inject protected DetailPresenter presenter;
 
   public static Intent launch(Context context, App app) {
@@ -51,5 +54,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
         .load(packageName)
         .onThread(Schedulers.io())
         .into(icon);
+  }
+
+  @Override public void notify(String message) {
+    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
   }
 }

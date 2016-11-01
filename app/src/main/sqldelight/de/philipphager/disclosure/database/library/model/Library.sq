@@ -1,0 +1,17 @@
+CREATE TABLE Library (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  packageName TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  type TEXT AS Library.Type
+);
+
+selectAll:
+SELECT *
+FROM Library;
+
+selectByApp:
+SELECT Library.*
+FROM LibraryApp, Library
+WHERE LibraryApp.libraryId = Library.id
+AND LibraryApp.appId = ?;

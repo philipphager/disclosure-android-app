@@ -15,8 +15,6 @@ import com.squareup.sqldelight.RowMapper;
           .flags(flags)
           .build());
 
-  public static final Mapper<App> MAPPER = FACTORY.selectAllMapper();
-
   public static Builder builder() {
     return new AutoValue_App.Builder();
   }

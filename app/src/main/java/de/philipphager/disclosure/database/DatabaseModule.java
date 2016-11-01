@@ -8,6 +8,7 @@ import dagger.Provides;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.info.AppInfoRepository;
+import de.philipphager.disclosure.database.library.populator.LibraryPopulator;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.migration.version.AddAppVersionMigration;
@@ -20,8 +21,8 @@ import javax.inject.Singleton;
 
 @Module public class DatabaseModule {
   @Provides @Singleton
-  public DatabaseOpenHelper getDataBaseOpenHelper(Context context, Migrator migrator) {
-    return new DatabaseOpenHelper(context, migrator);
+  public DatabaseOpenHelper getDataBaseOpenHelper(Context context, Migrator migrator, LibraryPopulator libraryPopulator) {
+    return new DatabaseOpenHelper(context, migrator, libraryPopulator);
   }
 
   @Provides @Singleton public Migrator getMigrator() {
