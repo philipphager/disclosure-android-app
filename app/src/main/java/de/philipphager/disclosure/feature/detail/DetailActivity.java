@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
@@ -37,6 +37,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_detail);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     App app = getIntent().getParcelableExtra(EXTRA_APP);
     ensureNotNull(app, "DetailActivity started without EXTRA_APP");
 
