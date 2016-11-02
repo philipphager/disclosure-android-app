@@ -49,7 +49,7 @@ public class LibraryRepository {
         new CursorToListMapper<>(Library.FACTORY.selectByAppMapper());
 
     List<String> tables = Arrays.asList(LibraryApp.TABLE_NAME, Library.TABLE_NAME);
-    return db.createQuery(tables, Library.SELECTBYAPP, "55")
+    return db.createQuery(tables, Library.SELECTBYAPP, String.valueOf(appId))
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
