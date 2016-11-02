@@ -31,3 +31,8 @@ SELECT *
 FROM App
 WHERE flags & ? != 1
 ORDER BY label ASC;
+
+selectAppId:
+SELECT id
+FROM App
+WHERE packageName = ?;

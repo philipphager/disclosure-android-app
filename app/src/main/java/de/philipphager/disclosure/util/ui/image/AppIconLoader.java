@@ -18,7 +18,6 @@ public final class AppIconLoader {
   private final ImageView view;
   private final Scheduler scheduler;
 
-
   public AppIconLoader(Builder builder) {
     this.packageName = builder.packageName;
     this.placeholderRes = builder.placeholderRes;
@@ -52,7 +51,7 @@ public final class AppIconLoader {
     private String packageName;
     private Scheduler scheduler;
 
-    public  Builder(Context context) {
+    public Builder(Context context) {
       this.context = context;
       this.packageName = "";
       this.scheduler = Schedulers.io();

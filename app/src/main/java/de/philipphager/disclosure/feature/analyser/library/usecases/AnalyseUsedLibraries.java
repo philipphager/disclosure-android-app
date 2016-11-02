@@ -17,7 +17,9 @@ public class AnalyseUsedLibraries {
   }
 
   public Observable<List<Library>> analyse(App app) {
-    return loadApk(app).flatMap(this::findLibraries);
+    return loadApk(app)
+        .flatMap(this::findLibraries)
+        .doOnNext(libraries -> libraryService.putForApp(app, libraries));
   }
 
   private Observable<Apk> loadApk(App app) {
@@ -26,6 +28,7 @@ public class AnalyseUsedLibraries {
 
   private Observable<List<Library>> findLibraries(Apk apk) {
     return libraryService.all()
+        .first()
         .flatMap(Observable::from)
         .flatMap(library -> Observable.just(library)
             .subscribeOn(Schedulers.computation())

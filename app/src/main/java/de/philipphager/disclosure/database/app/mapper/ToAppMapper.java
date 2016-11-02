@@ -15,6 +15,7 @@ public class ToAppMapper implements Mapper<ApplicationInfo, App> {
 
   @Override public App map(ApplicationInfo from) {
     return App.builder()
+        .id(0L)
         .label(String.valueOf(packageManager.getApplicationLabel(from)))
         .packageName(from.packageName)
         .process(from.processName)

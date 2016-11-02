@@ -8,14 +8,18 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class LibraryPopulator {
-  @Inject public LibraryPopulator() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public LibraryPopulator() {
+    // Needed for dagger injection.
   }
 
   public void populate(SQLiteDatabase db) {
     List<Library> libraries = new ArrayList<>();
-    libraries.add(Library.create(1L, "Mixpanel", "", Library.Type.ANALYTICS, "com.mixpanel.android"));
-    libraries.add(Library.create(2L, "Google Analytics", "", Library.Type.ANALYTICS, "com.google.android.gms.analytics"));
-    libraries.add(Library.create(3L, "Facebook Stetho", "", Library.Type.DEVELOPER, "com.facebook.stetho"));
+    libraries.add(
+        Library.create(1L, "com.mixpanel.android", "Mixpanel", "", Library.Type.ANALYTICS));
+    libraries.add(Library.create(2L, "com.google.android.gms.analytics", "Google Analytics", "",
+        Library.Type.ANALYTICS));
+    libraries.add(
+        Library.create(3L, "com.facebook.stetho", "Facebook Stetho", "", Library.Type.DEVELOPER));
 
     for (Library library : libraries) {
       ContentValues content = Library.FACTORY.marshal(library).asContentValues();

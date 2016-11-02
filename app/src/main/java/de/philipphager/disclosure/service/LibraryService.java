@@ -3,12 +3,8 @@ package de.philipphager.disclosure.service;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.library.LibraryAppRepository;
 import de.philipphager.disclosure.database.library.LibraryRepository;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.database.library.model.LibraryApp;
-import de.philipphager.disclosure.database.library.query.QueryAll;
-import de.philipphager.disclosure.database.library.query.QueryByApp;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -16,39 +12,42 @@ import rx.Observable;
 public class LibraryService {
   private final DatabaseManager databaseManager;
   private final LibraryRepository libraryRepository;
-  private final LibraryAppRepository libraryAppRepository;
 
   @Inject public LibraryService(DatabaseManager databaseManager,
-      LibraryRepository libraryRepository,
-      LibraryAppRepository libraryAppRepository) {
+      LibraryRepository libraryRepository) {
     this.databaseManager = databaseManager;
     this.libraryRepository = libraryRepository;
-    this.libraryAppRepository = libraryAppRepository;
+  }
+
+  public void put(List<Library> libraries) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+      for (Library library : libraries) {
+        libraryRepository.put(db, library);
+      }
+
+      transaction.markSuccessful();
+    }
+  }
+
+  public void putForApp(App app, List<Library> libraries) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+      for (Library library : libraries) {
+        libraryRepository.putForApp(db, library.id(), app.id());
+      }
+
+      transaction.markSuccessful();
+    }
   }
 
   public Observable<List<Library>> all() {
     BriteDatabase db = databaseManager.get();
-    return libraryRepository.query(db, new QueryAll());
+    return libraryRepository.all(db);
   }
 
-  public Observable<List<Library>> allByApp(App app) {
+  public Observable<List<Library>> byApp(App app) {
     BriteDatabase db = databaseManager.get();
-    return libraryRepository.query(db, new QueryByApp(app));
-  }
-
-  public void add(Library library) {
-    BriteDatabase db = databaseManager.get();
-    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-      libraryRepository.add(db, library);
-      transaction.markSuccessful();
-    }
-  }
-
-  public void addForApp(App app, Library library) {
-    BriteDatabase db = databaseManager.get();
-    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-      libraryAppRepository.add(db, LibraryApp.create(app.id(), library.id()));
-      transaction.markSuccessful();
-    }
+    return libraryRepository.byApp(db, app.id());
   }
 }

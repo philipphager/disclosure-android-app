@@ -28,7 +28,7 @@ public class DBSyncer {
     stopwatch.start();
 
     return Observable.concat(
-        fetchUpdatedPackages.get().doOnNext(appService::addAll).count(),
+        fetchUpdatedPackages.get().doOnNext(appService::addPackages).count(),
         fetchOutdatedApps.get().doOnNext(appService::removeAllByPackageName).count()
     ).doOnError(throwable -> {
       stopwatch.stop();

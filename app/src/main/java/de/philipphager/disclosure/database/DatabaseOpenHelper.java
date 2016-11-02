@@ -13,11 +13,12 @@ import javax.inject.Inject;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
   private static final String DB_NAME = "disclosure.db";
-  private static final int DB_VERSION = 8;
+  private static final int DB_VERSION = 9;
   private final Migrator migrator;
   private final LibraryPopulator libraryPopulator;
 
-  @Inject public DatabaseOpenHelper(Context context, Migrator migrator, LibraryPopulator libraryPopulator) {
+  @Inject
+  public DatabaseOpenHelper(Context context, Migrator migrator, LibraryPopulator libraryPopulator) {
     super(context, DB_NAME, null, DB_VERSION);
     this.migrator = migrator;
     this.libraryPopulator = libraryPopulator;
