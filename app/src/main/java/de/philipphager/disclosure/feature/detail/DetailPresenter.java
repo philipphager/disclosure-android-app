@@ -24,19 +24,22 @@ public class DetailPresenter {
 
     intiView();
 
-    analyseUsedLibraries.analyse(app)
-        .subscribe(libraries -> {
-          Timber.d("found %s libraries", libraries);
-        }, Timber::e);
-
     libraryService.byApp(app)
         .subscribe(libraries -> {
           Timber.d("loaded %s libraries", libraries);
+          view.notify(String.format("loaded %s libraries", libraries));
         }, Timber::e);
   }
 
   private void intiView() {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
+  }
+
+  public void onAnalyseButtonClick() {
+    analyseUsedLibraries.analyse(app)
+        .subscribe(libraries -> {
+          Timber.d("found %s libraries", libraries);
+        }, Timber::e);
   }
 }

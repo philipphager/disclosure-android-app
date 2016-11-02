@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
@@ -58,5 +60,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override public void notify(String message) {
     Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+  }
+
+  @OnClick(R.id.btn_analyse) public void onAnalyseButtonClick() {
+    presenter.onAnalyseButtonClick();
   }
 }

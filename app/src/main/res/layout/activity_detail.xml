@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_detail"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:foreground="?android:attr/selectableItemBackground">
 
@@ -49,4 +50,12 @@
 
   <include layout="@layout/view_divider"/>
 
-</LinearLayout>
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/btn_analyse"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:layout_gravity="bottom|right|end"
+      android:src="@drawable/ic_security_white_24dp"/>
+
+</android.support.design.widget.CoordinatorLayout>
