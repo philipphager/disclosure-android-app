@@ -3,13 +3,10 @@ package de.philipphager.disclosure.database.app;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.util.query.BriteQuery;
-import de.philipphager.disclosure.database.util.query.SQLSelector;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -23,7 +20,6 @@ import static org.mockito.Mockito.when;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @PrepareForTest({BriteDatabase.class, BriteDatabase.Transaction.class})
 public class AppRepositoryShould {
-  @Mock protected BriteQuery briteQuery;
   @InjectMocks protected AppRepository appRepository;
   protected BriteDatabase database;
   protected BriteDatabase.Transaction transaction;
@@ -37,27 +33,23 @@ public class AppRepositoryShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void insertAppIntoDatabase() {
-    appRepository.add(database, MockApp.TEST);
+    appRepository.insert(database, MockApp.TEST);
 
-    verify(database).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST),
-        SQLiteDatabase.CONFLICT_IGNORE);
+    verify(database).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST));
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void updateAppInDatabase() {
-    appRepository.update(database, MockApp.TEST);
-
     String where = String.format("id=%s", MockApp.TEST.id());
-
+    appRepository.update(database, MockApp.TEST, where);
     verify(database).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void removeAppFromDatabase() {
-    String where = String.format("id=%s", MockApp.TEST.id());
-    SQLSelector mockSelector = () -> where;
-    appRepository.remove(database, mockSelector);
+  public void insertOrUpdateShouldExecuteInsertWithoutFailingOnError() {
+    appRepository.insertOrUpdate(database, MockApp.TEST);
 
-    verify(database).delete(App.TABLE_NAME, where);
+    verify(database)
+        .insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST), SQLiteDatabase.CONFLICT_IGNORE);
   }
 }

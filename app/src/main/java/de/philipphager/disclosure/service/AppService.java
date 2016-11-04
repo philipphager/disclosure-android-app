@@ -3,15 +3,10 @@ package de.philipphager.disclosure.service;
 import android.content.pm.PackageInfo;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
+import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.app.query.SelectByPackageName;
-import de.philipphager.disclosure.database.app.query.QueryAllApps;
-import de.philipphager.disclosure.database.app.query.QueryAppsByName;
-import de.philipphager.disclosure.database.app.query.QueryUserApps;
-import de.philipphager.disclosure.database.info.query.QueryAllAppInfos;
-import de.philipphager.disclosure.database.util.repository.Queryable;
-import de.philipphager.disclosure.database.util.repository.Repository;
+import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
 import java.util.List;
@@ -20,52 +15,44 @@ import rx.Observable;
 import timber.log.Timber;
 
 public class AppService {
-  private final Repository<App> appRepository;
-  private final Queryable<App.Info> appInfoRepository;
-  private final Repository<Version> versionRepository;
   private final DatabaseManager databaseManager;
+  private final AppRepository appRepository;
+  private final VersionRepository versionRepository;
   private final ToAppMapper toAppMapper;
 
-  @Inject public AppService(Repository<App> appRepository,
-      Queryable<App.Info> appInfoRepository,
-      Repository<Version> versionRepository,
-      DatabaseManager databaseManager,
+  @Inject public AppService(DatabaseManager databaseManager,
+      AppRepository appRepository,
+      VersionRepository versionRepository,
       ToAppMapper toAppMapper) {
-    this.appRepository = appRepository;
-    this.appInfoRepository = appInfoRepository;
-    this.versionRepository = versionRepository;
     this.databaseManager = databaseManager;
+    this.appRepository = appRepository;
+    this.versionRepository = versionRepository;
     this.toAppMapper = toAppMapper;
   }
 
   public Observable<List<App>> all() {
     BriteDatabase db = databaseManager.get();
-    return appRepository.query(db, new QueryAllApps());
+    return appRepository.all(db);
   }
 
   public Observable<List<App>> userApps() {
     BriteDatabase db = databaseManager.get();
-    return appRepository.query(db, new QueryUserApps());
+    return appRepository.userApps(db);
   }
 
-  public Observable<List<App>> byName(String name) {
+  public Observable<List<App.Info>> allInfos() {
     BriteDatabase db = databaseManager.get();
-    return appRepository.query(db, new QueryAppsByName(name));
+    return appRepository.allInfos(db);
   }
 
-  public Observable<List<App.Info>> allAppInfos() {
-    BriteDatabase db = databaseManager.get();
-    return appInfoRepository.query(db, new QueryAllAppInfos());
-  }
-
-  public void add(PackageInfo packageInfo) {
+  public void addPackage(PackageInfo packageInfo) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-
       App app = toAppMapper.map(packageInfo.applicationInfo);
-      long appId = appRepository.add(db, app);
+      long appId = appRepository.insertOrUpdate(db, app);
+
       Version version = new ToVersionMapper(appId).map(packageInfo);
-      versionRepository.add(db, version);
+      versionRepository.insert(db, version);
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
@@ -74,31 +61,20 @@ public class AppService {
     }
   }
 
-  public void addAll(List<PackageInfo> packageInfos) {
+  public void addPackages(List<PackageInfo> packageInfos) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
       for (PackageInfo packageInfo : packageInfos) {
         App app = toAppMapper.map(packageInfo.applicationInfo);
-        long appId = appRepository.add(db, app);
+        long appId = appRepository.insertOrUpdate(db, app);
+
         Version version = new ToVersionMapper(appId).map(packageInfo);
-        versionRepository.add(db, version);
+        versionRepository.insert(db, version);
 
         String thread = Thread.currentThread().getName();
         Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
       }
-
-      transaction.markSuccessful();
-    }
-  }
-
-  public void removeByPackageName(String packageName) {
-    BriteDatabase db = databaseManager.get();
-    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-      appRepository.remove(db, new SelectByPackageName(packageName));
-
-      String thread = Thread.currentThread().getName();
-      Timber.d("%s : delete app %s", thread, packageName);
 
       transaction.markSuccessful();
     }
@@ -109,7 +85,8 @@ public class AppService {
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
       for (String packageName : packageNames) {
-        appRepository.remove(db, new SelectByPackageName(packageName));
+        String where = String.format("%s = '%s'", App.PACKAGENAME, packageName);
+        appRepository.delete(db, where);
 
         String thread = Thread.currentThread().getName();
         Timber.d("%s : delete app %s", thread, packageName);

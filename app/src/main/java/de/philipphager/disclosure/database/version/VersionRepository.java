@@ -1,33 +1,28 @@
 package de.philipphager.disclosure.database.version;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
-import de.philipphager.disclosure.database.util.query.BriteQuery;
-import de.philipphager.disclosure.database.util.query.SQLQuery;
-import de.philipphager.disclosure.database.util.query.SQLSelector;
-import de.philipphager.disclosure.database.util.repository.Repository;
 import de.philipphager.disclosure.database.version.model.Version;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 
-public class VersionRepository implements Repository<Version> {
+public class VersionRepository {
   @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public VersionRepository() {
     // Needed for dagger injection.
   }
 
-  @Override public long add(BriteDatabase db, Version version) {
+  public long insert(BriteDatabase db, Version version) {
     synchronized (this) {
       ContentValues versionContent = Version.FACTORY.marshal(version).asContentValues();
       return db.insert(Version.TABLE_NAME, versionContent, SQLiteDatabase.CONFLICT_REPLACE);
     }
   }
 
-  @Override public int update(BriteDatabase db, Version version) {
+  public int update(BriteDatabase db, Version version) {
     synchronized (this) {
       ContentValues content = Version.FACTORY.marshal(version).asContentValues();
       String where = String.format("%s = %s AND %s = %s",
@@ -37,18 +32,25 @@ public class VersionRepository implements Repository<Version> {
     }
   }
 
-  @Override public int remove(BriteDatabase db, SQLSelector selector) {
-    return db.delete(Version.TABLE_NAME, selector.create());
+  public int remove(BriteDatabase db, String where) {
+    return db.delete(Version.TABLE_NAME, where);
   }
 
-  @Override public List<Version> query(BriteDatabase db, SQLQuery<Version> query) {
-    CursorToListMapper<Version> cursorToList = new CursorToListMapper<>(query.rowMapper());
-    Cursor cursor = db.query(query.create());
-    return cursorToList.call(cursor);
+  public Observable<List<Version>> all(BriteDatabase db) {
+    CursorToListMapper<Version> cursorToList =
+        new CursorToListMapper<>(Version.FACTORY.selectAllMapper());
+
+    return db.createQuery(Version.TABLE_NAME, Version.SELECTALL)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
   }
 
-  @Override public Observable<List<Version>> query(BriteDatabase db, BriteQuery<Version> query) {
-    CursorToListMapper<Version> cursorToList = new CursorToListMapper<>(query.rowMapper());
-    return query.create(db).map(SqlBrite.Query::run).map(cursorToList);
+  public Observable<List<Version>> byAppId(BriteDatabase db, long appId) {
+    CursorToListMapper<Version> cursorToList =
+        new CursorToListMapper<>(Version.FACTORY.selectByAppMapper());
+
+    return db.createQuery(Version.TABLE_NAME, Version.SELECTBYAPP, String.valueOf(appId))
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
   }
 }

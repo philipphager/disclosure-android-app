@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
@@ -42,6 +43,12 @@ public class AppOverviewFragment extends BaseFragment implements AppOverviewView
     presenter.onCreate(this);
   }
 
+  @Override public void onDestroyView() {
+    presenter.onDestory();
+
+    super.onDestroyView();
+  }
+
   @Override protected void injectFragment(ApplicationComponent appComponent) {
     appComponent.inject(this);
   }
@@ -63,6 +70,10 @@ public class AppOverviewFragment extends BaseFragment implements AppOverviewView
   }
 
   @Override public void hideProgress() {
-    progressBar.setVisibility(View.GONE);
+    progressBar.setVisibility(View.INVISIBLE);
+  }
+
+  @OnClick(R.id.button_analyse_all) public void onAnalyseAllClicked() {
+    presenter.onAnalyseAllClicked();
   }
 }

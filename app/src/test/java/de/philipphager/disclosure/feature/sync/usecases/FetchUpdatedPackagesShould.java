@@ -3,8 +3,8 @@ package de.philipphager.disclosure.feature.sync.usecases;
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.MockApp;
 import de.philipphager.disclosure.database.app.MockPackage;
+import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.info.mapper.ToInfoMapper;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.AppService;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class FetchUpdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchNoAppsIfNoneInstalledOnDevice() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
     fetchUpdatedPackages.get().toBlocking().subscribe(testSubscriber);
@@ -52,7 +52,7 @@ public class FetchUpdatedPackagesShould {
     List<PackageInfo> installedPackages = Arrays.asList(MockPackage.TEST, MockPackage.TEST2);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
     fetchUpdatedPackages.get().toBlocking().subscribe(testSubscriber);
@@ -69,7 +69,7 @@ public class FetchUpdatedPackagesShould {
     List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
     fetchUpdatedPackages.get().toBlocking().subscribe(testSubscriber);
@@ -92,7 +92,7 @@ public class FetchUpdatedPackagesShould {
     List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
     when(toInfoMapper.map(testPackageVersion2)).thenReturn(testAppInfoVersion2);
 
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
@@ -107,7 +107,7 @@ public class FetchUpdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<PackageInfo>> testSubscriber = new TestSubscriber<>();
     fetchUpdatedPackages.get().toBlocking().subscribe(testSubscriber);

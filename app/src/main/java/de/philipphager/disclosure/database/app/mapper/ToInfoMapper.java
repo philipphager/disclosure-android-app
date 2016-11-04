@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.info.mapper;
+package de.philipphager.disclosure.database.app.mapper;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.model.App;

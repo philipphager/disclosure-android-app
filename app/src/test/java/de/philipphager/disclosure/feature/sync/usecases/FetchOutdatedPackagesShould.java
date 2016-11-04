@@ -42,7 +42,7 @@ public class FetchOutdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void loadNoPackagesIfNoneAreInstalled() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().subscribe(subscriber);
@@ -58,7 +58,7 @@ public class FetchOutdatedPackagesShould {
     List<App.Info> savedPackages = Arrays.asList(facebookInfo, instagramInfo);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().toBlocking().subscribe(subscriber);
@@ -77,7 +77,7 @@ public class FetchOutdatedPackagesShould {
     List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.TEST);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().toBlocking().subscribe(subscriber);
@@ -95,7 +95,7 @@ public class FetchOutdatedPackagesShould {
     List<PackageInfo> installedPackages = Collections.emptyList();
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
-    when(appService.allAppInfos()).thenReturn(Observable.just(savedPackages));
+    when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().toBlocking().subscribe(subscriber);
@@ -110,7 +110,7 @@ public class FetchOutdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
-    when(appService.allAppInfos()).thenReturn(Observable.just(Collections.emptyList()));
+    when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
 
     TestSubscriber<List<String>> subscriber = new TestSubscriber<>();
     fetchOutdatedPackages.get().subscribe(subscriber);

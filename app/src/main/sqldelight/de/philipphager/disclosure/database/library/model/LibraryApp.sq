@@ -1,0 +1,7 @@
+CREATE TABLE LibraryApp (
+  appId INTEGER,
+  libraryId INTEGER,
+  PRIMARY KEY (appId, libraryId),
+  FOREIGN KEY(appId) REFERENCES App(id) ON DELETE CASCADE,
+  FOREIGN KEY(libraryId) REFERENCES Library(id) ON DELETE CASCADE
+);

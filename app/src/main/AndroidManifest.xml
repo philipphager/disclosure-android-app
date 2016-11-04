@@ -22,6 +22,7 @@
 
     <activity
         android:name=".feature.detail.DetailActivity"
+        android:parentActivityName=".feature.home.HomeActivity"
         android:launchMode="standard">
     </activity>
   </application>

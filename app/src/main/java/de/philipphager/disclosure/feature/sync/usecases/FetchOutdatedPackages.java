@@ -1,6 +1,6 @@
 package de.philipphager.disclosure.feature.sync.usecases;
 
-import de.philipphager.disclosure.database.app.model.AppModel;
+import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.AppService;
 import java.util.List;
@@ -24,12 +24,12 @@ public class FetchOutdatedPackages {
   public Observable<List<String>> get() {
     loadInstalledApps();
 
-    return appService.allAppInfos()
+    return appService.allInfos()
         .first()
         .flatMap(Observable::from)
         .flatMap(info -> Observable.just(info)
             .subscribeOn(Schedulers.computation())
-            .map(AppModel.SelectAllInfosModel::packageName)
+            .map(App.Info::packageName)
             .filter(packageName -> !appIsInstalled(packageName)))
         .distinct()
         .toList();

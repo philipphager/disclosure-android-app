@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import butterknife.BindView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -34,6 +35,12 @@ public class HomeActivity extends BaseActivity implements HomeView {
     presenter.onCreate(this);
   }
 
+  @Override protected void onDestroy() {
+    presenter.onDestroy();
+
+    super.onDestroy();
+  }
+
   @Override protected void injectActivity(ApplicationComponent appComponent) {
     appComponent.inject(this);
   }
@@ -47,6 +54,8 @@ public class HomeActivity extends BaseActivity implements HomeView {
     AHBottomNavigationAdapter adapter = new AHBottomNavigationAdapter(this, R.menu.navigation_home);
     adapter.setupWithBottomNavigation(bottomNavigation, null);
 
+    bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+    bottomNavigation.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
     bottomNavigation.setBehaviorTranslationEnabled(false);
     bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
       presenter.onTabSelected(position, wasSelected);

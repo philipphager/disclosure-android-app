@@ -19,11 +19,11 @@ public class CursorToListMapper<T> implements Func1<Cursor, List<T>> {
     List<T> items = new ArrayList<>(resultSize);
 
     if (cursorPresent) {
-      cursor.moveToFirst();
 
       while (cursor.moveToNext()) {
         items.add(rowMapper.map(cursor));
       }
+      cursor.close();
     }
     return items;
   }

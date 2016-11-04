@@ -48,7 +48,7 @@ public class DBSyncerShould {
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
     List<PackageInfo> expectedPackages = Arrays.asList(MockPackage.TEST, MockPackage.TEST2);
-    verify(appService).addAll(expectedPackages);
+    verify(appService).addPackages(expectedPackages);
     subscriber.assertCompleted();
   }
 

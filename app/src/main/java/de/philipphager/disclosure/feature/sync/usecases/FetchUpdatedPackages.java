@@ -1,8 +1,8 @@
 package de.philipphager.disclosure.feature.sync.usecases;
 
 import android.content.pm.PackageInfo;
+import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.info.mapper.ToInfoMapper;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.AppService;
 import java.util.List;
@@ -43,7 +43,7 @@ public class FetchUpdatedPackages {
   private void loadSavedApps() {
     Timber.d("operating on thread %s", Thread.currentThread().getName());
 
-    savedApps = appService.allAppInfos()
+    savedApps = appService.allInfos()
         .first()
         .flatMap(Observable::from)
         .cache();
