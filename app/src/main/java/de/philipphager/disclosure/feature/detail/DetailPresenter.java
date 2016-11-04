@@ -1,6 +1,7 @@
 package de.philipphager.disclosure.feature.detail;
 
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedLibraries;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.util.ui.components.ScoreView;
@@ -33,6 +34,8 @@ public class DetailPresenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraries -> {
           Timber.d("loaded %s libraries", libraries);
+            view.setLibraries(libraries);
+
           if (libraries.size() > 0) {
             view.setScore(ScoreView.Score.HIGH);
           } else {
@@ -55,5 +58,9 @@ public class DetailPresenter {
         .subscribe(libraries -> {
           Timber.d("found %s libraries", libraries);
         }, Timber::e));
+  }
+
+  public void onLibraryClicked(Library library) {
+    view.notify(String.format("Clicked on %s", library));
   }
 }

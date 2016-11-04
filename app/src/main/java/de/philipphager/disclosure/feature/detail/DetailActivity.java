@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
@@ -12,9 +15,11 @@ import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import de.philipphager.disclosure.util.ui.components.ScoreView;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
+import java.util.List;
 import javax.inject.Inject;
 import rx.schedulers.Schedulers;
 
@@ -26,7 +31,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @BindView(R.id.icon) protected ImageView icon;
   @BindView(R.id.activity_detail) protected View view;
   @BindView(R.id.scoreView) protected ScoreView scoreView;
+  @BindView(R.id.app_detail_libraries) protected RecyclerView libraryListRecyclerView;
   @Inject protected DetailPresenter presenter;
+  private LibraryRecyclerAdapter adapter;
 
   public static Intent launch(Context context, App app) {
     Intent intent = new Intent(context, DetailActivity.class);
@@ -39,6 +46,16 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     setContentView(R.layout.activity_detail);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    adapter = new LibraryRecyclerAdapter(this);
+    libraryListRecyclerView.setAdapter(adapter);
+    libraryListRecyclerView.setHasFixedSize(true);
+    libraryListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    libraryListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    adapter.setOnLibraryClickListener(library -> {
+      presenter.onLibraryClicked(library);
+    });
 
     App app = getIntent().getParcelableExtra(EXTRA_APP);
     ensureNotNull(app, "DetailActivity started without EXTRA_APP");
@@ -65,6 +82,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
         .load(packageName)
         .onThread(Schedulers.io())
         .into(icon);
+  }
+
+  @Override public void setLibraries(List<Library> libraries) {
+    adapter.setLibraries(libraries);
   }
 
   @Override public void notify(String message) {
