@@ -1,8 +1,10 @@
 package de.philipphager.disclosure;
 
 import android.app.Application;
+import android.os.UserManager;
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import com.squareup.leakcanary.LeakCanary;
 import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
@@ -12,6 +14,25 @@ public class DisclosureApp extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
+
+    if (LeakCanary.isInAnalyzerProcess(this)) {
+      // This process is dedicated to LeakCanary for heap analysis.
+      // You should not init your app in this process.
+      return;
+    }
+    LeakCanary.install(this);
+
+    /**
+     * TODO: Remove on update!
+     * Avoiding a memory leak of Android's UserManager.
+     * It is caching a static instance and leaks,
+     * on Activity recreation, unless UserManager.get()
+     * is called before.
+     * This is a temporary prevention of memory leaks
+     * and should be removed instantly after upgrading Android.
+     */
+    getPackageManager().getUserBadgedLabel("", android.os.Process.myUserHandle());
+
     buildObjectGraphAndInject();
   }
 
