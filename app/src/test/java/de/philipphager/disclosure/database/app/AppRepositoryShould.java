@@ -1,5 +1,8 @@
 package de.philipphager.disclosure.database.app;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
+import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
 import org.junit.Before;
@@ -42,5 +45,13 @@ public class AppRepositoryShould {
     String where = String.format("id=%s", MockApp.TEST.id());
     appRepository.update(database, MockApp.TEST, where);
     verify(database).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
+  }
+
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void insertOrUpdateShouldExecuteInsertWithoutFailingOnError() {
+    appRepository.insertOrUpdate(database, MockApp.TEST);
+
+    verify(database)
+        .insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST), SQLiteDatabase.CONFLICT_IGNORE);
   }
 }
