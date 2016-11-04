@@ -1,7 +1,5 @@
 package de.philipphager.disclosure.database.app;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
