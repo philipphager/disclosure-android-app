@@ -1,6 +1,5 @@
 package de.philipphager.disclosure.feature.detail;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +15,10 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 public class LibraryRecyclerAdapter
     extends RecyclerView.Adapter<LibraryRecyclerAdapter.ViewHolder> {
   private final List<Library> libraries;
-  private final Context context;
   private OnLibraryClickListener listener;
 
-  @Inject public LibraryRecyclerAdapter(Context context) {
+  @Inject public LibraryRecyclerAdapter() {
     super();
-    this.context = context;
     this.libraries = new ArrayList<>();
   }
 

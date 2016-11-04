@@ -47,7 +47,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     setContentView(R.layout.activity_detail);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    adapter = new LibraryRecyclerAdapter(this);
+    adapter = new LibraryRecyclerAdapter();
     libraryListRecyclerView.setAdapter(adapter);
     libraryListRecyclerView.setHasFixedSize(true);
     libraryListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
