@@ -12,6 +12,7 @@ import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import javax.inject.Inject;
+import rx.subscriptions.CompositeSubscription;
 
 public class HomeActivity extends BaseActivity implements HomeView {
   private static final boolean SMOOTH_SCROLL_ENABLED = true;
@@ -32,6 +33,12 @@ public class HomeActivity extends BaseActivity implements HomeView {
     setupBottomNavigation();
 
     presenter.onCreate(this);
+  }
+
+  @Override protected void onDestroy() {
+    presenter.onDestroy();
+
+    super.onDestroy();
   }
 
   @Override protected void injectActivity(ApplicationComponent appComponent) {

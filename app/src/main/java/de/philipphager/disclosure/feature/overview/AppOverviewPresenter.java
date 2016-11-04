@@ -4,10 +4,12 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.service.AppService;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
 public class AppOverviewPresenter {
   private final AppService appService;
+  private CompositeSubscription subscriptions;
   private AppOverviewView view;
 
   @Inject public AppOverviewPresenter(AppService appService) {
@@ -16,13 +18,18 @@ public class AppOverviewPresenter {
 
   public void onCreate(AppOverviewView view) {
     this.view = view;
+    this.subscriptions = new CompositeSubscription();
     loadApps();
+  }
+
+  public void onDestory() {
+    subscriptions.unsubscribe();
   }
 
   private void loadApps() {
     view.showProgress();
 
-    appService.userApps()
+    subscriptions.add(appService.userApps()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(apps -> {
           view.hideProgress();
@@ -30,7 +37,7 @@ public class AppOverviewPresenter {
         }, throwable -> {
           view.hideProgress();
           Timber.e(throwable, "while loading all apps");
-        });
+        }));
   }
 
   public void onAppClicked(App app) {

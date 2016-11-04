@@ -42,6 +42,12 @@ public class AppOverviewFragment extends BaseFragment implements AppOverviewView
     presenter.onCreate(this);
   }
 
+  @Override public void onDestroyView() {
+    presenter.onDestory();
+
+    super.onDestroyView();
+  }
+
   @Override protected void injectFragment(ApplicationComponent appComponent) {
     appComponent.inject(this);
   }

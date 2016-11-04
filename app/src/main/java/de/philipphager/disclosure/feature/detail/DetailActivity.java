@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import butterknife.BindView;
@@ -14,6 +13,7 @@ import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.util.ui.BaseActivity;
+import de.philipphager.disclosure.util.ui.components.ScoreView;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import javax.inject.Inject;
 import rx.schedulers.Schedulers;
@@ -25,6 +25,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @BindView(R.id.icon) protected ImageView icon;
   @BindView(R.id.activity_detail) protected View view;
+  @BindView(R.id.scoreView) protected ScoreView scoreView;
   @Inject protected DetailPresenter presenter;
 
   public static Intent launch(Context context, App app) {
@@ -45,6 +46,12 @@ public class DetailActivity extends BaseActivity implements DetailView {
     presenter.onCreate(this, app);
   }
 
+  @Override protected void onDestroy() {
+    presenter.onDestroy();
+
+    super.onDestroy();
+  }
+
   @Override protected void injectActivity(ApplicationComponent appComponent) {
     appComponent.inject(this);
   }
@@ -62,6 +69,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override public void notify(String message) {
     Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+  }
+
+  @Override public void setScore(ScoreView.Score score) {
+    scoreView.setScore(score);
   }
 
   @OnClick(R.id.btn_analyse) public void onAnalyseButtonClick() {
