@@ -15,30 +15,38 @@ public class LibraryPopulator {
   public void populate(SQLiteDatabase db) {
     List<Library> libraries = new ArrayList<>();
     libraries.add(
-        Library.create(1L,
-            "com.mixpanel.android", "Mixpanel",
-            "Tracks app interaction and user behaviour",
-            "• Tracks actions, like button clicks \n"
-            + "• Beta testing, show different versions of an app to different users \n"
-            + "• Tracks basic user information (name, email, location)",
-            Library.Type.ANALYTICS));
+        Library.builder()
+            .id(1L)
+            .packageName("com.mixpanel.android")
+            .title("Mixpanel")
+            .subtitle("Tracks app interaction and user behaviour")
+            .description("• Tracks actions, like button clicks \n"
+                + "• Beta testing, show different versions of an app to different users \n"
+                + "• Tracks basic user information (name, email, location)")
+            .type(Library.Type.ANALYTICS)
+            .build());
 
     libraries.add(
-        Library.create(2L, "com.google.android.gms.analytics",
-            "Google Analytics",
-            "Google's flagship analytics platform",
-            "",
-        Library.Type.ANALYTICS));
+        Library.builder()
+            .id(2L)
+            .packageName("com.google.android.gms.analytics")
+            .title("Google Analytics")
+            .subtitle("Google's flagship analytics platform")
+            .description("")
+            .type(Library.Type.ANALYTICS)
+            .build());
 
     libraries.add(
-        Library.create(3L,
-            "com.facebook.stetho",
-            "Facebook Stetho",
-            "Chrome developer tools for Android",
-            "• Inspect views, layouts \n"
-            + "• Inspect and edit SQLite and shared preferences  \n"
-            + "• Analyse network traffic",
-            Library.Type.DEVELOPER));
+        Library.builder()
+            .id(3L)
+            .packageName("com.facebook.stetho")
+            .title("Facebook Stetho")
+            .subtitle("Chrome developer tools for Android")
+            .description("• Inspect views, layouts \n"
+                + "• Inspect and edit SQLite and shared preferences  \n"
+                + "• Analyse network traffic")
+            .type(Library.Type.DEVELOPER)
+            .build());
 
     for (Library library : libraries) {
       ContentValues content = Library.FACTORY.marshal(library).asContentValues();
