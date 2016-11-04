@@ -54,7 +54,9 @@
             android:layout_margin="16dp"/>
 
       </RelativeLayout>
+
     </android.support.design.widget.CollapsingToolbarLayout>
+
   </android.support.design.widget.AppBarLayout>
 
   <android.support.v7.widget.RecyclerView
@@ -71,4 +73,5 @@
       android:src="@drawable/ic_security_white_24dp"
       app:layout_anchor="@id/appBar"
       app:layout_anchorGravity="bottom|right|end"/>
+
 </android.support.design.widget.CoordinatorLayout>
