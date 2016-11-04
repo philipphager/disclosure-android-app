@@ -2,4 +2,5 @@
   <string name="app_name">Disclosure</string>
   <string name="fragment_app_overview_title">Overview</string>
   <string name="app_list_item_image_content_description">app icon</string>
+  <string name="button_app_overview_analyse_all">analyse all</string>
 </resources>

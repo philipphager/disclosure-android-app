@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class AnalyseUsedLibraries {
   private final LibraryService libraryService;
@@ -17,6 +18,8 @@ public class AnalyseUsedLibraries {
   }
 
   public Observable<List<Library>> analyse(App app) {
+    Timber.d("analysing %s", app);
+
     return loadApk(app)
         .flatMap(this::findLibraries)
         .doOnNext(libraries -> libraryService.putForApp(app, libraries));
