@@ -10,11 +10,11 @@ import de.philipphager.disclosure.database.version.model.Version;
 
 public class AddLibraryMigration implements Migration {
   @Override public void update(SQLiteDatabase db) {
-    String dropTable = "DROP TABLE IF EXISTS";
-    db.execSQL(String.format("%s %s", dropTable, LibraryApp.TABLE_NAME));
-    db.execSQL(String.format("%s %s", dropTable, Library.TABLE_NAME));
-    db.execSQL(String.format("%s %s", dropTable, Version.TABLE_NAME));
-    db.execSQL(String.format("%s %s", dropTable, App.TABLE_NAME));
+    String dropTable = "DROP TABLE IF EXISTS ";
+    db.execSQL(dropTable + LibraryApp.TABLE_NAME);
+    db.execSQL(dropTable + Library.TABLE_NAME);
+    db.execSQL(dropTable + Version.TABLE_NAME);
+    db.execSQL(dropTable + App.TABLE_NAME);
 
     db.execSQL(App.CREATE_TABLE);
     db.execSQL(Version.CREATE_TABLE);
