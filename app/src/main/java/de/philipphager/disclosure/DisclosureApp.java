@@ -1,7 +1,6 @@
 package de.philipphager.disclosure;
 
 import android.app.Application;
-import android.os.UserManager;
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.leakcanary.LeakCanary;

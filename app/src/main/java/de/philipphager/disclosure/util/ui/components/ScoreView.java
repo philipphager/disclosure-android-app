@@ -1,7 +1,6 @@
 package de.philipphager.disclosure.util.ui.components;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
