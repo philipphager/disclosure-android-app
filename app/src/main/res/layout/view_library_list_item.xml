@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,6 +13,7 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/padding_normal"
       android:orientation="vertical">
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -20,11 +23,28 @@
         tools:text="Title"/>
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/text_bottom_margin_normal"
         tools:text="A great subtitle"/>
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="200"
+        app:el_expanded="false"
+        app:el_translate_children="true">
+
+      <TextView
+          android:id="@+id/description"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/text_bottom_margin_normal"
+          tools:text="A long description"/>
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
 
   </LinearLayout>
 

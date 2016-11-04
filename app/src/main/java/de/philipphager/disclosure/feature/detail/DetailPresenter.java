@@ -61,6 +61,6 @@ public class DetailPresenter {
   }
 
   public void onLibraryClicked(Library library) {
-    view.notify(String.format("Clicked on %s", library));
+    
   }
 }

@@ -80,6 +80,7 @@ dependencies {
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
   compile "com.jakewharton:butterknife:${butterknifeVersion}"
+  compile 'net.cachapa.expandablelayout:expandablelayout:2.3'
 
   // APK parser
   compile 'net.dongliu:apk-parser:2.1.6'

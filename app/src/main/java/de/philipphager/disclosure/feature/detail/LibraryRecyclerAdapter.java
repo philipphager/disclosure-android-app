@@ -11,6 +11,7 @@ import de.philipphager.disclosure.database.library.model.Library;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import net.cachapa.expandablelayout.ExpandableLayout;
 
 public class LibraryRecyclerAdapter
     extends RecyclerView.Adapter<LibraryRecyclerAdapter.ViewHolder> {
@@ -63,20 +64,31 @@ public class LibraryRecyclerAdapter
 
   static class ViewHolder extends RecyclerView.ViewHolder {
     private final TextView title;
+    private final TextView subtitle;
     private final TextView description;
+    private final ExpandableLayout expandableLayout;
 
     ViewHolder(View itemView) {
       super(itemView);
       this.title = (TextView) itemView.findViewById(R.id.title);
+      this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
       this.description = (TextView) itemView.findViewById(R.id.description);
+      this.expandableLayout = (ExpandableLayout) itemView.findViewById(R.id.expandable_layout);
     }
 
     public void bind(final Library library, final OnLibraryClickListener listener) {
       title.setText(library.title());
-      description.setText(library.packageName());
+      subtitle.setText(library.subtitle());
+      description.setText(library.description());
 
       itemView.setOnClickListener(view -> {
         if (listener != null) {
+          if (!expandableLayout.isExpanded()) {
+            expandableLayout.expand();
+          } else {
+            expandableLayout.collapse();
+          }
+
           listener.onItemClick(library);
         }
       });
