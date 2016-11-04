@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ public class ScoreView extends LinearLayout {
   public ScoreView(Context context, AttributeSet attrs) {
     super(context, attrs);
 
-    inflate(context, R.layout.view_score, this);
+    LayoutInflater.from(context).inflate(R.layout.view_score, this);
   }
 
   @Override protected void onFinishInflate() {
