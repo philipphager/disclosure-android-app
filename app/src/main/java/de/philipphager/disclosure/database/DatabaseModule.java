@@ -9,6 +9,7 @@ import de.philipphager.disclosure.database.library.populator.LibraryPopulator;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.migration.version.AddAppVersionMigration;
+import de.philipphager.disclosure.database.migration.version.AddLibraryDescriptionMigration;
 import de.philipphager.disclosure.database.migration.version.AddLibraryMigration;
 import de.philipphager.disclosure.database.migration.version.AddVersionNameMigration;
 import javax.inject.Singleton;
@@ -25,6 +26,7 @@ import javax.inject.Singleton;
     migrations.put(3, AddAppVersionMigration.class);
     migrations.put(4, AddVersionNameMigration.class);
     migrations.put(11, AddLibraryMigration.class);
+    migrations.put(14, AddLibraryDescriptionMigration.class);
     return new Migrator(migrations);
   }
 

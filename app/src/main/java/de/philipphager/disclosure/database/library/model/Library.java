@@ -11,9 +11,9 @@ import com.squareup.sqldelight.EnumColumnAdapter;
   public static final Factory<Library> FACTORY =
       new LibraryModel.Factory<>(Library::create, TYPE_ADAPTER);
 
-  public static Library create(long id, String packageName, String title, String description,
+  public static Library create(long id, String packageName, String title, String subtitle, String description,
       @Nullable Type type) {
-    return new AutoValue_Library(id, packageName, title, description, type);
+    return new AutoValue_Library(id, packageName, title, subtitle, description, type);
   }
 
   @SuppressWarnings("PMD.ShortMethodName") public abstract Long id();
@@ -21,6 +21,8 @@ import com.squareup.sqldelight.EnumColumnAdapter;
   public abstract String packageName();
 
   public abstract String title();
+
+  public abstract String subtitle();
 
   public abstract String description();
 
