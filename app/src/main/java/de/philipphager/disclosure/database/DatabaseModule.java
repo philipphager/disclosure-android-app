@@ -9,6 +9,7 @@ import de.philipphager.disclosure.database.library.populator.LibraryPopulator;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.migration.version.AddAppVersionMigration;
+import de.philipphager.disclosure.database.migration.version.AddLibraryMigration;
 import de.philipphager.disclosure.database.migration.version.AddVersionNameMigration;
 import javax.inject.Singleton;
 
@@ -23,6 +24,7 @@ import javax.inject.Singleton;
     SparseArray<Class<? extends Migration>> migrations = new SparseArray<>();
     migrations.put(3, AddAppVersionMigration.class);
     migrations.put(4, AddVersionNameMigration.class);
+    migrations.put(11, AddLibraryMigration.class);
     return new Migrator(migrations);
   }
 
