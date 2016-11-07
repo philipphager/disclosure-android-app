@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.detail;
+package de.philipphager.disclosure.feature.app.detail;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
@@ -61,6 +61,6 @@ public class DetailPresenter {
   }
 
   public void onLibraryClicked(Library library) {
-    // TODO: navigate to overview of all apps using this library.
+    view.navigate().toLibraryOverview(library);
   }
 }

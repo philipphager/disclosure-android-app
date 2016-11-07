@@ -14,8 +14,7 @@ public class HomePresenter {
   private CompositeSubscription subscriptions;
   private HomeView homeView;
 
-  @Inject public HomePresenter(DBSyncer dbSyncer,
-      ApiSyncer apiSyncer) {
+  @Inject public HomePresenter(DBSyncer dbSyncer, ApiSyncer apiSyncer) {
     this.dbSyncer = dbSyncer;
     this.apiSyncer = apiSyncer;
   }

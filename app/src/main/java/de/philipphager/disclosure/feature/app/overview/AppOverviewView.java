@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.overview;
+package de.philipphager.disclosure.feature.app.overview;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.navigation.Navigates;

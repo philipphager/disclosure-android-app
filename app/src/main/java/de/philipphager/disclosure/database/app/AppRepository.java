@@ -71,6 +71,15 @@ public class AppRepository {
         .map(cursorToList);
   }
 
+  public Observable<List<App>> byLibrary(BriteDatabase db, Long libraryId) {
+    CursorToListMapper<App> cursorToList =
+        new CursorToListMapper<>(App.FACTORY.selectByLibraryMapper());
+
+    return db.createQuery(App.TABLE_NAME, App.SELECTBYLIBRARY, String.valueOf(libraryId))
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
   public Observable<List<App.Info>> allInfos(BriteDatabase db) {
     CursorToListMapper<App.Info> cursorToList = new CursorToListMapper<>(App.Info.MAPPER);
 

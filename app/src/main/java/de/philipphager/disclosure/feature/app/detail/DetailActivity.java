@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.detail;
+package de.philipphager.disclosure.feature.app.detail;
 
 import android.content.Context;
 import android.content.Intent;

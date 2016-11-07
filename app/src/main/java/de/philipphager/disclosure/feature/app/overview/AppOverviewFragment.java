@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.overview;
+package de.philipphager.disclosure.feature.app.overview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

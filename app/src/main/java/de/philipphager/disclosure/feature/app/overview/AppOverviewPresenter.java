@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.overview;
+package de.philipphager.disclosure.feature.app.overview;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseApps;
@@ -59,6 +59,6 @@ public class AppOverviewPresenter {
   }
 
   public void onAppClicked(App app) {
-    view.navigate().toDetail(app);
+    view.navigate().toAppDetail(app);
   }
 }
