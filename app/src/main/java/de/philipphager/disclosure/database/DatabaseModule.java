@@ -27,6 +27,7 @@ import javax.inject.Singleton;
     migrations.put(4, AddVersionNameMigration.class);
     migrations.put(11, AddLibraryMigration.class);
     migrations.put(14, AddLibraryDescriptionMigration.class);
+    migrations.put(15, AddLibraryMigration.class);
     return new Migrator(migrations);
   }
 
