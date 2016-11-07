@@ -7,6 +7,7 @@ import de.philipphager.disclosure.database.library.LibraryRepository;
 import de.philipphager.disclosure.database.library.model.Library;
 import java.util.List;
 import javax.inject.Inject;
+import org.threeten.bp.OffsetDateTime;
 import rx.Observable;
 
 public class LibraryService {
@@ -49,5 +50,10 @@ public class LibraryService {
   public Observable<List<Library>> byApp(App app) {
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byApp(db, app.id());
+  }
+
+  public Observable<OffsetDateTime> lastUpdated() {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.lastUpdated(db);
   }
 }

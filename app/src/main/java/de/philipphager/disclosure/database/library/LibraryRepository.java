@@ -8,9 +8,11 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.library.model.LibraryApp;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
+import de.philipphager.disclosure.util.time.Date;
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
+import org.threeten.bp.OffsetDateTime;
 import rx.Observable;
 
 public class LibraryRepository {
@@ -52,5 +54,17 @@ public class LibraryRepository {
     return db.createQuery(tables, Library.SELECTBYAPP, String.valueOf(appId))
         .map(SqlBrite.Query::run)
         .map(cursorToList);
+  }
+
+  public Observable<OffsetDateTime> lastUpdated(BriteDatabase db) {
+    return db.createQuery(Library.TABLE_NAME, Library.SELECTLASTUPDATED)
+        .map(SqlBrite.Query::run)
+        .map(cursor -> {
+          if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return Library.FACTORY.selectLastUpdatedMapper().map(cursor);
+          }
+          return Date.MIN;
+        });
   }
 }
