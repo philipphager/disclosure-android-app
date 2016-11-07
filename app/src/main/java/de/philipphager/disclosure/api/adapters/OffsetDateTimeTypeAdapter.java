@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
-public class OffsetDateTimeTypeAdapter
+public final class OffsetDateTimeTypeAdapter
     implements JsonSerializer<OffsetDateTime>, JsonDeserializer<OffsetDateTime> {
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_ZONED_DATE_TIME;
 
