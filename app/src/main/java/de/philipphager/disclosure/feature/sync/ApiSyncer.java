@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.syncLibrary;
+package de.philipphager.disclosure.feature.sync;
 
 import de.philipphager.disclosure.api.library.LibraryApi;
 import de.philipphager.disclosure.database.library.model.Library;
@@ -7,16 +7,16 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 
-public class SyncLibrariesWithApi {
+public class ApiSyncer {
   private final LibraryApi libraryApi;
   private final LibraryService libraryService;
 
-  @Inject public SyncLibrariesWithApi(LibraryApi libraryApi, LibraryService libraryService) {
+  @Inject public ApiSyncer(LibraryApi libraryApi, LibraryService libraryService) {
     this.libraryApi = libraryApi;
     this.libraryService = libraryService;
   }
 
-  public Observable<List<Library>> run() {
+  public Observable<List<Library>> sync() {
     return libraryService.lastUpdated()
         .first()
         .flatMap(libraryApi::all)

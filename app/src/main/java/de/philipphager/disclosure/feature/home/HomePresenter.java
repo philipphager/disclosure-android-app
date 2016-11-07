@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.home;
 
+import de.philipphager.disclosure.feature.sync.ApiSyncer;
 import de.philipphager.disclosure.feature.sync.DBSyncer;
-import de.philipphager.disclosure.feature.syncLibrary.SyncLibrariesWithApi;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -10,14 +10,14 @@ import timber.log.Timber;
 
 public class HomePresenter {
   private final DBSyncer dbSyncer;
-  private final SyncLibrariesWithApi syncLibrariesWithApi;
+  private final ApiSyncer apiSyncer;
   private CompositeSubscription subscriptions;
   private HomeView homeView;
 
   @Inject public HomePresenter(DBSyncer dbSyncer,
-      SyncLibrariesWithApi syncLibrariesWithApi) {
+      ApiSyncer apiSyncer) {
     this.dbSyncer = dbSyncer;
-    this.syncLibrariesWithApi = syncLibrariesWithApi;
+    this.apiSyncer = apiSyncer;
   }
 
   public void onCreate(HomeView homeView) {
@@ -33,7 +33,7 @@ public class HomePresenter {
   }
 
   private void syncLibrariesWithApi() {
-    subscriptions.add(syncLibrariesWithApi.run()
+    subscriptions.add(apiSyncer.sync()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraries -> {
