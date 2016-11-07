@@ -45,8 +45,11 @@ android {
 
 def supportVersion = '25.0.0'
 def autovalueVersion = '1.2'
+def autovalueGsonVersion = '0.4.4'
+def autovalueParcelVersion = '0.2.5'
 def butterknifeVersion = '8.4.0'
 def daggerVersion = '2.6.1'
+def retrofitVersion = '2.1.0'
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -72,10 +75,20 @@ dependencies {
   compile 'io.reactivex:rxandroid:1.2.1'
   compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
 
-  // Value classes
+  // HTTP and REST client
+  compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+  compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+  compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}";
+  compile 'com.squareup.okhttp3:okhttp:3.4.2'
+  compile 'com.google.code.gson:gson:2.8.0'
+
+  // Value classes and serialization helpers
   provided "com.google.auto.value:auto-value:${autovalueVersion}"
   apt "com.google.auto.value:auto-value:${autovalueVersion}"
-  apt 'frankiesardo:auto-parcel:1.0.3'
+  provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  apt "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  apt "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
+  compile "com.ryanharter.auto.value:auto-value-parcel-adapter:${autovalueParcelVersion}"
 
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
@@ -105,8 +118,8 @@ dependencies {
     exclude module: 'objenesis'
   }
 
-  // Stetho, TODO: MOVE TO DEBUG
-  compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
+  // Stetho
+  debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
   compile 'com.jakewharton.timber:timber:4.3.1'
 
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
