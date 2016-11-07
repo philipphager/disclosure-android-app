@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.squareup.sqldelight.ColumnAdapter;
 import com.squareup.sqldelight.EnumColumnAdapter;
-import de.philipphager.disclosure.database.util.mapper.adapters.LocalDateTimeColumnAdapter;
+import de.philipphager.disclosure.database.util.adapters.LocalDateTimeColumnAdapter;
 import org.threeten.bp.OffsetDateTime;
 
 @AutoValue public abstract class Library implements LibraryModel, Parcelable {

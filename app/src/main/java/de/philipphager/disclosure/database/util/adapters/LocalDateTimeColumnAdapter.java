@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.util.mapper.adapters;
+package de.philipphager.disclosure.database.util.adapters;
 
 import android.content.ContentValues;
 import android.database.Cursor;
