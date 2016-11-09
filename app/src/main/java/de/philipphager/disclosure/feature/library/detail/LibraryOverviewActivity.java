@@ -12,7 +12,6 @@ import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.feature.app.detail.LibraryRecyclerAdapter;
 import de.philipphager.disclosure.feature.app.overview.AppRecyclerAdapter;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import java.util.List;
