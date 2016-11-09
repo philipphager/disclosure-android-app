@@ -1,19 +1,17 @@
 package de.philipphager.disclosure.database.util.adapters;
 
-import android.content.ContentValues;
-import android.database.Cursor;
+import android.support.annotation.NonNull;
 import com.squareup.sqldelight.ColumnAdapter;
 import org.threeten.bp.Instant;
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
 
-public class LocalDateTimeColumnAdapter implements ColumnAdapter<OffsetDateTime> {
-  @Override public OffsetDateTime map(Cursor cursor, int columnIndex) {
-    long millis = cursor.getLong(columnIndex);
-    return Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC);
+public class LocalDateTimeColumnAdapter implements ColumnAdapter<LocalDateTime, Long> {
+  @NonNull @Override public LocalDateTime decode(Long databaseValue) {
+    return Instant.ofEpochMilli(databaseValue).atZone(ZoneId.systemDefault()).toLocalDateTime();
   }
 
-  @Override public void marshal(ContentValues values, String key, OffsetDateTime value) {
-    values.put(key, value.toInstant().toEpochMilli());
+  @Override public Long encode(@NonNull LocalDateTime value) {
+    return value.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
   }
 }
