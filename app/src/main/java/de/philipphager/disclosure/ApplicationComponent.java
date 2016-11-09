@@ -4,9 +4,9 @@ import dagger.Component;
 import de.philipphager.disclosure.api.ApiModule;
 import de.philipphager.disclosure.database.DatabaseModule;
 import de.philipphager.disclosure.feature.app.detail.DetailActivity;
+import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
-import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
 import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
 import javax.inject.Singleton;
 
