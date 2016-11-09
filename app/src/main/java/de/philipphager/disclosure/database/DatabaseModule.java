@@ -5,6 +5,10 @@ import android.util.SparseArray;
 import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
 import dagger.Provides;
+import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryApp;
+import de.philipphager.disclosure.database.library.model.LibraryModel;
 import de.philipphager.disclosure.database.library.populator.LibraryPopulator;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
@@ -12,6 +16,7 @@ import de.philipphager.disclosure.database.migration.version.AddAppVersionMigrat
 import de.philipphager.disclosure.database.migration.version.AddLibraryDescriptionMigration;
 import de.philipphager.disclosure.database.migration.version.AddLibraryMigration;
 import de.philipphager.disclosure.database.migration.version.AddVersionNameMigration;
+import de.philipphager.disclosure.database.version.model.Version;
 import javax.inject.Singleton;
 
 @Module public class DatabaseModule {
@@ -28,6 +33,7 @@ import javax.inject.Singleton;
     migrations.put(11, AddLibraryMigration.class);
     migrations.put(14, AddLibraryDescriptionMigration.class);
     migrations.put(15, AddLibraryMigration.class);
+    migrations.put(19, AddLibraryMigration.class);
     return new Migrator(migrations);
   }
 
@@ -38,5 +44,40 @@ import javax.inject.Singleton;
   @Provides @Singleton
   public DatabaseManager getDatabaseManager(DatabaseOpenHelper openHelper, SqlBrite sqlBrite) {
     return new DatabaseManager(openHelper, sqlBrite);
+  }
+
+  @Provides @Singleton
+  public Library.InsertLibrary getInsertLibraryStatement(DatabaseManager databaseManager) {
+    return new LibraryModel.InsertLibrary(databaseManager.getSQLite(), Library.FACTORY);
+  }
+
+  @Provides @Singleton
+  public Library.UpdateLibrary getUpdateLibraryStatement(DatabaseManager databaseManager) {
+    return new LibraryModel.UpdateLibrary(databaseManager.getSQLite(), Library.FACTORY);
+  }
+
+  @Provides @Singleton
+  public LibraryApp.InsertForApp getInsertLibraryForAppStatement(DatabaseManager databaseManager) {
+    return new LibraryApp.InsertForApp(databaseManager.getSQLite());
+  }
+
+  @Provides @Singleton
+  public App.InsertApp getInsertAppStatement(DatabaseManager databaseManager) {
+    return new App.InsertApp(databaseManager.getSQLite());
+  }
+
+  @Provides @Singleton
+  public App.UpdateApp getUpdateAppStatement(DatabaseManager databaseManager) {
+    return new App.UpdateApp(databaseManager.getSQLite());
+  }
+
+  @Provides @Singleton
+  public Version.InsertVersion getInsertVersionStatement(DatabaseManager databaseManager) {
+    return new Version.InsertVersion(databaseManager.getSQLite(), Version.FACTORY);
+  }
+
+  @Provides @Singleton
+  public Version.UpdateVersion getUpdateVersionStatement(DatabaseManager databaseManager) {
+    return new Version.UpdateVersion(databaseManager.getSQLite(), Version.FACTORY);
   }
 }

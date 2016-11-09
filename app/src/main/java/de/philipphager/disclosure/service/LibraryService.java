@@ -20,22 +20,36 @@ public class LibraryService {
     this.libraryRepository = libraryRepository;
   }
 
-  public void put(List<Library> libraries) {
+  public void insert(List<Library> libraries) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
       for (Library library : libraries) {
-        libraryRepository.put(db, library);
+        libraryRepository.insert(db, library);
       }
 
       transaction.markSuccessful();
     }
   }
 
-  public void putForApp(App app, List<Library> libraries) {
+  public void upsert(List<Library> libraries) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
       for (Library library : libraries) {
-        libraryRepository.putForApp(db, library.id(), app.id());
+        int updatedRows = libraryRepository.update(db, library);
+
+        if (updatedRows == 0) {
+          libraryRepository.insert(db, library);
+        }
+      }
+      transaction.markSuccessful();
+    }
+  }
+
+  public void insertForApp(App app, List<Library> libraries) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+      for (Library library : libraries) {
+        libraryRepository.insertForApp(db, library.id(), app.id());
       }
 
       transaction.markSuccessful();

@@ -1,12 +1,12 @@
 package de.philipphager.disclosure.database.app;
 
-import android.content.ContentValues;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
+import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,36 +14,36 @@ import rx.Observable;
 
 public class AppRepository {
   private static final int SQL_ERROR = -1;
+  private final AppModel.InsertApp insertApp;
+  private final AppModel.UpdateApp updateApp;
 
-  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public AppRepository() {
-    // Needed for dagger injection.
+  @Inject public AppRepository(App.InsertApp insertApp, App.UpdateApp updateApp) {
+    this.insertApp = insertApp;
+    this.updateApp = updateApp;
   }
 
   public long insert(BriteDatabase db, App app) {
     synchronized (this) {
-      ContentValues content = App.FACTORY.marshal(app).asContentValues();
-      return db.insert(App.TABLE_NAME, content);
+      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags());
+      return db.executeInsert(App.TABLE_NAME, insertApp.program);
     }
   }
 
-  public int update(BriteDatabase db, App app, String where) {
+  public int update(BriteDatabase db, App app) {
     synchronized (this) {
-      ContentValues content = App.FACTORY.marshal(app).asContentValues();
-      return db.update(App.TABLE_NAME, content, where);
+      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.packageName());
+      return db.executeUpdateDelete(App.TABLE_NAME, updateApp.program);
     }
   }
 
   public long insertOrUpdate(BriteDatabase db, App app) {
     synchronized (this) {
-      ContentValues content = App.FACTORY.marshal(app).asContentValues();
-      long appId = db.insert(App.TABLE_NAME, content, SQLiteDatabase.CONFLICT_IGNORE);
+      int updatedRows = update(db, app);
 
-      if (appId == SQL_ERROR) {
-        content.remove("id");
-        db.update(App.TABLE_NAME, content, String.format("packageName='%s'", app.packageName()));
-        return getAppId(db, app.packageName());
+      if (updatedRows == 0) {
+        return insert(db, app);
       }
-      return appId;
+      return getAppId(db, app.packageName());
     }
   }
 
@@ -62,20 +62,22 @@ public class AppRepository {
   }
 
   public Observable<List<App>> userApps(BriteDatabase db) {
+    SqlDelightStatement selectUserApps =
+        App.FACTORY.selectUserApps(ApplicationInfo.FLAG_SYSTEM);
     CursorToListMapper<App> cursorToList =
         new CursorToListMapper<>(App.FACTORY.selectUserAppsMapper());
 
-    return db.createQuery(App.TABLE_NAME, App.SELECTUSERAPPS,
-        String.valueOf(ApplicationInfo.FLAG_SYSTEM))
+    return db.createQuery(selectUserApps.tables, selectUserApps.statement, selectUserApps.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
 
   public Observable<List<App>> byLibrary(BriteDatabase db, Long libraryId) {
+    SqlDelightStatement selectByLibrary = App.FACTORY.selectByLibrary(libraryId);
     CursorToListMapper<App> cursorToList =
         new CursorToListMapper<>(App.FACTORY.selectByLibraryMapper());
 
-    return db.createQuery(App.TABLE_NAME, App.SELECTBYLIBRARY, String.valueOf(libraryId))
+    return db.createQuery(selectByLibrary.tables, selectByLibrary.statement, selectByLibrary.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
@@ -89,7 +91,9 @@ public class AppRepository {
   }
 
   private long getAppId(BriteDatabase db, String packageName) {
-    Cursor cursor = db.query(App.SELECTAPPID, packageName);
+    SqlDelightStatement selectAppId = App.FACTORY.selectAppId(packageName);
+    Cursor cursor = db.query(selectAppId.statement, selectAppId.args);
+
     if (cursor.getCount() > 0) {
       cursor.moveToFirst();
       return cursor.getLong(0);

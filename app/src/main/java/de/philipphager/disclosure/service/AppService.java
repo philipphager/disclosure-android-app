@@ -6,7 +6,6 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
@@ -58,7 +57,7 @@ public class AppService {
       long appId = appRepository.insertOrUpdate(db, app);
 
       Version version = new ToVersionMapper(appId).map(packageInfo);
-      versionRepository.insert(db, version);
+      versionRepository.insertOrUpdate(db, version);
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());

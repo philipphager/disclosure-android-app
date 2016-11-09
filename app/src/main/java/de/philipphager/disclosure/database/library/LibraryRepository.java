@@ -1,39 +1,67 @@
 package de.philipphager.disclosure.database.library;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
+import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.library.model.LibraryApp;
+import de.philipphager.disclosure.database.library.model.LibraryAppModel;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import de.philipphager.disclosure.util.time.Date;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import org.threeten.bp.OffsetDateTime;
 import rx.Observable;
 
 public class LibraryRepository {
-  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public LibraryRepository() {
-    // Needed for dagger injection.
+  private final Library.InsertLibrary insertLibrary;
+  private final Library.UpdateLibrary updateLibrary;
+  private final LibraryAppModel.InsertForApp insertForApp;
+
+  @Inject public LibraryRepository(Library.InsertLibrary insertLibrary,
+      Library.UpdateLibrary updateLibrary,
+      LibraryApp.InsertForApp insertForApp) {
+    this.insertLibrary = insertLibrary;
+    this.updateLibrary = updateLibrary;
+    this.insertForApp = insertForApp;
   }
 
-  public long put(BriteDatabase db, Library library) {
+  public long insert(BriteDatabase db, Library library) {
     synchronized (this) {
-      ContentValues content = Library.FACTORY.marshal(library).asContentValues();
-      return db.insert(Library.TABLE_NAME, content);
+      insertLibrary.bind(library.packageName(),
+          library.title(),
+          library.subtitle(),
+          library.description(),
+          library.websiteUrl(),
+          library.type(),
+          library.createdAt(),
+          library.updatedAt());
+
+      return db.executeInsert(Library.TABLE_NAME, insertLibrary.program);
     }
   }
 
-  public long putForApp(BriteDatabase db, long libraryId, long appId) {
+  public int update(BriteDatabase db, Library library) {
     synchronized (this) {
-      ContentValues content = new ContentValues(2);
-      content.put("libraryId", libraryId);
-      content.put("appId", appId);
+      updateLibrary.bind(library.title(),
+          library.subtitle(),
+          library.description(),
+          library.websiteUrl(),
+          library.type(),
+          library.createdAt(),
+          library.updatedAt(),
+          library.packageName());
 
-      return db.insert(LibraryApp.TABLE_NAME, content, SQLiteDatabase.CONFLICT_IGNORE);
+      return db.executeUpdateDelete(Library.TABLE_NAME, updateLibrary.program);
+    }
+  }
+
+  public long insertForApp(BriteDatabase db, long libraryId, long appId) {
+    synchronized (this) {
+      insertForApp.bind(appId, libraryId);
+
+      return db.executeInsert(LibraryApp.TABLE_NAME, insertForApp.program);
     }
   }
 
@@ -47,11 +75,11 @@ public class LibraryRepository {
   }
 
   public Observable<List<Library>> byApp(BriteDatabase db, long appId) {
+    SqlDelightStatement selectByApp = Library.FACTORY.selectByApp(appId);
     CursorToListMapper<Library> cursorToList =
         new CursorToListMapper<>(Library.FACTORY.selectByAppMapper());
 
-    List<String> tables = Arrays.asList(LibraryApp.TABLE_NAME, Library.TABLE_NAME);
-    return db.createQuery(tables, Library.SELECTBYAPP, String.valueOf(appId))
+    return db.createQuery(selectByApp.tables, selectByApp.statement, selectByApp.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
