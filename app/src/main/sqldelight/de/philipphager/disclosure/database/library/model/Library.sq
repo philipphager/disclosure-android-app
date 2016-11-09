@@ -7,14 +7,30 @@ CREATE TABLE Library (
   title TEXT NOT NULL,
   subtitle TEXT NOT NULL,
   description TEXT NOT NULL,
+  websiteUrl TEXT NOT NULL,
   type TEXT AS Library.Type NOT NULL,
   createdAt INTEGER AS OffsetDateTime NOT NULL,
   updatedAt INTEGER AS OffsetDateTime NOT NULL
+
 );
+
+insertLibrary:
+INSERT INTO Library (packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+updateLibrary:
+UPDATE Library
+SET title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
+WHERE packageName=?;
 
 selectAll:
 SELECT *
 FROM Library;
+
+selectByPackageName:
+SELECT *
+FROM Library
+WHERE packageName = ?;
 
 selectByApp:
 SELECT Library.*
@@ -29,4 +45,3 @@ WHERE updatedAt = (
   SELECT Max(updatedAt)
   FROM Library
 );
-

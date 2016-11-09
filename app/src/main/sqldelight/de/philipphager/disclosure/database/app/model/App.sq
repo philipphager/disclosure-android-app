@@ -7,6 +7,15 @@ CREATE TABLE App (
   flags INTEGER AS Integer
 );
 
+insertApp:
+INSERT INTO App (label, packageName, process, sourceDir, flags)
+VALUES (?, ?, ?, ?, ?);
+
+updateApp:
+UPDATE App
+SET label = ?, process = ?, sourceDir = ?, flags = ?
+WHERE packageName = ?;
+
 selectAll:
 SELECT *
 FROM App;
