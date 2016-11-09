@@ -31,7 +31,7 @@ public class LibraryService {
     }
   }
 
-  public void upsert(List<Library> libraries) {
+  public void insertOrUpdate(List<Library> libraries) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
       for (Library library : libraries) {

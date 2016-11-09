@@ -20,6 +20,6 @@ public class ApiSyncer {
     return libraryService.lastUpdated()
         .first()
         .flatMap(libraryApi::all)
-        .doOnNext(libraryService::put);
+        .doOnNext(libraryService::insertOrUpdate);
   }
 }
