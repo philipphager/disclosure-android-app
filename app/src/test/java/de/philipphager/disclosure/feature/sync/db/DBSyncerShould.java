@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.sync;
+package de.philipphager.disclosure.feature.sync.db;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
