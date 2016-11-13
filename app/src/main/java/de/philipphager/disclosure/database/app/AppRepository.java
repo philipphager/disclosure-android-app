@@ -72,7 +72,7 @@ public class AppRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<App>> byLibrary(BriteDatabase db, Long libraryId) {
+  public Observable<List<App>> byLibrary(BriteDatabase db, String libraryId) {
     SqlDelightStatement selectByLibrary = App.FACTORY.selectByLibrary(libraryId);
     CursorToListMapper<App> cursorToList =
         new CursorToListMapper<>(App.FACTORY.selectByLibraryMapper());

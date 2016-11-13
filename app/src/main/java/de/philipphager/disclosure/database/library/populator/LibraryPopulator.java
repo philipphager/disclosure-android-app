@@ -17,7 +17,7 @@ public class LibraryPopulator {
     List<Library> libraries = new ArrayList<>();
     libraries.add(
         Library.builder()
-            .id(1L)
+            .id("jfhsakdfhlasdjkf")
             .packageName("com.mixpanel.android")
             .title("Mixpanel")
             .subtitle("Tracks app interaction and user behaviour")
@@ -32,7 +32,7 @@ public class LibraryPopulator {
 
     libraries.add(
         Library.builder()
-            .id(2L)
+            .id("dlfsdhlfkjsadfkjsaf")
             .packageName("com.google.android.gms.analytics")
             .title("Google Analytics")
             .subtitle("Google's flagship analytics platform")
@@ -45,7 +45,7 @@ public class LibraryPopulator {
 
     libraries.add(
         Library.builder()
-            .id(3L)
+            .id("rweuzrtewqurztwr")
             .packageName("com.facebook.stetho")
             .title("Facebook Stetho")
             .subtitle("Chrome developer tools for Android")

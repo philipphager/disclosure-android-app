@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.sqldelight.ColumnAdapter;
 import com.squareup.sqldelight.EnumColumnAdapter;
 import de.philipphager.disclosure.database.util.adapters.OffsetDateTimeColumnAdapter;
@@ -14,18 +15,19 @@ import org.threeten.bp.OffsetDateTime;
   private static final ColumnAdapter<Type, String> TYPE_ADAPTER =
       EnumColumnAdapter.create(Type.class);
   public static final Factory<Library> FACTORY = new LibraryModel.Factory<>(
-      (id, packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt) -> {
-        return builder().id(id)
-            .packageName(packageName)
-            .title(title)
-            .subtitle(subtitle)
-            .description(description)
-            .websiteUrl(websiteUrl)
-            .type(type)
-            .createdAt(createdAt)
-            .updatedAt(updatedAt)
-            .build();
-      }, TYPE_ADAPTER, new OffsetDateTimeColumnAdapter(), new OffsetDateTimeColumnAdapter());
+      (id, packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt) ->
+          builder()
+              .id(id)
+              .packageName(packageName)
+              .title(title)
+              .subtitle(subtitle)
+              .description(description)
+              .websiteUrl(websiteUrl)
+              .type(type)
+              .createdAt(createdAt)
+              .updatedAt(updatedAt)
+              .build(), TYPE_ADAPTER, new OffsetDateTimeColumnAdapter(),
+      new OffsetDateTimeColumnAdapter());
 
   public static Builder builder() {
     return new AutoValue_Library.Builder();
@@ -35,7 +37,8 @@ import org.threeten.bp.OffsetDateTime;
     return new AutoValue_Library.GsonTypeAdapter(gson);
   }
 
-  @SuppressWarnings("PMD.ShortMethodName") @Nullable public abstract Long id();
+  @SerializedName("_id") @SuppressWarnings("PMD.ShortMethodName")
+  public abstract String id();
 
   public abstract String packageName();
 
@@ -58,7 +61,7 @@ import org.threeten.bp.OffsetDateTime;
   }
 
   @AutoValue.Builder public interface Builder {
-    @SuppressWarnings("PMD.ShortMethodName") Builder id(@Nullable Long id);
+    @SuppressWarnings("PMD.ShortMethodName") Builder id(@Nullable String id);
 
     Builder packageName(String packageName);
 
