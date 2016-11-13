@@ -4,14 +4,14 @@ import android.content.ContentValues;
 import de.philipphager.disclosure.database.app.model.App;
 
 public final class MockApp {
-  public static final App TEST = App.builder()
-      .id(1L)
-      .label("facebook")
-      .packageName("com.facebook.android")
-      .process("com.facebook")
-      .flags(0)
-      .sourceDir("/")
-      .build();
+    public static final App TEST = App.builder()
+        .id(1L)
+        .label("facebook")
+        .packageName("com.facebook.android")
+        .process("com.facebook")
+        .flags(0)
+        .sourceDir("/")
+        .build();
   public static final App TEST2 = App.builder()
       .id(2L)
       .label("instagram")
