@@ -4,6 +4,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'com.noveogroup.android.check'
 apply plugin: 'de.mobilej.unmock'
+apply plugin: 'findbugs'
 
 def versionMajor = 0
 def versionMinor = 0
@@ -135,15 +136,34 @@ check {
     config easy()
   }
 
-  findbugs {
-    config '../config/findbugs.xml'
-    skip true
-  }
-
   pmd {
     config hard()
   }
 }
+
+// Fix for findbugs error according to this thread:
+// https://github.com/noveogroup/android-check/issues/14
+task androidFindbugs(type: FindBugs, overwrite: true) {
+  description 'Run findbugs'
+  group 'verification'
+
+  classes = files("$project.buildDir/intermediates/classes/debug")
+  source = fileTree('src/main/java')
+  classpath = files()
+
+  ignoreFailures = true
+  effort = "default"
+  reportLevel = "medium"
+
+  excludeFilter = file("../config/findbugs.xml")
+
+  reports {
+    xml.enabled = false
+    html.enabled = !xml.enabled
+    html.destination new File(project.buildDir, 'reports/findbugs.html')
+  }
+}
+androidFindbugs.dependsOn 'assembleDebug'
 
 unMock {
   // Keep some Android classes for testing, without using Robolectric.
