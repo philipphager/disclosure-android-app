@@ -7,7 +7,6 @@ import dagger.Module;
 import dagger.Provides;
 import de.philipphager.disclosure.api.adapters.AutoValueTypeAdapterFactory;
 import de.philipphager.disclosure.api.adapters.OffsetDateTimeTypeAdapter;
-import de.philipphager.disclosure.api.library.LibraryApi;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 import org.threeten.bp.OffsetDateTime;
@@ -40,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
         .build();
   }
 
-  @Provides @Singleton public LibraryApi provideLibraryApi(Retrofit retrofit) {
-    return retrofit.create(LibraryApi.class);
+  @Provides @Singleton public DisclosureApi provideLibraryApi(Retrofit retrofit) {
+    return retrofit.create(DisclosureApi.class);
   }
 }
