@@ -5,16 +5,31 @@ import android.util.SparseArray;
 import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
 import dagger.Provides;
+import de.philipphager.disclosure.database.app.AppModule;
+import de.philipphager.disclosure.database.feature.FeatureModule;
+import de.philipphager.disclosure.database.library.modules.LibraryAppModule;
+import de.philipphager.disclosure.database.library.modules.LibraryFeatureModule;
+import de.philipphager.disclosure.database.library.modules.LibraryModule;
 import de.philipphager.disclosure.database.library.populator.LibraryPopulator;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.migration.version.AddAppVersionMigration;
 import de.philipphager.disclosure.database.migration.version.AddLibraryDescriptionMigration;
+import de.philipphager.disclosure.database.migration.version.AddLibraryFeaturesMigration;
 import de.philipphager.disclosure.database.migration.version.AddLibraryMigration;
 import de.philipphager.disclosure.database.migration.version.AddVersionNameMigration;
+import de.philipphager.disclosure.database.version.VersionModule;
 import javax.inject.Singleton;
 
-@Module public class DatabaseModule {
+@Module(includes = {
+    AppModule.class,
+    FeatureModule.class,
+    LibraryAppModule.class,
+    LibraryModule.class,
+    VersionModule.class,
+    LibraryFeatureModule.class
+})
+public class DatabaseModule {
   @Provides @Singleton
   public DatabaseOpenHelper getDataBaseOpenHelper(Context context, Migrator migrator,
       LibraryPopulator libraryPopulator) {
@@ -27,6 +42,9 @@ import javax.inject.Singleton;
     migrations.put(4, AddVersionNameMigration.class);
     migrations.put(11, AddLibraryMigration.class);
     migrations.put(14, AddLibraryDescriptionMigration.class);
+    migrations.put(15, AddLibraryMigration.class);
+    migrations.put(19, AddLibraryMigration.class);
+    migrations.put(22, AddLibraryFeaturesMigration.class);
     return new Migrator(migrations);
   }
 

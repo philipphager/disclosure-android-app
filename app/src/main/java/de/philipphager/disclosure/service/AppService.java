@@ -9,6 +9,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
+import de.philipphager.disclosure.util.time.Clock;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -19,15 +20,18 @@ public class AppService {
   private final AppRepository appRepository;
   private final VersionRepository versionRepository;
   private final ToAppMapper toAppMapper;
+  private final Clock clock;
 
   @Inject public AppService(DatabaseManager databaseManager,
       AppRepository appRepository,
       VersionRepository versionRepository,
-      ToAppMapper toAppMapper) {
+      ToAppMapper toAppMapper,
+      Clock clock) {
     this.databaseManager = databaseManager;
     this.appRepository = appRepository;
     this.versionRepository = versionRepository;
     this.toAppMapper = toAppMapper;
+    this.clock = clock;
   }
 
   public Observable<List<App>> all() {
@@ -45,14 +49,19 @@ public class AppService {
     return appRepository.allInfos(db);
   }
 
+  public Observable<List<App>> byLibrary(String libraryId) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.byLibrary(db, libraryId);
+  }
+
   public void addPackage(PackageInfo packageInfo) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
       App app = toAppMapper.map(packageInfo.applicationInfo);
       long appId = appRepository.insertOrUpdate(db, app);
 
-      Version version = new ToVersionMapper(appId).map(packageInfo);
-      versionRepository.insert(db, version);
+      Version version = new ToVersionMapper(clock, appId).map(packageInfo);
+      versionRepository.insertOrUpdate(db, version);
 
       String thread = Thread.currentThread().getName();
       Timber.d("%s : inserted app %s, %s", thread, app.packageName(), version.versionName());
@@ -69,7 +78,7 @@ public class AppService {
         App app = toAppMapper.map(packageInfo.applicationInfo);
         long appId = appRepository.insertOrUpdate(db, app);
 
-        Version version = new ToVersionMapper(appId).map(packageInfo);
+        Version version = new ToVersionMapper(clock, appId).map(packageInfo);
         versionRepository.insert(db, version);
 
         String thread = Thread.currentThread().getName();

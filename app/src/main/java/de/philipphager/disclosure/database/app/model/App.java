@@ -21,7 +21,7 @@ import com.squareup.sqldelight.RowMapper;
 
   @SuppressWarnings("PMD.ShortMethodName") @Nullable public abstract Long id();
 
-  @Nullable public abstract String label();
+  public abstract String label();
 
   public abstract String packageName();
 
@@ -38,7 +38,7 @@ import com.squareup.sqldelight.RowMapper;
   @AutoValue.Builder public interface Builder {
     @SuppressWarnings("PMD.ShortMethodName") Builder id(Long id);
 
-    Builder label(@Nullable String label);
+    Builder label(String label);
 
     Builder packageName(String name);
 

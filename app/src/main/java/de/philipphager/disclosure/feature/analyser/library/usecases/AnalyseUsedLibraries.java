@@ -22,7 +22,7 @@ public class AnalyseUsedLibraries {
 
     return loadApk(app)
         .flatMap(this::findLibraries)
-        .doOnNext(libraries -> libraryService.putForApp(app, libraries));
+        .doOnNext(libraries -> libraryService.insertForApp(app, libraries));
   }
 
   private Observable<Apk> loadApk(App app) {

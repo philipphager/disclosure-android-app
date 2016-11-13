@@ -1,55 +1,62 @@
 package de.philipphager.disclosure.database.app;
 
-import android.database.sqlite.SQLiteDatabase;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.mocks.MockApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static de.philipphager.disclosure.database.app.MockApp.getTestContentValues;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-@PrepareForTest({BriteDatabase.class, BriteDatabase.Transaction.class})
+@PrepareForTest({
+    BriteDatabase.class,
+    App.InsertApp.class,
+    App.UpdateApp.class
+})
 public class AppRepositoryShould {
-  @InjectMocks protected AppRepository appRepository;
+  protected AppRepository appRepository;
   protected BriteDatabase database;
-  protected BriteDatabase.Transaction transaction;
+  protected App.InsertApp insertApp;
+  protected App.UpdateApp updateApp;
 
   @Before public void setUp() {
+    insertApp = PowerMockito.mock(App.InsertApp.class);
+    updateApp = PowerMockito.mock(App.UpdateApp.class);
     database = PowerMockito.mock(BriteDatabase.class);
-    transaction = PowerMockito.mock(BriteDatabase.Transaction.class);
-    when(database.newTransaction()).thenReturn(transaction);
-    MockitoAnnotations.initMocks(this);
+    appRepository = new AppRepository(insertApp, updateApp);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void insertAppIntoDatabase() {
-    appRepository.insert(database, MockApp.TEST);
+    App app = MockApp.TEST;
+    appRepository.insert(database, app);
 
-    verify(database).insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST));
+    verify(insertApp)
+        .bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags());
+    verify(database).executeInsert(App.TABLE_NAME, insertApp.program);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void updateAppInDatabase() {
-    String where = String.format("id=%s", MockApp.TEST.id());
-    appRepository.update(database, MockApp.TEST, where);
-    verify(database).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
+    App app = MockApp.TEST;
+    appRepository.update(database, app);
+
+    verify(updateApp)
+        .bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.packageName());
+    verify(database).executeUpdateDelete(App.TABLE_NAME, updateApp.program);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void insertOrUpdateShouldExecuteInsertWithoutFailingOnError() {
-    appRepository.insertOrUpdate(database, MockApp.TEST);
+  public void deleteAppFromDatabase() {
+    String testWhere = "id = 1";
+    appRepository.delete(database, testWhere);
 
-    verify(database)
-        .insert(App.TABLE_NAME, getTestContentValues(MockApp.TEST), SQLiteDatabase.CONFLICT_IGNORE);
+    verify(database).delete(App.TABLE_NAME, testWhere);
   }
 }

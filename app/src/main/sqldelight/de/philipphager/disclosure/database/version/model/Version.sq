@@ -10,6 +10,15 @@ CREATE TABLE Version (
   FOREIGN KEY(appId) REFERENCES App(id) ON DELETE CASCADE
 );
 
+insertVersion:
+INSERT INTO Version (appId, versionCode, versionName, createdAt)
+VALUES (?, ?, ?, ?);
+
+updateVersion:
+UPDATE Version
+SET versionName = ?, createdAt = ?
+WHERE appId = ? AND versionCode = ?;
+
 selectAll:
 SELECT *
 FROM Version;

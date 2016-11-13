@@ -1,11 +1,20 @@
 CREATE TABLE App (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  label TEXT,
+  label TEXT NOT NULL,
   packageName TEXT UNIQUE NOT NULL,
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,
   flags INTEGER AS Integer
 );
+
+insertApp:
+INSERT INTO App (label, packageName, process, sourceDir, flags)
+VALUES (?, ?, ?, ?, ?);
+
+updateApp:
+UPDATE App
+SET label = ?, process = ?, sourceDir = ?, flags = ?
+WHERE packageName = ?;
 
 selectAll:
 SELECT *
@@ -36,3 +45,10 @@ selectAppId:
 SELECT id
 FROM App
 WHERE packageName = ?;
+
+selectByLibrary:
+SELECT App.*
+FROM App, LibraryApp
+WHERE App.id = LibraryApp.appId
+AND LibraryApp.libraryId = ?;
+

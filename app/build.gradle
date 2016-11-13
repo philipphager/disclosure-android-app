@@ -4,6 +4,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'com.noveogroup.android.check'
 apply plugin: 'de.mobilej.unmock'
+apply plugin: 'findbugs'
 
 def versionMajor = 0
 def versionMinor = 0
@@ -45,8 +46,11 @@ android {
 
 def supportVersion = '25.0.0'
 def autovalueVersion = '1.2'
+def autovalueGsonVersion = '0.4.4'
+def autovalueParcelVersion = '0.2.5'
 def butterknifeVersion = '8.4.0'
 def daggerVersion = '2.6.1'
+def retrofitVersion = '2.1.0'
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -66,16 +70,27 @@ dependencies {
 
   // Datetime
   compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
+  testCompile 'org.threeten:threetenbp:1.3.2'
 
   // Functional reactive
   compile 'io.reactivex:rxjava:1.1.10'
   compile 'io.reactivex:rxandroid:1.2.1'
   compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
 
-  // Value classes
+  // HTTP and REST client
+  compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+  compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+  compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}";
+  compile 'com.squareup.okhttp3:okhttp:3.4.2'
+  compile 'com.google.code.gson:gson:2.8.0'
+
+  // Value classes and serialization helpers
   provided "com.google.auto.value:auto-value:${autovalueVersion}"
   apt "com.google.auto.value:auto-value:${autovalueVersion}"
-  apt 'frankiesardo:auto-parcel:1.0.3'
+  provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  apt "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  apt "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
+  compile "com.ryanharter.auto.value:auto-value-parcel-adapter:${autovalueParcelVersion}"
 
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
@@ -105,7 +120,7 @@ dependencies {
     exclude module: 'objenesis'
   }
 
-  // Stetho, TODO: MOVE TO DEBUG
+  // Stetho
   compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
   compile 'com.jakewharton.timber:timber:4.3.1'
 
@@ -121,14 +136,34 @@ check {
     config easy()
   }
 
-  findbugs {
-    config hard()
-  }
-
   pmd {
     config hard()
   }
 }
+
+// Fix for findbugs error according to this thread:
+// https://github.com/noveogroup/android-check/issues/14
+task androidFindbugs(type: FindBugs, overwrite: true) {
+  description 'Run findbugs'
+  group 'verification'
+
+  classes = files("$project.buildDir/intermediates/classes/debug")
+  source = fileTree('src/main/java')
+  classpath = files()
+
+  ignoreFailures = true
+  effort = "default"
+  reportLevel = "medium"
+
+  excludeFilter = file("../config/findbugs.xml")
+
+  reports {
+    xml.enabled = false
+    html.enabled = !xml.enabled
+    html.destination new File(project.buildDir, 'reports/findbugs.html')
+  }
+}
+androidFindbugs.dependsOn 'assembleDebug'
 
 unMock {
   // Keep some Android classes for testing, without using Robolectric.

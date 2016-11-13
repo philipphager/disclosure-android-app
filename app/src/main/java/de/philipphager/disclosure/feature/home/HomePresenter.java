@@ -1,28 +1,41 @@
 package de.philipphager.disclosure.feature.home;
 
-import de.philipphager.disclosure.feature.sync.DBSyncer;
+import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
+import de.philipphager.disclosure.feature.sync.db.DBSyncer;
 import javax.inject.Inject;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
 public class HomePresenter {
   private final DBSyncer dbSyncer;
+  private final ApiSyncer apiSyncer;
   private CompositeSubscription subscriptions;
   private HomeView homeView;
 
-  @Inject public HomePresenter(DBSyncer dbSyncer) {
+  @Inject public HomePresenter(DBSyncer dbSyncer, ApiSyncer apiSyncer) {
     this.dbSyncer = dbSyncer;
+    this.apiSyncer = apiSyncer;
   }
 
   public void onCreate(HomeView homeView) {
     this.homeView = homeView;
     this.subscriptions = new CompositeSubscription();
 
+    syncWithApi();
     syncDBWithDevice();
   }
 
   public void onDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  private void syncWithApi() {
+    subscriptions.add(apiSyncer.sync()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(libraries -> {}, Timber::e));
   }
 
   private void syncDBWithDevice() {

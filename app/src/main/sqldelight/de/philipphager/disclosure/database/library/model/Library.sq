@@ -1,18 +1,46 @@
+import java.lang.Integer;
+import org.threeten.bp.OffsetDateTime;
+
 CREATE TABLE Library (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id TEXT PRIMARY KEY,
   packageName TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
   subtitle TEXT NOT NULL,
   description TEXT NOT NULL,
-  type TEXT AS Library.Type
+  websiteUrl TEXT NOT NULL,
+  type TEXT AS Library.Type NOT NULL,
+  createdAt INTEGER AS OffsetDateTime NOT NULL,
+  updatedAt INTEGER AS OffsetDateTime NOT NULL
 );
+
+insertLibrary:
+INSERT INTO Library (id, packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateLibrary:
+UPDATE Library
+SET packageName = ?, title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
+WHERE id = ?;
 
 selectAll:
 SELECT *
 FROM Library;
+
+selectByPackageName:
+SELECT *
+FROM Library
+WHERE packageName = ?;
 
 selectByApp:
 SELECT Library.*
 FROM LibraryApp, Library
 WHERE LibraryApp.libraryId = Library.id
 AND LibraryApp.appId = ?;
+
+selectLastUpdated:
+SELECT updatedAt
+FROM Library
+WHERE updatedAt = (
+  SELECT Max(updatedAt)
+  FROM Library
+);
