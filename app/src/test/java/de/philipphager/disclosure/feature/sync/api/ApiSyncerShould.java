@@ -21,7 +21,8 @@ import static org.mockito.Mockito.inOrder;
   @Mock protected Stopwatch stopwatch;
   @InjectMocks protected ApiSyncer apiSyncer;
 
-  @Test public void syncLibraiesAndFeaturesBeforeLibraryFeatures() {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void syncLibraiesAndFeaturesBeforeLibraryFeatures() {
     TestSubscriber testSubscriber = new TestSubscriber();
 
     apiSyncer.sync().subscribe(testSubscriber);

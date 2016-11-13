@@ -25,7 +25,8 @@ import static org.mockito.Mockito.when;
   @Mock protected LibraryService libraryService;
   @InjectMocks protected SyncLibraries syncLibraries;
 
-  @Test public void fetchFeaturesFromApiAndSaveThem() throws Exception {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void fetchFeaturesFromApiAndSaveThem() {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(libraryService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
 
@@ -43,7 +44,8 @@ import static org.mockito.Mockito.when;
     testSubscriber.assertCompleted();
   }
 
-  @Test public void callOnErrorIfApiReturnsAnError() throws Exception {
+  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  public void callOnErrorIfApiReturnsAnError() {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(libraryService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
 
