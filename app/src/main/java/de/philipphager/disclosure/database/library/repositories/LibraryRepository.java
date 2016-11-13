@@ -1,12 +1,10 @@
-package de.philipphager.disclosure.database.library;
+package de.philipphager.disclosure.database.library.repositories;
 
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.database.library.model.LibraryApp;
-import de.philipphager.disclosure.database.library.model.LibraryAppModel;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import de.philipphager.disclosure.util.time.Date;
 import java.util.List;
@@ -17,19 +15,18 @@ import rx.Observable;
 public class LibraryRepository {
   private final Library.InsertLibrary insertLibrary;
   private final Library.UpdateLibrary updateLibrary;
-  private final LibraryAppModel.InsertForApp insertForApp;
 
   @Inject public LibraryRepository(Library.InsertLibrary insertLibrary,
-      Library.UpdateLibrary updateLibrary,
-      LibraryApp.InsertForApp insertForApp) {
+      Library.UpdateLibrary updateLibrary) {
     this.insertLibrary = insertLibrary;
     this.updateLibrary = updateLibrary;
-    this.insertForApp = insertForApp;
   }
 
   public long insert(BriteDatabase db, Library library) {
     synchronized (this) {
-      insertLibrary.bind(library.packageName(),
+      insertLibrary.bind(
+          library.id(),
+          library.packageName(),
           library.title(),
           library.subtitle(),
           library.description(),
@@ -44,24 +41,18 @@ public class LibraryRepository {
 
   public int update(BriteDatabase db, Library library) {
     synchronized (this) {
-      updateLibrary.bind(library.title(),
+      updateLibrary.bind(
+          library.packageName(),
+          library.title(),
           library.subtitle(),
           library.description(),
           library.websiteUrl(),
           library.type(),
           library.createdAt(),
           library.updatedAt(),
-          library.packageName());
+          library.id());
 
       return db.executeUpdateDelete(Library.TABLE_NAME, updateLibrary.program);
-    }
-  }
-
-  public long insertForApp(BriteDatabase db, long libraryId, long appId) {
-    synchronized (this) {
-      insertForApp.bind(appId, libraryId);
-
-      return db.executeInsert(LibraryApp.TABLE_NAME, insertForApp.program);
     }
   }
 
