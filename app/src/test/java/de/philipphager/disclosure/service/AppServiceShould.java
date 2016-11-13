@@ -3,10 +3,11 @@ package de.philipphager.disclosure.service;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
-import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.version.VersionRepository;
+import de.philipphager.disclosure.util.time.Now;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,7 @@ public class AppServiceShould {
   @Mock protected VersionRepository versionRepository;
   @Mock protected DatabaseManager databaseManager;
   @Mock protected ToAppMapper toAppMapper;
+  @Mock protected Now now;
   private AppService appService;
 
   @Before public void setUp() {
@@ -41,7 +43,7 @@ public class AppServiceShould {
     BriteDatabase database = PowerMockito.mock(BriteDatabase.class);
     when(databaseManager.get()).thenReturn(database).thenReturn(null);
 
-    appService = new AppService(databaseManager, appRepository, versionRepository, toAppMapper);
+    appService = new AppService(databaseManager, appRepository, versionRepository, toAppMapper, now);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
