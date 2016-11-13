@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.database.library.model;
 
-import de.philipphager.disclosure.database.app.mocks.MockFeature;
-import de.philipphager.disclosure.database.app.mocks.MockLibrary;
+import de.philipphager.disclosure.database.mocks.MockFeature;
+import de.philipphager.disclosure.database.mocks.MockLibrary;
 import org.junit.Test;
 
 public class LibraryFeatureShould {

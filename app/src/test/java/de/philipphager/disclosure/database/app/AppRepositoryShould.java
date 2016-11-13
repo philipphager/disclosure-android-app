@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.database.app;
 
 import com.squareup.sqlbrite.BriteDatabase;
-import de.philipphager.disclosure.database.app.mocks.MockApp;
+import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.app.model.App;
 import org.junit.Before;
 import org.junit.Test;

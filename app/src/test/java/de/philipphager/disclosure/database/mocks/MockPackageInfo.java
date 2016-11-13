@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.app.mocks;
+package de.philipphager.disclosure.database.mocks;
 
 import android.content.pm.PackageInfo;
 

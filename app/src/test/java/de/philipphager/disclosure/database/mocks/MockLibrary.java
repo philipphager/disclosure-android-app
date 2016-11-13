@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.database.app.mocks;
+package de.philipphager.disclosure.database.mocks;
 
 import de.philipphager.disclosure.database.library.model.Library;
 import org.threeten.bp.OffsetDateTime;

@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.database.library.model;
 
-import de.philipphager.disclosure.database.app.mocks.MockApp;
-import de.philipphager.disclosure.database.app.mocks.MockLibrary;
+import de.philipphager.disclosure.database.mocks.MockApp;
+import de.philipphager.disclosure.database.mocks.MockLibrary;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;

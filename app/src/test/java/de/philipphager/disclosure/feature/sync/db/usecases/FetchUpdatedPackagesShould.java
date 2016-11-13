@@ -1,8 +1,8 @@
 package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import android.content.pm.PackageInfo;
-import de.philipphager.disclosure.database.app.mocks.MockApp;
-import de.philipphager.disclosure.database.app.mocks.MockPackageInfo;
+import de.philipphager.disclosure.database.mocks.MockApp;
+import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
