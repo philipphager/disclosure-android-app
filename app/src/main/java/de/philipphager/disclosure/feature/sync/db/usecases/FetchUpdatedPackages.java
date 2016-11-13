@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.sync.usecases;
+package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;

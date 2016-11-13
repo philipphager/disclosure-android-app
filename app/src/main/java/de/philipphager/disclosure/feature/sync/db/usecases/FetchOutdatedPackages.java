@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.sync.usecases;
+package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
