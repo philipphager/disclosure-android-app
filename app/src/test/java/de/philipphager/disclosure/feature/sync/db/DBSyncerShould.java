@@ -2,7 +2,6 @@ package de.philipphager.disclosure.feature.sync.db;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
-import de.philipphager.disclosure.feature.sync.db.DBSyncer;
 import de.philipphager.disclosure.feature.sync.db.usecases.FetchOutdatedPackages;
 import de.philipphager.disclosure.feature.sync.db.usecases.FetchUpdatedPackages;
 import de.philipphager.disclosure.service.AppService;
