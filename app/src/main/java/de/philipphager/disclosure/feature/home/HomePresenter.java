@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.home;
 
-import de.philipphager.disclosure.feature.sync.ApiSyncer;
-import de.philipphager.disclosure.feature.sync.DBSyncer;
+import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
+import de.philipphager.disclosure.feature.sync.db.DBSyncer;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,7 +23,7 @@ public class HomePresenter {
     this.homeView = homeView;
     this.subscriptions = new CompositeSubscription();
 
-    syncLibrariesWithApi();
+    syncWithApi();
     syncDBWithDevice();
   }
 
@@ -31,13 +31,11 @@ public class HomePresenter {
     this.subscriptions.unsubscribe();
   }
 
-  private void syncLibrariesWithApi() {
+  private void syncWithApi() {
     subscriptions.add(apiSyncer.sync()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(libraries -> {
-          Timber.d("loaded new libraries from api %s", libraries);
-        }, Timber::e));
+        .subscribe(libraries -> {}, Timber::e));
   }
 
   private void syncDBWithDevice() {
