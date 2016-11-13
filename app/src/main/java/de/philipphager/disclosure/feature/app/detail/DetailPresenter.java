@@ -34,7 +34,7 @@ public class DetailPresenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraries -> {
           Timber.d("loaded %s libraries", libraries);
-            view.setLibraries(libraries);
+          view.setLibraries(libraries);
 
           if (libraries.size() > 0) {
             view.setScore(ScoreView.Score.HIGH);

@@ -11,7 +11,12 @@ import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity
 import javax.inject.Singleton;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, ApiModule.class, DatabaseModule.class, DeviceModule.class})
+@Component(modules = {
+    ApplicationModule.class,
+    ApiModule.class,
+    DatabaseModule.class,
+    DeviceModule.class
+})
 public interface ApplicationComponent {
   void inject(HomeActivity activity);
 

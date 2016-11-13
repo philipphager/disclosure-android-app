@@ -26,5 +26,6 @@ public interface DisclosureApi {
   Observable<List<LibraryFeature>> allLibraryFeatures();
 
   @GET("/libraryFeatures")
-  Observable<List<LibraryFeature>> allLibraryFeatures(@Query("updatedSince") OffsetDateTime lastUpdate);
+  Observable<List<LibraryFeature>> allLibraryFeatures(
+      @Query("updatedSince") OffsetDateTime lastUpdate);
 }
