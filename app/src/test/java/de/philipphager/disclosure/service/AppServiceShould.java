@@ -3,7 +3,7 @@ package de.philipphager.disclosure.service;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
-import de.philipphager.disclosure.database.app.MockApp;
+import de.philipphager.disclosure.database.app.mocks.MockApp;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.version.VersionRepository;

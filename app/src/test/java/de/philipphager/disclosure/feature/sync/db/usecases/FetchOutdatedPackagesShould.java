@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import android.content.pm.PackageInfo;
-import de.philipphager.disclosure.database.app.MockPackage;
+import de.philipphager.disclosure.database.app.mocks.MockPackageInfo;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.AppService;
@@ -32,11 +32,11 @@ public class FetchOutdatedPackagesShould {
 
   @Before public void setUp() throws Exception {
     facebookInfo =
-        App.Info.create(MockPackage.TEST.packageName, MockPackage.TEST.versionCode);
+        App.Info.create(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST.versionCode);
     facebookInfoVersion2 =
-        App.Info.create(MockPackage.TEST.packageName, 2);
+        App.Info.create(MockPackageInfo.TEST.packageName, 2);
     instagramInfo =
-        App.Info.create(MockPackage.TEST2.packageName, MockPackage.TEST2.versionCode);
+        App.Info.create(MockPackageInfo.TEST2.packageName, MockPackageInfo.TEST2.versionCode);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -74,7 +74,7 @@ public class FetchOutdatedPackagesShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void doNotFetchPackagesThatAreStillInstalled() {
     List<App.Info> savedPackages = Collections.singletonList(facebookInfo);
-    List<PackageInfo> installedPackages = Collections.singletonList(MockPackage.TEST);
+    List<PackageInfo> installedPackages = Collections.singletonList(MockPackageInfo.TEST);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appService.allInfos()).thenReturn(Observable.just(savedPackages));

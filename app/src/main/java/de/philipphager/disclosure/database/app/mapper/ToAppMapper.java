@@ -6,6 +6,8 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.util.Mapper;
 import javax.inject.Inject;
 
+import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
+
 public class ToAppMapper implements Mapper<ApplicationInfo, App> {
   private final PackageManager packageManager;
 
@@ -14,8 +16,11 @@ public class ToAppMapper implements Mapper<ApplicationInfo, App> {
   }
 
   @Override public App map(ApplicationInfo from) {
+    CharSequence label = ensureNotNull(packageManager.getApplicationLabel(from),
+        "could not load label for app");
+
     return App.builder()
-        .label(String.valueOf(packageManager.getApplicationLabel(from)))
+        .label(label.toString())
         .packageName(from.packageName)
         .process(from.processName)
         .sourceDir(from.sourceDir)

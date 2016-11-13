@@ -1,6 +1,6 @@
 CREATE TABLE App (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  label TEXT,
+  label TEXT NOT NULL,
   packageName TEXT UNIQUE NOT NULL,
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,

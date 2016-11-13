@@ -1,9 +1,9 @@
-package de.philipphager.disclosure.database.app;
+package de.philipphager.disclosure.database.app.mocks;
 
 import android.content.pm.PackageInfo;
 
-public final class MockPackage {
-  @SuppressWarnings("PMD.UnnecessaryConstructor") private MockPackage() {
+public final class MockPackageInfo {
+  @SuppressWarnings("PMD.UnnecessaryConstructor") private MockPackageInfo() {
     //No instances of helper classes.
   }
 

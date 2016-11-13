@@ -2,7 +2,7 @@ package de.philipphager.disclosure.database.util;
 
 import android.database.Cursor;
 import com.squareup.sqldelight.RowMapper;
-import de.philipphager.disclosure.database.app.MockApp;
+import de.philipphager.disclosure.database.app.mocks.MockApp;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.List;
