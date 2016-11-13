@@ -5,7 +5,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import de.philipphager.disclosure.database.version.model.Version;
-import de.philipphager.disclosure.util.time.Now;
+import de.philipphager.disclosure.util.time.Clock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -16,16 +16,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) public class ToVersionMapperShould {
-  @Mock Now now;
+  @Mock Clock clock;
 
   @Test public void mapPackageInfoToVersion() {
     LocalDateTime mockNow = LocalDateTime.of(2016, 1, 1, 0, 0);
     PackageInfo packageInfo = MockPackageInfo.TEST;
     App app = MockApp.TEST;
 
-    when(now.get()).thenReturn(mockNow);
+    when(clock.now()).thenReturn(mockNow);
 
-    ToVersionMapper mapper = new ToVersionMapper(now, app.id());
+    ToVersionMapper mapper = new ToVersionMapper(clock, app.id());
     Version expectedVersion = Version.create(app.id(),
         packageInfo.versionCode,
         packageInfo.versionName,

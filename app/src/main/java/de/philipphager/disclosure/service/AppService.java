@@ -9,7 +9,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
-import de.philipphager.disclosure.util.time.Now;
+import de.philipphager.disclosure.util.time.Clock;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -20,18 +20,18 @@ public class AppService {
   private final AppRepository appRepository;
   private final VersionRepository versionRepository;
   private final ToAppMapper toAppMapper;
-  private final Now now;
+  private final Clock clock;
 
   @Inject public AppService(DatabaseManager databaseManager,
       AppRepository appRepository,
       VersionRepository versionRepository,
       ToAppMapper toAppMapper,
-      Now now) {
+      Clock clock) {
     this.databaseManager = databaseManager;
     this.appRepository = appRepository;
     this.versionRepository = versionRepository;
     this.toAppMapper = toAppMapper;
-    this.now = now;
+    this.clock = clock;
   }
 
   public Observable<List<App>> all() {
@@ -60,7 +60,7 @@ public class AppService {
       App app = toAppMapper.map(packageInfo.applicationInfo);
       long appId = appRepository.insertOrUpdate(db, app);
 
-      Version version = new ToVersionMapper(now, appId).map(packageInfo);
+      Version version = new ToVersionMapper(clock, appId).map(packageInfo);
       versionRepository.insertOrUpdate(db, version);
 
       String thread = Thread.currentThread().getName();
@@ -78,7 +78,7 @@ public class AppService {
         App app = toAppMapper.map(packageInfo.applicationInfo);
         long appId = appRepository.insertOrUpdate(db, app);
 
-        Version version = new ToVersionMapper(now, appId).map(packageInfo);
+        Version version = new ToVersionMapper(clock, appId).map(packageInfo);
         versionRepository.insert(db, version);
 
         String thread = Thread.currentThread().getName();
