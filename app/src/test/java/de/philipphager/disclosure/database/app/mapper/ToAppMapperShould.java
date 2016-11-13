@@ -2,9 +2,9 @@ package de.philipphager.disclosure.database.app.mapper;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.mocks.MockApplicationInfo;
-import de.philipphager.disclosure.database.app.model.App;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

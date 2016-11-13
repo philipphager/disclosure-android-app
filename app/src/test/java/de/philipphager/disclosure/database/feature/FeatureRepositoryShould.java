@@ -1,8 +1,8 @@
 package de.philipphager.disclosure.database.feature;
 
 import com.squareup.sqlbrite.BriteDatabase;
-import de.philipphager.disclosure.database.mocks.MockFeature;
 import de.philipphager.disclosure.database.feature.model.Feature;
+import de.philipphager.disclosure.database.mocks.MockFeature;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
