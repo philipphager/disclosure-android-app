@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!--
+  SQLDelight's Model$Factory creates a warning for unused local variables in SQDelightStatements.
+  Since this is happening in generated jvm code, we need to wait for SQLDelight
+  to fix this. For now, we ignore this error for all model classes.
+  -->
+  <Match>
+    <Class name="de.philipphager.disclosure.database.app.model.AppModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.feature.model.FeatureModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.library.model.LibraryFeatureModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.library.model.LibraryAppModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.version.model.VersionModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.library.model.LibraryModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+</FindBugsFilter>

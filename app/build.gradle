@@ -135,7 +135,7 @@ check {
   }
 
   findbugs {
-    config hard()
+    config '../config/findbugs.xml'
   }
 
   pmd {
