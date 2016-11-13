@@ -11,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class) public class ToInfoMapperShould {
-  @InjectMocks ToInfoMapper toInfoMapper;
+  @InjectMocks protected ToInfoMapper toInfoMapper;
 
   @Test public void mapApplicationInfoToAppInfo() {
     App.Info app = toInfoMapper.map(MockPackageInfo.TEST);

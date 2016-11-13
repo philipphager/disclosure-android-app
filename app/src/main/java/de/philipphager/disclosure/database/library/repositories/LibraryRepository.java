@@ -35,7 +35,7 @@ public class LibraryRepository {
           library.createdAt(),
           library.updatedAt());
 
-      return db.executeInsert(Library.TABLE_NAME, insertLibrary.program);
+      return db.executeInsert(insertLibrary.table, insertLibrary.program);
     }
   }
 
@@ -52,7 +52,7 @@ public class LibraryRepository {
           library.updatedAt(),
           library.id());
 
-      return db.executeUpdateDelete(Library.TABLE_NAME, updateLibrary.program);
+      return db.executeUpdateDelete(updateLibrary.table, updateLibrary.program);
     }
   }
 

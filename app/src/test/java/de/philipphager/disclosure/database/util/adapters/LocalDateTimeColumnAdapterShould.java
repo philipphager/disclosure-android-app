@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.threeten.bp.temporal.ChronoUnit.MILLIS;
 
 @RunWith(MockitoJUnitRunner.class) public class LocalDateTimeColumnAdapterShould {
-  @InjectMocks LocalDateTimeColumnAdapter adapter;
+  @InjectMocks protected LocalDateTimeColumnAdapter adapter;
 
   @Test public void encodeMillisToStartOfAtUtcStandard() {
     LocalDateTime utcStartOfTime = LocalDateTime.of(1970, 1, 1, 1, 0, 0, 0);

@@ -8,7 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class) public class AppShould {
-  @Test public void useBuilderToSetAllFields() throws Exception {
+  @Test public void useBuilderToSetAllFields() {
     App app = App.builder()
         .id(MockApp.TEST.id())
         .label(MockApp.TEST.label())
@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     assertThat(app).isEqualTo(MockApp.TEST);
   }
 
-  @Test public void allowIdToBeNull() throws Exception {
+  @Test public void allowIdToBeNull() {
     App app = App.builder()
         .label(MockApp.TEST.label())
         .packageName(MockApp.TEST.packageName())

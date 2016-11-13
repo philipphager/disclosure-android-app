@@ -1,7 +1,6 @@
 package de.philipphager.disclosure.database.library.repositories;
 
 import com.squareup.sqlbrite.BriteDatabase;
-import de.philipphager.disclosure.database.feature.model.Feature;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.mocks.MockLibrary;
 import org.junit.Before;
@@ -17,8 +16,8 @@ import static org.mockito.Mockito.verify;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @PrepareForTest({
     BriteDatabase.class,
-    Feature.InsertFeature.class,
-    Feature.UpdateFeature.class
+    Library.InsertLibrary.class,
+    Library.UpdateLibrary.class
 })
 public class LibraryRepositoryShould {
   protected BriteDatabase database;

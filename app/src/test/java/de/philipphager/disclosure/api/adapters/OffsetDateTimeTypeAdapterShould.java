@@ -17,9 +17,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OffsetDateTimeTypeAdapterShould {
-  @Mock JsonSerializationContext serializationContext;
-  @Mock JsonDeserializationContext deserializationContext;
-  @InjectMocks OffsetDateTimeTypeAdapter adapter;
+  @Mock protected JsonSerializationContext serializationContext;
+  @Mock protected JsonDeserializationContext deserializationContext;
+  @InjectMocks protected OffsetDateTimeTypeAdapter adapter;
 
   @Test public void serializeDateToJson() {
     OffsetDateTime testDate = OffsetDateTime.of(2016, 1, 1, 12, 0, 30, 0, ZoneOffset.UTC);

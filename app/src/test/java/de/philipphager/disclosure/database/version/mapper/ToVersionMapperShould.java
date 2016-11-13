@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) public class ToVersionMapperShould {
-  @Mock Clock clock;
+  @Mock protected Clock clock;
 
   @Test public void mapPackageInfoToVersion() {
     LocalDateTime mockNow = LocalDateTime.of(2016, 1, 1, 0, 0);

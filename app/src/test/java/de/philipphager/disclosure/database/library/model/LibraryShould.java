@@ -8,7 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class) public class LibraryShould {
-  @Test public void useBuilderToSetAllFields() throws Exception {
+  @Test public void useBuilderToSetAllFields() {
     Library library = Library.builder()
         .id(MockLibrary.TEST.id())
         .packageName(MockLibrary.TEST.packageName())

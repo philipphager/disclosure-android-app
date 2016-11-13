@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.threeten.bp.temporal.ChronoUnit.MILLIS;
 
 @RunWith(MockitoJUnitRunner.class) public class OffsetDateTimeColumnAdapterShould {
-  @InjectMocks OffsetDateTimeColumnAdapter adapter;
+  @InjectMocks protected OffsetDateTimeColumnAdapter adapter;
 
   @Test public void encodeMillisToStartOfAtUtcStandard() {
     OffsetDateTime utcStartOfTime = OffsetDateTime.of(1970, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
