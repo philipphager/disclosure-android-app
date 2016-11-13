@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchFeaturesFromApiAndSaveThem() {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-    when(featureService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
+    when(featureService.lastUpdatedLibraryFeatures()).thenReturn(Observable.just(lastUpdated));
 
     List<LibraryFeature> newFeatures = Collections.singletonList(MockLibraryFeature.TEST);
     when(disclosureApi.allLibraryFeatures(any())).thenReturn(Observable.just(newFeatures));
@@ -46,7 +46,7 @@ import static org.mockito.Mockito.when;
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void callOnErrorIfApiReturnsAnError() {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
-    when(featureService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
+    when(featureService.lastUpdatedLibraryFeatures()).thenReturn(Observable.just(lastUpdated));
 
     Throwable apiError = new Throwable();
     when(disclosureApi.allLibraryFeatures(any())).thenReturn(Observable.error(apiError));
