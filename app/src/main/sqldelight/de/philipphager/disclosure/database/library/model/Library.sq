@@ -2,7 +2,7 @@ import java.lang.Integer;
 import org.threeten.bp.OffsetDateTime;
 
 CREATE TABLE Library (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id TEXT PRIMARY KEY,
   packageName TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
   subtitle TEXT NOT NULL,
@@ -11,17 +11,16 @@ CREATE TABLE Library (
   type TEXT AS Library.Type NOT NULL,
   createdAt INTEGER AS OffsetDateTime NOT NULL,
   updatedAt INTEGER AS OffsetDateTime NOT NULL
-
 );
 
 insertLibrary:
-INSERT INTO Library (packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO Library (id, packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 updateLibrary:
 UPDATE Library
-SET title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
-WHERE packageName=?;
+SET packageName = ?, title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
+WHERE id = ?;
 
 selectAll:
 SELECT *

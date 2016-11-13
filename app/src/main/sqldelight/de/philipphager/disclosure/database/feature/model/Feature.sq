@@ -1,0 +1,36 @@
+import org.threeten.bp.OffsetDateTime;
+
+CREATE TABLE Feature (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  createdAt INTEGER AS OffsetDateTime NOT NULL,
+  updatedAt INTEGER AS OffsetDateTime NOT NULL
+);
+
+insertFeature:
+INSERT INTO Feature (id, title, description, createdAt, updatedAt)
+VALUES (?, ?, ?, ?, ?);
+
+updateFeature:
+UPDATE Feature
+SET title = ?, description = ?, createdAt = ?, updatedAt = ?
+WHERE id=?;
+
+selectAll:
+SELECT *
+FROM Feature;
+
+selectByLibrary:
+SELECT Feature.*
+FROM Feature, LibraryFeature
+WHERE Feature.id = LibraryFeature.featureId
+AND LibraryFeature.libraryId = ?;
+
+selectLastUpdated:
+SELECT updatedAt
+FROM Feature
+WHERE updatedAt = (
+  SELECT Max(updatedAt)
+  FROM Feature
+);
