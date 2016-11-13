@@ -3,7 +3,8 @@ package de.philipphager.disclosure.service;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.library.LibraryRepository;
+import de.philipphager.disclosure.database.library.repositories.LibraryAppRepository;
+import de.philipphager.disclosure.database.library.repositories.LibraryRepository;
 import de.philipphager.disclosure.database.library.model.Library;
 import java.util.List;
 import javax.inject.Inject;
@@ -13,11 +14,14 @@ import rx.Observable;
 public class LibraryService {
   private final DatabaseManager databaseManager;
   private final LibraryRepository libraryRepository;
+  private final LibraryAppRepository libraryAppRepository;
 
   @Inject public LibraryService(DatabaseManager databaseManager,
-      LibraryRepository libraryRepository) {
+      LibraryRepository libraryRepository,
+      LibraryAppRepository libraryAppRepository) {
     this.databaseManager = databaseManager;
     this.libraryRepository = libraryRepository;
+    this.libraryAppRepository = libraryAppRepository;
   }
 
   public void insert(List<Library> libraries) {
@@ -49,7 +53,7 @@ public class LibraryService {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
       for (Library library : libraries) {
-        libraryRepository.insertForApp(db, library.id(), app.id());
+        libraryAppRepository.insert(db, library.id(), app.id());
       }
 
       transaction.markSuccessful();

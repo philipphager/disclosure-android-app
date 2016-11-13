@@ -45,7 +45,7 @@ public class AppService {
     return appRepository.allInfos(db);
   }
 
-  public Observable<List<App>> byLibrary(Long libraryId) {
+  public Observable<List<App>> byLibrary(String libraryId) {
     BriteDatabase db = databaseManager.get();
     return appRepository.byLibrary(db, libraryId);
   }
