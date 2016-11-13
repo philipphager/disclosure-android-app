@@ -27,7 +27,7 @@ public class VersionRepository {
           version.versionName(),
           version.createdAt());
 
-      return db.executeInsert(Version.TABLE_NAME, insertVersion.program);
+      return db.executeInsert(insertVersion.table, insertVersion.program);
     }
   }
 
@@ -38,7 +38,7 @@ public class VersionRepository {
           version.appId(),
           version.versionCode());
 
-      return db.executeUpdateDelete(Version.TABLE_NAME, insertVersion.program);
+      return db.executeUpdateDelete(insertVersion.table, insertVersion.program);
     }
   }
 

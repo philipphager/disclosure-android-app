@@ -16,7 +16,7 @@ public class LibraryAppRepository {
     synchronized (this) {
       insertLibraryApp.bind(appId, libraryId);
 
-      return db.executeInsert(LibraryApp.TABLE_NAME, insertLibraryApp.program);
+      return db.executeInsert(insertLibraryApp.table, insertLibraryApp.program);
     }
   }
 }

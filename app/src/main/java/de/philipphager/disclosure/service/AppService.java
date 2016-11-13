@@ -9,6 +9,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
+import de.philipphager.disclosure.util.time.Now;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -19,15 +20,18 @@ public class AppService {
   private final AppRepository appRepository;
   private final VersionRepository versionRepository;
   private final ToAppMapper toAppMapper;
+  private final Now now;
 
   @Inject public AppService(DatabaseManager databaseManager,
       AppRepository appRepository,
       VersionRepository versionRepository,
-      ToAppMapper toAppMapper) {
+      ToAppMapper toAppMapper,
+      Now now) {
     this.databaseManager = databaseManager;
     this.appRepository = appRepository;
     this.versionRepository = versionRepository;
     this.toAppMapper = toAppMapper;
+    this.now = now;
   }
 
   public Observable<List<App>> all() {
@@ -56,7 +60,7 @@ public class AppService {
       App app = toAppMapper.map(packageInfo.applicationInfo);
       long appId = appRepository.insertOrUpdate(db, app);
 
-      Version version = new ToVersionMapper(appId).map(packageInfo);
+      Version version = new ToVersionMapper(now, appId).map(packageInfo);
       versionRepository.insertOrUpdate(db, version);
 
       String thread = Thread.currentThread().getName();
@@ -74,7 +78,7 @@ public class AppService {
         App app = toAppMapper.map(packageInfo.applicationInfo);
         long appId = appRepository.insertOrUpdate(db, app);
 
-        Version version = new ToVersionMapper(appId).map(packageInfo);
+        Version version = new ToVersionMapper(now, appId).map(packageInfo);
         versionRepository.insert(db, version);
 
         String thread = Thread.currentThread().getName();
