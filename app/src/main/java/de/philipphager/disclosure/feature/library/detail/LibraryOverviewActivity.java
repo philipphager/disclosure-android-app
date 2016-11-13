@@ -22,15 +22,14 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 public class LibraryOverviewActivity extends BaseActivity implements LibraryOverviewView {
   private static final String EXTRA_LIBRARY = "EXTRA_LIBRARY";
   @Inject protected LibraryOverviewPresenter presenter;
+  @BindView(R.id.overview_app_list) protected RecyclerView recyclerView;
+  private AppRecyclerAdapter adapter;
 
   public static Intent launch(Context context, Library library) {
     Intent intent = new Intent(context, LibraryOverviewActivity.class);
     intent.putExtra(EXTRA_LIBRARY, library);
     return intent;
   }
-
-  @BindView(R.id.overview_app_list) RecyclerView recyclerView;
-  private AppRecyclerAdapter adapter;
 
   @Override protected void injectActivity(ApplicationComponent appComponent) {
     appComponent.inject(this);
