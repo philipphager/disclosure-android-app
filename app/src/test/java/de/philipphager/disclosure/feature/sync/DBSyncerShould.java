@@ -2,8 +2,9 @@ package de.philipphager.disclosure.feature.sync;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.MockPackage;
-import de.philipphager.disclosure.feature.sync.usecases.FetchOutdatedPackages;
-import de.philipphager.disclosure.feature.sync.usecases.FetchUpdatedPackages;
+import de.philipphager.disclosure.feature.sync.db.DBSyncer;
+import de.philipphager.disclosure.feature.sync.db.usecases.FetchOutdatedPackages;
+import de.philipphager.disclosure.feature.sync.db.usecases.FetchUpdatedPackages;
 import de.philipphager.disclosure.service.AppService;
 import de.philipphager.disclosure.util.time.Stopwatch;
 import java.util.ArrayList;

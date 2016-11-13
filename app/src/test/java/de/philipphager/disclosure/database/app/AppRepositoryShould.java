@@ -41,7 +41,7 @@ public class AppRepositoryShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void updateAppInDatabase() {
     String where = String.format("id=%s", MockApp.TEST.id());
-    appRepository.update(database, MockApp.TEST, where);
+    appRepository.update(database, MockApp.TEST);
     verify(database).update(App.TABLE_NAME, getTestContentValues(MockApp.TEST), where);
   }
 
