@@ -21,9 +21,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) public class SyncLibrariesShould {
-  @Mock DisclosureApi disclosureApi;
-  @Mock LibraryService libraryService;
-  @InjectMocks SyncLibraries syncLibraries;
+  @Mock protected DisclosureApi disclosureApi;
+  @Mock protected LibraryService libraryService;
+  @InjectMocks protected SyncLibraries syncLibraries;
 
   @Test public void fetchFeaturesFromApiAndSaveThem() throws Exception {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
