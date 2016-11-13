@@ -137,6 +137,7 @@ check {
 
   findbugs {
     config '../config/findbugs.xml'
+    skip true
   }
 
   pmd {
