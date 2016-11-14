@@ -52,3 +52,11 @@ FROM App, LibraryApp
 WHERE App.id = LibraryApp.appId
 AND LibraryApp.libraryId = ?;
 
+selectByFeature:
+SELECT App.*
+FROM App, LibraryApp, Library, LibraryFeature
+WHERE App.id = LibraryApp.appId
+AND LibraryApp.libraryId = Library.id
+AND Library.id = LibraryFeature.libraryId
+AND LibraryFeature.featureId = ?;
+

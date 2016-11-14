@@ -54,6 +54,11 @@ public class AppService {
     return appRepository.byLibrary(db, libraryId);
   }
 
+  public Observable<List<App>> byFeature(String featureId) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.byFeature(db, featureId);
+  }
+
   public void addPackage(PackageInfo packageInfo) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {

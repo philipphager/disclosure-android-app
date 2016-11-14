@@ -55,5 +55,14 @@ public class LibraryOverviewPresenter {
         }, throwable -> {
           Timber.e(throwable, "while loading apps by library");
         }));
+
+    subscriptions.add(appService.byFeature("582971b859e58103e0ca524d")
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(features -> {
+          Timber.d("library %s has following features %s", library, features);
+        }, throwable -> {
+          Timber.e(throwable, "while loading apps by library");
+        }));
   }
 }
