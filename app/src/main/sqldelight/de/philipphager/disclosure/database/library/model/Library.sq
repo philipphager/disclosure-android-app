@@ -37,6 +37,12 @@ FROM LibraryApp, Library
 WHERE LibraryApp.libraryId = Library.id
 AND LibraryApp.appId = ?;
 
+selectByFeature:
+SELECT Library.*
+FROM LibraryFeature, Library
+WHERE LibraryFeature.libraryId = Library.id
+AND LibraryFeature.featureId = ?;
+
 selectLastUpdated:
 SELECT updatedAt
 FROM Library
