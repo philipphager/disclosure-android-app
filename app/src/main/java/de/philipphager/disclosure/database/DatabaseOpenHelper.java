@@ -8,7 +8,6 @@ import de.philipphager.disclosure.database.feature.model.Feature;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.library.model.LibraryApp;
 import de.philipphager.disclosure.database.library.model.LibraryFeature;
-import de.philipphager.disclosure.database.library.populator.LibraryPopulator;
 import de.philipphager.disclosure.database.migration.Migrator;
 import de.philipphager.disclosure.database.version.model.Version;
 import javax.inject.Inject;
@@ -17,13 +16,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
   private static final String DB_NAME = "disclosure.db";
   private static final int DB_VERSION = 24;
   private final Migrator migrator;
-  private final LibraryPopulator libraryPopulator;
 
   @Inject
-  public DatabaseOpenHelper(Context context, Migrator migrator, LibraryPopulator libraryPopulator) {
+  public DatabaseOpenHelper(Context context, Migrator migrator) {
     super(context, DB_NAME, null, DB_VERSION);
     this.migrator = migrator;
-    this.libraryPopulator = libraryPopulator;
   }
 
   @Override public void onCreate(SQLiteDatabase db) {
