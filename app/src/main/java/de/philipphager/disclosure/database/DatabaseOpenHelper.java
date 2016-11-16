@@ -34,9 +34,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     db.execSQL(LibraryApp.CREATE_TABLE);
     db.execSQL(Feature.CREATE_TABLE);
     db.execSQL(LibraryFeature.CREATE_TABLE);
-
-    // Populate db with initial values
-    libraryPopulator.populate(db);
   }
 
   @Override public void onConfigure(SQLiteDatabase db) {
