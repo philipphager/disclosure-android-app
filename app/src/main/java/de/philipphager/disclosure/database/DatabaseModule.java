@@ -44,7 +44,7 @@ public class DatabaseModule {
     migrations.put(14, AddLibraryDescriptionMigration.class);
     migrations.put(15, AddLibraryMigration.class);
     migrations.put(19, AddLibraryMigration.class);
-    migrations.put(22, AddLibraryFeaturesMigration.class);
+    migrations.put(23, AddLibraryFeaturesMigration.class);
     return new Migrator(migrations);
   }
 

@@ -64,6 +64,6 @@ public class FeatureService {
 
   public Observable<OffsetDateTime> lastUpdatedLibraryFeatures() {
     BriteDatabase db = databaseManager.get();
-    return featureRepository.lastUpdated(db);
+    return libraryFeatureRepository.lastUpdated(db);
   }
 }
