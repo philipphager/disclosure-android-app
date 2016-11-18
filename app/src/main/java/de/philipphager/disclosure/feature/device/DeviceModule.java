@@ -1,13 +1,19 @@
 package de.philipphager.disclosure.feature.device;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 @Module public class DeviceModule {
-  @Provides @Singleton public PackageManager providePackageManager(Context context) {
+  @Provides public PackageManager providePackageManager(Context context) {
     return context.getPackageManager();
+  }
+
+  @Provides public NotificationManager provideNotificationManager(Context context) {
+    return (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
   }
 }
