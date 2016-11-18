@@ -74,7 +74,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void setToolbarTitle(String title) {
-    getSupportActionBar().setTitle(title);
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setTitle(title);
+    }
   }
 
   @Override public void setAppIcon(String packageName) {
