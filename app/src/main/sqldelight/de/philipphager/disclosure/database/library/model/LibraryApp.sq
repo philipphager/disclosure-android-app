@@ -7,5 +7,5 @@ CREATE TABLE LibraryApp (
 );
 
 insertLibraryApp:
-INSERT INTO LibraryApp
+INSERT OR REPLACE INTO LibraryApp
 VALUES (?, ?);

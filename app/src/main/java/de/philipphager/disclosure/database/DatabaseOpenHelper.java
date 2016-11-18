@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
   private static final String DB_NAME = "disclosure.db";
-  private static final int DB_VERSION = 24;
+  private static final int DB_VERSION = 25;
   private final Migrator migrator;
 
   @Inject
