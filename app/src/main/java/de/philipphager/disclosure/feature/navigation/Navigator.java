@@ -1,6 +1,9 @@
 package de.philipphager.disclosure.feature.navigation;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.app.detail.DetailActivity;
@@ -29,5 +32,17 @@ public class Navigator {
 
   public void toLibraryOverview(Library library) {
     activity.startActivity(LibraryOverviewActivity.launch(activity, library));
+  }
+
+  public void toAppSystemSettings(String packageName) {
+    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+        Uri.fromParts("package", packageName, null));
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    activity.startActivity(intent);
+  }
+
+  public void toSystemUpdates() {
+    Intent intent = new Intent("android.settings.SYSTEM_UPDATE_SETTINGS");
+    activity.startActivity(intent);
   }
 }
