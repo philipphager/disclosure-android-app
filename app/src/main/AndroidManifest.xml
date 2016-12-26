@@ -35,5 +35,14 @@
         android:parentActivityName=".feature.home.HomeActivity"
         android:launchMode="standard">
     </activity>
+
+    <receiver android:name=".feature.sync.db.broadcasts.PackageManagerBroadcastReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_ADDED"/>
+        <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+        <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+        <data android:scheme="package"/>
+      </intent-filter>
+    </receiver>
   </application>
 </manifest>
