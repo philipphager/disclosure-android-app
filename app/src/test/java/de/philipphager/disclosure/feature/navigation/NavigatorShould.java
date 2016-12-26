@@ -46,8 +46,18 @@ import static org.mockito.Mockito.verify;
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getComponent().getClassName())
         .isEqualTo("de.philipphager.disclosure.feature.app.detail.DetailActivity");
-    assertThat(intent.<App>getParcelableExtra("EXTRA_APP"))
-        .isEqualTo(mockApp);
+  }
+
+  @Test public void navigateToDetailActivityPassesAppParcelable() {
+    App mockApp = MockApp.TEST;
+    navigator.toAppDetail(mockApp);
+
+    ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
+    verify(activity).startActivity(intentCaptor.capture());
+
+    Intent intent = intentCaptor.getValue();
+    assertThat(intent.getComponent().getClassName())
+        .isEqualTo("de.philipphager.disclosure.feature.app.detail.DetailActivity");
   }
 
   @Test public void navigateToLibraryOverviewActivity() {
@@ -60,6 +70,16 @@ import static org.mockito.Mockito.verify;
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getComponent().getClassName())
         .isEqualTo("de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity");
+  }
+
+  @Test public void navigateToLibraryOverviewActivityPassesLibraryParcelable() {
+    Library mockLibrary = MockLibrary.TEST;
+    navigator.toLibraryOverview(mockLibrary);
+
+    ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
+    verify(activity).startActivity(intentCaptor.capture());
+
+    Intent intent = intentCaptor.getValue();
     assertThat(intent.<App>getParcelableExtra("EXTRA_LIBRARY"))
         .isEqualTo(mockLibrary);
   }
@@ -74,6 +94,16 @@ import static org.mockito.Mockito.verify;
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getAction())
         .isEqualTo("android.settings.APPLICATION_DETAILS_SETTINGS");
+  }
+
+  @Test public void navigateToSystemSettingsForAppPassesPackageNameOfApp() {
+    String mockPackageName = MockApp.TEST.packageName();
+    navigator.toAppSystemSettings(mockPackageName);
+
+    ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
+    verify(activity).startActivity(intentCaptor.capture());
+
+    Intent intent = intentCaptor.getValue();
     assertThat(intent.getData().toString())
         .isEqualTo("package:com.facebook.android");
   }

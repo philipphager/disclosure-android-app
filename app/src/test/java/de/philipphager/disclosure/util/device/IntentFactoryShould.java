@@ -11,13 +11,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IntentFactoryShould {
-  @InjectMocks IntentFactory intentFactory;
+  @InjectMocks protected IntentFactory intentFactory;
 
-  @Test public void prepareIntentForUninstallPackages() {
+  @Test public void uninstallPackageIntentShouldContainUninstallIntentAction() {
     String mockPackageName = MockApp.TEST.packageName();
     Intent intent = intentFactory.uninstallPackage(mockPackageName);
 
     assertThat(intent.getAction()).isEqualTo("android.intent.action.UNINSTALL_PACKAGE");
+  }
+
+  @Test public void uninstallPackageIntentShouldContainNameOfUninstalledApp() {
+    String mockPackageName = MockApp.TEST.packageName();
+    Intent intent = intentFactory.uninstallPackage(mockPackageName);
+
     assertThat(intent.getData().toString()).isEqualTo("package:" + mockPackageName);
   }
 }
