@@ -6,6 +6,7 @@
   <string name="action_back">BACK</string>
   <string name="action_got_it">GOT IT</string>
   <string name="action_check_system_updates">CHECK SYSTEM UPDATES</string>
+  <string name="action_explain_hint_display">This hint will be hidden in the future. To show it again, press and hold the edit icon.</string>
   <string name="dialog_edit_permissions_tutorial_title">Edit Permission Settings</string>
   <string name="dialog_edit_permissions_tutorial_subtitle"><![CDATA[Navigate to <b>Permissions</b> to grant or revoke permissions for an application]]></string>
   <string name="dialog_runtime_permissions_unsupported_title">Revoking Permissions Unsupported</string>

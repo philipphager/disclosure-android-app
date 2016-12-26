@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="32dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+  <VideoView
+      android:id="@+id/video"
+      android:layout_width="wrap_content"
+      android:layout_height="160dp"/>
+
+  <TextView
+      android:id="@+id/txtDescription"
+      android:layout_marginTop="32dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="18sp"/>
+
+  <TextView
+      android:id="@+id/txtDisplayHint"
+      android:layout_marginTop="32dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/action_explain_hint_display"
+      android:drawableLeft="@drawable/ic_touch_app"
+      android:drawablePadding="8dp"
+      android:textSize="18sp"/>
+</LinearLayout>
