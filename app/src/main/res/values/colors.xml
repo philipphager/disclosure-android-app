@@ -7,4 +7,8 @@
   <color name="colorScoreLow">#7ED321</color>
   <color name="colorScoreMedium">#f5c123</color>
   <color name="colorScoreHigh">#D31D33</color>
+
+  <color name="background_light">#fafafa</color>
+  <color name="background_lightish">#e0e0e0</color>
+  <color name="background_disabled">#707070</color>
 </resources>
