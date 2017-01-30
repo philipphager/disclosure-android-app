@@ -16,7 +16,10 @@ import de.philipphager.disclosure.database.migration.version.AddAppVersionMigrat
 import de.philipphager.disclosure.database.migration.version.AddLibraryDescriptionMigration;
 import de.philipphager.disclosure.database.migration.version.AddLibraryFeaturesMigration;
 import de.philipphager.disclosure.database.migration.version.AddLibraryMigration;
+import de.philipphager.disclosure.database.migration.version.AddPermissionMigration;
 import de.philipphager.disclosure.database.migration.version.AddVersionNameMigration;
+import de.philipphager.disclosure.database.migration.version.InitialSchemaMigration;
+import de.philipphager.disclosure.database.permission.PermissionModule;
 import de.philipphager.disclosure.database.version.VersionModule;
 import javax.inject.Singleton;
 
@@ -25,13 +28,15 @@ import javax.inject.Singleton;
     FeatureModule.class,
     LibraryAppModule.class,
     LibraryModule.class,
+    PermissionModule.class,
     VersionModule.class,
     LibraryFeatureModule.class
 })
 public class DatabaseModule {
   @Provides @Singleton
-  public DatabaseOpenHelper getDataBaseOpenHelper(Context context, Migrator migrator) {
-    return new DatabaseOpenHelper(context, migrator);
+  public DatabaseOpenHelper getDataBaseOpenHelper(Context context, Migrator migrator,
+      InitialSchemaMigration initialSchemaMigration) {
+    return new DatabaseOpenHelper(context, migrator, initialSchemaMigration);
   }
 
   @Provides @Singleton public Migrator getMigrator() {
@@ -43,6 +48,7 @@ public class DatabaseModule {
     migrations.put(15, AddLibraryMigration.class);
     migrations.put(19, AddLibraryMigration.class);
     migrations.put(25, AddLibraryFeaturesMigration.class);
+    migrations.put(30, AddPermissionMigration.class);
     return new Migrator(migrations);
   }
 

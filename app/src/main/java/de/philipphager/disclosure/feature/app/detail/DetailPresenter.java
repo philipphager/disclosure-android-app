@@ -2,9 +2,11 @@ package de.philipphager.disclosure.feature.app.detail;
 
 import android.content.Intent;
 import com.f2prateek.rx.preferences.Preference;
+import com.jakewharton.dex.DexMethods;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedLibraries;
+import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.util.device.IntentFactory;
@@ -23,6 +25,7 @@ public class DetailPresenter {
   private final AnalyseUsedLibraries analyseUsedLibraries;
   private final LibraryService libraryService;
   private final IntentFactory intentFactory;
+  private final AnalyseUsedPermissions analyseUsedPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
   private CompositeSubscription subscriptions;
   private DetailView view;
@@ -31,10 +34,12 @@ public class DetailPresenter {
   @Inject public DetailPresenter(AnalyseUsedLibraries analyseUsedLibraries,
       LibraryService libraryService,
       IntentFactory intentFactory,
+      AnalyseUsedPermissions analyseUsedPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial) {
     this.analyseUsedLibraries = analyseUsedLibraries;
     this.libraryService = libraryService;
     this.intentFactory = intentFactory;
+    this.analyseUsedPermissions = analyseUsedPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
   }
 
@@ -75,6 +80,10 @@ public class DetailPresenter {
         .subscribe(libraries -> {
           Timber.d("found %s libraries", libraries);
         }, Timber::e));
+
+    subscriptions.add(analyseUsedPermissions.analyse(app)
+    .subscribe(permissions -> view.notify("found " + permissions.size() + " permissions"),
+        Timber::e));
   }
 
   public void onEditPermissionsClicked() {
