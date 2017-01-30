@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import dagger.Module;
 import dagger.Provides;
+import de.philipphager.disclosure.util.device.InternalStorageProvider;
+import de.philipphager.disclosure.util.device.StorageProvider;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -15,5 +17,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
   @Provides public NotificationManager provideNotificationManager(Context context) {
     return (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+  }
+
+  @Provides public StorageProvider provideStorageProvider(Context context) {
+    return new InternalStorageProvider(context);
   }
 }

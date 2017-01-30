@@ -27,6 +27,7 @@ public class LibraryRepository {
       insertLibrary.bind(
           library.id(),
           library.packageName(),
+          library.sourceDir(),
           library.title(),
           library.subtitle(),
           library.description(),
@@ -43,6 +44,7 @@ public class LibraryRepository {
     synchronized (this) {
       updateLibrary.bind(
           library.packageName(),
+          library.sourceDir(),
           library.title(),
           library.subtitle(),
           library.description(),

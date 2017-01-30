@@ -99,7 +99,8 @@ dependencies {
 
   // APK parser
   compile 'net.dongliu:apk-parser:2.1.6'
-  compile 'com.jakewharton.dex:dex-method-list:1.2.0'
+  compile 'org.smali:baksmali:2.2b4'
+  compile 'com.jakewharton.android.repackaged:libcore-dex:7.1.0_r7'
 
   // Memory leak detection
   debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'

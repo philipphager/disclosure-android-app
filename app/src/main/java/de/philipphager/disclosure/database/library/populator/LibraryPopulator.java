@@ -19,6 +19,7 @@ public class LibraryPopulator {
         Library.builder()
             .id("jfhsakdfhlasdjkf")
             .packageName("com.mixpanel.android")
+            .sourceDir("com/mixpanel/android")
             .title("Mixpanel")
             .subtitle("Tracks app interaction and user behaviour")
             .description("• Tracks actions, like button clicks \n"
@@ -34,6 +35,7 @@ public class LibraryPopulator {
         Library.builder()
             .id("dlfsdhlfkjsadfkjsaf")
             .packageName("com.google.android.gms.analytics")
+            .sourceDir("com/google/android/gms")
             .title("Google Analytics")
             .subtitle("Google's flagship analytics platform")
             .description("")
@@ -46,14 +48,15 @@ public class LibraryPopulator {
     libraries.add(
         Library.builder()
             .id("rweuzrtewqurztwr")
-            .packageName("com.facebook.stetho")
-            .title("Facebook Stetho")
-            .subtitle("Chrome developer tools for Android")
+            .packageName("com.adjust.sdk")
+            .sourceDir("com/adjust/sdk")
+            .title("Adjust")
+            .subtitle("Analytics")
             .description("• Inspect views, layouts \n"
                 + "• Inspect and edit SQLite and shared preferences  \n"
                 + "• Analyse network traffic")
             .websiteUrl("http://www.stetho.de")
-            .type(Library.Type.DEVELOPER)
+            .type(Library.Type.ANALYTICS)
             .createdAt(OffsetDateTime.now())
             .updatedAt(OffsetDateTime.now())
             .build());

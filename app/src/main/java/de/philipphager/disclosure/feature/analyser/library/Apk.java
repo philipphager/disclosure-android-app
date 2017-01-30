@@ -1,24 +1,31 @@
 package de.philipphager.disclosure.feature.analyser.library;
 
-import com.jakewharton.dex.DexMethods;
 import de.philipphager.disclosure.database.app.model.App;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import net.dongliu.apk.parser.ApkParser;
 import net.dongliu.apk.parser.bean.DexClass;
-import net.dongliu.apk.parser.struct.AndroidConstants;
+import org.jf.baksmali.Baksmali;
+import org.jf.baksmali.BaksmaliOptions;
+import org.jf.dexlib2.DexFileFactory;
+import org.jf.dexlib2.Opcodes;
+import org.jf.dexlib2.iface.DexFile;
 import timber.log.Timber;
+
+import static de.philipphager.disclosure.util.assertion.Assertions.check;
 
 public class Apk {
   private static final int MIN_INDEX = 0;
   private final App app;
+  private final File apkFile;
   private String[] packageNames;
-  private List<String> methodNames;
 
   public Apk(App app) throws IOException {
     this.app = app;
+    this.apkFile = new File(app.sourceDir());
+
+    check(apkFile.exists(), "must provide valid path to .apk file");
     load();
   }
 
@@ -30,8 +37,6 @@ public class Apk {
     for (int i = 0; i < dexClasses.length; i++) {
       packageNames[i] = dexClasses[i].getPackageName();
     }
-    
-    methodNames = DexMethods.list(apk.getFileData(AndroidConstants.DEX_FILE));
   }
 
   public boolean containsPackage(String packageName) {
@@ -41,7 +46,14 @@ public class Apk {
     return index >= MIN_INDEX;
   }
 
-  public boolean containsMethod(String method) {
-    return methodNames.contains(method);
+  public File decompileTo(File outputDir) throws IOException {
+
+    if (!outputDir.exists()) {
+      check(outputDir.mkdirs(), "could not create .smali output directory");
+    }
+
+    DexFile dexFile = DexFileFactory.loadDexFile(apkFile, Opcodes.getDefault());
+    Baksmali.disassembleDexFile(dexFile, outputDir, 4, new BaksmaliOptions());
+    return outputDir;
   }
 }

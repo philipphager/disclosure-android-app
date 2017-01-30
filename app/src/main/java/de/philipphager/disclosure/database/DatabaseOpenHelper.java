@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
   private static final String DB_NAME = "disclosure.db";
-  private static final int DB_VERSION = 30;
+  private static final int DB_VERSION = 31;
   private final Migrator migrator;
   private final InitialSchemaMigration initialSchemaMigration;
 

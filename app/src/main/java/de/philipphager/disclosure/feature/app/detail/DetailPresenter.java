@@ -2,16 +2,17 @@ package de.philipphager.disclosure.feature.app.detail;
 
 import android.content.Intent;
 import com.f2prateek.rx.preferences.Preference;
-import com.jakewharton.dex.DexMethods;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedPermissions;
+import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedPermissionsInLibraries;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
@@ -26,6 +27,7 @@ public class DetailPresenter {
   private final LibraryService libraryService;
   private final IntentFactory intentFactory;
   private final AnalyseUsedPermissions analyseUsedPermissions;
+  private final AnalyseUsedPermissionsInLibraries analyseUsedPermissionsInLibraries;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
   private CompositeSubscription subscriptions;
   private DetailView view;
@@ -35,11 +37,13 @@ public class DetailPresenter {
       LibraryService libraryService,
       IntentFactory intentFactory,
       AnalyseUsedPermissions analyseUsedPermissions,
+      AnalyseUsedPermissionsInLibraries analyseUsedPermissionsInLibraries,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial) {
     this.analyseUsedLibraries = analyseUsedLibraries;
     this.libraryService = libraryService;
     this.intentFactory = intentFactory;
     this.analyseUsedPermissions = analyseUsedPermissions;
+    this.analyseUsedPermissionsInLibraries = analyseUsedPermissionsInLibraries;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
   }
 
@@ -81,9 +85,15 @@ public class DetailPresenter {
           Timber.d("found %s libraries", libraries);
         }, Timber::e));
 
-    subscriptions.add(analyseUsedPermissions.analyse(app)
-    .subscribe(permissions -> view.notify("found " + permissions.size() + " permissions"),
-        Timber::e));
+    //subscriptions.add(analyseUsedPermissions.analyse(app)
+    //.subscribe(permissions -> view.notify("found " + permissions.size() + " permissions"),
+    //    Timber::e));
+
+    subscriptions.add(analyseUsedPermissionsInLibraries.analyse(app)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(permissions -> view.notify("found " + permissions.size() + " methods"),
+            Timber::e));
   }
 
   public void onEditPermissionsClicked() {
