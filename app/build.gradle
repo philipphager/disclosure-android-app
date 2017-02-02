@@ -57,6 +57,7 @@ dependencies {
 
   // Database
   compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
+  compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
   // Design
   compile "com.android.support:appcompat-v7:${supportVersion}"

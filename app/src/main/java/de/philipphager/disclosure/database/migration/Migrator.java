@@ -17,7 +17,7 @@ public class Migrator {
   }
 
   public void migrate(SQLiteDatabase db, int oldVersion, int newVersion) {
-    check(oldVersion <= newVersion, "invalid database versions");
+    //check(oldVersion <= newVersion, "invalid database versions");
 
     db.beginTransaction();
 
@@ -35,7 +35,8 @@ public class Migrator {
   }
 
   private List<Migration> getMigrations(int oldVersion, int newVersion) {
-    List<Migration> inflatedMigrations = new ArrayList<>(newVersion - oldVersion);
+    int size = newVersion - oldVersion;
+    List<Migration> inflatedMigrations = new ArrayList<>(size > 0 ? size : 0);
 
     for (int i = oldVersion + 1; i <= newVersion; i++) {
       Class<? extends Migration> migrationClass = this.migrations.get(i);

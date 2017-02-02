@@ -1,6 +1,7 @@
 package de.philipphager.disclosure.database.migration.version;
 
 import android.database.sqlite.SQLiteDatabase;
+import de.philipphager.disclosure.database.method.model.ProtectedMethod;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.permission.model.AppPermission;
 import de.philipphager.disclosure.database.permission.model.Permission;
@@ -12,6 +13,7 @@ public class AddPermissionMigration implements Migration {
     String dropTable = "DROP TABLE IF EXISTS ";
     db.execSQL(dropTable + AppPermission.TABLE_NAME);
     db.execSQL(dropTable + PermissionGroup.TABLE_NAME);
+    db.execSQL(dropTable + ProtectedMethod.TABLE_NAME);
     db.execSQL(dropTable + Permission.TABLE_NAME);
     db.execSQL(PermissionGroup.CREATE_TABLE);
     db.execSQL(Permission.CREATE_TABLE);
