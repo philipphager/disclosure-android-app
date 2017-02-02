@@ -50,6 +50,11 @@ public class PermissionService {
     }
   }
 
+  public Observable<List<Permission>> all() {
+    BriteDatabase db = databaseManager.get();
+    return permissionRepository.all(db);
+  }
+
   public Observable<List<Permission>> byApp(App app) {
     BriteDatabase db = databaseManager.get();
     return permissionRepository.byApp(db, app.id());
