@@ -1,11 +1,11 @@
 package de.philipphager.disclosure.feature.analyser.library;
 
+import de.philipphager.disclosure.database.method.model.Method;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
 public class LibraryParser {
   private static final int ESTIMATED_METHODS_PER_LIBRARY = 500;
   private static final Pattern METHOD_REGEX =
-      Pattern.compile("invoke-(direct|virtual|static|super) \\{.*\\}, (.*);->(.*)\\((.*)\\)(.*)");
+      Pattern.compile("invoke-(direct|virtual|static|super) \\{.*\\}, (.*)->(.*)\\((.*)\\)(.*)");
   private final File directory;
   private List<Method> invokedMethods;
 
@@ -33,7 +33,8 @@ public class LibraryParser {
         traverseClassesAndFindInvocations(directory, invokedMethods);
       }
 
-      Timber.d("%s method invocations in library %s ", invokedMethods.size(), directory.getAbsolutePath());
+      Timber.d("%s method invocations in library %s ", invokedMethods.size(),
+          directory.getAbsolutePath());
       return invokedMethods;
     });
   }
@@ -62,13 +63,12 @@ public class LibraryParser {
         Matcher matcher = METHOD_REGEX.matcher(line);
 
         if (matcher.find()) {
-          String invocationType = matcher.group(1);
           String declaringType = matcher.group(2);
           String name = matcher.group(3);
-          List<String> paramTypes = Arrays.asList(matcher.group(4).split(";"));
+          String argTypes = matcher.group(4);
           String returnType = matcher.group(5);
 
-          methods.add(Method.create(invocationType, declaringType, returnType, name, paramTypes));
+          methods.add(Method.create(declaringType, returnType, name, argTypes));
         }
       }
     } catch (IOException e) {
