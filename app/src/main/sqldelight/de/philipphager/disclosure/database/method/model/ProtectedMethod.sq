@@ -1,0 +1,25 @@
+import java.lang.Integer;
+import org.threeten.bp.OffsetDateTime;
+
+CREATE TABLE ProtectedMethod (
+  permissionId TEXT,
+  declaringType TEXT NOT NULL,
+  returnType TEXT NOT NULL,
+  name TEXT NOT NULL,
+  argTypes TEXT NOT NULL,
+  PRIMARY KEY (permissionId, declaringType, returnType, name, argTypes),
+  FOREIGN KEY(permissionId) REFERENCES Permission(id) ON DELETE CASCADE
+);
+
+insertMethod:
+INSERT INTO ProtectedMethod (permissionId, declaringType, returnType, name, argTypes)
+VALUES (?, ?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM ProtectedMethod;
+
+selectByPermission:
+SELECT declaringType, returnType, name, argTypes
+FROM ProtectedMethod
+WHERE permissionId = ?;
