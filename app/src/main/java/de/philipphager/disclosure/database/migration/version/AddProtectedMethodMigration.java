@@ -6,7 +6,8 @@ import de.philipphager.disclosure.database.migration.Migration;
 import javax.inject.Inject;
 
 public class AddProtectedMethodMigration implements Migration {
-  @Inject public AddProtectedMethodMigration() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public AddProtectedMethodMigration() {
+    // Needed for dagger injection.
   }
 
   @Override public void update(SQLiteDatabase db) {
