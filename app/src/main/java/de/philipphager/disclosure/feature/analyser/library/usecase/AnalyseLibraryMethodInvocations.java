@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.analyser.library.usecases;
+package de.philipphager.disclosure.feature.analyser.library.usecase;
 
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.method.model.Method;

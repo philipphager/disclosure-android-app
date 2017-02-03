@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.analyser.permission.usecases;
+package de.philipphager.disclosure.feature.analyser.permission.usecase;
 
 import de.philipphager.disclosure.database.method.model.Method;
 import de.philipphager.disclosure.database.permission.model.Permission;

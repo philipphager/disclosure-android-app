@@ -1,9 +1,9 @@
-package de.philipphager.disclosure.feature.analyser.app.usecases;
+package de.philipphager.disclosure.feature.analyser.app.usecase;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
-import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseLibraryMethodInvocations;
-import de.philipphager.disclosure.feature.analyser.permission.usecases.AnalysePermissionsFromMethodInvocations;
+import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseLibraryMethodInvocations;
+import de.philipphager.disclosure.feature.analyser.permission.usecase.AnalysePermissionsFromMethodInvocations;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.service.PermissionService;
 import de.philipphager.disclosure.util.device.FileUtils;

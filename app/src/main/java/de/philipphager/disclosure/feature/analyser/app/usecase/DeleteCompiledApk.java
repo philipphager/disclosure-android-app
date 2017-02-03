@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.analyser.app.usecases;
+package de.philipphager.disclosure.feature.analyser.app.usecase;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.util.device.FileUtils;
