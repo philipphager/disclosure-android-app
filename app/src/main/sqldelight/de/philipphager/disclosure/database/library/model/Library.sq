@@ -20,7 +20,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 updateLibrary:
 UPDATE Library
-SET packageName = ?, title = ?, sourceDir = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
+SET packageName = ?, sourceDir = ?, title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
 WHERE id = ?;
 
 selectAll:

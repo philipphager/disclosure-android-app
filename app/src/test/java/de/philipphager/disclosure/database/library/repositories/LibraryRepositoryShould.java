@@ -39,6 +39,7 @@ public class LibraryRepositoryShould {
 
     verify(insertLibrary).bind(library.id(),
         library.packageName(),
+        library.sourceDir(),
         library.title(),
         library.subtitle(),
         library.description(),
@@ -55,6 +56,7 @@ public class LibraryRepositoryShould {
     libraryRepository.update(database, library);
 
     verify(updateLibrary).bind(library.packageName(),
+        library.sourceDir(),
         library.title(),
         library.subtitle(),
         library.description(),
