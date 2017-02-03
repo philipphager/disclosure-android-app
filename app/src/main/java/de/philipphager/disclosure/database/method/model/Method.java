@@ -4,11 +4,15 @@ import com.google.auto.value.AutoValue;
 
 @AutoValue public abstract class Method implements ProtectedMethod.SelectByPermissionModel {
   public static final ProtectedMethodModel.SelectByPermissionMapper MAPPER =
-      ProtectedMethod.FACTORY.selectByPermissionMapper(Method::create);
+      ProtectedMethod.FACTORY.selectByPermissionMapper(
+          (declaringType, returnType, name, argTypes) -> builder().declaringType(declaringType)
+              .returnType(returnType)
+              .name(name)
+              .argTypes(argTypes)
+              .build());
 
-  public static Method create(String declaringType, String returnType, String name,
-      String argTypes) {
-    return new AutoValue_Method(declaringType, returnType, name, argTypes);
+  public static Builder builder() {
+    return new AutoValue_Method.Builder();
   }
 
   public abstract String declaringType();
@@ -18,4 +22,16 @@ import com.google.auto.value.AutoValue;
   public abstract String name();
 
   public abstract String argTypes();
+
+  @AutoValue.Builder public interface Builder {
+    Builder declaringType(String declaringType);
+
+    Builder returnType(String returnType);
+
+    Builder name(String name);
+
+    Builder argTypes(String argTypes);
+
+    Method build();
+  }
 }
