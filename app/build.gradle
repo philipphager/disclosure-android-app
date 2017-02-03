@@ -17,7 +17,7 @@ android {
   defaultConfig {
     applicationId 'de.philipphager.disclosure'
     minSdkVersion 21
-    targetSdkVersion 24
+    targetSdkVersion 25
     versionCode versionMajor * 100000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
