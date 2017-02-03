@@ -5,13 +5,15 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 public class FileUtils {
-  @Inject public FileUtils() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public FileUtils() {
+    // Needed for dagger injection.
   }
 
   public void delete(File file) {
     if (file.isDirectory()) {
-      for (File c : file.listFiles())
+      for (File c : file.listFiles()) {
         delete(c);
+      }
     }
 
     if (!file.delete()) {
