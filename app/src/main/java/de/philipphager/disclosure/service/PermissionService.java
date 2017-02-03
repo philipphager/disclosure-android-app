@@ -56,11 +56,13 @@ public class PermissionService {
     }
   }
 
-  public void insertForAppAndLibrary(List<AppLibraryPermission> appLibraryPermissions) {
+  public void insertForAppAndLibrary(App app, Library library, List<Permission> permissions) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
-      for (AppLibraryPermission appLibraryPermission : appLibraryPermissions) {
+      for (Permission permission : permissions) {
+        AppLibraryPermission appLibraryPermission =
+            AppLibraryPermission.create(app.id(), library.id(), permission.id());
         appLibraryPermissionRepository.insert(db, appLibraryPermission);
       }
 
