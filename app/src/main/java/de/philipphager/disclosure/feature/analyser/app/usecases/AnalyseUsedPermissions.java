@@ -1,7 +1,6 @@
-package de.philipphager.disclosure.feature.analyser.library.usecases;
+package de.philipphager.disclosure.feature.analyser.app.usecases;
 
 import android.content.pm.PackageInfo;
-import android.util.Log;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.AppPermission;
 import de.philipphager.disclosure.database.permission.model.Permission;

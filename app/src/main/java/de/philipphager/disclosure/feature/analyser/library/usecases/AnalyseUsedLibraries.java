@@ -2,7 +2,7 @@ package de.philipphager.disclosure.feature.analyser.library.usecases;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.feature.analyser.library.Apk;
+import de.philipphager.disclosure.feature.analyser.app.Apk;
 import de.philipphager.disclosure.service.LibraryService;
 import java.util.List;
 import javax.inject.Inject;

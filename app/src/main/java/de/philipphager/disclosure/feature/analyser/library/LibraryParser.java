@@ -54,8 +54,6 @@ public class LibraryParser {
   }
 
   private void findMethodInvocationsInFile(File file, List<Method> methods) {
-    //Timber.d("Searching for method invocations in file '%s'", file.getName());
-
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       for (String line; (line = reader.readLine()) != null; ) {
 

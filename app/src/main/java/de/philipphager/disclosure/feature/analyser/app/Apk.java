@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.analyser.library;
+package de.philipphager.disclosure.feature.analyser.app;
 
 import de.philipphager.disclosure.database.app.model.App;
 import java.io.File;

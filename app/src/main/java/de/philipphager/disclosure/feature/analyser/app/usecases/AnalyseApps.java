@@ -1,6 +1,7 @@
-package de.philipphager.disclosure.feature.analyser.library.usecases;
+package de.philipphager.disclosure.feature.analyser.app.usecases;
 
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.feature.analyser.library.usecases.AnalyseUsedLibraries;
 import de.philipphager.disclosure.util.time.Stopwatch;
 import java.util.List;
 import javax.inject.Inject;
