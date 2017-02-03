@@ -55,7 +55,7 @@ public class LibraryParser {
 
   private void findMethodInvocationsInFile(File file, List<Method> methods) {
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-      for (String line; (line = reader.readLine()) != null; ) {
+      for (String line = reader.readLine(); line != null; line = reader.readLine()) {
 
         // Find method invocations in the source code
         Matcher matcher = METHOD_REGEX.matcher(line);

@@ -1,7 +1,6 @@
 package de.philipphager.disclosure.database.permission.populator;
 
 import android.content.ContentValues;
-import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.database.sqlite.SQLiteDatabase;
 import de.philipphager.disclosure.database.permission.model.Permission;

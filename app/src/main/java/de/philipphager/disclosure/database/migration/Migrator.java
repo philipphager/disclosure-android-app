@@ -7,8 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-import static de.philipphager.disclosure.util.assertion.Assertions.check;
-
 public class Migrator {
   private final SparseArray<Class<? extends Migration>> migrations;
 
@@ -17,7 +15,7 @@ public class Migrator {
   }
 
   public void migrate(SQLiteDatabase db, int oldVersion, int newVersion) {
-    check(oldVersion <= newVersion, "invalid database versions");
+    //check(oldVersion <= newVersion, "invalid database versions");
 
     db.beginTransaction();
 
