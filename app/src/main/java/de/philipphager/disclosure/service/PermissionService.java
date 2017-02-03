@@ -3,8 +3,11 @@ package de.philipphager.disclosure.service;
 import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.permission.model.AppLibraryPermission;
 import de.philipphager.disclosure.database.permission.model.AppPermission;
 import de.philipphager.disclosure.database.permission.model.Permission;
+import de.philipphager.disclosure.database.permission.repositories.AppLibraryPermissionRepository;
 import de.philipphager.disclosure.database.permission.repositories.AppPermissionRepository;
 import de.philipphager.disclosure.database.permission.repositories.PermissionRepository;
 import java.util.List;
@@ -15,13 +18,16 @@ public class PermissionService {
   private final DatabaseManager databaseManager;
   private final PermissionRepository permissionRepository;
   private final AppPermissionRepository appPermissionRepository;
+  private final AppLibraryPermissionRepository appLibraryPermissionRepository;
 
   @Inject public PermissionService(DatabaseManager databaseManager,
       PermissionRepository permissionRepository,
-      AppPermissionRepository appPermissionRepository) {
+      AppPermissionRepository appPermissionRepository,
+      AppLibraryPermissionRepository appLibraryPermissionRepository) {
     this.databaseManager = databaseManager;
     this.permissionRepository = permissionRepository;
     this.appPermissionRepository = appPermissionRepository;
+    this.appLibraryPermissionRepository = appLibraryPermissionRepository;
   }
 
   public void insertOrUpdate(List<Permission> permissions) {
@@ -50,6 +56,18 @@ public class PermissionService {
     }
   }
 
+  public void insertForAppAndLibrary(List<AppLibraryPermission> appLibraryPermissions) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+
+      for (AppLibraryPermission appLibraryPermission : appLibraryPermissions) {
+        appLibraryPermissionRepository.insert(db, appLibraryPermission);
+      }
+
+      transaction.markSuccessful();
+    }
+  }
+
   public Observable<List<Permission>> all() {
     BriteDatabase db = databaseManager.get();
     return permissionRepository.all(db);
@@ -58,5 +76,10 @@ public class PermissionService {
   public Observable<List<Permission>> byApp(App app) {
     BriteDatabase db = databaseManager.get();
     return permissionRepository.byApp(db, app.id());
+  }
+
+  public Observable<List<Permission>> byAppAndLibrary(App app, Library library) {
+    BriteDatabase db = databaseManager.get();
+    return permissionRepository.byAppAndLibrary(db, app.id(), library.id());
   }
 }

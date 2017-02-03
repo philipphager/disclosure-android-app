@@ -27,3 +27,10 @@ SELECT Permission.*
 FROM Permission, AppPermission
 WHERE Permission.id = AppPermission.permissionId
 AND AppPermission.appId = ?;
+
+selectByAppAndLibrary:
+SELECT Permission.*
+FROM Permission, AppLibraryPermission
+WHERE Permission.id = AppLibraryPermission.permissionId
+AND AppLibraryPermission.appId = ?
+AND AppLibraryPermission.libraryId = ?;

@@ -1,0 +1,13 @@
+CREATE TABLE AppLibraryPermission (
+  appId INTEGER,
+  libraryId TEXT,
+  permissionId TEXT,
+  PRIMARY KEY (appId, libraryId, permissionId),
+  FOREIGN KEY(appId) REFERENCES App(id) ON DELETE CASCADE,
+  FOREIGN KEY(libraryId) REFERENCES Library(id) ON DELETE CASCADE,
+  FOREIGN KEY(permissionId) REFERENCES Permission(id) ON DELETE CASCADE
+);
+
+insertAppLibraryPermission:
+INSERT OR REPLACE INTO AppLibraryPermission
+VALUES (?, ?, ?);
