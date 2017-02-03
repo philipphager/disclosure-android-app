@@ -9,7 +9,7 @@ import com.google.auto.value.AutoValue;
     return new AutoValue_PermissionGroup(id, title, description);
   }
 
-  public abstract String id();
+  @SuppressWarnings("PMD.ShortMethodName") public abstract String id();
 
   public abstract String title();
 

@@ -66,7 +66,12 @@ public class LibraryParser {
           String argTypes = matcher.group(4);
           String returnType = matcher.group(5);
 
-          methods.add(Method.create(declaringType, returnType, name, argTypes));
+          methods.add(Method.builder()
+              .declaringType(declaringType)
+              .name(name)
+              .argTypes(argTypes)
+              .returnType(returnType)
+              .build());
         }
       }
     } catch (IOException e) {

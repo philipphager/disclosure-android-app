@@ -11,32 +11,32 @@ import javax.inject.Inject;
 import rx.Observable;
 
 public class PermissionGroupRepository {
-  private final PermissionGroupModel.InsertPermissionGroup insert;
-  private final PermissionGroupModel.UpdatePermissionGroup update;
+  private final PermissionGroupModel.InsertPermissionGroup insertGroup;
+  private final PermissionGroupModel.UpdatePermissionGroup updateGroup;
 
-  @Inject public PermissionGroupRepository(PermissionGroupModel.InsertPermissionGroup insert,
-      PermissionGroupModel.UpdatePermissionGroup update) {
-    this.insert = insert;
-    this.update = update;
+  @Inject public PermissionGroupRepository(PermissionGroupModel.InsertPermissionGroup insertGroup,
+      PermissionGroupModel.UpdatePermissionGroup updateGroup) {
+    this.insertGroup = insertGroup;
+    this.updateGroup = updateGroup;
   }
 
   public long insert(BriteDatabase db, PermissionGroup permissionGroup) {
     synchronized (this) {
-      insert.bind(permissionGroup.id(),
+      insertGroup.bind(permissionGroup.id(),
           permissionGroup.title(),
           permissionGroup.description());
 
-      return db.executeInsert(insert.table, insert.program);
+      return db.executeInsert(insertGroup.table, insertGroup.program);
     }
   }
 
   public int update(BriteDatabase db, PermissionGroup permissionGroup) {
     synchronized (this) {
-      update.bind(permissionGroup.title(),
+      updateGroup.bind(permissionGroup.title(),
           permissionGroup.description(),
           permissionGroup.id());
 
-      return db.executeUpdateDelete(update.table, update.program);
+      return db.executeUpdateDelete(updateGroup.table, updateGroup.program);
     }
   }
 

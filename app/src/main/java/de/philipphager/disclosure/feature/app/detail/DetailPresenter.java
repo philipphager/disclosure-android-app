@@ -6,7 +6,6 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
 import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
-import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.util.device.IntentFactory;
@@ -26,7 +25,6 @@ public class DetailPresenter {
   private final AnalyseUsedLibraries analyseUsedLibraries;
   private final LibraryService libraryService;
   private final IntentFactory intentFactory;
-  private final AnalyseUsedPermissions analyseUsedPermissions;
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
   private CompositeSubscription subscriptions;
@@ -36,13 +34,11 @@ public class DetailPresenter {
   @Inject public DetailPresenter(AnalyseUsedLibraries analyseUsedLibraries,
       LibraryService libraryService,
       IntentFactory intentFactory,
-      AnalyseUsedPermissions analyseUsedPermissions,
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial) {
     this.analyseUsedLibraries = analyseUsedLibraries;
     this.libraryService = libraryService;
     this.intentFactory = intentFactory;
-    this.analyseUsedPermissions = analyseUsedPermissions;
     this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
   }
