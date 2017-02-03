@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 public class DatabaseOpenHelper extends SQLiteAssetHelper {
   private static final String DB_NAME = "disclosure.db";
-  private static final int DB_VERSION = 1;
+  private static final int DB_VERSION = 2;
   private final Migrator migrator;
 
   @Inject public DatabaseOpenHelper(Context context, Migrator migrator) {

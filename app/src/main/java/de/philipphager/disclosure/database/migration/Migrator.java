@@ -17,7 +17,7 @@ public class Migrator {
   }
 
   public void migrate(SQLiteDatabase db, int oldVersion, int newVersion) {
-    //check(oldVersion <= newVersion, "invalid database versions");
+    check(oldVersion <= newVersion, "invalid database versions");
 
     db.beginTransaction();
 

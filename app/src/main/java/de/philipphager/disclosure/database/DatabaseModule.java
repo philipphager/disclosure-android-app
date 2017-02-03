@@ -13,6 +13,7 @@ import de.philipphager.disclosure.database.library.modules.LibraryModule;
 import de.philipphager.disclosure.database.method.modules.ProtectedMethodModule;
 import de.philipphager.disclosure.database.migration.Migration;
 import de.philipphager.disclosure.database.migration.Migrator;
+import de.philipphager.disclosure.database.migration.version.AddAppLibraryPermissionMigration;
 import de.philipphager.disclosure.database.permission.PermissionModule;
 import de.philipphager.disclosure.database.version.VersionModule;
 import javax.inject.Singleton;
@@ -35,6 +36,7 @@ public class DatabaseModule {
 
   @Provides @Singleton public Migrator getMigrator() {
     SparseArray<Class<? extends Migration>> migrations = new SparseArray<>();
+    migrations.append(2, AddAppLibraryPermissionMigration.class);
     return new Migrator(migrations);
   }
 
