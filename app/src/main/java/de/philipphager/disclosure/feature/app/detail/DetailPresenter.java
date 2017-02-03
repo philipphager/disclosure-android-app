@@ -81,10 +81,6 @@ public class DetailPresenter {
           Timber.d("found %s libraries", libraries);
         }, Timber::e));
 
-    //subscriptions.add(analyseUsedPermissions.analyse(app)
-    //.subscribe(permissions -> view.notify("found " + permissions.size() + " permissions"),
-    //    Timber::e));
-
     subscriptions.add(analyseAppLibraryPermissions.run(app)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
