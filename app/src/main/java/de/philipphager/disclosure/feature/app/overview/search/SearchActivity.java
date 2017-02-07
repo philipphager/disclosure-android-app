@@ -30,15 +30,14 @@ import rx.Observable;
 import rx.subjects.PublishSubject;
 
 public class SearchActivity extends BaseActivity implements AppSearchView {
-  private final PublishSubject<String> searchQuerySubject = PublishSubject.create();
-  private final ObjectAnimator[] objectAnimators = new ObjectAnimator[2];
   @Inject protected SearchPresenter presenter;
   @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.dismiss_activity) protected View dismissView;
   @BindView(R.id.search_view) protected SearchView searchView;
   @BindView(R.id.search_results) protected RecyclerView searchResult;
   @BindView(R.id.empty_search_results) protected View emptySearchView;
-  @BindInt(android.R.integer.config_shortAnimTime) int shortAnimTime;
+  @BindInt(android.R.integer.config_shortAnimTime) protected int shortAnimTime;
+  private final PublishSubject<String> searchQuerySubject = PublishSubject.create();
   private AppRecyclerAdapter adapter;
   private String query;
 
@@ -111,6 +110,7 @@ public class SearchActivity extends BaseActivity implements AppSearchView {
 
   private void animateBackground(boolean emptyQuery) {
     int toAlpha = emptyQuery ? 0 : 1;
+    ObjectAnimator[] objectAnimators = new ObjectAnimator[2];
     objectAnimators[0] = ObjectAnimator.ofFloat(emptySearchView, "alpha", toAlpha);
     objectAnimators[1] = ObjectAnimator.ofFloat(searchResult, "alpha", toAlpha);
     AnimatorSet animatorSet = new AnimatorSet();
