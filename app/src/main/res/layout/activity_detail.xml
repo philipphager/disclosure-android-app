@@ -73,7 +73,7 @@
           android:layout_height="wrap_content"
           app:layout_behavior="@string/appbar_scrolling_view_behavior"
           android:orientation="horizontal"
-          android:background="@color/background_lightish"
+          android:background="@color/background"
           android:gravity="center_horizontal">
 
         <android.support.v7.widget.AppCompatButton

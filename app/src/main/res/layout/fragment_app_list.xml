@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/padding_small"
+      android:paddingBottom="@dimen/padding_small"
+      android:paddingLeft="@dimen/padding_normal"
+      android:paddingRight="@dimen/padding_normal">
+
+    <TextView
+        android:id="@+id/app_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="0 apps"/>
+
+    <include layout="@layout/view_filler"/>
+
+    <TextView
+        android:id="@+id/library_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        tools:text="0 tracker"/>
+
+  </LinearLayout>
+
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:indeterminate="true"
+      android:visibility="invisible"
+      style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/app_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+</LinearLayout>

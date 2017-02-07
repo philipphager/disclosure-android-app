@@ -1,11 +1,29 @@
 <resources>
 
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimary">@color/color_grey_light</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <style name="AppTheme" parent="BaseAppTheme">
+    <item name="android:windowBackground">@color/background</item>
+    <item name="windowActionModeOverlay">true</item>
+  </style>
+
+  <style name="TabLayout" parent="Widget.Design.TabLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">56dp</item>
+    <item name="android:fillViewport">false</item>
+    <item name="tabBackground">@color/tabs_background_light</item>
+    <item name="android:background">@color/tabs_background_light</item>
+    <item name="tabGravity">fill</item>
+    <item name="tabIndicatorHeight">3dp</item>
+    <item name="tabMode">fixed</item>
+    <item name="tabMaxWidth">2048dp</item>
+    <item name="tabSelectedTextColor">?colorAccent</item>
   </style>
 
 </resources>

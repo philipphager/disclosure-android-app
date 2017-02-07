@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+      android:id="@+id/action_sort"
+      android:title="@string/fragment_app_overview_action_sort_apps"
+      android:icon="@drawable/ic_sort"
+      app:showAsAction="always">
+    <menu>
+      <item
+          android:id="@+id/action_sort_alphabetical"
+          android:title="@string/fragment_app_overview_action_sort_alphabetical"/>
+      <item
+          android:id="@+id/action_sort_library_count"
+          android:title="@string/fragment_app_overview_action_sort_library_count"/>
+    </menu>
+  </item>
+</menu>

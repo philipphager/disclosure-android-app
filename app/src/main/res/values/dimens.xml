@@ -3,11 +3,12 @@
   <dimen name="activity_horizontal_margin">16dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
 
-  <dimen name="app_list_item_image_width">64dp</dimen>
-  <dimen name="app_list_item_image_height">64dp</dimen>
+  <dimen name="app_list_item_image_width">42dp</dimen>
+  <dimen name="app_list_item_image_height">42dp</dimen>
 
-  <dimen name="text_bottom_margin_normal">4dp</dimen>
+  <dimen name="text_bottom_margin_normal">2dp</dimen>
 
+  <dimen name="padding_small">8dp</dimen>
   <dimen name="padding_normal">16dp</dimen>
   <dimen name="margin_normal">16dp</dimen>
 </resources>

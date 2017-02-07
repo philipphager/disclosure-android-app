@@ -12,4 +12,21 @@
   <string name="dialog_runtime_permissions_unsupported_title">Revoking Permissions Unsupported</string>
   <string name="dialog_runtime_permissions_unsupported_subtitle"><![CDATA[Your phone runs Android version <b>%s</b> which does not support editing permissions after app installation. You can only revoke permissions for an application by uninstalling it.]]></string>
   <string name="dialog_runtime_permissions_unsupported_description"><![CDATA[Note that Android supports this feature starting with <b>Android Marshmallow (6.0)</b>.]]></string>
+  <string name="fragment_app_overview_toolbar_title">App Manager</string>
+  <string name="fragment_app_overview_tabs_all">installed</string>
+  <string name="fragment_app_overview_tabs_trusted">trusted</string>
+  <string name="fragment_app_overview_action_sort_apps">Sort</string>
+  <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
+  <string name="fragment_app_overview_action_sort_library_count">Library count</string>
+
+  <plurals name="fragment_app_list_app_count">
+      <item quantity="one">%d app</item>
+      <item quantity="other">%d apps</item>
+  </plurals>
+
+  <plurals name="fragment_app_list_tracker_count">
+    <item quantity="zero">no libraries found</item>
+    <item quantity="one">%d library found</item>
+    <item quantity="other">%d libraries found</item>
+  </plurals>
 </resources>
