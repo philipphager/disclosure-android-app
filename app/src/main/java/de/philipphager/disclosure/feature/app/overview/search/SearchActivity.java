@@ -57,6 +57,10 @@ public class SearchActivity extends BaseActivity implements AppSearchView {
     searchResult.setLayoutManager(new LinearLayoutManager(this));
     searchResult.setItemAnimator(new DefaultItemAnimator());
 
+    adapter.setOnAppClickListener(app -> {
+      presenter.onAppClicked(app);
+    });
+
     presenter.onCreate(this);
     overridePendingTransition(0, R.anim.abc_popup_enter);
   }
