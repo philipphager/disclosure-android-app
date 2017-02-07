@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.OnClick;
