@@ -3,8 +3,12 @@ package de.philipphager.disclosure.feature.analyser.library;
 import de.philipphager.disclosure.database.method.model.Method;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -54,8 +58,10 @@ public class LibraryParser {
   }
 
   private void findMethodInvocationsInFile(File file, List<Method> methods) {
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-      for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+    try (InputStream in = new FileInputStream(file);
+         Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+         BufferedReader buffReader = new BufferedReader(reader)) {
+      for (String line = buffReader.readLine(); line != null; line = buffReader.readLine()) {
 
         // Find method invocations in the source code
         Matcher matcher = METHOD_REGEX.matcher(line);

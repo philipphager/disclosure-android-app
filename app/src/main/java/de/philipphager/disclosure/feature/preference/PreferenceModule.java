@@ -6,7 +6,9 @@ import com.f2prateek.rx.preferences.Preference;
 import com.f2prateek.rx.preferences.RxSharedPreferences;
 import dagger.Module;
 import dagger.Provides;
+import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
+import de.philipphager.disclosure.service.app.filter.SortBy;
 import javax.inject.Singleton;
 
 @Module
@@ -23,6 +25,11 @@ public class PreferenceModule {
   @Provides @Singleton @HasSeenEditPermissionsTutorial
   public Preference<Boolean> provideHasSeenSystemSettingsTutorial(
       RxSharedPreferences rxPreferences) {
-    return rxPreferences.getBoolean("show-whats-new", false);
+    return rxPreferences.getBoolean("provideHasSeenSystemSettingsTutorial", false);
+  }
+
+  @Provides @Singleton @AppListSortBy
+  public Preference<SortBy> provideAppListSortBy(RxSharedPreferences rxPreferences) {
+    return rxPreferences.getEnum("appListSortBy", SortBy.LIBRARY_COUNT, SortBy.class);
   }
 }
