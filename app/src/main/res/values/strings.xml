@@ -27,9 +27,10 @@
       <item quantity="other">%d apps</item>
   </plurals>
 
-  <plurals name="fragment_app_list_tracker_count">
-    <item quantity="zero">no libraries found</item>
-    <item quantity="one">%d library found</item>
-    <item quantity="other">%d libraries found</item>
+  <string name="fragment_app_list_no_libraries_found">no libraries detected</string>
+
+  <plurals name="fragment_app_list_library_count">
+    <item quantity="one">%d library detected</item>
+    <item quantity="other">%d libraries detected</item>
   </plurals>
 </resources>

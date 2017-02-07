@@ -65,7 +65,7 @@ public class AppListFragment extends BaseFragment implements AppListView {
 
   @Override public void showLibraryCount(int count) {
     libraryCount.setText(getResources()
-        .getQuantityString(R.plurals.fragment_app_list_tracker_count, count, count));
+        .getQuantityString(R.plurals.fragment_app_list_library_count, count, count));
   }
 
   @Override public void showProgress() {
