@@ -43,7 +43,11 @@ public class AnalyseUsedPermissions {
 
   private Observable<List<Permission>> loadRequestedPermissions(App app) {
     return packageProvider.getPackageInfo(app.packageName())
-        .flatMap(packageInfo -> Observable.from(packageInfo.requestedPermissions))
+        .flatMap(packageInfo -> {
+          String[] requestedPermission = packageInfo.requestedPermissions != null
+              ? packageInfo.requestedPermissions : new String[0];
+          return Observable.from(requestedPermission);
+        })
         .flatMap(packageProvider::getPermissionInfo)
         .map(toPermissionMapper::map)
         .toList();
@@ -52,8 +56,10 @@ public class AnalyseUsedPermissions {
   private Observable<List<AppPermission>> loadPermissionStatus(App app) {
     return packageProvider.getPackageInfo(app.packageName())
         .map(packageInfo -> {
-          String[] permissions = packageInfo.requestedPermissions;
-          int[] flags = packageInfo.requestedPermissionsFlags;
+          String[] permissions = packageInfo.requestedPermissions != null
+              ? packageInfo.requestedPermissions : new String[0];
+          int[] flags = packageInfo.requestedPermissionsFlags != null
+              ? packageInfo.requestedPermissionsFlags : new int[0];
 
           check(permissions.length == flags.length, "not every permission has a flag assigned");
           List<AppPermission> appPermissions = new ArrayList<>(permissions.length);
