@@ -35,12 +35,6 @@ SELECT packageName, versionCode
 FROM App, Version
 WHERE id = appId;
 
-selectUserApps:
-SELECT *
-FROM App
-WHERE flags & ? != 1
-ORDER BY label ASC;
-
 selectAppId:
 SELECT id
 FROM App
@@ -60,3 +54,7 @@ AND LibraryApp.libraryId = Library.id
 AND Library.id = LibraryFeature.libraryId
 AND LibraryFeature.featureId = ?;
 
+selectAllWithLibraryCount:
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, count(libraryId) AS libraryCount
+FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
+GROUP BY App.id;

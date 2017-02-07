@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.service;
+package de.philipphager.disclosure.service.app;
 
 import android.content.pm.PackageInfo;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -6,13 +6,18 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
+import de.philipphager.disclosure.service.app.filter.SortBy;
+import de.philipphager.disclosure.service.app.filter.SortByLibraryCount;
+import de.philipphager.disclosure.service.app.filter.SortByName;
 import de.philipphager.disclosure.util.time.Clock;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
+import rx.functions.Func2;
 import timber.log.Timber;
 
 public class AppService {
@@ -39,14 +44,16 @@ public class AppService {
     return appRepository.all(db);
   }
 
-  public Observable<List<App>> userApps() {
-    BriteDatabase db = databaseManager.get();
-    return appRepository.userApps(db);
-  }
-
   public Observable<List<App.Info>> allInfos() {
     BriteDatabase db = databaseManager.get();
     return appRepository.allInfos(db);
+  }
+
+  public Observable<List<AppWithLibraries>> allWithLibraries(SortBy sortBy) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.allWithLibraryCount(db)
+        .flatMap(appWithLibraries -> Observable.from(appWithLibraries)
+            .toSortedList(getSortingFunction(sortBy)));
   }
 
   public Observable<List<App>> byLibrary(String libraryId) {
@@ -107,6 +114,17 @@ public class AppService {
       }
 
       transaction.markSuccessful();
+    }
+  }
+
+  public Func2<AppWithLibraries, AppWithLibraries, Integer> getSortingFunction(SortBy sortBy) {
+    switch (sortBy) {
+      case NAME:
+        return new SortByName();
+      case LIBRARY_COUNT:
+        return new SortByLibraryCount();
+      default:
+        throw new IllegalArgumentException("no sorting function for %s " + sortBy);
     }
   }
 }
