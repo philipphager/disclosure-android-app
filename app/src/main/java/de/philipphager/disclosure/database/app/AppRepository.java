@@ -1,12 +1,12 @@
 package de.philipphager.disclosure.database.app;
 
-import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
+import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.List;
 import javax.inject.Inject;
@@ -61,17 +61,6 @@ public class AppRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<App>> userApps(BriteDatabase db) {
-    SqlDelightStatement selectUserApps =
-        App.FACTORY.selectUserApps(ApplicationInfo.FLAG_SYSTEM);
-    CursorToListMapper<App> cursorToList =
-        new CursorToListMapper<>(App.FACTORY.selectUserAppsMapper());
-
-    return db.createQuery(selectUserApps.tables, selectUserApps.statement, selectUserApps.args)
-        .map(SqlBrite.Query::run)
-        .map(cursorToList);
-  }
-
   public Observable<List<App>> byLibrary(BriteDatabase db, String libraryId) {
     SqlDelightStatement selectByLibrary = App.FACTORY.selectByLibrary(libraryId);
     CursorToListMapper<App> cursorToList =
@@ -96,6 +85,15 @@ public class AppRepository {
     CursorToListMapper<App.Info> cursorToList = new CursorToListMapper<>(App.Info.MAPPER);
 
     return db.createQuery(App.TABLE_NAME, App.SELECTALLINFOS)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
+  public Observable<List<AppWithLibraries>> allWithLibraryCount(BriteDatabase db) {
+    CursorToListMapper<AppWithLibraries> cursorToList =
+        new CursorToListMapper<>(AppWithLibraries.MAPPER);
+
+    return db.createQuery(App.TABLE_NAME, App.SELECTALLWITHLIBRARYCOUNT)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
