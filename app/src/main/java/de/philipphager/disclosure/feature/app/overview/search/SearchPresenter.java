@@ -32,7 +32,7 @@ public class SearchPresenter {
 
   private void fetchSearchQueryUpdates() {
     subscriptions.add(view.getSearchQuery()
-        .debounce(300, TimeUnit.MILLISECONDS)
+        .debounce(100, TimeUnit.MILLISECONDS)
         .subscribe(this::onSearchQueryChanged, throwable -> {
           Timber.e(throwable, "while observing selectByQuery query changes");
         }));
