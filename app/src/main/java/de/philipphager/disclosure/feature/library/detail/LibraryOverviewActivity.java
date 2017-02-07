@@ -12,7 +12,7 @@ import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.feature.app.overview.AppRecyclerAdapter;
+import de.philipphager.disclosure.feature.app.overview.list.AppRecyclerAdapter;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import java.util.List;
 import javax.inject.Inject;
@@ -23,7 +23,6 @@ public class LibraryOverviewActivity extends BaseActivity implements LibraryOver
   private static final String EXTRA_LIBRARY = "EXTRA_LIBRARY";
   @Inject protected LibraryOverviewPresenter presenter;
   @BindView(R.id.overview_app_list) protected RecyclerView recyclerView;
-  private AppRecyclerAdapter adapter;
 
   public static Intent launch(Context context, Library library) {
     Intent intent = new Intent(context, LibraryOverviewActivity.class);
@@ -39,7 +38,7 @@ public class LibraryOverviewActivity extends BaseActivity implements LibraryOver
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_library_overview);
 
-    adapter = new AppRecyclerAdapter(this);
+    AppRecyclerAdapter adapter = new AppRecyclerAdapter(this);
     recyclerView.setAdapter(adapter);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -57,6 +56,6 @@ public class LibraryOverviewActivity extends BaseActivity implements LibraryOver
   }
 
   @Override public void showApps(List<App> apps) {
-    adapter.setApps(apps);
+    // TODO
   }
 }

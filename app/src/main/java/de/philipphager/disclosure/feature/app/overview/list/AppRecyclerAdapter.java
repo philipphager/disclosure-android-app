@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.overview;
+package de.philipphager.disclosure.feature.app.overview.list;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import rx.schedulers.Schedulers;
 
 public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.ViewHolder> {
-  private final List<App> apps;
+  private final List<AppWithLibraries> apps;
   private final Context context;
   private OnAppClickListener listener;
 
@@ -34,7 +34,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    App item = apps.get(position);
+    AppWithLibraries item = apps.get(position);
     holder.bind(item, listener);
   }
 
@@ -42,7 +42,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
     return apps.size();
   }
 
-  public void setApps(List<App> apps) {
+  public void setApps(List<AppWithLibraries> apps) {
     clear();
     this.apps.addAll(apps);
     notifyDataSetChanged();
@@ -58,7 +58,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
   }
 
   public interface OnAppClickListener {
-    void onItemClick(App app);
+    void onItemClick(AppWithLibraries app);
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,17 +75,20 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
       this.context = context;
     }
 
-    public void bind(final App app, final OnAppClickListener listener) {
-      title.setText(app.label());
-      subtitle.setText(app.packageName());
+    public void bind(final AppWithLibraries appWithLibraries, final OnAppClickListener listener) {
+      title.setText(appWithLibraries.label());
+      subtitle.setText(context.getResources()
+          .getQuantityString(R.plurals.fragment_app_list_tracker_count,
+              appWithLibraries.libraryCountInt(),
+              appWithLibraries.libraryCount()));
       new AppIconLoader.Builder(context)
-          .load(app.packageName())
+          .load(appWithLibraries.packageName())
           .onThread(Schedulers.io())
           .into(icon);
 
       itemView.setOnClickListener(view -> {
         if (listener != null) {
-          listener.onItemClick(app);
+          listener.onItemClick(appWithLibraries);
         }
       });
     }

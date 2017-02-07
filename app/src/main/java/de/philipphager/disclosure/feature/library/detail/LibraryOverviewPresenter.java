@@ -1,8 +1,8 @@
 package de.philipphager.disclosure.feature.library.detail;
 
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.service.AppService;
 import de.philipphager.disclosure.service.FeatureService;
+import de.philipphager.disclosure.service.app.AppService;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

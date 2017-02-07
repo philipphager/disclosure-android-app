@@ -122,7 +122,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override public void enableEditPermissions(boolean isEnabled) {
     int id = isEnabled ? R.drawable.ic_mode_edit : R.drawable.ic_mode_edit_disabled;
-    int text = isEnabled ? R.color.colorPrimary : R.color.background_disabled;
+    int text = isEnabled ? R.color.colorPrimary : R.color.disabled;
 
     Drawable editIcon = ResourcesCompat.getDrawable(getResources(), id, null);
     btnEditSettings.setCompoundDrawablesWithIntrinsicBounds(null, editIcon, null, null);
