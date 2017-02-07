@@ -18,6 +18,9 @@
   <string name="fragment_app_overview_action_sort_apps">Sort</string>
   <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
   <string name="fragment_app_overview_action_sort_library_count">Library count</string>
+  <string name="app_search_hint">Search by name and libraries</string>
+  <string name="search_empty_title">No matching apps found</string>
+  <string name="search_empty_subtitle">Please check your spelling and if the app is still installed</string>
 
   <plurals name="fragment_app_list_app_count">
       <item quantity="one">%d app</item>

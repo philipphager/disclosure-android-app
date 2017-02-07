@@ -17,7 +17,7 @@ import de.philipphager.disclosure.util.ui.BaseFragment;
 import de.philipphager.disclosure.util.ui.StringProvider;
 import javax.inject.Inject;
 
-public class AppOverviewFragment extends BaseFragment {
+public class AppOverviewFragment extends BaseFragment implements AppOverviewView {
   @BindView(R.id.appTabs) protected TabLayout appTabLayout;
   @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.appViewPager) protected ViewPager appViewPager;
@@ -40,7 +40,7 @@ public class AppOverviewFragment extends BaseFragment {
     appViewPager.setAdapter(new AppOverviewPagerAdapter(getChildFragmentManager(), stringProvider));
     appTabLayout.setupWithViewPager(appViewPager);
 
-    presenter.onCreate();
+    presenter.onCreate(this);
   }
 
   @Override public void onDestroyView() {

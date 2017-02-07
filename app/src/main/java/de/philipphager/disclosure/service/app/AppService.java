@@ -56,6 +56,11 @@ public class AppService {
             .toSortedList(getSortingFunction(sortBy)));
   }
 
+  public Observable<List<AppWithLibraries>> search(String query) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.selectByQuery(db, query);
+  }
+
   public Observable<List<App>> byLibrary(String libraryId) {
     BriteDatabase db = databaseManager.get();
     return appRepository.byLibrary(db, libraryId);

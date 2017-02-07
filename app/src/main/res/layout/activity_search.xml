@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="top"
+        android:background="@color/toolbar_background_light"
+        app:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:title="@string/fragment_app_overview_toolbar_title">
+
+      <android.support.v7.widget.SearchView
+          android:id="@+id/search_view"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:layout_marginBottom="-2dp"
+          android:layout_marginLeft="4dp"
+          android:layout_marginStart="4dp"
+          android:iconifiedByDefault="false"
+          android:inputType="text"
+          android:searchIcon="@null"/>
+
+    </android.support.v7.widget.Toolbar>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/background"
+        tools:listitem="@layout/view_app_list_item"/>
+
+    <View
+        android:id="@+id/dismiss_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include layout="@layout/view_empty_search"/>
+
+  </FrameLayout>
+
+</LinearLayout>

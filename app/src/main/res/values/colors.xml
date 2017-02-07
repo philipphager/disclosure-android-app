@@ -7,6 +7,7 @@
   <color name="color_grey_medium">#99F2FCF7</color>
   <color name="color_grey_dark">#707070</color>
   <color name="color_black">#000000</color>
+  <color name="transparent">#00000000</color>
 
   <color name="colorScoreLow">#7ED321</color>
   <color name="colorScoreMedium">#f5c123</color>

@@ -11,12 +11,14 @@ import rx.subscriptions.CompositeSubscription;
 public class AppOverviewPresenter {
   private final Preference<SortBy> sortBy;
   private CompositeSubscription subscriptions;
+  private AppOverviewView view;
 
   @Inject public AppOverviewPresenter(@AppListSortBy Preference<SortBy> sortBy) {
     this.sortBy = sortBy;
   }
 
-  public void onCreate() {
+  public void onCreate(AppOverviewView view) {
+    this.view = view;
     this.subscriptions = new CompositeSubscription();
   }
 
@@ -25,10 +27,15 @@ public class AppOverviewPresenter {
   }
 
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch(item.getItemId()) {
-      case R.id.action_sort_alphabetical : sortBy.set(SortBy.NAME);
+    switch (item.getItemId()) {
+      case R.id.action_sort_alphabetical:
+        sortBy.set(SortBy.NAME);
         return true;
-      case R.id.action_sort_library_count : sortBy.set(SortBy.LIBRARY_COUNT);
+      case R.id.action_sort_library_count:
+        sortBy.set(SortBy.LIBRARY_COUNT);
+        return true;
+      case R.id.action_search:
+        view.navigate().toSearch();
         return true;
       default:
         return false;

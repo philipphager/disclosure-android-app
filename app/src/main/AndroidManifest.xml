@@ -17,11 +17,23 @@
     <activity
         android:name=".feature.home.HomeActivity"
         android:launchMode="singleTop">
-
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".feature.app.overview.search.SearchActivity"
+        android:parentActivityName=".feature.home.HomeActivity"
+        android:launchMode="singleTop"
+        android:theme="@style/AppTheme.SearchActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.SEARCH"/>
+      </intent-filter>
+      <meta-data
+          android:name="android.app.searchable"
+          android:resource="@xml/searchable"/>
     </activity>
 
     <activity

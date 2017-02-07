@@ -98,6 +98,18 @@ public class AppRepository {
         .map(cursorToList);
   }
 
+  public Observable<List<AppWithLibraries>> selectByQuery(BriteDatabase db, String query) {
+    String likeClause = "%" + query + "%";
+    SqlDelightStatement selectByQuery = App.FACTORY.selectByQuery(likeClause, likeClause, likeClause);
+
+    CursorToListMapper<AppWithLibraries> cursorToList =
+        new CursorToListMapper<>(AppWithLibraries.MAPPER);
+
+    return db.createQuery(App.TABLE_NAME, App.SELECTBYQUERY, selectByQuery.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
   private long getAppId(BriteDatabase db, String packageName) {
     SqlDelightStatement selectAppId = App.FACTORY.selectAppId(packageName);
     Cursor cursor = db.query(selectAppId.statement, selectAppId.args);

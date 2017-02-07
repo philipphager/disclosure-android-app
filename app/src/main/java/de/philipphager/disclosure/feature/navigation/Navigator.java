@@ -7,6 +7,7 @@ import android.provider.Settings;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.app.detail.DetailActivity;
+import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
 import javax.inject.Inject;
@@ -24,6 +25,10 @@ public class Navigator {
 
   public void toHome() {
     activity.startActivity(HomeActivity.launch(activity));
+  }
+
+  public void toSearch() {
+    activity.startActivity(SearchActivity.launch(activity));
   }
 
   public void toAppDetail(App app) {

@@ -58,3 +58,11 @@ selectAllWithLibraryCount:
 SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 GROUP BY App.id;
+
+selectByQuery:
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, count(libraryId) AS libraryCount
+FROM App LEFT OUTER JOIN LibraryApp ON (App.id = LibraryApp.appId) JOIN Library ON (LibraryApp.libraryId = Library.id)
+WHERE App.label LIKE upper('%' || ? || '%')
+OR App.packageName LIKE upper('%' || ? || '%')
+OR Library.packageName LIKE upper('%' || ? || '%')
+GROUP BY App.id;
