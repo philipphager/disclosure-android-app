@@ -42,6 +42,7 @@
         android:id="@+id/search_results"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         android:alpha="0"
         android:background="@color/background"
         tools:listitem="@layout/view_app_list_item"/>
