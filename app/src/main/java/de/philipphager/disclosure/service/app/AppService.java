@@ -86,7 +86,7 @@ public class AppService {
   public void insertOrUpdate(App app) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-      long id = appRepository.insertOrUpdate(db, app);
+      appRepository.insertOrUpdate(db, app);
       transaction.markSuccessful();
     }
   }

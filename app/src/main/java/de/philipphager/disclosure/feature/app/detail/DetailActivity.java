@@ -143,7 +143,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void setScore(ScoreView.Score score) {
-
+    // Might be depricated
+    // TODO: REMOVE
   }
 
   //@OnClick(R.id.btn_analyse) public void onAnalyseButtonClicked() {
