@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -12,12 +13,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import com.github.jorgecastilloprz.FABProgressCircle;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
@@ -44,6 +48,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @BindView(R.id.app_detail_libraries) protected RecyclerView libraryListRecyclerView;
   @BindView(R.id.btn_edit_settings) protected Button btnEditSettings;
   @BindView(R.id.btn_trust) protected Button btnToggleTrust;
+  @BindView(R.id.btn_analyse_app) protected FloatingActionButton btnAnalyseApp;
   @Inject protected DetailPresenter presenter;
   private LibraryRecyclerAdapter adapter;
 
@@ -146,9 +151,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
     // TODO: REMOVE
   }
 
-  //@OnClick(R.id.btn_analyse) public void onAnalyseButtonClicked() {
-  //  presenter.onAnalyseClicked();
-  //}
+  @OnClick(R.id.btn_analyse_app) public void onAnalyseAppClicked() {
+    presenter.onAnalyseAppClicked();
+  }
 
   @OnClick(R.id.btn_edit_settings) public void onEditSettingsClicked() {
     presenter.onEditPermissionsClicked();

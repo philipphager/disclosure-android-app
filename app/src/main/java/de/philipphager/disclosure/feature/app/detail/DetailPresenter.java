@@ -89,12 +89,7 @@ public class DetailPresenter {
     view.navigate().toLibraryOverview(library);
   }
 
-  public void onAnalyseClicked() {
-    subscriptions.add(analyseUsedLibraries.analyse(app)
-        .subscribe(libraries -> {
-          Timber.d("found %s libraries", libraries);
-        }, Timber::e));
-
+  public void onAnalyseAppClicked() {
     subscriptions.add(analyseAppLibraryPermissions.run(app)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

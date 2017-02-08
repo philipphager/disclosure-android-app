@@ -47,60 +47,61 @@
           android:paddingTop="@dimen/spacing_micro"
           tools:text="App Label"/>
 
-      </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical">
+          android:layout_height="wrap_content"
+          app:layout_behavior="@string/appbar_scrolling_view_behavior"
+          android:orientation="horizontal"
+          android:gravity="center_horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_edit_settings"
+            android:layout_width="132dp"
+            android:layout_height="96dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/ic_settings"
+            android:drawableTint="@color/icon"
+            android:text="@string/app_detail_action_edit"
+            android:textColor="@color/icon_title"
+            android:padding="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
-          <android.support.v7.widget.AppCompatButton
-              android:id="@+id/btn_edit_settings"
-              android:layout_width="132dp"
-              android:layout_height="96dp"
-              android:background="?selectableItemBackgroundBorderless"
-              android:drawableTop="@drawable/ic_edit"
-              android:drawableTint="@color/icon"
-              android:text="@string/app_detail_action_edit"
-              android:textColor="@color/icon_title"
-              android:padding="24dp"
-              style="@style/Widget.AppCompat.Button.Borderless"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_uninstall"
+            android:layout_width="132dp"
+            android:layout_height="96dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/ic_delete_forever"
+            android:drawableTint="@color/icon"
+            android:text="@string/app_detail_action_uninstall"
+            android:textColor="@color/icon_title"
+            android:padding="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
-          <android.support.v7.widget.AppCompatButton
-              android:id="@+id/btn_uninstall"
-              android:layout_width="132dp"
-              android:layout_height="96dp"
-              android:background="?selectableItemBackgroundBorderless"
-              android:drawableTop="@drawable/ic_delete_forever"
-              android:drawableTint="@color/icon"
-              android:text="@string/app_detail_action_uninstall"
-              android:textColor="@color/icon_title"
-              android:padding="24dp"
-              style="@style/Widget.AppCompat.Button.Borderless"/>
-
-          <android.support.v7.widget.AppCompatButton
-              android:id="@+id/btn_trust"
-              android:layout_width="132dp"
-              android:layout_height="96dp"
-              android:background="?selectableItemBackgroundBorderless"
-              android:text="@string/app_detail_action_distrust"
-              android:textColor="@color/icon_title"
-              android:padding="24dp"
-              style="@style/Widget.AppCompat.Button.Borderless"/>
-        </LinearLayout>
-
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_trust"
+            android:layout_width="132dp"
+            android:layout_height="96dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="@string/app_detail_action_distrust"
+            android:textColor="@color/icon_title"
+            android:padding="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
       </LinearLayout>
+
+    </LinearLayout>
 
   </android.support.design.widget.AppBarLayout>
 
   <android.support.v4.widget.NestedScrollView
+      android:id="@+id/nestedScrollView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -111,5 +112,15 @@
         android:layout_height="match_parent"/>
 
   </android.support.v4.widget.NestedScrollView>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/btn_analyse_app"
+      android:src="@drawable/ic_security_white_24dp"
+      app:fabSize="normal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/spacing_large"
+      app:layout_anchor="@id/nestedScrollView"
+      app:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>
