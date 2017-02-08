@@ -3,7 +3,6 @@ package de.philipphager.disclosure.feature.app.overview.trusted;
 import com.f2prateek.rx.preferences.Preference;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
-import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseApps;
 import de.philipphager.disclosure.feature.app.overview.list.AppListView;
 import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.service.app.AppService;
@@ -16,16 +15,13 @@ import timber.log.Timber;
 
 public class TrustedAppListPresenter {
   private final AppService appService;
-  private final AnalyseApps analyseApps;
   private final Preference<SortBy> sortByPreference;
   private CompositeSubscription subscriptions;
   private AppListView view;
 
   @Inject public TrustedAppListPresenter(AppService appService,
-      AnalyseApps analyseApps,
       @AppListSortBy Preference<SortBy> sortByPreference) {
     this.appService = appService;
-    this.analyseApps = analyseApps;
     this.sortByPreference = sortByPreference;
   }
 

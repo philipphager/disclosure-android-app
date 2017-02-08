@@ -55,11 +55,11 @@ public class AppListPresenter {
   }
 
   private void fetchListSortingPreference() {
-    sortByPreference.asObservable()
+    subscriptions.add(sortByPreference.asObservable()
         .subscribeOn(Schedulers.io())
         .subscribe(option -> {
           fetchUserApps();
-        });
+        }));
   }
 
   public void onAppClicked(AppWithLibraries appWithLibraries) {
