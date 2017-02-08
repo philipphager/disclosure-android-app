@@ -9,9 +9,5 @@ public interface AppListView extends Navigates {
 
   void showLibraryCount(int count);
 
-  void showProgress();
-
-  void hideProgress();
-
   void show(List<AppWithLibraries> apps);
 }

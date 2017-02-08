@@ -7,7 +7,9 @@ import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
+import de.philipphager.disclosure.database.library.model.LibraryApp;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -106,14 +108,16 @@ public class AppRepository {
     CursorToListMapper<AppWithLibraries> cursorToList =
         new CursorToListMapper<>(AppWithLibraries.MAPPER);
 
-    return db.createQuery(App.TABLE_NAME, App.SELECTALLWITHLIBRARYCOUNT)
+    return db.createQuery(Arrays.asList(App.TABLE_NAME, LibraryApp.TABLE_NAME),
+        App.SELECTALLWITHLIBRARYCOUNT)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
 
   public Observable<List<AppWithLibraries>> selectByQuery(BriteDatabase db, String query) {
     String likeClause = "%" + query + "%";
-    SqlDelightStatement selectByQuery = App.FACTORY.selectByQuery(likeClause, likeClause, likeClause);
+    SqlDelightStatement selectByQuery =
+        App.FACTORY.selectByQuery(likeClause, likeClause, likeClause);
 
     CursorToListMapper<AppWithLibraries> cursorToList =
         new CursorToListMapper<>(AppWithLibraries.MAPPER);

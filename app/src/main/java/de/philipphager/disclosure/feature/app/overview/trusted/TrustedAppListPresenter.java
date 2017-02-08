@@ -29,14 +29,14 @@ public class TrustedAppListPresenter {
     this.sortByPreference = sortByPreference;
   }
 
-  public void onCreate(AppListView view) {
+  public void onViewCreated(AppListView view) {
     this.view = view;
     subscriptions = new CompositeSubscription();
     fetchListSortingPreference();
     fetchUserApps();
   }
 
-  public void onDestroy() {
+  public void onDestroyView() {
     subscriptions.unsubscribe();
   }
 
@@ -81,4 +81,3 @@ public class TrustedAppListPresenter {
     view.navigate().toAppDetail(app);
   }
 }
-

@@ -40,11 +40,11 @@ public class AppOverviewFragment extends BaseFragment implements AppOverviewView
     appViewPager.setAdapter(new AppOverviewPagerAdapter(getChildFragmentManager(), stringProvider));
     appTabLayout.setupWithViewPager(appViewPager);
 
-    presenter.onCreate(this);
+    presenter.onViewCreated(this);
   }
 
   @Override public void onDestroyView() {
-    presenter.onDestroy();
+    presenter.onDestroyView();
     super.onDestroyView();
   }
 

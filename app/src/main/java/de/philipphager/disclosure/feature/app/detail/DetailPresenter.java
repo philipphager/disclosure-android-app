@@ -110,7 +110,6 @@ public class DetailPresenter {
     }
   }
 
-
   public void onTrustAppClicked() {
     App tempApp = this.app.editTrust(this.app, !app.isTrusted());
     appService.insertOrUpdate(tempApp);

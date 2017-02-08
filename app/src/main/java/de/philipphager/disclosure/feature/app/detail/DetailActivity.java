@@ -71,7 +71,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     App app = getIntent().getParcelableExtra(EXTRA_APP);
     ensureNotNull(app, "DetailActivity started without EXTRA_APP");
-
     presenter.onCreate(this, app);
   }
 

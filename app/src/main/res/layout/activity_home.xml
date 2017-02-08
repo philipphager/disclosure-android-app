@@ -16,4 +16,13 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"/>
 
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:indeterminate="true"
+      android:visibility="invisible"
+      style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
 </android.support.design.widget.CoordinatorLayout>

@@ -6,7 +6,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
@@ -21,7 +20,6 @@ import javax.inject.Inject;
 public class TrustedAppListFragment extends BaseFragment implements AppListView {
   @BindView(R.id.app_recycler_view) protected RecyclerView appListRecyclerView;
   @BindView(R.id.app_count) protected TextView appCount;
-  @BindView(R.id.progress_bar) protected ProgressBar progressBar;
   @BindView(R.id.library_count) protected TextView libraryCount;
   @Inject protected TrustedAppListPresenter presenter;
   private AppRecyclerAdapter adapter;
@@ -40,12 +38,12 @@ public class TrustedAppListFragment extends BaseFragment implements AppListView 
     appListRecyclerView.setItemAnimator(new DefaultItemAnimator());
     adapter.setOnAppClickListener(app -> presenter.onAppClicked(app));
 
-    presenter.onCreate(this);
+    presenter.onViewCreated(this);
   }
 
-  @Override public void onDestroy() {
-    presenter.onDestroy();
-    super.onDestroy();
+  @Override public void onDestroyView() {
+    presenter.onDestroyView();
+    super.onDestroyView();
   }
 
   @Override protected int getLayout() {
@@ -68,13 +66,5 @@ public class TrustedAppListFragment extends BaseFragment implements AppListView 
   @Override public void showLibraryCount(int count) {
     libraryCount.setText(getResources()
         .getQuantityString(R.plurals.fragment_app_list_library_count, count, count));
-  }
-
-  @Override public void showProgress() {
-    progressBar.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void hideProgress() {
-    progressBar.setVisibility(View.INVISIBLE);
   }
 }
