@@ -8,12 +8,13 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
 
 @AutoValue public abstract class AppWithLibraries implements App.SelectAllWithLibraryCountModel {
   public static final RowMapper<AppWithLibraries> MAPPER = FACTORY.selectAllWithLibraryCountMapper(
-      (id, label, packageName, process, sourceDir, flags, libraryCount) -> builder().id(id)
+      (id, label, packageName, process, sourceDir, flags, isTrusted, libraryCount) -> builder().id(id)
           .label(label)
           .packageName(packageName)
           .process(process)
           .sourceDir(sourceDir)
           .flags(flags)
+          .isTrusted(isTrusted)
           .libraryCount(libraryCount)
           .build());
 
@@ -32,6 +33,8 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
   public abstract String sourceDir();
 
   public abstract Integer flags();
+
+  public abstract Boolean isTrusted();
 
   public abstract long libraryCount();
 
@@ -52,6 +55,8 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
     Builder sourceDir(String path);
 
     Builder flags(Integer flags);
+
+    Builder isTrusted(Boolean isTrusted);
 
     Builder libraryCount(long libraryCount);
 

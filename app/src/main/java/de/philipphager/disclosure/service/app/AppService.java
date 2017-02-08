@@ -56,9 +56,21 @@ public class AppService {
             .toSortedList(getSortingFunction(sortBy)));
   }
 
+  public Observable<List<AppWithLibraries>> allTrusted(SortBy sortBy) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.selectTrusted(db, true)
+        .flatMap(appWithLibraries -> Observable.from(appWithLibraries)
+            .toSortedList(getSortingFunction(sortBy)));
+  }
+
   public Observable<List<AppWithLibraries>> search(String query) {
     BriteDatabase db = databaseManager.get();
     return appRepository.selectByQuery(db, query);
+  }
+
+  public Observable<App> byPackageName(String packageName) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.byPackageName(db, packageName);
   }
 
   public Observable<List<App>> byLibrary(String libraryId) {
@@ -69,6 +81,14 @@ public class AppService {
   public Observable<List<App>> byFeature(String featureId) {
     BriteDatabase db = databaseManager.get();
     return appRepository.byFeature(db, featureId);
+  }
+
+  public void insertOrUpdate(App app) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+      long id = appRepository.insertOrUpdate(db, app);
+      transaction.markSuccessful();
+    }
   }
 
   public void addPackage(PackageInfo packageInfo) {

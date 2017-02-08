@@ -7,12 +7,13 @@ import com.squareup.sqldelight.RowMapper;
 
 @AutoValue public abstract class App implements AppModel, Parcelable {
   public static final Factory<App> FACTORY = new Factory<>(
-      (id, label, packageName, process, sourceDir, flags) -> builder().id(id)
+      (id, label, packageName, process, sourceDir, flags, isTrusted) -> builder().id(id)
           .label(label)
           .packageName(packageName)
           .process(process)
           .sourceDir(sourceDir)
           .flags(flags)
+          .isTrusted(isTrusted)
           .build());
 
   public static Builder builder() {
@@ -31,8 +32,22 @@ import com.squareup.sqldelight.RowMapper;
 
   public abstract Integer flags();
 
+  public abstract Boolean isTrusted();
+
   public boolean hasLabel() {
     return label() != null;
+  }
+
+  public App editTrust(App app, boolean isTrusted) {
+    return App.builder()
+        .id(app.id())
+        .packageName(app.packageName())
+        .label(app.label())
+        .process(app.process())
+        .sourceDir(app.sourceDir())
+        .flags(app.flags())
+        .isTrusted(isTrusted)
+        .build();
   }
 
   @AutoValue.Builder public interface Builder {
@@ -47,6 +62,8 @@ import com.squareup.sqldelight.RowMapper;
     Builder sourceDir(String path);
 
     Builder flags(Integer flags);
+
+    Builder isTrusted(Boolean isTrusted);
 
     App build();
   }

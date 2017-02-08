@@ -88,6 +88,7 @@ public class AppListPresenter {
         .process(appWithLibraries.process())
         .sourceDir(appWithLibraries.sourceDir())
         .flags(appWithLibraries.flags())
+        .isTrusted(appWithLibraries.isTrusted())
         .build();
 
     view.navigate().toAppDetail(app);

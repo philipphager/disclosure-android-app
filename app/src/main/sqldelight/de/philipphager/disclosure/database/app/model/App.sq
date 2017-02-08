@@ -1,19 +1,22 @@
+import java.lang.Boolean;
+
 CREATE TABLE App (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   label TEXT NOT NULL,
   packageName TEXT UNIQUE NOT NULL,
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,
-  flags INTEGER AS Integer
+  flags INTEGER AS Integer,
+  isTrusted INTEGER AS Boolean
 );
 
 insertApp:
-INSERT INTO App (label, packageName, process, sourceDir, flags)
-VALUES (?, ?, ?, ?, ?);
+INSERT INTO App (label, packageName, process, sourceDir, flags, isTrusted)
+VALUES (?, ?, ?, ?, ?, ?);
 
 updateApp:
 UPDATE App
-SET label = ?, process = ?, sourceDir = ?, flags = ?
+SET label = ?, process = ?, sourceDir = ?, flags = ?, isTrusted = ?
 WHERE packageName = ?;
 
 selectAll:
@@ -55,12 +58,18 @@ AND Library.id = LibraryFeature.libraryId
 AND LibraryFeature.featureId = ?;
 
 selectAllWithLibraryCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, count(libraryId) AS libraryCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 GROUP BY App.id;
 
+selectTrusted:
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
+FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
+WHERE App.isTrusted = ?
+GROUP BY App.id;
+
 selectByQuery:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, count(libraryId) AS libraryCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON (App.id = LibraryApp.appId)
 LEFT OUTER JOIN Library ON (LibraryApp.libraryId = Library.id)
 WHERE App.label LIKE upper('%' || ? || '%')
