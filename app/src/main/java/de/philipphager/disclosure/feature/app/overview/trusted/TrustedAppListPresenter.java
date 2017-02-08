@@ -34,7 +34,6 @@ public class TrustedAppListPresenter {
     subscriptions = new CompositeSubscription();
     fetchListSortingPreference();
     fetchUserApps();
-    analyseAppLibraries();
   }
 
   public void onDestroy() {
@@ -61,24 +60,11 @@ public class TrustedAppListPresenter {
   }
 
   private void fetchListSortingPreference() {
-    sortByPreference.asObservable()
+    subscriptions.add(sortByPreference.asObservable()
         .subscribeOn(Schedulers.io())
         .subscribe(option -> {
           fetchUserApps();
-        });
-  }
-
-  private void analyseAppLibraries() {
-    view.showProgress();
-
-    subscriptions.add(
-        appService.all()
-            .first()
-            .flatMap(analyseApps::analyse)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnTerminate(() -> view.hideProgress())
-            .subscribe(libraries -> {
-            }, throwable -> Timber.e(throwable, "while analysing all apps")));
+        }));
   }
 
   public void onAppClicked(AppWithLibraries appWithLibraries) {
