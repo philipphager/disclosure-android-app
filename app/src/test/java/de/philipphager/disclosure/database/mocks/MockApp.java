@@ -11,6 +11,7 @@ public final class MockApp {
         .process("com.facebook")
         .flags(0)
         .sourceDir("/")
+        .isTrusted(true)
         .build();
   public static final App TEST2 = App.builder()
       .id(2L)
@@ -19,6 +20,7 @@ public final class MockApp {
       .process("com.instagram")
       .flags(0)
       .sourceDir("/")
+      .isTrusted(false)
       .build();
   public static final App.Info TEST_INFO = App.Info.create(TEST.packageName(), 1001);
   public static final App.Info TEST2_INFO = App.Info.create(TEST2.packageName(), 2001);
