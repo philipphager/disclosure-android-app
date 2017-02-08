@@ -131,7 +131,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void setAppIsTrusted(boolean isTrusted) {
-    int id = isTrusted ? R.drawable.ic_visibility_off : R.drawable.ic_visibility;
+    int id = isTrusted ? R.drawable.ic_lock : R.drawable.ic_lock_open;
     int textColor = isTrusted ? R.color.colorPrimary : R.color.icon;
     String text = isTrusted ? getString(R.string.app_detail_action_trust)
         : getString(R.string.app_detail_action_distrust);
@@ -160,5 +160,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @OnClick(R.id.btn_uninstall) public void onUninstallClicked() {
     presenter.onUninstallClicked();
+  }
+
+  @OnClick(R.id.btn_trust) public void onTrustAppClicked() {
+    presenter.onTrustAppClicked();
   }
 }

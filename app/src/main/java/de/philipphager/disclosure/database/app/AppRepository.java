@@ -24,14 +24,16 @@ public class AppRepository {
 
   public long insert(BriteDatabase db, App app) {
     synchronized (this) {
-      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags());
+      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags(),
+          app.isTrusted());
       return db.executeInsert(App.TABLE_NAME, insertApp.program);
     }
   }
 
   public int update(BriteDatabase db, App app) {
     synchronized (this) {
-      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.packageName());
+      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.isTrusted(),
+          app.packageName());
       return db.executeUpdateDelete(App.TABLE_NAME, updateApp.program);
     }
   }
@@ -59,6 +61,17 @@ public class AppRepository {
     return db.createQuery(App.TABLE_NAME, App.SELECTALL)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
+  }
+
+  public Observable<App> byPackageName(BriteDatabase db, String packageName) {
+    SqlDelightStatement selectByPackage = App.FACTORY.selectByPackage(packageName);
+    CursorToListMapper<App> cursorToList =
+        new CursorToListMapper<>(App.FACTORY.selectByLibraryMapper());
+
+    return db.createQuery(selectByPackage.tables, selectByPackage.statement, selectByPackage.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList)
+        .flatMap(apps -> Observable.from(apps).first());
   }
 
   public Observable<List<App>> byLibrary(BriteDatabase db, String libraryId) {
@@ -105,7 +118,18 @@ public class AppRepository {
     CursorToListMapper<AppWithLibraries> cursorToList =
         new CursorToListMapper<>(AppWithLibraries.MAPPER);
 
-    return db.createQuery(App.TABLE_NAME, App.SELECTBYQUERY, selectByQuery.args)
+    return db.createQuery(selectByQuery.tables, selectByQuery.statement, selectByQuery.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
+  public Observable<List<AppWithLibraries>> selectTrusted(BriteDatabase db, boolean isTrusted) {
+    SqlDelightStatement selectTrusted = App.FACTORY.selectTrusted(isTrusted);
+
+    CursorToListMapper<AppWithLibraries> cursorToList =
+        new CursorToListMapper<>(AppWithLibraries.MAPPER);
+
+    return db.createQuery(selectTrusted.tables, selectTrusted.statement, selectTrusted.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

@@ -32,15 +32,15 @@
 
       <ImageView
           android:id="@+id/icon"
-          android:layout_width="@dimen/app_list_item_image_height"
-          android:layout_height="@dimen/app_list_item_image_height"
+          android:layout_width="@dimen/icon_large_width"
+          android:layout_height="@dimen/icon_large_height"
           android:layout_gravity="center"/>
 
       <TextView
           android:id="@+id/app_title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textSize="@dimen/text_title"
+          android:textSize="@dimen/text_headline"
           android:textStyle="bold"
           android:textColor="@color/color_black"
           android:textAlignment="center"

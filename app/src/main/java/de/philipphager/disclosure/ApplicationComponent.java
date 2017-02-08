@@ -9,6 +9,7 @@ import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermission
 import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
 import de.philipphager.disclosure.feature.app.overview.list.AppListFragment;
 import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
+import de.philipphager.disclosure.feature.app.overview.trusted.TrustedAppListFragment;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
@@ -36,6 +37,8 @@ public interface ApplicationComponent {
   void inject(AppOverviewFragment fragment);
 
   void inject(AppListFragment fragment);
+
+  void inject(TrustedAppListFragment fragment);
 
   void inject(EditPermissionsTutorialDialog fragment);
 

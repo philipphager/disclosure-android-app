@@ -5,6 +5,8 @@
 
   <dimen name="app_list_item_image_width">42dp</dimen>
   <dimen name="app_list_item_image_height">42dp</dimen>
+  <dimen name="icon_large_width">64dp</dimen>
+  <dimen name="icon_large_height">64dp</dimen>
 
   <dimen name="text_bottom_margin_normal">2dp</dimen>
 
@@ -17,5 +19,9 @@
   <dimen name="spacing_xlarge">48dp</dimen>
   <dimen name="spacing_huge">64dp</dimen>
 
+  <dimen name="text_headline">24sp</dimen>
   <dimen name="text_title">20sp</dimen>
+  <dimen name="text_subheader">16sp</dimen>
+  <dimen name="text_body">14sp</dimen>
+  <dimen name="text_caption">12sp</dimen>
 </resources>

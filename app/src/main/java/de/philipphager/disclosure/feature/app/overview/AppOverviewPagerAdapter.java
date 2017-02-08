@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.feature.app.overview.list.AppListFragment;
+import de.philipphager.disclosure.feature.app.overview.trusted.TrustedAppListFragment;
 import de.philipphager.disclosure.util.ui.StringProvider;
 
 public class AppOverviewPagerAdapter extends FragmentPagerAdapter {
@@ -22,7 +23,7 @@ public class AppOverviewPagerAdapter extends FragmentPagerAdapter {
       case POSITION_ALL:
         return AppListFragment.newInstance();
       case POSITION_TRUSTED:
-        return AppListFragment.newInstance();
+        return TrustedAppListFragment.newInstance();
       default:
         throw new IllegalArgumentException("No fragment for position " + position);
     }

@@ -8,6 +8,7 @@ import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibrary
 import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.service.LibraryService;
+import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,6 +25,7 @@ public class DetailPresenter {
 
   private final AnalyseUsedLibraries analyseUsedLibraries;
   private final LibraryService libraryService;
+  private final AppService appService;
   private final IntentFactory intentFactory;
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
@@ -33,11 +35,13 @@ public class DetailPresenter {
 
   @Inject public DetailPresenter(AnalyseUsedLibraries analyseUsedLibraries,
       LibraryService libraryService,
+      AppService appService,
       IntentFactory intentFactory,
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial) {
     this.analyseUsedLibraries = analyseUsedLibraries;
     this.libraryService = libraryService;
+    this.appService = appService;
     this.intentFactory = intentFactory;
     this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
@@ -48,22 +52,31 @@ public class DetailPresenter {
     this.app = ensureNotNull(app);
     this.subscriptions = new CompositeSubscription();
 
-    initView();
-    loadLibraries();
+    fetchAppUpdates();
+    fetchLibraries();
   }
 
   public void onDestroy() {
     subscriptions.unsubscribe();
   }
 
-  private void initView() {
+  private void initView(App app) {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
     view.enableEditPermissions(supportsRuntimePermissions());
-    view.setAppIsTrusted(true);
+    view.setAppIsTrusted(app.isTrusted());
   }
 
-  private void loadLibraries() {
+  private void fetchAppUpdates() {
+    subscriptions.add(appService.byPackageName(app.packageName())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(app -> {
+          this.app = app;
+          initView(app);
+        }));
+  }
+
+  private void fetchLibraries() {
     subscriptions.add(libraryService.byApp(app)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraries -> {
@@ -95,6 +108,13 @@ public class DetailPresenter {
     } else {
       view.showRuntimePermissionsTutorial(app.packageName());
     }
+  }
+
+
+  public void onTrustAppClicked() {
+    App tempApp = this.app.editTrust(this.app, !app.isTrusted());
+    appService.insertOrUpdate(tempApp);
+    app = tempApp;
   }
 
   public boolean onEditPermissionsLongClicked() {
