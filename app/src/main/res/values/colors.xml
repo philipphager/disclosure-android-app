@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="color_orange">#FF9800</color>
+  <color name="color_purple">#AD1457</color>
   <color name="color_white_light">#ffffff</color>
   <color name="color_white_dark">#F5F5F5</color>
   <color name="color_grey_light">#ececec</color>
@@ -13,9 +13,9 @@
   <color name="colorScoreMedium">#f5c123</color>
   <color name="colorScoreHigh">#D31D33</color>
 
-  <color name="colorPrimary">@color/color_orange</color>
-  <color name="colorAccent">@color/color_orange</color>
-  <color name="colorPrimaryDark">@color/color_orange</color>
+  <color name="colorPrimary">@color/color_purple</color>
+  <color name="colorAccent">@color/color_purple</color>
+  <color name="colorPrimaryDark">@color/color_purple</color>
   <color name="background">@color/color_white_light</color>
   <color name="background_dark">@color/color_white_light</color>
   <color name="disabled">@color/color_grey_dark</color>
