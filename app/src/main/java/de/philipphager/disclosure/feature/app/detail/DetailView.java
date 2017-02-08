@@ -23,6 +23,8 @@ public interface DetailView extends Navigates {
 
   void enableEditPermissions(boolean isEnabled);
 
+  void setAppIsTrusted(boolean isTrusted);
+
   void startActivityForResult(Intent intent, int requestCode);
 
   void finish();

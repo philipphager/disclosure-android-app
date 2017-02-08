@@ -60,6 +60,7 @@ public class DetailPresenter {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
     view.enableEditPermissions(supportsRuntimePermissions());
+    view.setAppIsTrusted(true);
   }
 
   private void loadLibraries() {

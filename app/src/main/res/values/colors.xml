@@ -25,4 +25,8 @@
   <color name="bottom_navigation_item_inactive">@color/color_grey_dark</color>
   <color name="toolbar_background_light">@color/color_white_dark</color>
   <color name="tabs_background_light">@color/color_white_dark</color>
+
+  <color name="icon">@color/color_black</color>
+  <color name="icon_disabled">@color/disabled</color>
+  <color name="icon_title">@color/color_black</color>
 </resources>

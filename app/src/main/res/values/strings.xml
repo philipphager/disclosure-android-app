@@ -28,6 +28,11 @@
   </plurals>
 
   <string name="fragment_app_list_no_libraries_found">no libraries detected</string>
+  <string name="empty"/>
+  <string name="app_detail_action_edit">edit</string>
+  <string name="app_detail_action_uninstall">uninstall</string>
+  <string name="app_detail_action_trust">trusted</string>
+  <string name="app_detail_action_distrust">distrusted</string>
 
   <plurals name="fragment_app_list_library_count">
     <item quantity="one">%d library detected</item>

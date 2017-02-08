@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
@@ -38,10 +39,11 @@ public class DetailActivity extends BaseActivity implements DetailView {
   private static final String PERMISSIONS_UNSUPPORTED_DIALOG = "PERMISSIONS_UNSUPPORTED_DIALOG";
 
   @BindView(R.id.icon) protected ImageView icon;
+  @BindView(R.id.app_title) protected TextView appTitle;
   @BindView(R.id.activity_detail) protected View view;
-  @BindView(R.id.scoreView) protected ScoreView scoreView;
   @BindView(R.id.app_detail_libraries) protected RecyclerView libraryListRecyclerView;
   @BindView(R.id.btn_edit_settings) protected Button btnEditSettings;
+  @BindView(R.id.btn_trust) protected Button btnToggleTrust;
   @Inject protected DetailPresenter presenter;
   private LibraryRecyclerAdapter adapter;
 
@@ -90,9 +92,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void setToolbarTitle(String title) {
-    if (getSupportActionBar() != null) {
-      getSupportActionBar().setTitle(title);
-    }
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    appTitle.setText(title);
   }
 
   @Override public void setAppIcon(String packageName) {
@@ -121,21 +122,33 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void enableEditPermissions(boolean isEnabled) {
-    int id = isEnabled ? R.drawable.ic_mode_edit : R.drawable.ic_mode_edit_disabled;
-    int text = isEnabled ? R.color.colorPrimary : R.color.disabled;
+    int id = isEnabled ? R.drawable.ic_edit : R.drawable.ic_edit_disabled;
+    int text = isEnabled ? R.color.icon : R.color.icon_disabled;
 
     Drawable editIcon = ResourcesCompat.getDrawable(getResources(), id, null);
     btnEditSettings.setCompoundDrawablesWithIntrinsicBounds(null, editIcon, null, null);
     btnEditSettings.setTextColor(ContextCompat.getColor(this, text));
   }
 
-  @Override public void setScore(ScoreView.Score score) {
-    scoreView.setScore(score);
+  @Override public void setAppIsTrusted(boolean isTrusted) {
+    int id = isTrusted ? R.drawable.ic_visibility_off : R.drawable.ic_visibility;
+    int textColor = isTrusted ? R.color.colorPrimary : R.color.icon;
+    String text = isTrusted ? getString(R.string.app_detail_action_trust)
+        : getString(R.string.app_detail_action_distrust);
+
+    Drawable editIcon = ResourcesCompat.getDrawable(getResources(), id, null);
+    btnToggleTrust.setCompoundDrawablesWithIntrinsicBounds(null, editIcon, null, null);
+    btnToggleTrust.setTextColor(ContextCompat.getColor(this, textColor));
+    btnToggleTrust.setText(text);
   }
 
-  @OnClick(R.id.btn_analyse) public void onAnalyseButtonClicked() {
-    presenter.onAnalyseClicked();
+  @Override public void setScore(ScoreView.Score score) {
+
   }
+
+  //@OnClick(R.id.btn_analyse) public void onAnalyseButtonClicked() {
+  //  presenter.onAnalyseClicked();
+  //}
 
   @OnClick(R.id.btn_edit_settings) public void onEditSettingsClicked() {
     presenter.onEditPermissionsClicked();
