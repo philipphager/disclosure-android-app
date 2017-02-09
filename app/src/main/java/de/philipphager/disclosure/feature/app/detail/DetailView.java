@@ -1,19 +1,19 @@
 package de.philipphager.disclosure.feature.app.detail;
 
 import android.content.Intent;
-import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
 import de.philipphager.disclosure.feature.navigation.Navigates;
 import de.philipphager.disclosure.util.ui.components.ScoreView;
 import java.util.List;
 
-public interface DetailView extends Navigates {
+public interface DetailView extends Navigates, AnalysisProgressView {
   void notify(String message);
 
   void setToolbarTitle(String title);
 
   void setAppIcon(String packageName);
 
-  void setLibraries(List<Library> libraries);
+  void setLibraries(List<LibraryWithPermission> libraries);
 
   void setScore(ScoreView.Score score);
 

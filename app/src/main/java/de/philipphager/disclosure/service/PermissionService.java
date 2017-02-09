@@ -99,9 +99,9 @@ public class PermissionService {
     return permissionRepository.all(db);
   }
 
-  public Observable<List<Permission>> byApp(App app) {
+  public Observable<List<Permission>> byApp(App app, boolean isGranted) {
     BriteDatabase db = databaseManager.get();
-    return permissionRepository.byApp(db, app.id());
+    return permissionRepository.byApp(db, app.id(), isGranted);
   }
 
   public Observable<List<Permission>> byAppAndLibrary(App app, Library library) {

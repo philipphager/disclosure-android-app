@@ -5,9 +5,8 @@ import com.f2prateek.rx.preferences.Preference;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
-import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
+import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
-import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
@@ -23,28 +22,27 @@ import static de.philipphager.disclosure.util.device.DeviceFeatures.supportsRunt
 public class DetailPresenter {
   private static final int UNINSTALL_REQUEST_CODE = 39857;
 
-  private final AnalyseUsedLibraries analyseUsedLibraries;
-  private final LibraryService libraryService;
   private final AppService appService;
   private final IntentFactory intentFactory;
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
+  private final FetchLibrariesForAppWithPermissions
+      fetchLibrariesForAppWithPermissions;
   private CompositeSubscription subscriptions;
   private DetailView view;
   private App app;
 
-  @Inject public DetailPresenter(AnalyseUsedLibraries analyseUsedLibraries,
-      LibraryService libraryService,
-      AppService appService,
+  @Inject public DetailPresenter(AppService appService,
       IntentFactory intentFactory,
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
-      @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial) {
-    this.analyseUsedLibraries = analyseUsedLibraries;
-    this.libraryService = libraryService;
+      @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial,
+      FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions) {
     this.appService = appService;
     this.intentFactory = intentFactory;
     this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
+    this.fetchLibrariesForAppWithPermissions =
+        fetchLibrariesForAppWithPermissions;
   }
 
   public void onCreate(DetailView view, App app) {
@@ -54,6 +52,7 @@ public class DetailPresenter {
 
     fetchAppUpdates();
     fetchLibraries();
+    fetchAnalysisUpdates();
   }
 
   public void onDestroy() {
@@ -77,12 +76,18 @@ public class DetailPresenter {
   }
 
   private void fetchLibraries() {
-    subscriptions.add(libraryService.byApp(app)
+    subscriptions.add(fetchLibrariesForAppWithPermissions.run(app)
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(libraries -> {
-          Timber.d("loaded %s libraries", libraries);
-          view.setLibraries(libraries);
-        }, Timber::e));
+        .subscribe(libraryWithPermissions -> {
+          view.setLibraries(libraryWithPermissions);
+        }, throwable -> Timber.e(throwable, "while observing analysis progress")));
+  }
+
+  private void fetchAnalysisUpdates() {
+    subscriptions.add(analyseAppLibraryPermissions.getProgress()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(state -> view.setAnalysisProgress(state), Timber::e));
   }
 
   public void onLibraryClicked(Library library) {
@@ -90,9 +95,14 @@ public class DetailPresenter {
   }
 
   public void onAnalyseAppClicked() {
+    view.showAnalysisProgress();
+    view.resetProgress();
+
     subscriptions.add(analyseAppLibraryPermissions.run(app)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+        .doOnCompleted(() -> view.setAnalysisCompleted())
+        .doOnTerminate(() -> view.hideAnalysisProgress())
         .subscribe(permissions -> view.notify(String.format("found %s", permissions)),
             Timber::e));
   }

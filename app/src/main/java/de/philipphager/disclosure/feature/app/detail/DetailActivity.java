@@ -5,29 +5,30 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-import com.github.jorgecastilloprz.FABProgressCircle;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
+import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import de.philipphager.disclosure.util.ui.components.ScoreView;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
@@ -44,11 +45,13 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @BindView(R.id.icon) protected ImageView icon;
   @BindView(R.id.app_title) protected TextView appTitle;
-  @BindView(R.id.activity_detail) protected View view;
+  @BindView(R.id.activity_detail) protected CoordinatorLayout rootView;
   @BindView(R.id.app_detail_libraries) protected RecyclerView libraryListRecyclerView;
   @BindView(R.id.btn_edit_settings) protected Button btnEditSettings;
   @BindView(R.id.btn_trust) protected Button btnToggleTrust;
   @BindView(R.id.btn_analyse_app) protected FloatingActionButton btnAnalyseApp;
+  @BindView(R.id.analysis_progress) protected StateProgressBar analysisProgressBar;
+  @BindInt(android.R.integer.config_shortAnimTime) protected int shortAnimTime;
   @Inject protected DetailPresenter presenter;
   private LibraryRecyclerAdapter adapter;
 
@@ -63,6 +66,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     setContentView(R.layout.activity_detail);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     adapter = new LibraryRecyclerAdapter();
     libraryListRecyclerView.setAdapter(adapter);
@@ -73,6 +77,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
     adapter.setOnLibraryClickListener(library -> {
       presenter.onLibraryClicked(library);
     });
+
+    String[] analysisSteps = new String[] {"Extraction", "Filtration", "Analysis"};
+    analysisProgressBar.setStateDescriptionData(analysisSteps);
 
     App app = getIntent().getParcelableExtra(EXTRA_APP);
     ensureNotNull(app, "DetailActivity started without EXTRA_APP");
@@ -107,12 +114,12 @@ public class DetailActivity extends BaseActivity implements DetailView {
         .into(icon);
   }
 
-  @Override public void setLibraries(List<Library> libraries) {
+  @Override public void setLibraries(List<LibraryWithPermission> libraries) {
     adapter.setLibraries(libraries);
   }
 
   @Override public void notify(String message) {
-    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+    Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
   }
 
   @Override public void showEditPermissionsTutorial(String packageName) {
@@ -144,6 +151,44 @@ public class DetailActivity extends BaseActivity implements DetailView {
     btnToggleTrust.setCompoundDrawablesWithIntrinsicBounds(null, editIcon, null, null);
     btnToggleTrust.setTextColor(ContextCompat.getColor(this, textColor));
     btnToggleTrust.setText(text);
+  }
+
+  @Override public void showAnalysisProgress() {
+    TransitionManager.beginDelayedTransition(rootView);
+    icon.setVisibility(View.GONE);
+    appTitle.setVisibility(View.GONE);
+    analysisProgressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideAnalysisProgress() {
+    TransitionManager.beginDelayedTransition(rootView);
+    icon.setVisibility(View.VISIBLE);
+    appTitle.setVisibility(View.VISIBLE);
+    analysisProgressBar.setVisibility(View.GONE);
+  }
+
+  @Override public void setAnalysisProgress(State state) {
+    switch (state) {
+      case DECOMPILATION:
+        analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
+        break;
+      case EXTRACTION:
+        analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+        break;
+      case ANALYSIS:
+        analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+        break;
+      default:
+        throw new IllegalArgumentException(String.format("No progress state for %s", state));
+    }
+  }
+
+  @Override public void setAnalysisCompleted() {
+    analysisProgressBar.setAllStatesCompleted(true);
+  }
+
+  @Override public void resetProgress() {
+   // TODO
   }
 
   @Override public void setScore(ScoreView.Score score) {

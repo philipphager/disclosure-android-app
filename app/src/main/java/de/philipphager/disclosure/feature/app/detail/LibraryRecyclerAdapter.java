@@ -7,14 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.permission.model.Permission;
+import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import net.cachapa.expandablelayout.ExpandableLayout;
+import me.gujun.android.taggroup.TagGroup;
+import rx.Observable;
 
 public class LibraryRecyclerAdapter
     extends RecyclerView.Adapter<LibraryRecyclerAdapter.ViewHolder> {
-  private final List<Library> libraries;
+  private final List<LibraryWithPermission> libraries;
   private OnLibraryClickListener listener;
 
   @Inject public LibraryRecyclerAdapter() {
@@ -32,7 +35,7 @@ public class LibraryRecyclerAdapter
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    Library item = libraries.get(position);
+    LibraryWithPermission item = libraries.get(position);
     holder.bind(item, listener);
   }
 
@@ -40,7 +43,7 @@ public class LibraryRecyclerAdapter
     return libraries.size();
   }
 
-  public void setLibraries(List<Library> libraries) {
+  public void setLibraries(List<LibraryWithPermission> libraries) {
     clear();
     this.libraries.addAll(libraries);
     notifyDataSetChanged();
@@ -62,30 +65,29 @@ public class LibraryRecyclerAdapter
   static class ViewHolder extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView subtitle;
-    private final TextView description;
-    private final ExpandableLayout expandableLayout;
+    private final TagGroup permissionGroup;
 
     ViewHolder(View itemView) {
       super(itemView);
       this.title = (TextView) itemView.findViewById(R.id.title);
       this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-      this.description = (TextView) itemView.findViewById(R.id.description);
-      this.expandableLayout = (ExpandableLayout) itemView.findViewById(R.id.expandable_layout);
+      this.permissionGroup = (TagGroup) itemView.findViewById(R.id.permission_group);
     }
 
-    public void bind(final Library library, final OnLibraryClickListener listener) {
+    public void bind(final LibraryWithPermission libraryWithPermission,
+        final OnLibraryClickListener listener) {
+      Library library = libraryWithPermission.library();
       title.setText(library.title());
       subtitle.setText(library.subtitle());
-      description.setText(library.description());
+
+      permissionGroup.setTags(Observable.from(libraryWithPermission.permissions())
+          .map(Permission::title)
+          .toList()
+          .toBlocking()
+          .first());
 
       itemView.setOnClickListener(view -> {
         if (listener != null) {
-          if (!expandableLayout.isExpanded()) {
-            expandableLayout.expand();
-          } else {
-            expandableLayout.collapse();
-          }
-
           listener.onItemClick(library);
         }
       });
