@@ -63,9 +63,6 @@ dependencies {
   compile "com.android.support:appcompat-v7:${supportVersion}"
   compile "com.android.support:design:${supportVersion}"
   compile "com.android.support:support-annotations:${supportVersion}"
-  compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
-  compile 'me.gujun.android.taggroup:library:1.4@aar'
-  compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.2'
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"
@@ -98,7 +95,9 @@ dependencies {
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
   compile "com.jakewharton:butterknife:${butterknifeVersion}"
-  compile 'net.cachapa.expandablelayout:expandablelayout:2.3'
+  compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
+  compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.2'
+  compile 'me.gujun.android.taggroup:library:1.4@aar'
 
   // APK parser
   compile 'net.dongliu:apk-parser:2.1.6'
