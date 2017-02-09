@@ -29,4 +29,10 @@
   <color name="icon">@color/color_black</color>
   <color name="icon_disabled">@color/disabled</color>
   <color name="icon_title">@color/color_black</color>
+
+  <color name="state_progress_bar_state_background_color">#BDBDBD</color>
+  <color name="state_progress_bar_state_foreground_color">@color/color_purple</color>
+  <color name="state_progress_bar_state_number_background_color">@color/color_grey_medium</color>
+  <color name="state_progress_bar_state_number_foreground_color">@color/color_white_dark</color>
+  <color name="state_progress_bar_state_description_color">@color/color_grey_dark</color>
 </resources>

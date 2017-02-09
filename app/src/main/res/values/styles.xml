@@ -34,4 +34,11 @@
     <item name="tabSelectedTextColor">?colorAccent</item>
   </style>
 
+  <style name="PermissionGroup" parent="TagGroup">
+    <item name="atg_borderColor">@color/colorPrimaryDark</item>
+    <item name="atg_textColor">@color/colorPrimaryDark</item>
+    <item name="atg_checkedBorderColor">@color/colorPrimaryDark</item>
+    <item name="atg_checkedBackgroundColor">@color/colorPrimaryDark</item>
+  </style>
+
 </resources>
