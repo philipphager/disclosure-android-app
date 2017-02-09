@@ -38,6 +38,12 @@ FROM LibraryApp, Library
 WHERE LibraryApp.libraryId = Library.id
 AND LibraryApp.appId = ?;
 
+selectByAppUpdateOnNewPermission:
+SELECT Library.*
+FROM Library LEFT OUTER JOIN LibraryApp ON Library.id = LibraryApp.libraryId
+LEFT OUTER JOIN AppLibraryPermission ON Library.id = AppLibraryPermission.libraryId
+WHERE LibraryApp.appId = ?;
+
 selectByFeature:
 SELECT Library.*
 FROM LibraryFeature, Library

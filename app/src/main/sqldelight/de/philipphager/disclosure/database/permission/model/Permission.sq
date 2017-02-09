@@ -26,7 +26,8 @@ selectByApp:
 SELECT Permission.*
 FROM Permission, AppPermission
 WHERE Permission.id = AppPermission.permissionId
-AND AppPermission.appId = ?;
+AND AppPermission.appId = ?
+AND isGranted = ?;
 
 selectByAppAndLibrary:
 SELECT Permission.*
