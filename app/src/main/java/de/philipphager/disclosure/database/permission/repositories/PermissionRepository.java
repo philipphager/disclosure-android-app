@@ -55,8 +55,8 @@ public class PermissionRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<Permission>> byApp(BriteDatabase db, long appId) {
-    SqlDelightStatement selectByApp = Permission.FACTORY.selectByApp(appId);
+  public Observable<List<Permission>> byApp(BriteDatabase db, long appId, boolean isGranted) {
+    SqlDelightStatement selectByApp = Permission.FACTORY.selectByApp(appId, isGranted);
     CursorToListMapper<Permission> cursorToList =
         new CursorToListMapper<>(Permission.FACTORY.selectByAppMapper());
 
