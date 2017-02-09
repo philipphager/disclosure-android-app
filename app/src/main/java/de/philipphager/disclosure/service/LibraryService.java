@@ -70,6 +70,11 @@ public class LibraryService {
     return libraryRepository.byApp(db, app.id());
   }
 
+  public Observable<List<Library>> byAppUpdateOnPermissionChange(App app) {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.byAppWithPermissionUpdate(db, app.id());
+  }
+
   public Observable<List<Library>> byFeature(String featureId) {
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byFeature(db, featureId);

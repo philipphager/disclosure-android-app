@@ -77,6 +77,16 @@ public class LibraryRepository {
         .map(cursorToList);
   }
 
+  public Observable<List<Library>> byAppWithPermissionUpdate(BriteDatabase db, long appId) {
+    SqlDelightStatement selectByApp = Library.FACTORY.selectByAppUpdateOnNewPermission(appId);
+    CursorToListMapper<Library> cursorToList =
+        new CursorToListMapper<>(Library.FACTORY.selectByAppMapper());
+
+    return db.createQuery(selectByApp.tables, selectByApp.statement, selectByApp.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
   public Observable<List<Library>> byFeature(BriteDatabase db, String featureId) {
     SqlDelightStatement selectByFeature = Library.FACTORY.selectByFeature(featureId);
     CursorToListMapper<Library> cursorToList =
