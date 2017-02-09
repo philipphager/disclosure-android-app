@@ -64,6 +64,8 @@ dependencies {
   compile "com.android.support:design:${supportVersion}"
   compile "com.android.support:support-annotations:${supportVersion}"
   compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
+  compile 'me.gujun.android.taggroup:library:1.4@aar'
+  compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.2'
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"
