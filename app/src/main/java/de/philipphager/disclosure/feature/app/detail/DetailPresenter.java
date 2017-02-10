@@ -10,6 +10,7 @@ import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTu
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -28,6 +29,7 @@ public class DetailPresenter {
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
   private final FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions;
   private CompositeSubscription subscriptions;
+  private Subscription analyticsSubscription;
   private DetailView view;
   private App app;
 
@@ -96,13 +98,31 @@ public class DetailPresenter {
     view.showAnalysisProgress();
     view.resetProgress();
 
-    subscriptions.add(analyseAppLibraryPermissions.run(app)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnCompleted(() -> view.setAnalysisCompleted())
-        .doOnTerminate(() -> view.hideAnalysisProgress())
-        .subscribe(permissions -> view.notify(String.format("found %s", permissions)),
-            Timber::e));
+    if (analyticsSubscription == null) {
+      analyticsSubscription = analyseAppLibraryPermissions.run(app)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnTerminate(() -> {
+            view.setAnalysisCompleted();
+            view.hideAnalysisProgress();
+            analyticsSubscription = null;
+          })
+          .subscribe(permissions -> {
+            view.notify(String.format("found %s", permissions));
+          }, Timber::e);
+
+      subscriptions.add(analyticsSubscription);
+    } else {
+      view.showCancel();
+    }
+  }
+
+  public void cancelAnalyseApp() {
+    if (analyticsSubscription != null) {
+      analyticsSubscription.unsubscribe();
+      analyticsSubscription = null;
+      view.hideAnalysisProgress();
+    }
   }
 
   public void onEditPermissionsClicked() {

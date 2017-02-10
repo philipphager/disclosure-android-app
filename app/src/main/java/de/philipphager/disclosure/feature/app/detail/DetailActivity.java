@@ -188,7 +188,15 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void resetProgress() {
-   // TODO
+    analysisProgressBar.setAllStatesCompleted(false);
+    analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
+  }
+
+  @Override public void showCancel() {
+    Snackbar snackbar = Snackbar.make(rootView, R.string.activity_detail_analysis_in_progress,
+        Snackbar.LENGTH_LONG);
+    snackbar.setAction(R.string.action_cancel, v -> presenter.cancelAnalyseApp());
+    snackbar.show();
   }
 
   @Override public void setScore(ScoreView.Score score) {

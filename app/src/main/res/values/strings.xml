@@ -4,6 +4,7 @@
   <string name="app_list_item_image_content_description">app icon</string>
   <string name="button_app_overview_analyse_all">analyse all</string>
   <string name="action_back">BACK</string>
+  <string name="action_cancel">CANCEL</string>
   <string name="action_got_it">GOT IT</string>
   <string name="action_check_system_updates">CHECK SYSTEM UPDATES</string>
   <string name="action_explain_hint_display">This hint will be hidden in the future. To show it again, press and hold the edit icon.</string>
@@ -33,6 +34,7 @@
   <string name="app_detail_action_uninstall">uninstall</string>
   <string name="app_detail_action_trust">trusted</string>
   <string name="app_detail_action_distrust">distrusted</string>
+  <string name="activity_detail_analysis_in_progress">Analysis currently in progress!</string>
 
   <plurals name="fragment_app_list_library_count">
     <item quantity="one">%d library detected</item>

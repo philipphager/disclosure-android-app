@@ -11,6 +11,8 @@ public interface AnalysisProgressView {
 
   void resetProgress();
 
+  void showCancel();
+
   enum State {
     DECOMPILATION, EXTRACTION, ANALYSIS
   }
