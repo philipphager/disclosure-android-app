@@ -5,6 +5,6 @@
       android:title="@string/fragment_app_overview_title"/>
 
   <item
-      android:icon="@mipmap/ic_launcher"
+      android:icon="@drawable/ic_code"
       android:title="Libraries"/>
 </menu>
