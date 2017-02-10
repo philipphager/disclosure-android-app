@@ -26,8 +26,7 @@ public class DetailPresenter {
   private final IntentFactory intentFactory;
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
-  private final FetchLibrariesForAppWithPermissions
-      fetchLibrariesForAppWithPermissions;
+  private final FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions;
   private CompositeSubscription subscriptions;
   private DetailView view;
   private App app;
@@ -41,8 +40,7 @@ public class DetailPresenter {
     this.intentFactory = intentFactory;
     this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
-    this.fetchLibrariesForAppWithPermissions =
-        fetchLibrariesForAppWithPermissions;
+    this.fetchLibrariesForAppWithPermissions = fetchLibrariesForAppWithPermissions;
   }
 
   public void onCreate(DetailView view, App app) {

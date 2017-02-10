@@ -33,7 +33,8 @@ public class DevicePackageProvider {
 
   public Observable<PermissionInfo> getPermissionInfo(String id) {
     return Observable.fromCallable(
-        () -> packageManager.getPermissionInfo(id, PackageManager.GET_META_DATA));
+        () -> packageManager.getPermissionInfo(id, PackageManager.GET_META_DATA))
+        .onErrorReturn(throwable -> null);
   }
 
   public static class FilterUserApps implements Func1<PackageInfo, Boolean> {

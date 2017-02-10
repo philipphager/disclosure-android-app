@@ -49,6 +49,7 @@ public class AnalyseUsedPermissions {
           return Observable.from(requestedPermission);
         })
         .flatMap(packageProvider::getPermissionInfo)
+        .filter(permissionInfo -> permissionInfo != null)
         .map(toPermissionMapper::map)
         .toList();
   }
