@@ -20,7 +20,7 @@ import timber.log.Timber;
 import static de.philipphager.disclosure.util.rx.RxUtils.zipMap;
 
 public class AnalyseAppLibraryPermissions {
-  private final DecompileApk decompileApk;
+  private final DecompileApp decompileApp;
   private final AnalyseLibraryMethodInvocations analyseLibraryMethodInvocations;
   private final AnalysePermissionsFromMethodInvocations analysePermissionsFromMethodInvocations;
   private final LibraryService libraryService;
@@ -29,14 +29,14 @@ public class AnalyseAppLibraryPermissions {
   private final FileUtils fileUtils;
   private final PublishSubject<AnalysisProgressView.State> progressSubject;
 
-  @Inject public AnalyseAppLibraryPermissions(DecompileApk decompileApk,
+  @Inject public AnalyseAppLibraryPermissions(DecompileApp decompileApp,
       AnalyseLibraryMethodInvocations analyseLibraryMethodInvocations,
       AnalysePermissionsFromMethodInvocations analysePermissionsFromMethodInvocations,
       LibraryService libraryService,
       PermissionService permissionService,
       StorageProvider storageProvider,
       FileUtils fileUtils) {
-    this.decompileApk = decompileApk;
+    this.decompileApp = decompileApp;
     this.analyseLibraryMethodInvocations = analyseLibraryMethodInvocations;
     this.analysePermissionsFromMethodInvocations = analysePermissionsFromMethodInvocations;
     this.libraryService = libraryService;
@@ -50,7 +50,7 @@ public class AnalyseAppLibraryPermissions {
     File compiledApkDir = getOutputDirForApp(app);
     progressSubject.onNext(AnalysisProgressView.State.DECOMPILATION);
 
-    return zipMap(decompileApk.run(app, compiledApkDir), libraryService.byApp(app),
+    return zipMap(decompileApp.run(app, compiledApkDir), libraryService.byApp(app),
         (apkDir, libraries) -> {
           progressSubject.onNext(AnalysisProgressView.State.EXTRACTION);
           return Observable.from(libraries)
