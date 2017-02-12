@@ -3,9 +3,8 @@ package de.philipphager.disclosure.feature.analyser.app.usecase;
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.AppPermission;
-import de.philipphager.disclosure.database.permission.model.Permission;
-import de.philipphager.disclosure.feature.analyser.permission.ToPermissionMapper;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
+import de.philipphager.disclosure.feature.sync.db.usecases.FetchNewPermissions;
 import de.philipphager.disclosure.service.PermissionService;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,40 +17,27 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
 public class AnalyseUsedPermissions {
   private final PermissionService permissionService;
   private final DevicePackageProvider packageProvider;
-  private final ToPermissionMapper toPermissionMapper;
+  private final FetchNewPermissions fetchNewPermissions;
 
   @Inject public AnalyseUsedPermissions(PermissionService permissionService,
       DevicePackageProvider packageProvider,
-      ToPermissionMapper toPermissionMapper) {
+      FetchNewPermissions fetchNewPermissions) {
     this.permissionService = permissionService;
     this.packageProvider = packageProvider;
-    this.toPermissionMapper = toPermissionMapper;
+    this.fetchNewPermissions = fetchNewPermissions;
   }
 
   public Observable<List<?>> analyse(App app) {
     Timber.d("analysing permissions used by %s", app);
 
     return Observable.concat(
-        loadRequestedPermissions(app)
+        fetchNewPermissions.run(app)
             .doOnNext(permissionService::insertOrUpdate)
             .doOnError(Timber::e),
         loadPermissionStatus(app)
             .doOnNext(permissionService::insertForApp)
             .doOnError(Timber::e)
     ).ignoreElements();
-  }
-
-  private Observable<List<Permission>> loadRequestedPermissions(App app) {
-    return packageProvider.getPackageInfo(app.packageName())
-        .flatMap(packageInfo -> {
-          String[] requestedPermission = packageInfo.requestedPermissions != null
-              ? packageInfo.requestedPermissions : new String[0];
-          return Observable.from(requestedPermission);
-        })
-        .flatMap(packageProvider::getPermissionInfo)
-        .filter(permissionInfo -> permissionInfo != null)
-        .map(toPermissionMapper::map)
-        .toList();
   }
 
   private Observable<List<AppPermission>> loadPermissionStatus(App app) {
