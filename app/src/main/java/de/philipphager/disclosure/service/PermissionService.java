@@ -36,7 +36,7 @@ public class PermissionService {
   }
 
   public void insertOrUpdate(List<Permission> permissions) {
-    if (permissions != null && permissions.size() > 0) {
+    if (permissions != null && !permissions.isEmpty()) {
       BriteDatabase db = databaseManager.get();
       try (BriteDatabase.Transaction transaction = db.newTransaction()) {
         for (Permission permission : permissions) {
@@ -58,7 +58,7 @@ public class PermissionService {
   }
 
   public void insertForApp(List<AppPermission> appPermissions) {
-    if (appPermissions != null && appPermissions.size() > 0) {
+    if (appPermissions != null && !appPermissions.isEmpty()) {
       BriteDatabase db = databaseManager.get();
       try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
@@ -72,7 +72,7 @@ public class PermissionService {
   }
 
   public void insertForAppAndLibrary(App app, Library library, List<Permission> permissions) {
-    if (permissions != null && permissions.size() > 0) {
+    if (permissions != null && !permissions.isEmpty()) {
       BriteDatabase db = databaseManager.get();
       try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
