@@ -16,8 +16,9 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
 /**
  * Closely follows closely the implementation used in APKTool by iBotPeaches.
  *
- * @see <a href="https://github.com/iBotPeaches/Apktool/blob/master/brut.apktool/
- * apktool-lib/src/main/java/brut/androlib/src/SmaliDecoder.java">SmaliDecoder.java</a>
+ * @see <a href="https://github.com/iBotPeaches/Apktool/blob/master/brut
+ * .apktool/apktool-lib/src/main/java/brut/androlib/src/
+ * SmaliDecoder.java">SmaliDecoder.java</a>
  */
 public class DecompileApp {
   @SuppressWarnings("PMD.UnnecessaryConstructor") @Inject public DecompileApp() {
