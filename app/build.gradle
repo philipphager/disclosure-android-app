@@ -96,7 +96,7 @@ dependencies {
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
   compile "com.jakewharton:butterknife:${butterknifeVersion}"
   compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
-  compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.2'
+  compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.3'
   compile 'me.gujun.android.taggroup:library:1.4@aar'
 
   // APK parser
