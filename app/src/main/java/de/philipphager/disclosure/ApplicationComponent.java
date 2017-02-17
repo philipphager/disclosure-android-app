@@ -14,6 +14,7 @@ import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
+import de.philipphager.disclosure.feature.settings.SettingsFragment;
 import de.philipphager.disclosure.feature.sync.db.broadcasts.PackageManagerBroadcastReceiver;
 import javax.inject.Singleton;
 
@@ -31,6 +32,8 @@ public interface ApplicationComponent {
   void inject(SearchActivity activity);
 
   void inject(DetailActivity activity);
+
+  void inject(SettingsFragment settingsFragment);
 
   void inject(LibraryOverviewActivity activity);
 

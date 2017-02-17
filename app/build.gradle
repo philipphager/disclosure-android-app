@@ -63,6 +63,8 @@ dependencies {
   compile "com.android.support:appcompat-v7:${supportVersion}"
   compile "com.android.support:design:${supportVersion}"
   compile "com.android.support:support-annotations:${supportVersion}"
+  compile "com.android.support:preference-v7:${supportVersion}"
+  compile 'com.takisoft.fix:preference-v7:25.1.1.0'
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"

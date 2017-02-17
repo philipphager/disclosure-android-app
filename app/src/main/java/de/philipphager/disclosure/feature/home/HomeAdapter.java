@@ -4,9 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
+import de.philipphager.disclosure.feature.settings.SettingsFragment;
 
 public class HomeAdapter extends FragmentPagerAdapter {
   private static final int POSITION_APP_OVERVIEW = 0;
+  private static final int POSITION_LIBRARY_OVERVIEW = 1;
+  private static final int POSITION_SETTINGS = 2;
 
   public HomeAdapter(FragmentManager fragmentManager) {
     super(fragmentManager);
@@ -16,6 +19,10 @@ public class HomeAdapter extends FragmentPagerAdapter {
     switch (position) {
       case POSITION_APP_OVERVIEW:
         return AppOverviewFragment.newInstance();
+      case POSITION_LIBRARY_OVERVIEW       :
+        return SettingsFragment.newInstance();
+      case POSITION_SETTINGS:
+        return SettingsFragment.newInstance();
       default:
         throw new IllegalArgumentException(
             String.format("Out of bounds! HomeAdapter only manages %s fragments", getCount()));
@@ -23,6 +30,6 @@ public class HomeAdapter extends FragmentPagerAdapter {
   }
 
   @Override public int getCount() {
-    return 1;
+    return 3;
   }
 }

@@ -22,7 +22,7 @@ public class FetchLibrariesForAppWithPermissions {
     this.permissionService = permissionService;
   }
 
-  public Observable<List<LibraryWithPermission>> run(App app) {
+  public Observable<List<LibraryWithPermission>> run(App app, boolean showAll) {
     loadGrantedPermissionsForApp(app);
 
     return libraryService.byAppUpdateOnPermissionChange(app)
@@ -31,7 +31,7 @@ public class FetchLibrariesForAppWithPermissions {
             .flatMap(library -> permissionService.byAppAndLibrary(app, library)
                 .first()
                 .flatMap(Observable::from)
-                .filter(this::permissionIsGrantedForApp)
+                .filter(permission -> showAll || permissionIsGrantedForApp(permission))
                 .toList()
                 .map(permissions -> LibraryWithPermission.create(library, permissions)))
             .toList());

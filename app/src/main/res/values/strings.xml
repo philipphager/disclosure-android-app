@@ -35,6 +35,13 @@
   <string name="app_detail_action_trust">trusted</string>
   <string name="app_detail_action_distrust">distrusted</string>
   <string name="activity_detail_analysis_in_progress">Analysis currently in progress!</string>
+  <string name="pref_appearance">Appearance</string>
+  <string name="settings_category_appearance">Appearance</string>
+  <string name="pref_display_all_permissions">displayAllPermissions</string>
+  <string name="setting_display_all_permissions_title">Display all found permissions</string>
+  <string name="setting_display_all_permissions_summary">Show analyzed but not granted permissions</string>
+  <string name="shared_preferences">Disclosure</string>
+  <string name="fragment_settings_title">Settings</string>
 
   <plurals name="fragment_app_list_library_count">
     <item quantity="one">%d library detected</item>

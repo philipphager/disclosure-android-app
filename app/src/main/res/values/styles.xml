@@ -6,6 +6,7 @@
     <item name="colorPrimary">@color/color_grey_light</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
   </style>
 
   <style name="AppTheme" parent="BaseAppTheme">
@@ -34,11 +35,18 @@
     <item name="tabSelectedTextColor">?colorAccent</item>
   </style>
 
-  <style name="PermissionGroup" parent="TagGroup">
+  <style name="PermissionGroupDangerous" parent="TagGroup">
     <item name="atg_borderColor">@color/colorPrimaryDark</item>
-    <item name="atg_textColor">@color/colorPrimaryDark</item>
-    <item name="atg_checkedBorderColor">@color/colorPrimaryDark</item>
-    <item name="atg_checkedBackgroundColor">@color/colorPrimaryDark</item>
+    <item name="atg_backgroundColor">@color/color_purple</item>
+    <item name="atg_textColor">@color/color_white_light</item>
+    <item name="atg_checkedBorderColor">@color/color_grey_dark</item>
+    <item name="atg_checkedBackgroundColor">@color/color_grey_dark</item>
+  </style>
+
+  <style name="PermissionGroupNormal" parent="TagGroup">
+    <item name="atg_borderColor">@color/color_grey_dark</item>
+    <item name="atg_backgroundColor">@color/color_grey_dark</item>
+    <item name="atg_textColor">@color/color_white_light</item>
   </style>
 
 </resources>

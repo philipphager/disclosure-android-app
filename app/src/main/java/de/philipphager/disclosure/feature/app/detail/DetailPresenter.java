@@ -6,6 +6,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
 import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
+import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.IntentFactory;
@@ -27,6 +28,7 @@ public class DetailPresenter {
   private final IntentFactory intentFactory;
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
+  private final Preference<Boolean> displayAllPermissions;
   private final FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions;
   private CompositeSubscription subscriptions;
   private Subscription analyticsSubscription;
@@ -37,11 +39,13 @@ public class DetailPresenter {
       IntentFactory intentFactory,
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial,
+      @DisplayAllPermissions Preference<Boolean> displayAllPermissions,
       FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions) {
     this.appService = appService;
     this.intentFactory = intentFactory;
     this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
+    this.displayAllPermissions = displayAllPermissions;
     this.fetchLibrariesForAppWithPermissions = fetchLibrariesForAppWithPermissions;
   }
 
@@ -76,7 +80,7 @@ public class DetailPresenter {
   }
 
   private void fetchLibraries() {
-    subscriptions.add(fetchLibrariesForAppWithPermissions.run(app)
+    subscriptions.add(fetchLibrariesForAppWithPermissions.run(app, displayAllPermissions.get())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraryWithPermissions -> {
           view.setLibraries(libraryWithPermissions);

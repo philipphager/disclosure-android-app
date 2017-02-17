@@ -7,4 +7,8 @@
   <item
       android:icon="@drawable/ic_code"
       android:title="Libraries"/>
+
+  <item
+      android:icon="@drawable/ic_settings"
+      android:title="@string/fragment_settings_title"/>
 </menu>

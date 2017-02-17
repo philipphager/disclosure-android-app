@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+      android:key="@string/pref_appearance"
+      android:title="@string/settings_category_appearance">
+
+    <CheckBoxPreference
+        android:key="@string/pref_display_all_permissions"
+        android:title="@string/setting_display_all_permissions_title"
+        android:summary="@string/setting_display_all_permissions_summary"
+        android:checked="false"/>
+
+  </PreferenceCategory>
+
+</PreferenceScreen>
