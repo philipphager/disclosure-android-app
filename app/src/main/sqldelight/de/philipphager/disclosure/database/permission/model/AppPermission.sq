@@ -10,3 +10,8 @@ CREATE TABLE AppPermission (
 insertPermissionApp:
 INSERT OR REPLACE INTO AppPermission
 VALUES (?, ?, ?);
+
+selectByApp:
+SELECT *
+FROM AppPermission
+WHERE appId = ?;

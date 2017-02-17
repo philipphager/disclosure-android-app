@@ -3,6 +3,7 @@ package de.philipphager.disclosure.database.permission.repositories;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
+import de.philipphager.disclosure.database.permission.model.AppPermission;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.database.permission.model.PermissionModel;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
@@ -59,6 +60,16 @@ public class PermissionRepository {
     SqlDelightStatement selectByApp = Permission.FACTORY.selectByApp(appId, isGranted);
     CursorToListMapper<Permission> cursorToList =
         new CursorToListMapper<>(Permission.FACTORY.selectByAppMapper());
+
+    return db.createQuery(selectByApp.tables, selectByApp.statement, selectByApp.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
+  public Observable<List<AppPermission>> byApp(BriteDatabase db, long appId) {
+    SqlDelightStatement selectByApp = AppPermission.FACTORY.selectByApp(appId);
+    CursorToListMapper<AppPermission> cursorToList =
+        new CursorToListMapper<>(AppPermission.FACTORY.selectByAppMapper());
 
     return db.createQuery(selectByApp.tables, selectByApp.statement, selectByApp.args)
         .map(SqlBrite.Query::run)
