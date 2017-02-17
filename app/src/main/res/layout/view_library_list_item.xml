@@ -29,8 +29,13 @@
         tools:text="A great subtitle"/>
 
     <me.gujun.android.taggroup.TagGroup
-        android:id="@+id/permission_group"
-        style="@style/PermissionGroup" />
+        android:id="@+id/permission_group_dangerous"
+        style="@style/PermissionGroupDangerous"
+        android:layout_marginBottom="@dimen/spacing_micro"/>
+
+    <me.gujun.android.taggroup.TagGroup
+        android:id="@+id/permission_group_normal"
+        style="@style/PermissionGroupNormal" />
 
   </LinearLayout>
 

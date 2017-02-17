@@ -39,8 +39,6 @@
     <item name="atg_borderColor">@color/colorPrimaryDark</item>
     <item name="atg_backgroundColor">@color/color_purple</item>
     <item name="atg_textColor">@color/color_white_light</item>
-    <item name="atg_checkedBorderColor">@color/color_grey_dark</item>
-    <item name="atg_checkedBackgroundColor">@color/color_grey_dark</item>
   </style>
 
   <style name="PermissionGroupNormal" parent="TagGroup">

@@ -1,5 +1,7 @@
 package de.philipphager.disclosure.feature.app.detail;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PermissionInfo;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,13 +67,15 @@ public class LibraryRecyclerAdapter
   static class ViewHolder extends RecyclerView.ViewHolder {
     private final TextView title;
     private final TextView subtitle;
-    private final TagGroup permissionGroup;
+    private final TagGroup permissionGroupDangerous;
+    private final TagGroup permissionGroupNormal;
 
     ViewHolder(View itemView) {
       super(itemView);
       this.title = (TextView) itemView.findViewById(R.id.title);
       this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-      this.permissionGroup = (TagGroup) itemView.findViewById(R.id.permission_group);
+      this.permissionGroupDangerous = (TagGroup) itemView.findViewById(R.id.permission_group_dangerous);
+      this.permissionGroupNormal = (TagGroup) itemView.findViewById(R.id.permission_group_normal);
     }
 
     public void bind(final LibraryWithPermission libraryWithPermission,
@@ -80,7 +84,15 @@ public class LibraryRecyclerAdapter
       title.setText(library.title());
       subtitle.setText(library.subtitle());
 
-      permissionGroup.setTags(Observable.from(libraryWithPermission.permissions())
+      permissionGroupDangerous.setTags(Observable.from(libraryWithPermission.permissions())
+          .filter(permission -> permission.protectionLevel() == PermissionInfo.PROTECTION_DANGEROUS)
+          .map(Permission::title)
+          .toList()
+          .toBlocking()
+          .first());
+
+      permissionGroupNormal.setTags(Observable.from(libraryWithPermission.permissions())
+          .filter(permission -> permission.protectionLevel() == PermissionInfo.PROTECTION_NORMAL)
           .map(Permission::title)
           .toList()
           .toBlocking()
