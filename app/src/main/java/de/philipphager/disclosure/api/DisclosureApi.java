@@ -10,11 +10,14 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 public interface DisclosureApi {
+  int PAGE_SIZE = 50;
+
   @GET("/libraries")
   Observable<List<Library>> allLibraries();
 
   @GET("/libraries")
-  Observable<List<Library>> allLibraries(@Query("updatedSince") OffsetDateTime lastUpdate);
+  Observable<List<Library>> allLibraries(@Query("updatedSince") OffsetDateTime lastUpdate,
+      @Query("page") int page, @Query("limit") int limit);
 
   @GET("/features")
   Observable<List<Feature>> allFeatures();

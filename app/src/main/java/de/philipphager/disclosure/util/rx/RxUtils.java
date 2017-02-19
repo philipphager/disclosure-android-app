@@ -9,6 +9,10 @@ public final class RxUtils {
     return Observable.zip(o1, o2, mapper).flatMap(v -> v);
   }
 
+  public static Observable<Integer> infRange(int start) {
+    return Observable.range(start, Integer.MAX_VALUE);
+  }
+
   private RxUtils() {
     // No instances.
   }

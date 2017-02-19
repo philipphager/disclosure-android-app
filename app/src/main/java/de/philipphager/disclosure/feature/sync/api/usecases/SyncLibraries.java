@@ -20,7 +20,11 @@ public class SyncLibraries {
   public Observable<List<Library>> run() {
     return libraryService.lastUpdated()
         .first()
-        .flatMap(disclosureApi::allLibraries)
+        .flatMap(lastUpdated -> new Paginator<Library>() {
+          @Override protected Observable<List<Library>> queryPage(int page, int limit) {
+            return disclosureApi.allLibraries(lastUpdated, page, limit);
+          }
+        }.join())
         .doOnNext(libraryService::insertOrUpdate);
   }
 }
