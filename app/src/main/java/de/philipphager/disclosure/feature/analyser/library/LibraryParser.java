@@ -21,7 +21,7 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
 public class LibraryParser {
   private static final int ESTIMATED_METHODS_PER_LIBRARY = 500;
   private static final Pattern METHOD_REGEX =
-      Pattern.compile("invoke-(direct|virtual|static|super) \\{.*\\}, (.*)->(.*)\\((.*)\\)(.*)");
+      Pattern.compile("invoke-(direct|virtual|static|super|interface) \\{.*\\}, (.*)->(.*)\\((.*)\\)(.*)");
   private final File directory;
   private List<Method> invokedMethods;
 
