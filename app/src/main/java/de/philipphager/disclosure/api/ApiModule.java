@@ -39,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
         .build();
   }
 
-  @Provides @Singleton public DisclosureApi provideLibraryApi(Retrofit retrofit) {
+  @Provides @Singleton public DisclosureApi provideDisclosureApi(Retrofit retrofit) {
     return retrofit.create(DisclosureApi.class);
   }
 }
