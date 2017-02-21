@@ -28,7 +28,7 @@ public class HomePresenter {
   }
 
   public void onDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.clear();
   }
 
   private void syncWithApi() {

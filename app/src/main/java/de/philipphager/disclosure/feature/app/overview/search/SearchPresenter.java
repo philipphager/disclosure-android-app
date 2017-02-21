@@ -21,13 +21,13 @@ public class SearchPresenter {
 
   public void onCreate(AppSearchView view) {
     this.view = view;
-
-    subscriptions = new CompositeSubscription();
+    this.subscriptions = new CompositeSubscription();
     fetchSearchQueryUpdates();
   }
 
   public void onDestroy() {
-    subscriptions.unsubscribe();
+    this.subscriptions.clear();
+    this.view = null;
   }
 
   private void fetchSearchQueryUpdates() {

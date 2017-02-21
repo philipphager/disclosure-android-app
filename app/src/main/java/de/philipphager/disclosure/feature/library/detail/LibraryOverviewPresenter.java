@@ -32,7 +32,8 @@ public class LibraryOverviewPresenter {
   }
 
   public void onDestroy() {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.clear();
+    this.view = null;
   }
 
   private void loadApps() {

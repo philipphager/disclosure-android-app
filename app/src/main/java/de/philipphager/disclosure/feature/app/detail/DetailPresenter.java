@@ -60,7 +60,7 @@ public class DetailPresenter {
   }
 
   public void onDestroy() {
-    subscriptions.unsubscribe();
+    this.subscriptions.clear();
   }
 
   private void initView(App app) {

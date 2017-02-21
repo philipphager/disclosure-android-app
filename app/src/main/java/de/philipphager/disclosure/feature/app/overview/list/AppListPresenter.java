@@ -26,13 +26,14 @@ public class AppListPresenter {
 
   public void onViewCreated(AppListView view) {
     this.view = view;
-    subscriptions = new CompositeSubscription();
+    this.subscriptions = new CompositeSubscription();
     fetchListSortingPreference();
     fetchUserApps();
   }
 
   public void onDestroyView() {
-    subscriptions.unsubscribe();
+    this.subscriptions.clear();
+    this.view = null;
   }
 
   private void fetchUserApps() {
