@@ -35,4 +35,8 @@ public final class LibraryCategoryUIProvider {
         throw new IllegalArgumentException("No icon for library category");
     }
   }
+
+  private LibraryCategoryUIProvider() {
+    // No instances.
+  }
 }

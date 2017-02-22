@@ -1,6 +1,5 @@
 package de.philipphager.disclosure.feature.app.detail;
 
-import android.content.pm.PackageInfo;
 import android.content.pm.PermissionInfo;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
