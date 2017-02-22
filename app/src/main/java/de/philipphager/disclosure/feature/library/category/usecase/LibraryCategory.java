@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.library.overview.usecase;
+package de.philipphager.disclosure.feature.library.category.usecase;
 
 import android.os.Parcelable;
 import com.google.auto.value.AutoValue;

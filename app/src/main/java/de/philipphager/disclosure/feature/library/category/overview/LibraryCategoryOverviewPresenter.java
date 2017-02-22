@@ -1,7 +1,7 @@
-package de.philipphager.disclosure.feature.library.overview;
+package de.philipphager.disclosure.feature.library.category.overview;
 
-import de.philipphager.disclosure.feature.library.overview.usecase.FetchLibraryCategories;
-import de.philipphager.disclosure.feature.library.overview.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.library.category.usecase.FetchLibraryCategories;
+import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

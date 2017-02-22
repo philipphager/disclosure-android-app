@@ -50,6 +50,11 @@ FROM LibraryFeature, Library
 WHERE LibraryFeature.libraryId = Library.id
 AND LibraryFeature.featureId = ?;
 
+selectByType:
+SELECT Library.*
+FROM Library
+WHERE type = ?;
+
 selectLastUpdated:
 SELECT updatedAt
 FROM Library

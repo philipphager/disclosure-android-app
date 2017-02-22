@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.library.overview.usecase;
+package de.philipphager.disclosure.feature.library.category.usecase;
 
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.service.LibraryService;

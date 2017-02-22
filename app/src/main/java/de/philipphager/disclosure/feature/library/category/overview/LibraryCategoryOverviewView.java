@@ -1,6 +1,6 @@
-package de.philipphager.disclosure.feature.library.overview;
+package de.philipphager.disclosure.feature.library.category.overview;
 
-import de.philipphager.disclosure.feature.library.overview.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
 import de.philipphager.disclosure.feature.navigation.Navigates;
 import java.util.List;
 

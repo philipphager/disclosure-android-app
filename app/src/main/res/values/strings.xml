@@ -39,6 +39,16 @@
     <item quantity="other">%d usages found</item>
   </plurals>
 
+  <plurals name="activity_library_category_usage_count">
+    <item quantity="one">%d total usages</item>
+    <item quantity="other">%d total usages</item>
+  </plurals>
+
+  <plurals name="activity_library_category_library_count">
+    <item quantity="one">%d libraries</item>
+    <item quantity="other">%d libraries</item>
+  </plurals>
+
   <string name="fragment_app_list_no_libraries_found">no libraries detected</string>
   <string name="empty"/>
   <string name="app_detail_action_edit">edit</string>
@@ -58,4 +68,9 @@
     <item quantity="one">%d library detected</item>
     <item quantity="other">%d libraries detected</item>
   </plurals>
+
+  <string name="library_category_advertisement">Advertisement</string>
+  <string name="library_category_analytics">Analytics</string>
+  <string name="library_category_development">Developer</string>
+  <string name="library_category_social">Social</string>
 </resources>

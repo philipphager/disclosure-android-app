@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.library.overview;
+package de.philipphager.disclosure.feature.library.category.overview;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.feature.library.overview.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.library.category.LibraryCategoryUIProvider;
+import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -61,6 +63,7 @@ public class LibraryCategoryRecyclerAdapter
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
+    private final ImageView icon;
     private final TextView title;
     private final TextView libraryCount;
     private final TextView usageCount;
@@ -68,29 +71,32 @@ public class LibraryCategoryRecyclerAdapter
 
     ViewHolder(View itemView, Context context) {
       super(itemView);
+      this.icon = (ImageView) itemView.findViewById(R.id.icon);
       this.title = (TextView) itemView.findViewById(R.id.category_title);
       this.libraryCount = (TextView) itemView.findViewById(R.id.library_count);
       this.usageCount = (TextView) itemView.findViewById(R.id.usage_count);
       this.context = context;
     }
 
-    public void bind(final LibraryCategory typeInfo, final OnAppClickListener listener) {
+    public void bind(final LibraryCategory category, final OnAppClickListener listener) {
       Resources resources = context.getResources();
 
-      title.setText(typeInfo.type().name());
+      icon.setImageResource(LibraryCategoryUIProvider.getIcon(category.type()));
+      title.setText(LibraryCategoryUIProvider.getTitle(category.type()));
+
       libraryCount.setText(resources.getQuantityString(
           R.plurals.fragment_library_category_library_count,
-          typeInfo.allLibraries().intValue(),
-          typeInfo.allLibraries()));
+          category.allLibraries().intValue(),
+          category.allLibraries()));
 
       usageCount.setText(resources.getQuantityString(
           R.plurals.fragment_library_category_usage_count,
-          typeInfo.usedLibraries().intValue(),
-          typeInfo.usedLibraries()));
+          category.usedLibraries().intValue(),
+          category.usedLibraries()));
 
       itemView.setOnClickListener(view -> {
         if (listener != null) {
-          listener.onItemClick(typeInfo);
+          listener.onItemClick(category);
         }
       });
     }

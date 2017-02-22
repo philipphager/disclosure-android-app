@@ -13,9 +13,8 @@ import de.philipphager.disclosure.feature.app.overview.trusted.TrustedAppListFra
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
-import de.philipphager.disclosure.feature.library.overview.LibraryCategoryDetailActivity;
-import de.philipphager.disclosure.feature.library.overview.LibraryCategoryOverviewOverviewFragment;
-import de.philipphager.disclosure.feature.library.overview.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.library.category.LibraryCategoryDetailActivity;
+import de.philipphager.disclosure.feature.library.category.overview.LibraryCategoryOverviewOverviewFragment;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 import de.philipphager.disclosure.feature.sync.db.broadcasts.PackageManagerBroadcastReceiver;

@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.library.overview;
+package de.philipphager.disclosure.feature.library.category.overview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.view.View;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.feature.library.overview.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
 import de.philipphager.disclosure.util.ui.BaseFragment;
 import de.philipphager.disclosure.util.ui.GridColumnProvider;
 import java.util.List;

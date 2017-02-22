@@ -10,6 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.threeten.bp.OffsetDateTime;
 import rx.Observable;
+import rx.Subscription;
 
 public class LibraryService {
   private final DatabaseManager databaseManager;
@@ -78,6 +79,11 @@ public class LibraryService {
   public Observable<List<Library>> byFeature(String featureId) {
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byFeature(db, featureId);
+  }
+
+  public Observable<List<Library>> byType(Library.Type type) {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.byType(db, type);
   }
 
   public Observable<OffsetDateTime> lastUpdated() {

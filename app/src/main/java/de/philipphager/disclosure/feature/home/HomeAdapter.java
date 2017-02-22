@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
-import de.philipphager.disclosure.feature.library.overview.LibraryCategoryOverviewOverviewFragment;
+import de.philipphager.disclosure.feature.library.category.overview.LibraryCategoryOverviewOverviewFragment;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 
 public class HomeAdapter extends FragmentPagerAdapter {

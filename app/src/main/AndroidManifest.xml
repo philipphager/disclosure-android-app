@@ -49,7 +49,7 @@
     </activity>
 
     <activity
-        android:name=".feature.library.overview.LibraryCategoryDetailActivity"
+        android:name=".feature.library.category.LibraryCategoryDetailActivity"
         android:parentActivityName=".feature.home.HomeActivity"
         android:launchMode="singleTop">
     </activity>

@@ -1,7 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:fitsSystemWindows="true">
 
-</LinearLayout>
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      android:orientation="vertical"
+      android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:contentScrim="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:layout_marginBottom="80dp"
+          android:title="@string/empty"
+          app:layout_collapseMode="pin"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingBottom="@dimen/spacing_normal"
+          android:gravity="center"
+          android:orientation="vertical"
+          app:layout_collapseMode="parallax">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/icon_large_width"
+            android:layout_height="@dimen/icon_large_height"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/category_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_headline"
+            android:textStyle="bold"
+            android:textColor="@color/color_black"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/spacing_micro"
+            tools:text="App Label"/>
+
+      </LinearLayout>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <android.support.v4.widget.NestedScrollView
+      android:id="@+id/nestedScrollView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/libraries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:nestedScrollingEnabled="false"
+        tools:listitem="@layout/view_category_library_list_item"/>
+
+  </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

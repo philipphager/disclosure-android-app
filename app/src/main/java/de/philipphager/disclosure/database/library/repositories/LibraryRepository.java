@@ -97,6 +97,16 @@ public class LibraryRepository {
         .map(cursorToList);
   }
 
+  public Observable<List<Library>> byType(BriteDatabase db, Library.Type type) {
+    SqlDelightStatement selectByType = Library.FACTORY.selectByType(type);
+    CursorToListMapper<Library> cursorToList =
+        new CursorToListMapper<>(Library.FACTORY.selectByTypeMapper());
+
+    return db.createQuery(selectByType.tables, selectByType.statement, selectByType.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
   public Observable<OffsetDateTime> lastUpdated(BriteDatabase db) {
     return db.createQuery(Library.TABLE_NAME, Library.SELECTLASTUPDATED)
         .map(SqlBrite.Query::run)
