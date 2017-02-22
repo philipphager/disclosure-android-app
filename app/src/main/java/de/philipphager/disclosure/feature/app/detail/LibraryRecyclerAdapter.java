@@ -82,7 +82,7 @@ public class LibraryRecyclerAdapter
         final OnLibraryClickListener listener) {
       Library library = libraryWithPermission.library();
       title.setText(library.title());
-      subtitle.setText(library.subtitle());
+      subtitle.setText(library.type().name());
 
       permissionGroupDangerous.setTags(Observable.from(libraryWithPermission.permissions())
           .filter(permission -> permission.protectionLevel() == PermissionInfo.PROTECTION_DANGEROUS)
