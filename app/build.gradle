@@ -5,6 +5,8 @@ apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'com.noveogroup.android.check'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'findbugs'
+apply plugin: 'com.getkeepsafe.dexcount'
+
 
 def versionMajor = 0
 def versionMinor = 0
@@ -24,7 +26,7 @@ android {
   }
   buildTypes {
     release {
-      minifyEnabled false
+      minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
 
@@ -61,10 +63,10 @@ dependencies {
 
   // Design
   compile "com.android.support:appcompat-v7:${supportVersion}"
-  compile "com.android.support:design:${supportVersion}"
   compile "com.android.support:support-annotations:${supportVersion}"
   compile "com.android.support:cardview-v7:${supportVersion}"
   compile "com.android.support:preference-v7:${supportVersion}"
+  compile "com.android.support:transition:${supportVersion}"
   compile 'com.takisoft.fix:preference-v7:25.1.1.0'
 
   // Dependency injection with dagger 2

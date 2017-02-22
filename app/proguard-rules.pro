@@ -18,3 +18,15 @@
 
 # Retrolamda
 -dontwarn java.lang.invoke.*
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
