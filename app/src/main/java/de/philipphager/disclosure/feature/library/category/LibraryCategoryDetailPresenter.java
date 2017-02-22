@@ -55,6 +55,6 @@ public class LibraryCategoryDetailPresenter {
   }
 
   public void onLibraryClicked(LibraryInfo library) {
-
+    // TODO: Navigate to library detail
   }
 }

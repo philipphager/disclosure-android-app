@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class LibraryCategoryOverviewOverviewFragment extends BaseFragment implements
     LibraryCategoryOverviewView {
   @Inject protected LibraryCategoryOverviewPresenter presenter;
-  @BindView(R.id.library_categories) RecyclerView categoryRecyclerView;
+  @BindView(R.id.library_categories) protected RecyclerView categoryRecyclerView;
   private LibraryCategoryRecyclerAdapter adapter;
 
   public static LibraryCategoryOverviewOverviewFragment newInstance() {
