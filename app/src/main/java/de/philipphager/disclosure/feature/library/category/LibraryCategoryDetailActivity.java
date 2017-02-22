@@ -22,9 +22,9 @@ import javax.inject.Inject;
 public class LibraryCategoryDetailActivity extends BaseActivity implements LibraryCategoryDetailView {
   private static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
   @Inject protected LibraryCategoryDetailPresenter presenter;
-  @BindView(R.id.libraries) RecyclerView libraryRecyclerView;
-  @BindView(R.id.icon) ImageView icon;
-  @BindView(R.id.category_title) TextView categoryTitle;
+  @BindView(R.id.libraries) protected RecyclerView libraryRecyclerView;
+  @BindView(R.id.icon) protected ImageView icon;
+  @BindView(R.id.category_title) protected TextView categoryTitle;
   private LibraryCategoryDetailRecyclerAdapter adapter;
 
   public static Intent launch(Context context, LibraryCategory libraryCategory) {
