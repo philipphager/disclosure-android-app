@@ -84,4 +84,14 @@ public class LibraryService {
     BriteDatabase db = databaseManager.get();
     return libraryRepository.lastUpdated(db);
   }
+
+  public Observable<Long> countByType(Library.Type type) {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.countByType(db, type);
+  }
+
+  public Observable<Long> countUsedLibrariesByType(Library.Type type) {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.countUsedLibrariesByType(db, type);
+  }
 }

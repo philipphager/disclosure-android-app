@@ -19,6 +19,7 @@
   <string name="fragment_app_overview_action_sort_apps">Sort</string>
   <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
   <string name="fragment_app_overview_action_sort_library_count">Library count</string>
+  <string name="fragment_library_category_toolbar_title">Library Manager</string>
   <string name="app_search_hint">Search by name and libraries</string>
   <string name="search_empty_title">No matching apps found</string>
   <string name="search_empty_subtitle">Please check your spelling and if the app is still installed</string>
@@ -26,6 +27,16 @@
   <plurals name="fragment_app_list_app_count">
       <item quantity="one">%d app</item>
       <item quantity="other">%d apps</item>
+  </plurals>
+
+  <plurals name="fragment_library_category_library_count">
+    <item quantity="one">%d library</item>
+    <item quantity="other">%d libraries</item>
+  </plurals>
+
+  <plurals name="fragment_library_category_usage_count">
+    <item quantity="one">%d usage found</item>
+    <item quantity="other">%d usages found</item>
   </plurals>
 
   <string name="fragment_app_list_no_libraries_found">no libraries detected</string>

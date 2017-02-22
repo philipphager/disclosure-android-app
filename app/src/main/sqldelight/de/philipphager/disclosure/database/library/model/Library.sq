@@ -57,3 +57,14 @@ WHERE updatedAt = (
   SELECT Max(updatedAt)
   FROM Library
 );
+
+countByType:
+SELECT Count(*)
+FROM Library
+WHERE type = ?;
+
+countUsedLibrariesByType:
+SELECT Count(*)
+FROM Library, LibraryApp
+WHERE Library.id = LibraryApp.libraryId
+AND type = ?;

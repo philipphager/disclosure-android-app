@@ -108,4 +108,32 @@ public class LibraryRepository {
           return Date.MIN;
         });
   }
+
+  public Observable<Long> countByType(BriteDatabase db, Library.Type type) {
+    SqlDelightStatement countByType = Library.FACTORY.countByType(type);
+
+    return db.createQuery(countByType.tables, countByType.statement, countByType.args)
+        .map(SqlBrite.Query::run)
+        .map(cursor -> {
+          if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return Library.FACTORY.countByTypeMapper().map(cursor);
+          }
+          return 0L;
+        });
+  }
+
+  public Observable<Long> countUsedLibrariesByType(BriteDatabase db, Library.Type type) {
+    SqlDelightStatement countByType = Library.FACTORY.countUsedLibrariesByType(type);
+
+    return db.createQuery(countByType.tables, countByType.statement, countByType.args)
+        .map(SqlBrite.Query::run)
+        .map(cursor -> {
+          if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return Library.FACTORY.countUsedLibrariesByTypeMapper().map(cursor);
+          }
+          return 0L;
+        });
+  }
 }

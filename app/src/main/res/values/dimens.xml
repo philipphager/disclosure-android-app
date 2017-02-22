@@ -24,4 +24,6 @@
   <dimen name="text_subheader">16sp</dimen>
   <dimen name="text_body">14sp</dimen>
   <dimen name="text_caption">12sp</dimen>
+
+  <integer name="grid_columns">2</integer>
 </resources>
