@@ -69,7 +69,7 @@ import static org.mockito.Mockito.verify;
 
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getComponent().getClassName())
-        .isEqualTo("de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity");
+        .isEqualTo("de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity");
   }
 
   @Test public void navigateToLibraryOverviewActivityPassesLibraryParcelable() {

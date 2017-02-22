@@ -12,7 +12,7 @@ import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
 import de.philipphager.disclosure.feature.app.overview.trusted.TrustedAppListFragment;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
-import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
+import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 import de.philipphager.disclosure.feature.sync.db.broadcasts.PackageManagerBroadcastReceiver;
@@ -35,7 +35,7 @@ public interface ApplicationComponent {
 
   void inject(SettingsFragment settingsFragment);
 
-  void inject(LibraryOverviewActivity activity);
+  void inject(LibraryDetailActivity activity);
 
   void inject(AppOverviewFragment fragment);
 

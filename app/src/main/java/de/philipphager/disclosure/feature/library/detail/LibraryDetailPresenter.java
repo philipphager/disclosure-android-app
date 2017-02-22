@@ -9,20 +9,20 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
-public class LibraryOverviewPresenter {
+public class LibraryDetailPresenter {
   private final AppService appService;
   private final FeatureService featureService;
   private CompositeSubscription subscriptions;
-  private LibraryOverviewView view;
+  private LibraryDetailView view;
   private Library library;
 
-  @Inject public LibraryOverviewPresenter(AppService appService,
+  @Inject public LibraryDetailPresenter(AppService appService,
       FeatureService featureService) {
     this.appService = appService;
     this.featureService = featureService;
   }
 
-  public void onCreate(LibraryOverviewView view, Library library) {
+  public void onCreate(LibraryDetailView view, Library library) {
     this.view = view;
     this.library = library;
     this.subscriptions = new CompositeSubscription();

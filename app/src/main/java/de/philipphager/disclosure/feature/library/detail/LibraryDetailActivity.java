@@ -19,13 +19,13 @@ import javax.inject.Inject;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
-public class LibraryOverviewActivity extends BaseActivity implements LibraryOverviewView {
+public class LibraryDetailActivity extends BaseActivity implements LibraryDetailView {
   private static final String EXTRA_LIBRARY = "EXTRA_LIBRARY";
-  @Inject protected LibraryOverviewPresenter presenter;
+  @Inject protected LibraryDetailPresenter presenter;
   @BindView(R.id.overview_app_list) protected RecyclerView recyclerView;
 
   public static Intent launch(Context context, Library library) {
-    Intent intent = new Intent(context, LibraryOverviewActivity.class);
+    Intent intent = new Intent(context, LibraryDetailActivity.class);
     intent.putExtra(EXTRA_LIBRARY, library);
     return intent;
   }

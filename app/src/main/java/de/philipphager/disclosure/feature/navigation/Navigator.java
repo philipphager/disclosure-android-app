@@ -9,7 +9,7 @@ import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.app.detail.DetailActivity;
 import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
 import de.philipphager.disclosure.feature.home.HomeActivity;
-import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
+import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import javax.inject.Inject;
 
 public class Navigator {
@@ -36,7 +36,7 @@ public class Navigator {
   }
 
   public void toLibraryOverview(Library library) {
-    activity.startActivity(LibraryOverviewActivity.launch(activity, library));
+    activity.startActivity(LibraryDetailActivity.launch(activity, library));
   }
 
   public void toAppSystemSettings(String packageName) {
