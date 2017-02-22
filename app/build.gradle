@@ -31,6 +31,8 @@ android {
     }
 
     debug {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix "-dev"
     }
@@ -90,12 +92,11 @@ dependencies {
   compile 'com.google.code.gson:gson:2.8.0'
 
   // Value classes and serialization helpers
-  provided "com.google.auto.value:auto-value:${autovalueVersion}"
+  compile "com.google.auto.value:auto-value:${autovalueVersion}"
   apt "com.google.auto.value:auto-value:${autovalueVersion}"
-  provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   apt "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   apt "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
-  compile "com.ryanharter.auto.value:auto-value-parcel-adapter:${autovalueParcelVersion}"
 
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
