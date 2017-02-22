@@ -15,13 +15,14 @@ import de.philipphager.disclosure.util.ui.GridColumnProvider;
 import java.util.List;
 import javax.inject.Inject;
 
-public class LibraryCategoryFragment extends BaseFragment implements LibraryCategoryView {
-  @Inject protected LibraryCategoryPresenter presenter;
+public class LibraryCategoryOverviewOverviewFragment extends BaseFragment implements
+    LibraryCategoryOverviewView {
+  @Inject protected LibraryCategoryOverviewPresenter presenter;
   @BindView(R.id.library_categories) RecyclerView categoryRecyclerView;
   private LibraryCategoryRecyclerAdapter adapter;
 
-  public static LibraryCategoryFragment newInstance() {
-    return new LibraryCategoryFragment();
+  public static LibraryCategoryOverviewOverviewFragment newInstance() {
+    return new LibraryCategoryOverviewOverviewFragment();
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

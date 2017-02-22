@@ -10,6 +10,8 @@ import de.philipphager.disclosure.feature.app.detail.DetailActivity;
 import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
+import de.philipphager.disclosure.feature.library.overview.LibraryCategoryDetailActivity;
+import de.philipphager.disclosure.feature.library.overview.usecase.LibraryCategory;
 import javax.inject.Inject;
 
 public class Navigator {
@@ -35,8 +37,12 @@ public class Navigator {
     activity.startActivity(DetailActivity.launch(activity, app));
   }
 
-  public void toLibraryOverview(Library library) {
+  public void toLibraryDetail(Library library) {
     activity.startActivity(LibraryDetailActivity.launch(activity, library));
+  }
+
+  public void toCategoryDetail(LibraryCategory libraryCategory) {
+    activity.startActivity(LibraryCategoryDetailActivity.launch(activity, libraryCategory));
   }
 
   public void toAppSystemSettings(String packageName) {

@@ -48,6 +48,12 @@
         android:launchMode="standard">
     </activity>
 
+    <activity
+        android:name=".feature.library.overview.LibraryCategoryDetailActivity"
+        android:parentActivityName=".feature.home.HomeActivity"
+        android:launchMode="singleTop">
+    </activity>
+
     <receiver android:name=".feature.sync.db.broadcasts.PackageManagerBroadcastReceiver">
       <intent-filter>
         <action android:name="android.intent.action.PACKAGE_ADDED"/>

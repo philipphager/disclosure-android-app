@@ -62,7 +62,7 @@ import static org.mockito.Mockito.verify;
 
   @Test public void navigateToLibraryOverviewActivity() {
     Library mockLibrary = MockLibrary.TEST;
-    navigator.toLibraryOverview(mockLibrary);
+    navigator.toLibraryDetail(mockLibrary);
 
     ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
     verify(activity).startActivity(intentCaptor.capture());
@@ -74,7 +74,7 @@ import static org.mockito.Mockito.verify;
 
   @Test public void navigateToLibraryOverviewActivityPassesLibraryParcelable() {
     Library mockLibrary = MockLibrary.TEST;
-    navigator.toLibraryOverview(mockLibrary);
+    navigator.toLibraryDetail(mockLibrary);
 
     ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
     verify(activity).startActivity(intentCaptor.capture());

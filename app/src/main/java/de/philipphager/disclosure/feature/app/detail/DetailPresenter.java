@@ -95,7 +95,7 @@ public class DetailPresenter {
   }
 
   public void onLibraryClicked(Library library) {
-    view.navigate().toLibraryOverview(library);
+    view.navigate().toLibraryDetail(library);
   }
 
   public void onAnalyseAppClicked() {

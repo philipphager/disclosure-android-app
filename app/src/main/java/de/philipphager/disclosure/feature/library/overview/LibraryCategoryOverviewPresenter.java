@@ -8,19 +8,35 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
-public class LibraryCategoryPresenter {
+import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
+
+public class LibraryCategoryOverviewPresenter {
   private final FetchLibraryCategories fetchLibraryCategories;
   private CompositeSubscription subscriptions;
-  private LibraryCategoryView view;
+  private LibraryCategoryOverviewView view;
 
-  @Inject public LibraryCategoryPresenter(FetchLibraryCategories fetchLibraryCategories) {
+  @Inject public LibraryCategoryOverviewPresenter(FetchLibraryCategories fetchLibraryCategories) {
     this.fetchLibraryCategories = fetchLibraryCategories;
   }
 
-  public void onCreate(LibraryCategoryView view) {
-    this.view = view;
+  public void onCreate(LibraryCategoryOverviewView view) {
+    this.view = ensureNotNull(view, "presenter must have a view");
     this.subscriptions = new CompositeSubscription();
 
+    loadCategories();
+  }
+
+  public void onDestroy() {
+    subscriptions.clear();
+  }
+
+  public void onCategoryClicked(LibraryCategory category) {
+    if (category.allLibraries() > 0) {
+      view.navigate().toCategoryDetail(category);
+    }
+  }
+
+  private void loadCategories() {
     subscriptions.add(fetchLibraryCategories.run()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -30,13 +46,5 @@ public class LibraryCategoryPresenter {
             throwable -> {
               Timber.e(throwable, "while fetching library categories");
             }));
-  }
-
-  public void onDestroy() {
-    subscriptions.clear();
-  }
-
-  public void onCategoryClicked(LibraryCategory category) {
-
   }
 }

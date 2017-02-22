@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
-import de.philipphager.disclosure.feature.library.overview.LibraryCategoryFragment;
+import de.philipphager.disclosure.feature.library.overview.LibraryCategoryOverviewOverviewFragment;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 
 public class HomeAdapter extends FragmentPagerAdapter {
@@ -21,7 +21,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
       case POSITION_APP_OVERVIEW:
         return AppOverviewFragment.newInstance();
       case POSITION_LIBRARY_OVERVIEW       :
-        return LibraryCategoryFragment.newInstance();
+        return LibraryCategoryOverviewOverviewFragment.newInstance();
       case POSITION_SETTINGS:
         return SettingsFragment.newInstance();
       default:
