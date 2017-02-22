@@ -49,6 +49,12 @@
     <item quantity="other">%d libraries</item>
   </plurals>
 
+  <plurals name="activity_library_category_library_app_count">
+    <item quantity="one">used in %d app</item>
+    <item quantity="other">used in %d apps</item>
+  </plurals>
+
+  <string name="activity_library_category_no_apps_found">not used in apps</string>
   <string name="fragment_app_list_no_libraries_found">no libraries detected</string>
   <string name="empty"/>
   <string name="app_detail_action_edit">edit</string>

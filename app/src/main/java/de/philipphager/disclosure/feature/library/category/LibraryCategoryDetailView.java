@@ -2,6 +2,7 @@ package de.philipphager.disclosure.feature.library.category;
 
 import android.support.annotation.StringRes;
 import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import java.util.List;
 
 public interface LibraryCategoryDetailView {
@@ -11,5 +12,5 @@ public interface LibraryCategoryDetailView {
 
   void setUsageCount(int usageCount);
 
-  void show(List<Library> libraries);
+  void show(List<LibraryInfo> libraries);
 }

@@ -4,13 +4,13 @@ import com.squareup.sqlbrite.BriteDatabase;
 import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import de.philipphager.disclosure.database.library.repositories.LibraryAppRepository;
 import de.philipphager.disclosure.database.library.repositories.LibraryRepository;
 import java.util.List;
 import javax.inject.Inject;
 import org.threeten.bp.OffsetDateTime;
 import rx.Observable;
-import rx.Subscription;
 
 public class LibraryService {
   private final DatabaseManager databaseManager;
@@ -84,6 +84,11 @@ public class LibraryService {
   public Observable<List<Library>> byType(Library.Type type) {
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byType(db, type);
+  }
+
+  public Observable<List<LibraryInfo>> infoByType(Library.Type type) {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.infoByType(db, type);
   }
 
   public Observable<OffsetDateTime> lastUpdated() {

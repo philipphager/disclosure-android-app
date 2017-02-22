@@ -1,20 +1,21 @@
 package de.philipphager.disclosure.feature.library.category;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
 public class LibraryCategoryDetailRecyclerAdapter
     extends RecyclerView.Adapter<LibraryCategoryDetailRecyclerAdapter.ViewHolder> {
-  private final List<Library> libraries;
+  private final List<LibraryInfo> libraries;
   private final Context context;
   private OnLibraryClickListener listener;
 
@@ -32,7 +33,7 @@ public class LibraryCategoryDetailRecyclerAdapter
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    Library item = libraries.get(position);
+    LibraryInfo item = libraries.get(position);
     holder.bind(item, listener);
   }
 
@@ -40,7 +41,7 @@ public class LibraryCategoryDetailRecyclerAdapter
     return libraries.size();
   }
 
-  public void setLibraries(List<Library> libraries) {
+  public void setLibraries(List<LibraryInfo> libraries) {
     clear();
     this.libraries.addAll(libraries);
     notifyDataSetChanged();
@@ -56,7 +57,7 @@ public class LibraryCategoryDetailRecyclerAdapter
   }
 
   public interface OnLibraryClickListener {
-    void onItemClick(Library library);
+    void onItemClick(LibraryInfo library);
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,10 +72,19 @@ public class LibraryCategoryDetailRecyclerAdapter
       this.context = context;
     }
 
-    public void bind(final Library library, final OnLibraryClickListener listener) {
-      title.setText(library.title());
-      subtitle.setText(library.packageName());
+    public void bind(final LibraryInfo library, final OnLibraryClickListener listener) {
+      int textColor = library.appCount() == 0
+          ? R.color.color_grey_dark
+          : R.color.colorPrimary;
 
+      String usedInApps = library.appCount() == 0
+          ? context.getResources().getString(R.string.activity_library_category_no_apps_found)
+          : context.getResources().getQuantityString(R.plurals.activity_library_category_library_app_count,
+              (int) library.appCount(), library.appCount());
+
+      title.setText(library.title());
+      subtitle.setText(usedInApps);
+      subtitle.setTextColor(ContextCompat.getColor(context, textColor));
       itemView.setOnClickListener(view -> {
         if (listener != null) {
           listener.onItemClick(library);

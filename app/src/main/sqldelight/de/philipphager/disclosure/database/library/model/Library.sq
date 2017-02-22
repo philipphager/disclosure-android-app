@@ -55,6 +55,13 @@ SELECT Library.*
 FROM Library
 WHERE type = ?;
 
+selectByTypeWithAppCount:
+SELECT Library.id, Library.title, Count(appId) AS appCount
+FROM Library LEFT OUTER JOIN LibraryApp
+ON Library.id = LibraryApp.libraryId
+WHERE Library.type = ?
+GROUP BY Library.id;
+
 selectLastUpdated:
 SELECT updatedAt
 FROM Library

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import java.util.List;
@@ -73,7 +73,7 @@ public class LibraryCategoryDetailActivity extends BaseActivity implements Libra
     //    .getQuantityString(R.plurals.activity_library_category_usage_count, count, count));
   }
 
-  @Override public void show(List<Library> libraries) {
+  @Override public void show(List<LibraryInfo> libraries) {
     adapter.setLibraries(libraries);
   }
 }

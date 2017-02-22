@@ -5,6 +5,7 @@ import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import de.philipphager.disclosure.util.time.Date;
 import java.util.List;
@@ -101,6 +102,15 @@ public class LibraryRepository {
     SqlDelightStatement selectByType = Library.FACTORY.selectByType(type);
     CursorToListMapper<Library> cursorToList =
         new CursorToListMapper<>(Library.FACTORY.selectByTypeMapper());
+
+    return db.createQuery(selectByType.tables, selectByType.statement, selectByType.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
+  public Observable<List<LibraryInfo>> infoByType(BriteDatabase db, Library.Type type) {
+    SqlDelightStatement selectByType = Library.FACTORY.selectByTypeWithAppCount(type);
+    CursorToListMapper<LibraryInfo> cursorToList = new CursorToListMapper<>(LibraryInfo.MAPPER);
 
     return db.createQuery(selectByType.tables, selectByType.statement, selectByType.args)
         .map(SqlBrite.Query::run)

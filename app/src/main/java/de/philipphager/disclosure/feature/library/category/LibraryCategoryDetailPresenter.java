@@ -1,9 +1,11 @@
 package de.philipphager.disclosure.feature.library.category;
 
-import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryInfo;
+import de.philipphager.disclosure.feature.library.category.filter.SortByAppCount;
 import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
 import de.philipphager.disclosure.service.LibraryService;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -39,7 +41,9 @@ public class LibraryCategoryDetailPresenter {
   }
 
   private void loadLibraries() {
-    subscriptions.add(libraryService.byType(libraryCategory.type())
+    subscriptions.add(libraryService.infoByType(libraryCategory.type())
+        .flatMap(libraryInfos -> Observable.from(libraryInfos)
+            .toSortedList(new SortByAppCount()))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraries -> {
@@ -50,7 +54,7 @@ public class LibraryCategoryDetailPresenter {
         }));
   }
 
-  public void onLibraryClicked(Library library) {
+  public void onLibraryClicked(LibraryInfo library) {
 
   }
 }
