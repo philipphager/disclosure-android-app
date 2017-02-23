@@ -62,6 +62,14 @@ SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 GROUP BY App.id;
 
+selectAllWithPermissionCount:
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(permissionId) AS permissionCount
+FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
+LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
+AND LibraryApp.libraryId = AppLibraryPermission.libraryId
+WHERE LibraryApp.libraryId = ?
+GROUP BY LibraryApp.appId;
+
 selectTrusted:
 SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId

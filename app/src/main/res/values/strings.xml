@@ -54,7 +54,13 @@
     <item quantity="other">used in %d apps</item>
   </plurals>
 
+  <plurals name="activity_library_detail_no_permission_count">
+    <item quantity="one">found %d permission</item>
+    <item quantity="other">found %d permissions</item>
+  </plurals>
+
   <string name="activity_library_category_no_apps_found">not used in apps</string>
+  <string name="activity_library_detail_no_permissions_found">no permissions detected</string>
   <string name="fragment_app_list_no_libraries_found">no libraries detected</string>
   <string name="empty"/>
   <string name="app_detail_action_edit">edit</string>

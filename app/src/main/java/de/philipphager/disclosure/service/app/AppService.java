@@ -7,6 +7,7 @@ import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
+import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
@@ -76,6 +77,11 @@ public class AppService {
   public Observable<List<App>> byLibrary(String libraryId) {
     BriteDatabase db = databaseManager.get();
     return appRepository.byLibrary(db, libraryId);
+  }
+
+  public Observable<List<AppWithPermissions>> byLibraryWithPermissions(String libraryId) {
+    BriteDatabase db = databaseManager.get();
+    return appRepository.byLibraryWithPermissionCount(db, libraryId);
   }
 
   public Observable<List<App>> byFeature(String featureId) {

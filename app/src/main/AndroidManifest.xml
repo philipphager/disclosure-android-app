@@ -39,13 +39,13 @@
     <activity
         android:name=".feature.app.detail.DetailActivity"
         android:parentActivityName=".feature.home.HomeActivity"
-        android:launchMode="standard">
+        android:launchMode="singleTop">
     </activity>
 
     <activity
         android:name=".feature.library.detail.LibraryDetailActivity"
         android:parentActivityName=".feature.home.HomeActivity"
-        android:launchMode="standard">
+        android:launchMode="singleTop">
     </activity>
 
     <activity

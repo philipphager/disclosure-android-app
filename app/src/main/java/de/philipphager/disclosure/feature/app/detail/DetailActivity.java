@@ -57,6 +57,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   public static Intent launch(Context context, App app) {
     Intent intent = new Intent(context, DetailActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     intent.putExtra(EXTRA_APP, app);
     return intent;
   }

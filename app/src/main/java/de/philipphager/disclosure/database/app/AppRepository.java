@@ -7,6 +7,7 @@ import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
+import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.library.model.LibraryApp;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.Arrays;
@@ -110,6 +111,17 @@ public class AppRepository {
 
     return db.createQuery(Arrays.asList(App.TABLE_NAME, LibraryApp.TABLE_NAME),
         App.SELECTALLWITHLIBRARYCOUNT)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
+  public Observable<List<AppWithPermissions>> byLibraryWithPermissionCount(BriteDatabase db,
+      String libraryId) {
+    SqlDelightStatement selectByLibrary = App.FACTORY.selectAllWithPermissionCount(libraryId);
+    CursorToListMapper<AppWithPermissions> cursorToList =
+        new CursorToListMapper<>(AppWithPermissions.MAPPER);
+
+    return db.createQuery(selectByLibrary.tables, selectByLibrary.statement, selectByLibrary.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
