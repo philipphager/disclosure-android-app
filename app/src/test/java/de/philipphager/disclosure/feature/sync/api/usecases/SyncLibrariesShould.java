@@ -17,6 +17,7 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -31,12 +32,12 @@ import static org.mockito.Mockito.when;
     when(libraryService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
 
     List<Library> newLibraries = Collections.singletonList(MockLibrary.TEST);
-    when(disclosureApi.allLibraries(any())).thenReturn(Observable.just(newLibraries));
+    when(disclosureApi.allLibraries(any(), anyInt(), anyInt())).thenReturn(Observable.just(newLibraries));
 
     TestSubscriber<List<Library>> testSubscriber = new TestSubscriber<>();
     syncLibraries.run().subscribe(testSubscriber);
 
-    verify(disclosureApi).allLibraries(lastUpdated);
+    verify(disclosureApi).allLibraries(lastUpdated, 0, 0);
     verify(libraryService).insertOrUpdate(newLibraries);
 
     testSubscriber.assertReceivedOnNext(Collections.singletonList(newLibraries));
@@ -50,7 +51,7 @@ import static org.mockito.Mockito.when;
     when(libraryService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
 
     Throwable apiError = new Throwable();
-    when(disclosureApi.allLibraries(any())).thenReturn(Observable.error(apiError));
+    when(disclosureApi.allLibraries(any(), anyInt(), anyInt())).thenReturn(Observable.error(apiError));
 
     TestSubscriber<List<Library>> testSubscriber = new TestSubscriber<>();
     syncLibraries.run().subscribe(testSubscriber);
