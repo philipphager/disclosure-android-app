@@ -25,6 +25,7 @@ public class LibraryCategoryDetailActivity extends BaseActivity implements Libra
   @BindView(R.id.libraries) protected RecyclerView libraryRecyclerView;
   @BindView(R.id.icon) protected ImageView icon;
   @BindView(R.id.category_title) protected TextView categoryTitle;
+  @BindView(R.id.library_count) protected TextView libraryCount;
   private LibraryCategoryDetailRecyclerAdapter adapter;
 
   public static Intent launch(Context context, LibraryCategory libraryCategory) {
@@ -64,13 +65,12 @@ public class LibraryCategoryDetailActivity extends BaseActivity implements Libra
   }
 
   @Override public void setLibraryCount(int count) {
-    //libraryCount.setText(getResources()
-    //    .getQuantityString(R.plurals.activity_library_category_library_count, count, count));
+    libraryCount.setText(getResources()
+        .getQuantityString(R.plurals.activity_library_category_library_count, count, count));
   }
 
   @Override public void setUsageCount(int count) {
-    //libraryCount.setText(getResources()
-    //    .getQuantityString(R.plurals.activity_library_category_usage_count, count, count));
+    // Show used apps.
   }
 
   @Override public void show(List<LibraryInfo> libraries) {
