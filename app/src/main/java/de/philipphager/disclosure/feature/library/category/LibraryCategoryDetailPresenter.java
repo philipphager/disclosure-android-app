@@ -54,7 +54,13 @@ public class LibraryCategoryDetailPresenter {
         }));
   }
 
-  public void onLibraryClicked(LibraryInfo library) {
-    // TODO: Navigate to library detail
+  public void onLibraryClicked(LibraryInfo libraryInfo) {
+    subscriptions.add(libraryService.byId(libraryInfo.id())
+        .first()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(library -> view.navigate().toLibraryDetail(library), throwable -> {
+          Timber.e(throwable, "while fetching library by id");
+        }));
   }
 }

@@ -32,6 +32,11 @@ SELECT *
 FROM Library
 WHERE packageName = ?;
 
+selectById:
+SELECT *
+FROM Library
+WHERE id = ?;
+
 selectByApp:
 SELECT Library.*
 FROM LibraryApp, Library

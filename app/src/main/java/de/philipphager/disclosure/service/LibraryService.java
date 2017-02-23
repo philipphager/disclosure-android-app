@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import org.threeten.bp.OffsetDateTime;
 import rx.Observable;
 
+import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
+
 public class LibraryService {
   private final DatabaseManager databaseManager;
   private final LibraryRepository libraryRepository;
@@ -66,12 +68,19 @@ public class LibraryService {
     return libraryRepository.all(db);
   }
 
+  public Observable<Library> byId(String id) {
+    BriteDatabase db = databaseManager.get();
+    return libraryRepository.byId(db, id);
+  }
+
   public Observable<List<Library>> byApp(App app) {
+    ensureNotNull(app, "must provide app");
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byApp(db, app.id());
   }
 
   public Observable<List<Library>> byAppUpdateOnPermissionChange(App app) {
+    ensureNotNull(app, "must provide app");
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byAppWithPermissionUpdate(db, app.id());
   }

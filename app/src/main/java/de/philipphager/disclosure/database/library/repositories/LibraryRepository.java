@@ -68,6 +68,17 @@ public class LibraryRepository {
         .map(cursorToList);
   }
 
+  public Observable<Library> byId(BriteDatabase db, String id) {
+    SqlDelightStatement selectById = Library.FACTORY.selectById(id);
+    CursorToListMapper<Library> cursorToList =
+        new CursorToListMapper<>(Library.FACTORY.selectByIdMapper());
+
+    return db.createQuery(selectById.tables, selectById.statement, selectById.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList)
+        .flatMap(libraries -> Observable.from(libraries).first());
+  }
+
   public Observable<List<Library>> byApp(BriteDatabase db, long appId) {
     SqlDelightStatement selectByApp = Library.FACTORY.selectByApp(appId);
     CursorToListMapper<Library> cursorToList =
