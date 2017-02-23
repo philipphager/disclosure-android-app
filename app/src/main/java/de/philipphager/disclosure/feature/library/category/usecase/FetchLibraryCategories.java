@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
+import rx.functions.Func2;
 
 public class FetchLibraryCategories {
   private final LibraryService libraryService;
@@ -20,7 +21,7 @@ public class FetchLibraryCategories {
             libraryService.countUsedLibrariesByType(type),
             (allLibraries, usedLibraries) ->
                 LibraryCategory.create(type, allLibraries, usedLibraries)).first()
-        ).toList();
+        ).toSortedList(new SortByName());
   }
 
   private Observable<Library.Type> allCategories() {
@@ -28,5 +29,11 @@ public class FetchLibraryCategories {
         Library.Type.SOCIAL,
         Library.Type.ANALYTICS,
         Library.Type.DEVELOPER));
+  }
+
+  private static class SortByName implements Func2<LibraryCategory, LibraryCategory, Integer> {
+    @Override public Integer call(LibraryCategory category, LibraryCategory category2) {
+      return category.type().compareTo(category2.type());
+    }
   }
 }
