@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
+import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.util.ui.BaseDialogFragment;
 import de.philipphager.disclosure.util.ui.components.ProtectionLevelView;
@@ -16,14 +17,14 @@ import javax.inject.Inject;
 
 public class PermissionExplanationDialog extends BaseDialogFragment
     implements PermissionExplanationDialogView {
-  private static final String EXTRA_APP_ID = "EXTRA_APP_ID";
+  private static final String EXTRA_APP = "EXTRA_APP";
   private static final String EXTRA_PERMISSION = "EXTRA_PERMISSION";
   @Inject protected PermissionExplanationDialogPresenter presenter;
 
-  public static PermissionExplanationDialog newInstance(String packageName, Permission permission) {
+  public static PermissionExplanationDialog newInstance(App app, Permission permission) {
     PermissionExplanationDialog fragment = new PermissionExplanationDialog();
     Bundle args = new Bundle();
-    args.putString(EXTRA_APP_ID, packageName);
+    args.putParcelable(EXTRA_APP, app);
     args.putParcelable(EXTRA_PERMISSION, permission);
     fragment.setArguments(args);
     return fragment;
@@ -42,7 +43,7 @@ public class PermissionExplanationDialog extends BaseDialogFragment
     ProtectionLevelView.ProtectionLevel protectionLevel =
         getProtectionLevel(permission.protectionLevel());
 
-    presenter.onCreate(this, getPackageName(), getPermission());
+    presenter.onCreate(this, getApp(), getPermission());
 
     protectionLevelView.setProtectionLevel(protectionLevel);
     description.setText(permission.description());
@@ -58,8 +59,8 @@ public class PermissionExplanationDialog extends BaseDialogFragment
     return ((Permission) getArguments().getParcelable(EXTRA_PERMISSION));
   }
 
-  private String getPackageName() {
-    return getArguments().getString(EXTRA_APP_ID);
+  private App getApp() {
+    return ((App) getArguments().getParcelable(EXTRA_APP));
   }
 
   private ProtectionLevelView.ProtectionLevel getProtectionLevel(int level) {

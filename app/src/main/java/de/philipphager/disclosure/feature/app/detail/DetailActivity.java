@@ -148,8 +148,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
         .show(getSupportFragmentManager(), PERMISSIONS_UNSUPPORTED_DIALOG);
   }
 
-  @Override public void showPermissionExplanation(String packageName, Permission permission) {
-    PermissionExplanationDialog.newInstance(packageName, permission)
+  @Override public void showPermissionExplanation(App app, Permission permission) {
+    PermissionExplanationDialog.newInstance(app, permission)
         .show(getSupportFragmentManager(), PERMISSION_EXPLANATION_DIALOG);
   }
 

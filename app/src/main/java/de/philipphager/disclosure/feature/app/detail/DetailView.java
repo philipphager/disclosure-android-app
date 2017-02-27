@@ -25,7 +25,7 @@ public interface DetailView extends Navigates, AnalysisProgressView {
 
   void showRuntimePermissionsTutorial(String packageName);
 
-  void showPermissionExplanation(String packageName, Permission permission);
+  void showPermissionExplanation(App app, Permission permission);
 
   void enableEditPermissions(boolean isEnabled);
 

@@ -62,6 +62,7 @@ public class DetailPresenter {
 
   public void onDestroy() {
     this.subscriptions.clear();
+    this.view = null;
   }
 
   private void initView(App app) {
@@ -100,7 +101,7 @@ public class DetailPresenter {
   }
 
   public void onPermissionClicked(Permission permission) {
-    view.showPermissionExplanation(app.packageName(), permission);
+    view.showPermissionExplanation(app, permission);
   }
 
   public void onAnalyseAppClicked() {
@@ -114,9 +115,11 @@ public class DetailPresenter {
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .doOnTerminate(() -> {
-            view.notifyAnalysisResult(app.label(), counter[0], counter[1]);
-            view.setAnalysisCompleted();
-            view.hideAnalysisProgress();
+            if (view != null) {
+              view.notifyAnalysisResult(app.label(), counter[0], counter[1]);
+              view.setAnalysisCompleted();
+              view.hideAnalysisProgress();
+            }
             analyticsSubscription = null;
           })
           .subscribe(permissions -> {
