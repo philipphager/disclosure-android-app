@@ -4,9 +4,7 @@ import android.content.pm.PermissionInfo;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.service.PermissionService;
-import java.util.List;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 import static de.philipphager.disclosure.util.device.DeviceFeatures.supportsRuntimePermissions;
