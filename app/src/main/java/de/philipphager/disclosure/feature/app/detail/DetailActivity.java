@@ -26,11 +26,13 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
+import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplanationDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
 import de.philipphager.disclosure.util.ui.BaseActivity;
-import de.philipphager.disclosure.util.ui.components.ScoreView;
+import de.philipphager.disclosure.util.ui.components.ProtectionLevelView;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.List;
 import javax.inject.Inject;
@@ -42,6 +44,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   private static final String EXTRA_APP = "EXTRA_APP";
   private static final String EDIT_PERMISSIONS_DIALOG = "EDIT_PERMISSIONS_DIALOG";
   private static final String PERMISSIONS_UNSUPPORTED_DIALOG = "PERMISSIONS_UNSUPPORTED_DIALOG";
+  private static final String PERMISSION_EXPLANATION_DIALOG = "PERMISSION_EXPLANATION_DIALOG";
 
   @BindView(R.id.icon) protected ImageView icon;
   @BindView(R.id.app_title) protected TextView appTitle;
@@ -77,6 +80,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     adapter.setOnLibraryClickListener(library -> {
       presenter.onLibraryClicked(library);
+    });
+
+    adapter.setOnPermissionClickListener(permission -> {
+      presenter.onPermissionClicked(permission);
     });
 
     String[] analysisSteps = new String[] {"Extraction", "Filtration", "Analysis"};
@@ -131,6 +138,11 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @Override public void showRuntimePermissionsTutorial(String packageName) {
     RuntimePermissionsTutorialDialog.newInstance()
         .show(getSupportFragmentManager(), PERMISSIONS_UNSUPPORTED_DIALOG);
+  }
+
+  @Override public void showPermissionExplanation(String packageName, Permission permission) {
+    PermissionExplanationDialog.newInstance(packageName, permission)
+        .show(getSupportFragmentManager(), PERMISSION_EXPLANATION_DIALOG);
   }
 
   @Override public void enableEditPermissions(boolean isEnabled) {
@@ -200,7 +212,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     snackbar.show();
   }
 
-  @Override public void setScore(ScoreView.Score score) {
+  @Override public void setScore(ProtectionLevelView.ProtectionLevel protectionLevel) {
     // Might be depricated
     // TODO: REMOVE
   }

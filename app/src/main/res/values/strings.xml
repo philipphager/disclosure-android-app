@@ -7,12 +7,14 @@
   <string name="action_cancel">CANCEL</string>
   <string name="action_got_it">GOT IT</string>
   <string name="action_check_system_updates">CHECK SYSTEM UPDATES</string>
+  <string name="action_revoke_permission">REVOKE PERMISSION</string>
   <string name="action_explain_hint_display">This hint will be hidden in the future. To show it again, press and hold the edit icon.</string>
   <string name="dialog_edit_permissions_tutorial_title">Edit Permission Settings</string>
   <string name="dialog_edit_permissions_tutorial_subtitle"><![CDATA[Navigate to <b>Permissions</b> to grant or revoke permissions for an application]]></string>
   <string name="dialog_runtime_permissions_unsupported_title">Revoking Permissions Unsupported</string>
   <string name="dialog_runtime_permissions_unsupported_subtitle"><![CDATA[Your phone runs Android version <b>%s</b> which does not support editing permissions after app installation. You can only revoke permissions for an application by uninstalling it.]]></string>
   <string name="dialog_runtime_permissions_unsupported_description"><![CDATA[Note that Android supports this feature starting with <b>Android Marshmallow (6.0)</b>.]]></string>
+  <string name="dialog_permission_explanation_hint_revoke_permission">You can revoke this dangerous permission in the system settings.</string>
   <string name="fragment_app_overview_toolbar_title">App Manager</string>
   <string name="fragment_app_overview_tabs_all">installed</string>
   <string name="fragment_app_overview_tabs_trusted">trusted</string>

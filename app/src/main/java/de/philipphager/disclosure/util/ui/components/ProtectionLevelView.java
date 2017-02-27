@@ -13,14 +13,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.philipphager.disclosure.R;
 
-public class ScoreView extends LinearLayout {
-  @BindView(R.id.scoreIndicator) protected View scoreIndicator;
-  @BindView(R.id.scoreTitle) protected TextView scoreTitle;
+public class ProtectionLevelView extends LinearLayout {
+  @BindView(R.id.levelIndicator) protected View protectionLevel;
+  @BindView(R.id.levelTitle) protected TextView protectionLevelTitle;
 
-  public ScoreView(Context context, AttributeSet attrs) {
+  public ProtectionLevelView(Context context, AttributeSet attrs) {
     super(context, attrs);
 
-    LayoutInflater.from(context).inflate(R.layout.view_score, this);
+    LayoutInflater.from(context).inflate(R.layout.view_protection_level, this);
   }
 
   @Override protected void onFinishInflate() {
@@ -28,39 +28,39 @@ public class ScoreView extends LinearLayout {
     ButterKnife.bind(this);
   }
 
-  public void setScore(Score score) {
-    int color = ContextCompat.getColor(getContext(), score.getColor());
+  public void setProtectionLevel(ProtectionLevel protectionLevel) {
+    int color = ContextCompat.getColor(getContext(), protectionLevel.getColor());
 
-    scoreIndicator.getBackground()
+    this.protectionLevel.getBackground()
         .setColorFilter(color, PorterDuff.Mode.ADD);
-    scoreTitle.setText(score.getText());
-    scoreTitle.setTextColor(color);
+    protectionLevelTitle.setText(protectionLevel.getText());
+    protectionLevelTitle.setTextColor(color);
   }
 
-  public enum Score {
-    LOW {
+  public enum ProtectionLevel {
+    NORMAL {
       @Override public int getColor() {
-        return R.color.colorScoreLow;
+        return R.color.colorProtectionNormal;
       }
 
       @Override public String getText() {
-        return "no risks";
+        return "Normal";
       }
-    }, NORMAL {
+    }, DANGEROUS {
       @Override public int getColor() {
-        return R.color.colorScoreMedium;
+        return R.color.colorProtectionDangerous;
       }
 
       @Override public String getText() {
-        return "normal";
+        return "Dangerous";
       }
-    }, HIGH {
+    }, SIGNATURE {
       @Override public int getColor() {
-        return R.color.colorScoreHigh;
+        return R.color.colorProtectionSignature;
       }
 
       @Override public String getText() {
-        return "high";
+        return "Signature";
       }
     };
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/spacing_micro"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp">
+
+    <de.philipphager.disclosure.util.ui.components.ProtectionLevelView
+        android:id="@+id/protectionLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_micro"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/txtHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_micro"
+        android:paddingTop="@dimen/spacing_micro"
+        android:drawableLeft="@drawable/ic_lightbulb"
+        android:drawablePadding="@dimen/spacing_micro"
+        android:text="@string/dialog_permission_explanation_hint_revoke_permission"
+        android:textSize="18sp"
+        android:visibility="gone"/>
+  </LinearLayout>
+</ScrollView>

@@ -9,9 +9,9 @@
   <color name="color_black">#000000</color>
   <color name="transparent">#00000000</color>
 
-  <color name="colorScoreLow">#7ED321</color>
-  <color name="colorScoreMedium">#f5c123</color>
-  <color name="colorScoreHigh">#D31D33</color>
+  <color name="colorProtectionNormal">#7ED321</color>
+  <color name="colorProtectionDangerous">@color/color_purple</color>
+  <color name="colorProtectionSignature">@color/color_grey_dark</color>
 
   <color name="colorPrimary">@color/color_purple</color>
   <color name="colorAccent">@color/color_purple</color>

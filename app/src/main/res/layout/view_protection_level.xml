@@ -6,17 +6,18 @@
     android:gravity="center_vertical">
 
   <View
-      android:id="@+id/scoreIndicator"
+      android:id="@+id/levelIndicator"
       android:layout_width="12dp"
       android:layout_height="12dp"
       android:layout_margin="8dp"
       android:background="@drawable/drawable_circle"/>
 
   <TextView
-      android:id="@+id/scoreTitle"
+      android:id="@+id/levelTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textStyle="bold"
+      android:layout_margin="4dp"
       tools:text="normal"/>
 
 </merge>

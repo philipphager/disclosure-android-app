@@ -19,7 +19,8 @@ import rx.Observable;
 public class LibraryRecyclerAdapter
     extends RecyclerView.Adapter<LibraryRecyclerAdapter.ViewHolder> {
   private final List<LibraryWithPermission> libraries;
-  private OnLibraryClickListener listener;
+  private OnClickListener<Library> libraryListener;
+  private OnClickListener<Permission> permissionListener;
 
   @Inject public LibraryRecyclerAdapter() {
     super();
@@ -37,7 +38,7 @@ public class LibraryRecyclerAdapter
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     LibraryWithPermission item = libraries.get(position);
-    holder.bind(item, listener);
+    holder.bind(item, libraryListener, permissionListener);
   }
 
   @Override public int getItemCount() {
@@ -55,12 +56,16 @@ public class LibraryRecyclerAdapter
     notifyDataSetChanged();
   }
 
-  public void setOnLibraryClickListener(OnLibraryClickListener listener) {
-    this.listener = listener;
+  public void setOnLibraryClickListener(OnClickListener<Library> listener) {
+    this.libraryListener = listener;
   }
 
-  public interface OnLibraryClickListener {
-    void onItemClick(Library library);
+  public void setOnPermissionClickListener(OnClickListener<Permission> listener) {
+    this.permissionListener = listener;
+  }
+
+  public interface OnClickListener<T> {
+    void onItemClick(T t);
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,12 +78,14 @@ public class LibraryRecyclerAdapter
       super(itemView);
       this.title = (TextView) itemView.findViewById(R.id.title);
       this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-      this.permissionGroupDangerous = (TagGroup) itemView.findViewById(R.id.permission_group_dangerous);
+      this.permissionGroupDangerous =
+          (TagGroup) itemView.findViewById(R.id.permission_group_dangerous);
       this.permissionGroupNormal = (TagGroup) itemView.findViewById(R.id.permission_group_normal);
     }
 
     public void bind(final LibraryWithPermission libraryWithPermission,
-        final OnLibraryClickListener listener) {
+        final OnClickListener<Library> libraryListener,
+        final OnClickListener<Permission> permissionListener) {
       Library library = libraryWithPermission.library();
       title.setText(library.title());
       subtitle.setText(library.type().name());
@@ -97,11 +104,26 @@ public class LibraryRecyclerAdapter
           .toBlocking()
           .first());
 
+      permissionGroupDangerous.setOnTagClickListener(tag -> {
+        permissionListener.onItemClick(getByTag(libraryWithPermission.permissions(), tag));
+      });
+
+      permissionGroupNormal.setOnTagClickListener(tag -> {
+        permissionListener.onItemClick(getByTag(libraryWithPermission.permissions(), tag));
+      });
+
       itemView.setOnClickListener(view -> {
-        if (listener != null) {
-          listener.onItemClick(library);
+        if (libraryListener != null) {
+          libraryListener.onItemClick(library);
         }
       });
+    }
+
+    private Permission getByTag(List<Permission> permissions, String title) {
+      return Observable.from(permissions)
+          .filter(permission -> permission.title().equals(title))
+          .toBlocking()
+          .first();
     }
   }
 }

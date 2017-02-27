@@ -4,6 +4,7 @@ import android.content.Intent;
 import com.f2prateek.rx.preferences.Preference;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
 import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
@@ -96,6 +97,10 @@ public class DetailPresenter {
 
   public void onLibraryClicked(Library library) {
     view.navigate().toLibraryDetail(library);
+  }
+
+  public void onPermissionClicked(Permission permission) {
+    view.showPermissionExplanation(app.packageName(), permission);
   }
 
   public void onAnalyseAppClicked() {
