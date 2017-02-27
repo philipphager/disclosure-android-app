@@ -39,6 +39,7 @@
     <activity
         android:name=".feature.app.detail.DetailActivity"
         android:parentActivityName=".feature.home.HomeActivity"
+        android:screenOrientation="locked"
         android:launchMode="singleTop">
     </activity>
 
