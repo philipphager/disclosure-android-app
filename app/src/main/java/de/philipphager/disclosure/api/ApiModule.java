@@ -15,7 +15,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module public class ApiModule {
-  private static final String BASE_URL = "https://morning-ridge-94362.herokuapp.com/";
+  private static final String BASE_URL = "https://disclosure-api.herokuapp.com/";
 
   @Provides public Gson provideGson() {
     return new GsonBuilder()
