@@ -16,6 +16,9 @@
 #   public *;
 #}
 
+# General config
+-dontobfuscate
+
 # Our my code
 -keep class de.philipphager.disclosure.** { *; }
 
