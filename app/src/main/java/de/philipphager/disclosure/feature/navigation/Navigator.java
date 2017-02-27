@@ -9,9 +9,9 @@ import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.app.detail.DetailActivity;
 import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
 import de.philipphager.disclosure.feature.home.HomeActivity;
-import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import de.philipphager.disclosure.feature.library.category.LibraryCategoryDetailActivity;
 import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import javax.inject.Inject;
 
 public class Navigator {
@@ -55,5 +55,15 @@ public class Navigator {
   public void toSystemUpdates() {
     Intent intent = new Intent("android.settings.SYSTEM_UPDATE_SETTINGS");
     activity.startActivity(intent);
+  }
+
+  public void toGooglePlay(String packageName) {
+    try {
+      Uri appUri = Uri.parse("market://details?id=" + packageName);
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, appUri));
+    } catch (android.content.ActivityNotFoundException anfe) {
+      Uri appUri = Uri.parse("https://play.google.com/store/apps/details?id=" + packageName);
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, appUri));
+    }
   }
 }
