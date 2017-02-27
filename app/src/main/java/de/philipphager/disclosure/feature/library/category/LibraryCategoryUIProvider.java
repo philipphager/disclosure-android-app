@@ -8,7 +8,7 @@ import de.philipphager.disclosure.database.library.model.Library;
 public final class LibraryCategoryUIProvider {
   public static @StringRes int getTitle(Library.Type type) {
     switch (type) {
-      case ADVERTISMENT:
+      case ADVERTISEMENT:
         return R.string.library_category_advertisement;
       case ANALYTICS:
         return R.string.library_category_analytics;
@@ -23,7 +23,7 @@ public final class LibraryCategoryUIProvider {
 
   public static @DrawableRes int getIcon(Library.Type type) {
     switch (type) {
-      case ADVERTISMENT:
+      case ADVERTISEMENT:
         return R.drawable.ic_android;
       case ANALYTICS:
         return R.drawable.ic_android;

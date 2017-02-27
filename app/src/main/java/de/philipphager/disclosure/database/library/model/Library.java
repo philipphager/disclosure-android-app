@@ -60,7 +60,7 @@ import org.threeten.bp.OffsetDateTime;
   public abstract OffsetDateTime updatedAt();
 
   public enum Type {
-    ANALYTICS, ADVERTISMENT, DEVELOPER, SOCIAL
+    ANALYTICS, ADVERTISEMENT, DEVELOPER, SOCIAL
   }
 
   @AutoValue.Builder public interface Builder {

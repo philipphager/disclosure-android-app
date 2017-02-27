@@ -25,7 +25,7 @@ public class FetchLibraryCategories {
   }
 
   private Observable<Library.Type> allCategories() {
-    return Observable.from(Arrays.asList(Library.Type.ADVERTISMENT,
+    return Observable.from(Arrays.asList(Library.Type.ADVERTISEMENT,
         Library.Type.SOCIAL,
         Library.Type.ANALYTICS,
         Library.Type.DEVELOPER));
