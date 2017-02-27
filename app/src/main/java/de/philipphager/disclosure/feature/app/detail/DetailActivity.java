@@ -130,6 +130,14 @@ public class DetailActivity extends BaseActivity implements DetailView {
     Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
   }
 
+  @Override
+  public void notifyAnalysisResult(String appLabel, int permissionCount, int libraryCount) {
+    String message = String
+        .format(getString(R.string.activity_detail_analysis_result), appLabel, permissionCount,
+            libraryCount);
+    Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
+  }
+
   @Override public void showEditPermissionsTutorial(String packageName) {
     EditPermissionsTutorialDialog.newInstance(packageName)
         .show(getSupportFragmentManager(), EDIT_PERMISSIONS_DIALOG);

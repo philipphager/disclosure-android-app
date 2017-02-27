@@ -108,16 +108,23 @@ public class DetailPresenter {
     view.resetProgress();
 
     if (analyticsSubscription == null) {
+      final int[] counter = {0, 0};
+
       analyticsSubscription = analyseAppLibraryPermissions.run(app)
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .doOnTerminate(() -> {
+            view.notifyAnalysisResult(app.label(), counter[0], counter[1]);
             view.setAnalysisCompleted();
             view.hideAnalysisProgress();
             analyticsSubscription = null;
           })
           .subscribe(permissions -> {
-            view.notify(String.format("found %s", permissions));
+            // Count found permissions
+            counter[0] += permissions.size();
+
+            // Count libraries
+            counter[1]++;
           }, Timber::e);
 
       subscriptions.add(analyticsSubscription);

@@ -70,6 +70,7 @@
   <string name="app_detail_action_trust">trusted</string>
   <string name="app_detail_action_distrust">distrusted</string>
   <string name="activity_detail_analysis_in_progress">Analysis currently in progress!</string>
+  <string name="activity_detail_analysis_result">%1$s analyzed! Found %2$d permission usages in %3$d libraries.</string>
   <string name="pref_appearance">Appearance</string>
   <string name="settings_category_appearance">Appearance</string>
   <string name="pref_display_all_permissions">displayAllPermissions</string>

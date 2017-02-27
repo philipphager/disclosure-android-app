@@ -11,6 +11,8 @@ import java.util.List;
 public interface DetailView extends Navigates, AnalysisProgressView {
   void notify(String message);
 
+  void notifyAnalysisResult(String appLabel, int permissionCount, int libraryCount);
+
   void setToolbarTitle(String title);
 
   void setAppIcon(String packageName);
@@ -32,4 +34,5 @@ public interface DetailView extends Navigates, AnalysisProgressView {
   void startActivityForResult(Intent intent, int requestCode);
 
   void finish();
+
 }
