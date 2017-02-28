@@ -94,6 +94,11 @@ public class DetailActivity extends BaseActivity implements DetailView {
     presenter.onCreate(this, app);
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    presenter.onResume();
+  }
+
   @Override protected void onDestroy() {
     presenter.onDestroy();
 

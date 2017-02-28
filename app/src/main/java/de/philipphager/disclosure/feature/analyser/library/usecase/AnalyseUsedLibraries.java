@@ -20,8 +20,15 @@ public class AnalyseUsedLibraries {
   public Observable<List<Library>> analyse(App app) {
     Timber.d("analysing %s", app);
 
+    List<Library> knownLibraries = libraryService.byApp(app)
+        .toBlocking()
+        .first();
+
     return loadApk(app)
         .flatMap(this::findLibraries)
+        .flatMap(Observable::from)
+        .filter(library -> !knownLibraries.contains(library))
+        .toList()
         .doOnNext(libraries -> libraryService.insertForApp(app, libraries));
   }
 

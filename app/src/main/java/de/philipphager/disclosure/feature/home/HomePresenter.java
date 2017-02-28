@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.home;
 
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseApps;
+import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
 import de.philipphager.disclosure.feature.sync.db.DBSyncer;
 import de.philipphager.disclosure.service.app.AppService;
@@ -16,18 +16,18 @@ import timber.log.Timber;
 public class HomePresenter {
   private final DBSyncer dbSyncer;
   private final ApiSyncer apiSyncer;
-  private final AnalyseApps analyseApps;
+  private final AnalyseUsedLibraries analyseUsedLibraries;
   private final AppService appService;
   private CompositeSubscription subscriptions;
   private HomeView view;
 
   @Inject public HomePresenter(DBSyncer dbSyncer,
       ApiSyncer apiSyncer,
-      AnalyseApps analyseApps,
+      AnalyseUsedLibraries analyseUsedLibraries,
       AppService appService) {
     this.dbSyncer = dbSyncer;
     this.apiSyncer = apiSyncer;
-    this.analyseApps = analyseApps;
+    this.analyseUsedLibraries = analyseUsedLibraries;
     this.appService = appService;
   }
 
@@ -68,7 +68,11 @@ public class HomePresenter {
   private Observable<?> analyzeUsedLibrariesAndPermissions() {
     return appService.all()
         .first()
-        .flatMap(analyseApps::analyse);
+        .flatMap(Observable::from)
+        .flatMap(app -> Observable.just(app)
+            .subscribeOn(Schedulers.computation())
+            .flatMap(analyseUsedLibraries::analyse))
+        .toList();
   }
 
   public boolean onTabSelected(int position, boolean wasSelected) {

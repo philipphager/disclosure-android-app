@@ -6,6 +6,7 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
+import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedPermissions;
 import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
@@ -30,6 +31,7 @@ public class DetailPresenter {
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
   private final Preference<Boolean> displayAllPermissions;
+  private final AnalyseUsedPermissions analyseUsedPermissions;
   private final FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions;
   private CompositeSubscription subscriptions;
   private Subscription analyticsSubscription;
@@ -41,12 +43,14 @@ public class DetailPresenter {
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial,
       @DisplayAllPermissions Preference<Boolean> displayAllPermissions,
+      AnalyseUsedPermissions analyseUsedPermissions,
       FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions) {
     this.appService = appService;
     this.intentFactory = intentFactory;
     this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
     this.displayAllPermissions = displayAllPermissions;
+    this.analyseUsedPermissions = analyseUsedPermissions;
     this.fetchLibrariesForAppWithPermissions = fetchLibrariesForAppWithPermissions;
   }
 
@@ -58,6 +62,17 @@ public class DetailPresenter {
     fetchAppUpdates();
     fetchLibraries();
     fetchAnalysisUpdates();
+  }
+
+  public void onResume() {
+    subscriptions.add(analyseUsedPermissions.analyse(app)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(result -> {
+
+        }, throwable -> {
+          Timber.e(throwable, "while fetching permissions for app");
+        }));
   }
 
   public void onDestroy() {
