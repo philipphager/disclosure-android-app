@@ -19,9 +19,6 @@ public class AppOverviewPresenter {
     this.view = view;
   }
 
-  public void onDestroyView() {
-  }
-
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_sort_alphabetical:

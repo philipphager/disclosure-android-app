@@ -43,11 +43,6 @@ public class AppOverviewFragment extends BaseFragment implements AppOverviewView
     presenter.onViewCreated(this);
   }
 
-  @Override public void onDestroyView() {
-    presenter.onDestroyView();
-    super.onDestroyView();
-  }
-
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.fragment_app_list, menu);
