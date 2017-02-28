@@ -15,6 +15,9 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 /***
  * Fetch all permissions declared by an app,
  * that are not already saved in the database.
+ * Because all system permissions are saved in the db,
+ * this will normally return custom permissions,
+ * that are defined by the apps themselves.
  */
 public class FetchNewPermissions {
   private final DevicePackageProvider packageProvider;

@@ -13,6 +13,10 @@ import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
+/**
+ * Fetch newly installed apps,
+ * that are not yet saved in the db.
+ */
 public class FetchUpdatedPackages {
   private final DevicePackageProvider appProvider;
   private final AppService appService;

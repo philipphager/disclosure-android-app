@@ -10,6 +10,11 @@ import rx.schedulers.Schedulers;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
+/**
+ * Find apps, that are saved in the database,
+ * that are not present on the devices,
+ * because they were uninstalled etc.
+ */
 public class FetchOutdatedPackages {
   private final DevicePackageProvider appProvider;
   private final AppService appService;

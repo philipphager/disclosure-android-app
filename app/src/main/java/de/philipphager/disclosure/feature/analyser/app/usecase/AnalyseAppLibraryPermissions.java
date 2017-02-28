@@ -55,18 +55,14 @@ public class AnalyseAppLibraryPermissions {
           progressSubject.onNext(AnalysisProgressView.State.EXTRACTION);
           return Observable.from(libraries)
               .subscribeOn(Schedulers.computation())
-              .flatMap(library -> {
-                    return analyseLibraryMethodInvocations.run(apkDir, library)
-                        .subscribeOn(Schedulers.computation())
-                        .flatMap((invokedMethods) -> {
-                          progressSubject.onNext(AnalysisProgressView.State.ANALYSIS);
-                          return analysePermissionsFromMethodInvocations.run(invokedMethods);
-                        })
-                        .doOnNext(
-                            permissions -> Timber.d("Found %s for library %s", permissions, library))
-                        .doOnNext(permissions -> permissionService.insertForAppAndLibrary(app, library,
-                            permissions));
-                  }
+              .flatMap(library -> analyseLibraryMethodInvocations.run(apkDir, library)
+                  .subscribeOn(Schedulers.computation())
+                  .flatMap((invokedMethods) -> {
+                    progressSubject.onNext(AnalysisProgressView.State.ANALYSIS);
+                    return analysePermissionsFromMethodInvocations.run(invokedMethods);
+                  })
+                  .doOnNext(permissions -> Timber.d("Found %s for library %s", permissions, library))
+                  .doOnNext(permissions -> permissionService.insertForAppAndLibrary(app, library, permissions))
               );
         }).doOnTerminate(() -> deleteCompiledApk(compiledApkDir));
   }

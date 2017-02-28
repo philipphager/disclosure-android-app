@@ -14,6 +14,11 @@ import timber.log.Timber;
 import static de.philipphager.disclosure.util.assertion.Assertions.check;
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
+/**
+ * Returns all permissions, that were
+ * requested by an app and if they
+ * were granted by the system.
+ */
 public class FetchRequestedPermissions {
   private final DevicePackageProvider packageProvider;
   private final PermissionService permissionService;
