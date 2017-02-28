@@ -36,54 +36,48 @@ public class PermissionService {
   }
 
   public void insertOrUpdate(List<Permission> permissions) {
-    if (permissions != null && !permissions.isEmpty()) {
-      BriteDatabase db = databaseManager.get();
-      try (BriteDatabase.Transaction transaction = db.newTransaction()) {
-        for (Permission permission : permissions) {
-          PermissionGroup group = getGroup(permission.permissionGroup());
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+      for (Permission permission : permissions) {
+        PermissionGroup group = getGroup(permission.permissionGroup());
 
-          if (group != null) {
-            insertOrUpdate(group);
-          }
-
-          int updatedRows = permissionRepository.update(db, permission);
-
-          if (updatedRows == 0) {
-            permissionRepository.insert(db, permission);
-          }
+        if (group != null) {
+          insertOrUpdate(group);
         }
-        transaction.markSuccessful();
+
+        int updatedRows = permissionRepository.update(db, permission);
+
+        if (updatedRows == 0) {
+          permissionRepository.insert(db, permission);
+        }
       }
+      transaction.markSuccessful();
     }
   }
 
   public void insertForApp(List<AppPermission> appPermissions) {
-    if (appPermissions != null && !appPermissions.isEmpty()) {
-      BriteDatabase db = databaseManager.get();
-      try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
-        for (AppPermission appPermission : appPermissions) {
-          appPermissionRepository.insert(db, appPermission);
-        }
-
-        transaction.markSuccessful();
+      for (AppPermission appPermission : appPermissions) {
+        appPermissionRepository.insert(db, appPermission);
       }
+
+      transaction.markSuccessful();
     }
   }
 
   public void insertForAppAndLibrary(App app, Library library, List<Permission> permissions) {
-    if (permissions != null && !permissions.isEmpty()) {
-      BriteDatabase db = databaseManager.get();
-      try (BriteDatabase.Transaction transaction = db.newTransaction()) {
+    BriteDatabase db = databaseManager.get();
+    try (BriteDatabase.Transaction transaction = db.newTransaction()) {
 
-        for (Permission permission : permissions) {
-          AppLibraryPermission appLibraryPermission =
-              AppLibraryPermission.create(app.id(), library.id(), permission.id());
-          appLibraryPermissionRepository.insert(db, appLibraryPermission);
-        }
-
-        transaction.markSuccessful();
+      for (Permission permission : permissions) {
+        AppLibraryPermission appLibraryPermission =
+            AppLibraryPermission.create(app.id(), library.id(), permission.id());
+        appLibraryPermissionRepository.insert(db, appLibraryPermission);
       }
+
+      transaction.markSuccessful();
     }
   }
 
