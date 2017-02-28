@@ -20,8 +20,8 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
 
 public class LibraryParser {
   private static final int ESTIMATED_METHODS_PER_LIBRARY = 500;
-  private static final Pattern METHOD_REGEX =
-      Pattern.compile("invoke-(direct|virtual|static|super|interface) \\{.*\\}, (.*)->(.*)\\((.*)\\)(.*)");
+  private static final String SMALI_FILENAME_EXTENSION = ".smali";
+  private static final Pattern METHOD_REGEX = Pattern.compile("invoke-.* \\{.*\\}, (.*)->(.*)\\((.*)\\)(.*)");
   private final File directory;
   private List<Method> invokedMethods;
 
@@ -48,7 +48,7 @@ public class LibraryParser {
 
     for (File smaliFile : smaliFiles) {
       if (smaliFile.isFile()) {
-        if (smaliFile.getName().endsWith(".smali")) {
+        if (smaliFile.getName().endsWith(SMALI_FILENAME_EXTENSION)) {
           findMethodInvocationsInFile(smaliFile, methods);
         }
       } else if (smaliFile.isDirectory()) {
@@ -67,10 +67,10 @@ public class LibraryParser {
         Matcher matcher = METHOD_REGEX.matcher(line);
 
         if (matcher.find()) {
-          String declaringType = matcher.group(2);
-          String name = matcher.group(3);
-          String argTypes = matcher.group(4);
-          String returnType = matcher.group(5);
+          String declaringType = matcher.group(1);
+          String name = matcher.group(2);
+          String argTypes = matcher.group(3);
+          String returnType = matcher.group(4);
 
           methods.add(Method.builder()
               .declaringType(declaringType)
