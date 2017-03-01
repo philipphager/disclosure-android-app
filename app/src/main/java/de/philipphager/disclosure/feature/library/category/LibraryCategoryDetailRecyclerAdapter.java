@@ -74,8 +74,8 @@ public class LibraryCategoryDetailRecyclerAdapter
 
     public void bind(final LibraryInfo library, final OnLibraryClickListener listener) {
       int textColor = library.appCount() == 0
-          ? R.color.color_grey_dark
-          : R.color.colorPrimary;
+          ? R.color.color_text_secondary
+          : R.color.color_text_warning;
 
       String usedInApps = library.appCount() == 0
           ? context.getResources().getString(R.string.activity_library_category_no_apps_found)

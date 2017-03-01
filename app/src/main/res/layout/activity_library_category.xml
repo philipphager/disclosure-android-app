@@ -6,7 +6,6 @@
     android:id="@+id/activity_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     android:fitsSystemWindows="true">
 
   <android.support.design.widget.AppBarLayout
@@ -53,7 +52,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_headline"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
             android:textAlignment="center"
             android:paddingTop="@dimen/spacing_micro"
             tools:text="App Label"/>
@@ -63,7 +61,6 @@
     </android.support.design.widget.CollapsingToolbarLayout>
 
   </android.support.design.widget.AppBarLayout>
-
 
   <android.support.v4.widget.NestedScrollView
       android:id="@+id/nestedScrollView"

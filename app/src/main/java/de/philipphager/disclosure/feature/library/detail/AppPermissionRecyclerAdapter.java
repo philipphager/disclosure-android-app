@@ -89,8 +89,8 @@ public class AppPermissionRecyclerAdapter
       subtitle.setText(librariesDetected);
 
       int textColor = appWithPermissions.permissionCountInt() == 0
-          ? R.color.color_grey_dark
-          : R.color.colorPrimary;
+          ? R.color.color_text_secondary
+          : R.color.color_text_warning;
 
       subtitle.setTextColor(ContextCompat.getColor(context, textColor));
 

@@ -27,7 +27,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textStyle="bold"
-      android:textColor="@color/icon_title"
       android:layout_margin="@dimen/spacing_micro"
       android:textSize="18dp"
       android:text="hello"/>
@@ -36,7 +35,6 @@
         android:id="@+id/library_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_grey_dark"
         android:layout_margin="@dimen/spacing_micro"
         android:textSize="12dp"
         android:text="100 libraries"/>
@@ -45,7 +43,6 @@
         android:id="@+id/usage_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_margin="@dimen/spacing_micro"
         android:textSize="12dp"
         android:text="8 usages"/>
