@@ -14,6 +14,7 @@ import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.threeten.bp.format.DateTimeFormatter;
 import rx.schedulers.Schedulers;
 
 public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.ViewHolder> {
@@ -66,6 +67,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
     private final ImageView icon;
     private final TextView title;
     private final TextView subtitle;
+    private final TextView analyzedAt;
     private final Context context;
 
     ViewHolder(View itemView, Context context) {
@@ -73,6 +75,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
       this.icon = (ImageView) itemView.findViewById(R.id.icon);
       this.title = (TextView) itemView.findViewById(R.id.title);
       this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+      this.analyzedAt = (TextView) itemView.findViewById(R.id.analyzed_at);
       this.context = context;
     }
 
@@ -85,6 +88,17 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
               appWithLibraries.libraryCountInt(), appWithLibraries.libraryCount());
 
       subtitle.setText(librariesDetected);
+
+      String lastAnalyzed;
+
+      if (appWithLibraries.analyzedAt() != null) {
+        String date = appWithLibraries.analyzedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        lastAnalyzed = context.getResources().getString(R.string.fragment_app_list_last_analyzed_at, date);
+      } else {
+        lastAnalyzed = context.getResources().getString(R.string.fragment_app_list_never_analyzed);
+      }
+
+      analyzedAt.setText(lastAnalyzed);
 
       int textColor = appWithLibraries.libraryCountInt() == 0
           ? R.color.color_text_secondary

@@ -7,11 +7,13 @@ import de.philipphager.disclosure.feature.analyser.permission.usecase.AnalysePer
 import de.philipphager.disclosure.feature.app.detail.AnalysisProgressView;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.service.PermissionService;
+import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.FileUtils;
 import de.philipphager.disclosure.util.device.StorageProvider;
 import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
+import org.threeten.bp.LocalDateTime;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
@@ -27,6 +29,7 @@ public class AnalyseAppLibraryPermissions {
   private final PermissionService permissionService;
   private final StorageProvider storageProvider;
   private final FileUtils fileUtils;
+  private final AppService appService;
   private final PublishSubject<AnalysisProgressView.State> progressSubject;
 
   @Inject public AnalyseAppLibraryPermissions(DecompileApp decompileApp,
@@ -35,7 +38,8 @@ public class AnalyseAppLibraryPermissions {
       LibraryService libraryService,
       PermissionService permissionService,
       StorageProvider storageProvider,
-      FileUtils fileUtils) {
+      FileUtils fileUtils,
+      AppService appService) {
     this.decompileApp = decompileApp;
     this.analyseLibraryMethodInvocations = analyseLibraryMethodInvocations;
     this.analysePermissionsFromMethodInvocations = analysePermissionsFromMethodInvocations;
@@ -43,6 +47,7 @@ public class AnalyseAppLibraryPermissions {
     this.permissionService = permissionService;
     this.storageProvider = storageProvider;
     this.fileUtils = fileUtils;
+    this.appService = appService;
     this.progressSubject = PublishSubject.create();
   }
 
@@ -64,7 +69,11 @@ public class AnalyseAppLibraryPermissions {
                   .doOnNext(permissions -> Timber.d("Found %s for library %s", permissions, library))
                   .doOnNext(permissions -> permissionService.insertForAppAndLibrary(app, library, permissions))
               );
-        }).doOnTerminate(() -> deleteCompiledApk(compiledApkDir));
+        }).doOnTerminate(() -> {
+
+      appService.insertOrUpdate(app.withAnalyzedAt(LocalDateTime.now()));
+      deleteCompiledApk(compiledApkDir);
+    });
   }
 
   public Observable<AnalysisProgressView.State> getProgress() {

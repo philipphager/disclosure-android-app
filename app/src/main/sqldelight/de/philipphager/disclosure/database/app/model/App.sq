@@ -1,4 +1,5 @@
 import java.lang.Boolean;
+import org.threeten.bp.LocalDateTime;
 
 CREATE TABLE App (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -7,16 +8,17 @@ CREATE TABLE App (
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,
   flags INTEGER AS Integer,
+  analyzedAt INTEGER AS LocalDateTime,
   isTrusted INTEGER AS Boolean
 );
 
 insertApp:
-INSERT INTO App (label, packageName, process, sourceDir, flags, isTrusted)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO App (label, packageName, process, sourceDir, flags, analyzedAt, isTrusted)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 updateApp:
 UPDATE App
-SET label = ?, process = ?, sourceDir = ?, flags = ?, isTrusted = ?
+SET label = ?, process = ?, sourceDir = ?, flags = ?, analyzedAt = ?, isTrusted = ?
 WHERE packageName = ?;
 
 selectAll:
@@ -58,12 +60,12 @@ AND Library.id = LibraryFeature.libraryId
 AND LibraryFeature.featureId = ?;
 
 selectAllWithLibraryCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 GROUP BY App.id;
 
 selectAllWithPermissionCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(permissionId) AS permissionCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(permissionId) AS permissionCount
 FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
 LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
 AND LibraryApp.libraryId = AppLibraryPermission.libraryId
@@ -71,13 +73,13 @@ WHERE LibraryApp.libraryId = ?
 GROUP BY LibraryApp.appId;
 
 selectTrusted:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 WHERE App.isTrusted = ?
 GROUP BY App.id;
 
 selectByQuery:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.isTrusted, count(libraryId) AS libraryCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON (App.id = LibraryApp.appId)
 LEFT OUTER JOIN Library ON (LibraryApp.libraryId = Library.id)
 WHERE App.label LIKE upper('%' || ? || '%')

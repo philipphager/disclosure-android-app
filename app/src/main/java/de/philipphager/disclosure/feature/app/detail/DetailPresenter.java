@@ -168,7 +168,7 @@ public class DetailPresenter {
   }
 
   public void onTrustAppClicked() {
-    App tempApp = this.app.editTrust(this.app, !app.isTrusted());
+    App tempApp = this.app.withIsTrusted(!app.isTrusted());
     appService.insertOrUpdate(tempApp);
     app = tempApp;
   }

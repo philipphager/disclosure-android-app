@@ -3,6 +3,7 @@ package de.philipphager.disclosure.database.app.model;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.squareup.sqldelight.RowMapper;
+import org.threeten.bp.LocalDateTime;
 
 import static de.philipphager.disclosure.database.app.model.App.FACTORY;
 
@@ -10,13 +11,14 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
     implements App.SelectAllWithPermissionCountModel {
   public static final RowMapper<AppWithPermissions> MAPPER =
       FACTORY.selectAllWithPermissionCountMapper(
-          (id, label, packageName, process, sourceDir, flags, isTrusted, permissionCount) -> builder()
+          (id, label, packageName, process, sourceDir, flags, analyzedAt, isTrusted, permissionCount) -> builder()
               .id(id)
               .label(label)
               .packageName(packageName)
               .process(process)
               .sourceDir(sourceDir)
               .flags(flags)
+              .analyzedAt(analyzedAt)
               .isTrusted(isTrusted)
               .permissionCount(permissionCount)
               .build());
@@ -36,6 +38,8 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
   public abstract String sourceDir();
 
   public abstract Integer flags();
+
+  @Nullable public abstract LocalDateTime analyzedAt();
 
   public abstract Boolean isTrusted();
 
@@ -58,6 +62,8 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
     Builder sourceDir(String path);
 
     Builder flags(Integer flags);
+
+    Builder analyzedAt(@Nullable LocalDateTime analyzedAt);
 
     Builder isTrusted(Boolean isTrusted);
 

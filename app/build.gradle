@@ -98,6 +98,7 @@ dependencies {
   apt "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   apt "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
+  apt 'com.gabrielittner.auto.value:auto-value-with:1.0.0'
 
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"

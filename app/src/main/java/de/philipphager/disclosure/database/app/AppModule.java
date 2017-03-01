@@ -8,10 +8,10 @@ import javax.inject.Singleton;
 
 @Module public class AppModule {
   @Provides @Singleton public App.InsertApp getInsertStatement(DatabaseManager databaseManager) {
-    return new App.InsertApp(databaseManager.getSQLite());
+    return new App.InsertApp(databaseManager.getSQLite(), App.FACTORY);
   }
 
   @Provides @Singleton public App.UpdateApp getUpdateStatement(DatabaseManager databaseManager) {
-    return new App.UpdateApp(databaseManager.getSQLite());
+    return new App.UpdateApp(databaseManager.getSQLite(), App.FACTORY);
   }
 }

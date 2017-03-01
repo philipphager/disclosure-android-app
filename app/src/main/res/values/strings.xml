@@ -94,4 +94,6 @@
   <string name="fragment_library_category_title">Library Explorer</string>
   <string name="action_open_in_browser">open website</string>
   <string name="activity_library_detail_website_unavailable">No website available</string>
+  <string name="fragment_app_list_never_analyzed">not analyzed yet</string>
+  <string name="fragment_app_list_last_analyzed_at">last analyzed %s</string>
 </resources>
