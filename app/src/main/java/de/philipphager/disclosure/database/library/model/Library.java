@@ -63,6 +63,10 @@ import org.threeten.bp.OffsetDateTime;
     ANALYTICS, ADVERTISEMENT, DEVELOPER, SOCIAL
   }
 
+  public boolean hasWebsiteUrl() {
+    return !websiteUrl().isEmpty();
+  }
+
   @AutoValue.Builder public interface Builder {
     @SuppressWarnings("PMD.ShortMethodName") Builder id(@Nullable String id);
 

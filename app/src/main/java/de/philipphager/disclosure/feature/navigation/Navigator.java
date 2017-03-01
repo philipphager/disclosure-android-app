@@ -60,4 +60,11 @@ public class Navigator {
       activity.startActivity(new Intent(Intent.ACTION_VIEW, appUri));
     }
   }
+
+  public void toWebsite(String websiteUrl) {
+    Uri uri = Uri.parse(websiteUrl);
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(uri);
+    activity.startActivity(intent);
+  }
 }

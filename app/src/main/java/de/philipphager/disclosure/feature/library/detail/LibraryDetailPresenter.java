@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.feature.library.detail;
 
+import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.service.FeatureService;
@@ -10,6 +11,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
+
+import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
 public class LibraryDetailPresenter {
   private final AppService appService;
@@ -29,6 +32,7 @@ public class LibraryDetailPresenter {
     this.library = library;
     this.subscriptions = new CompositeSubscription();
 
+    initUi();
     loadFeatures();
     loadApps();
   }
@@ -36,6 +40,11 @@ public class LibraryDetailPresenter {
   public void onDestroy() {
     this.subscriptions.clear();
     this.view = null;
+  }
+
+  private void initUi() {
+    view.setToolbarTitle(library.title());
+    view.setOpenWebsiteEnabled(library.hasWebsiteUrl());
   }
 
   private void loadApps() {
@@ -73,5 +82,15 @@ public class LibraryDetailPresenter {
         }, throwable -> {
           Timber.e(throwable, "while loading app");
         }));
+  }
+
+  public void onOpenWebsiteClicked() {
+    ensureNotNull(library, "must have library");
+
+    if (library.hasWebsiteUrl()) {
+      view.navigate().toWebsite(library.websiteUrl());
+    } else {
+      view.notify(R.string.activity_library_detail_website_unavailable);
+    }
   }
 }
