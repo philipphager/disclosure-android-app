@@ -1,6 +1,6 @@
 <resources>
   <string name="app_name">Disclosure</string>
-  <string name="fragment_app_overview_title">Overview</string>
+  <string name="fragment_app_overview_title">App Analyzer</string>
   <string name="app_list_item_image_content_description">app icon</string>
   <string name="button_app_overview_analyse_all">analyse all</string>
   <string name="action_back">BACK</string>
@@ -15,13 +15,11 @@
   <string name="dialog_runtime_permissions_unsupported_subtitle"><![CDATA[Your phone runs Android version <b>%s</b> which does not support editing permissions after app installation. You can only revoke permissions for an application by uninstalling it.]]></string>
   <string name="dialog_runtime_permissions_unsupported_description"><![CDATA[Note that Android supports this feature starting with <b>Android Marshmallow (6.0)</b>.]]></string>
   <string name="dialog_permission_explanation_hint_revoke_permission">You can revoke this dangerous permission in the system settings.</string>
-  <string name="fragment_app_overview_toolbar_title">App Manager</string>
   <string name="fragment_app_overview_tabs_all">installed</string>
   <string name="fragment_app_overview_tabs_trusted">trusted</string>
   <string name="fragment_app_overview_action_sort_apps">Sort</string>
   <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
   <string name="fragment_app_overview_action_sort_library_count">Library count</string>
-  <string name="fragment_library_category_toolbar_title">Library Manager</string>
   <string name="app_search_hint">Search by name and libraries</string>
   <string name="search_empty_title">No matching apps found</string>
   <string name="search_empty_subtitle">Please check your spelling and if the app is still installed</string>
@@ -93,4 +91,5 @@
   <string name="fragment_library_list_sort_usage_count">Usage count</string>
   <string name="fragment_library_list_action_only_used">Show only used</string>
   <string name="fragment_library_list_action_filter">Filter</string>
+  <string name="fragment_library_category_title">Library Explorer</string>
 </resources>
