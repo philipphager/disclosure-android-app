@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.library.category;
+package de.philipphager.disclosure.feature.library.category.list;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-public class LibraryCategoryDetailRecyclerAdapter
-    extends RecyclerView.Adapter<LibraryCategoryDetailRecyclerAdapter.ViewHolder> {
+public class LibraryListRecyclerAdapter
+    extends RecyclerView.Adapter<LibraryListRecyclerAdapter.ViewHolder> {
   private final List<LibraryInfo> libraries;
   private final Context context;
   private OnLibraryClickListener listener;
 
-  @Inject public LibraryCategoryDetailRecyclerAdapter(Context context) {
+  @Inject public LibraryListRecyclerAdapter(Context context) {
     super();
     this.context = context;
     this.libraries = new ArrayList<>();

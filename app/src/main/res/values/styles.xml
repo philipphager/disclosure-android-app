@@ -10,7 +10,7 @@
     <item name="android:textColor">@color/color_text_primary</item>
     <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/color_accent</item>
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
   </style>
 
   <style name="AppTheme" parent="BaseAppTheme">
@@ -24,6 +24,10 @@
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:backgroundDimEnabled">true</item>
+  </style>
+
+  <style name="AppTheme.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay.v14.Material">
+    <item name="android:layout">@layout/fragment_settings</item>
   </style>
 
   <style name="TabLayout" parent="Widget.Design.TabLayout">

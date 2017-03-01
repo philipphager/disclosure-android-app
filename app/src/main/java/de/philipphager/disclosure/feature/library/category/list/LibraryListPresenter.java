@@ -1,8 +1,10 @@
-package de.philipphager.disclosure.feature.library.category;
+package de.philipphager.disclosure.feature.library.category.list;
 
+import com.f2prateek.rx.preferences.Preference;
+import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import de.philipphager.disclosure.feature.library.category.filter.SortByAppCount;
-import de.philipphager.disclosure.feature.library.category.usecase.LibraryCategory;
+import de.philipphager.disclosure.feature.preference.ui.OnlyShowUsedLibraries;
 import de.philipphager.disclosure.service.LibraryService;
 import javax.inject.Inject;
 import rx.Observable;
@@ -13,22 +15,25 @@ import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
-public class LibraryCategoryDetailPresenter {
+public class LibraryListPresenter {
   private final LibraryService libraryService;
-  private LibraryCategory libraryCategory;
+  private final Preference<Boolean> onlyShowUsedLibraries;
   private CompositeSubscription subscriptions;
-  private LibraryCategoryDetailView view;
+  private LibraryListView view;
+  private Library.Type type;
 
-  @Inject public LibraryCategoryDetailPresenter(LibraryService libraryService) {
+  @Inject public LibraryListPresenter(LibraryService libraryService, @OnlyShowUsedLibraries
+      Preference<Boolean> onlyShowUsedLibraries) {
     this.libraryService = libraryService;
+    this.onlyShowUsedLibraries = onlyShowUsedLibraries;
   }
 
-  public void onCreate(LibraryCategoryDetailView view, LibraryCategory libraryCategory) {
+  public void onCreate(LibraryListView view, Library.Type type) {
     this.view = ensureNotNull(view, "must provide view for presenter");
-    this.libraryCategory = ensureNotNull(libraryCategory, "must provide library category");
+    this.type = ensureNotNull(type, "must provide type of libraries to load");
     this.subscriptions = new CompositeSubscription();
 
-    initUi();
+    fetchFilterPreference();
     loadLibraries();
   }
 
@@ -36,13 +41,20 @@ public class LibraryCategoryDetailPresenter {
     subscriptions.clear();
   }
 
-  private void initUi() {
-    view.setToolbarTitle(LibraryCategoryUIProvider.getTitle(libraryCategory.type()));
+  private void fetchFilterPreference() {
+    subscriptions.add(onlyShowUsedLibraries.asObservable()
+        .subscribeOn(Schedulers.io())
+        .subscribe(isChecked -> {
+          loadLibraries();
+        }, throwable -> {
+          Timber.e(throwable, "while fetching onlyShowUsedLibraries preference");
+        }));
   }
 
   private void loadLibraries() {
-    subscriptions.add(libraryService.infoByType(libraryCategory.type())
+    subscriptions.add(libraryService.infoByType(type)
         .flatMap(libraryInfos -> Observable.from(libraryInfos)
+            .filter(libraryInfo -> !onlyShowUsedLibraries.get() || libraryInfo.appCount() > 0)
             .toSortedList(new SortByAppCount()))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

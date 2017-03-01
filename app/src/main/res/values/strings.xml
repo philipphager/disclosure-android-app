@@ -84,8 +84,13 @@
     <item quantity="other">%d libraries detected</item>
   </plurals>
 
-  <string name="library_category_advertisement">Advertisement</string>
+  <string name="library_category_advertisement">Ads</string>
   <string name="library_category_analytics">Analytics</string>
   <string name="library_category_development">Developer</string>
   <string name="library_category_social">Social</string>
+  <string name="fragment_library_list_show_only_used">only show used</string>
+  <string name="fragment_library_list_sort_alphabetical">Alphabetical</string>
+  <string name="fragment_library_list_sort_usage_count">Usage count</string>
+  <string name="fragment_library_list_action_only_used">Show only used</string>
+  <string name="fragment_library_list_action_filter">Filter</string>
 </resources>

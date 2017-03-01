@@ -18,6 +18,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
     inject();
   }
 

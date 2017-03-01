@@ -13,9 +13,9 @@ import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
 import de.philipphager.disclosure.feature.app.overview.trusted.TrustedAppListFragment;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
+import de.philipphager.disclosure.feature.library.category.list.LibraryListFragment;
+import de.philipphager.disclosure.feature.library.category.LibraryCategoryFragment;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
-import de.philipphager.disclosure.feature.library.category.LibraryCategoryDetailActivity;
-import de.philipphager.disclosure.feature.library.category.overview.LibraryCategoryOverviewOverviewFragment;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 import de.philipphager.disclosure.feature.sync.db.broadcasts.PackageManagerBroadcastReceiver;
@@ -40,9 +40,9 @@ public interface ApplicationComponent {
 
   void inject(LibraryDetailActivity activity);
 
-  void inject(LibraryCategoryDetailActivity activity);
+  void inject(LibraryListFragment fragment);
 
-  void inject(LibraryCategoryOverviewOverviewFragment activity);
+  void inject(LibraryCategoryFragment activity);
 
   void inject(AppOverviewFragment fragment);
 
