@@ -31,7 +31,7 @@
     <me.gujun.android.taggroup.TagGroup
         android:id="@+id/permission_group_dangerous"
         style="@style/PermissionGroupDangerous"
-        android:layout_marginBottom="@dimen/spacing_micro"/>
+        android:layout_marginBottom="8dp"/>
 
     <me.gujun.android.taggroup.TagGroup
         android:id="@+id/permission_group_normal"

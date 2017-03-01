@@ -3,12 +3,12 @@
   <!-- Base application theme. -->
   <style name="BaseAppTheme" parent="Theme.AppCompat.NoActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimary</item>
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorPrimaryDark">@color/color_primary</item>
     <item name="android:textColorPrimary">@color/color_text_primary</item>
     <item name="android:textColorSecondary">@color/color_text_secondary</item>
     <item name="android:textColor">@color/color_text_primary</item>
-    <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+    <item name="android:navigationBarColor">@color/color_primary_dark</item>
     <item name="colorAccent">@color/color_accent</item>
     <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
   </style>
@@ -34,8 +34,8 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">56dp</item>
     <item name="android:fillViewport">false</item>
-    <item name="tabBackground">@color/colorPrimary</item>
-    <item name="android:background">@color/colorPrimary</item>
+    <item name="tabBackground">@color/color_primary</item>
+    <item name="android:background">@color/color_primary</item>
     <item name="tabGravity">fill</item>
     <item name="tabIndicatorHeight">3dp</item>
     <item name="tabMode">fixed</item>
@@ -44,15 +44,15 @@
   </style>
 
   <style name="PermissionGroupDangerous" parent="TagGroup">
-    <item name="atg_borderColor">@color/colorPrimaryDark</item>
-    <item name="atg_backgroundColor">@color/color_purple</item>
-    <item name="atg_textColor">@color/color_white</item>
+    <item name="atg_borderColor">@color/colorProtectionDangerous</item>
+    <item name="atg_backgroundColor">@color/colorProtectionDangerous</item>
+    <item name="atg_textColor">@color/color_orange_dark</item>
   </style>
 
   <style name="PermissionGroupNormal" parent="TagGroup">
-    <item name="atg_borderColor">@color/color_grey_dark</item>
-    <item name="atg_backgroundColor">@color/color_grey_dark</item>
-    <item name="atg_textColor">@color/color_white</item>
+    <item name="atg_borderColor">@color/colorProtectionNormal</item>
+    <item name="atg_backgroundColor">@color/colorProtectionNormal</item>
+    <item name="atg_textColor">@color/color_green_dark</item>
   </style>
 
 </resources>

@@ -67,7 +67,7 @@
             app:spb_stateForegroundColor="@color/state_progress_bar_state_foreground_color"
             app:spb_stateNumberBackgroundColor="@color/state_progress_bar_state_number_background_color"
             app:spb_stateNumberForegroundColor="@color/state_progress_bar_state_number_foreground_color"
-            app:spb_currentStateDescriptionColor="@color/color_purple"
+            app:spb_currentStateDescriptionColor="@color/state_progress_bar_state_current_state_description_color"
             app:spb_stateDescriptionColor="@color/state_progress_bar_state_description_color"
             app:spb_descriptionTopSpaceIncrementer="@dimen/spacing_normal"
             app:spb_animateToCurrentProgressState="true"
