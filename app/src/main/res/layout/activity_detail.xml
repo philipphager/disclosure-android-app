@@ -6,7 +6,6 @@
     android:id="@+id/activity_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     android:fitsSystemWindows="true">
 
   <android.support.design.widget.AppBarLayout
@@ -53,7 +52,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_headline"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
             android:textAlignment="center"
             android:paddingTop="@dimen/spacing_micro"
             tools:text="App Label"/>
@@ -105,9 +103,9 @@
             android:layout_height="96dp"
             android:background="?selectableItemBackgroundBorderless"
             android:drawableTop="@drawable/ic_settings"
-            android:drawableTint="@color/icon"
+            android:drawableTint="@color/color_icon"
             android:text="@string/app_detail_action_edit"
-            android:textColor="@color/icon_title"
+            android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -117,9 +115,9 @@
             android:layout_height="96dp"
             android:background="?selectableItemBackgroundBorderless"
             android:drawableTop="@drawable/ic_delete_forever"
-            android:drawableTint="@color/icon"
+            android:drawableTint="@color/color_icon"
             android:text="@string/app_detail_action_uninstall"
-            android:textColor="@color/icon_title"
+            android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -129,7 +127,7 @@
             android:layout_height="96dp"
             android:background="?selectableItemBackgroundBorderless"
             android:text="@string/app_detail_action_distrust"
-            android:textColor="@color/icon_title"
+            android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -147,11 +145,12 @@
 
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/btn_analyse_app"
-      android:src="@drawable/ic_security_white_24dp"
+      android:src="@drawable/ic_analyze"
       app:fabSize="normal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/spacing_large"
+      android:scaleType="center"
       app:layout_anchor="@id/nestedScrollView"
       app:layout_anchorGravity="bottom|right|end"/>
 

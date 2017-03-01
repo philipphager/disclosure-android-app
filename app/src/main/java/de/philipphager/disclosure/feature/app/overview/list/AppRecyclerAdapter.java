@@ -87,8 +87,8 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<AppRecyclerAdapter.
       subtitle.setText(librariesDetected);
 
       int textColor = appWithLibraries.libraryCountInt() == 0
-          ? R.color.color_grey_dark
-          : R.color.colorPrimary;
+          ? R.color.color_text_secondary
+          : R.color.color_text_warning;
 
       subtitle.setTextColor(ContextCompat.getColor(context, textColor));
 

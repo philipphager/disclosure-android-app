@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
-        android:background="@color/toolbar_background_light"
-        app:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="@string/fragment_library_category_toolbar_title"/>
 
   </android.support.design.widget.AppBarLayout>

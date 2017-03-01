@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_margin="@dimen/spacing_normal"
-    android:background="@color/background"
     android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center"
     card_view:cardCornerRadius="4dp">

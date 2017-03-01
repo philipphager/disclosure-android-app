@@ -9,6 +9,7 @@
     android:padding="@dimen/spacing_huge"
     android:alpha="0"
     tools:alpha="100"
+    android:background="@color/windowBackground"
     android:visibility="gone"
     tools:visibility="visible">
 

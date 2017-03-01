@@ -16,8 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
-        android:background="@color/toolbar_background_light"
-        app:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="@string/fragment_app_overview_toolbar_title"/>
 
     <android.support.design.widget.TabLayout
@@ -31,7 +30,6 @@
       android:id="@+id/appViewPager"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/toolbar_background_light"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>

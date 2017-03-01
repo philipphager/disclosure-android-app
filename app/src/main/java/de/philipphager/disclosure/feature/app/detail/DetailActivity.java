@@ -160,7 +160,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override public void enableEditPermissions(boolean isEnabled) {
     int id = isEnabled ? R.drawable.ic_edit : R.drawable.ic_edit_disabled;
-    int text = isEnabled ? R.color.icon : R.color.icon_disabled;
+    int text = isEnabled ? R.color.color_icon : R.color.color_icon_disabled;
 
     Drawable editIcon = ResourcesCompat.getDrawable(getResources(), id, null);
     btnEditSettings.setCompoundDrawablesWithIntrinsicBounds(null, editIcon, null, null);
@@ -169,7 +169,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @Override public void setAppIsTrusted(boolean isTrusted) {
     int id = isTrusted ? R.drawable.ic_lock : R.drawable.ic_lock_open;
-    int textColor = isTrusted ? R.color.colorPrimary : R.color.icon;
+    int textColor = isTrusted ? R.color.color_accent : R.color.color_icon;
     String text = isTrusted ? getString(R.string.app_detail_action_trust)
         : getString(R.string.app_detail_action_distrust);
 

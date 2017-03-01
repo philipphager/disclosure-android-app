@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
-        android:background="@color/toolbar_background_light"
-        app:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="@string/fragment_app_overview_toolbar_title">
 
       <android.support.v7.widget.SearchView
@@ -44,7 +43,6 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:alpha="0"
-        android:background="@color/background"
         tools:listitem="@layout/view_app_list_item"/>
 
     <View
