@@ -12,6 +12,7 @@ import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
 import de.philipphager.disclosure.service.app.filter.SortBy;
+import de.philipphager.disclosure.service.app.filter.SortByAnalyzedAt;
 import de.philipphager.disclosure.service.app.filter.SortByLibraryCount;
 import de.philipphager.disclosure.service.app.filter.SortByName;
 import de.philipphager.disclosure.util.time.Clock;
@@ -154,6 +155,8 @@ public class AppService {
         return new SortByName();
       case LIBRARY_COUNT:
         return new SortByLibraryCount();
+      case ANALYZED_AT:
+        return new SortByAnalyzedAt();
       default:
         throw new IllegalArgumentException("no sorting function for %s " + sortBy);
     }

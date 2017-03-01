@@ -96,4 +96,5 @@
   <string name="activity_library_detail_website_unavailable">No website available</string>
   <string name="fragment_app_list_never_analyzed">not analyzed yet</string>
   <string name="fragment_app_list_last_analyzed_at">last analyzed %s</string>
+  <string name="fragment_app_overview_action_sort_analyzed_at">Last analyzed</string>
 </resources>

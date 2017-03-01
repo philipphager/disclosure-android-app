@@ -26,6 +26,8 @@ public class AppOverviewPresenter {
         return true;
       case R.id.action_sort_library_count:
         sortBy.set(SortBy.LIBRARY_COUNT);
+      case R.id.action_sort_analyzed_at:
+        sortBy.set(SortBy.ANALYZED_AT);
         return true;
       case R.id.action_search:
         view.navigate().toSearch();
