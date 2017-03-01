@@ -34,7 +34,9 @@ public class FetchLibrariesForAppWithPermissions {
                 .filter(permission -> showAll || permissionIsGrantedForApp(permission))
                 .toList()
                 .map(permissions -> LibraryWithPermission.create(library, permissions)))
-            .toList());
+            .toSortedList((library, otherLibrary) -> {
+              return otherLibrary.permissions().size() - library.permissions().size();
+            }));
   }
 
   private void loadGrantedPermissionsForApp(App app) {
