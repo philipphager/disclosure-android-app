@@ -1,5 +1,6 @@
 package de.philipphager.disclosure.feature.sync.db.usecases;
 
+import android.content.pm.PermissionInfo;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.feature.analyser.permission.ToPermissionMapper;
@@ -13,11 +14,9 @@ import timber.log.Timber;
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
 /***
- * Fetch all permissions declared by an app,
- * that are not already saved in the database.
- * Because all system permissions are saved in the db,
- * this will normally return custom permissions,
- * that are defined by the apps themselves.
+ * Fetch all permissions declared by an app, that are not already saved in the database. Because all
+ * system permissions are saved in the db, this will normally return custom permissions, that are
+ * defined by the apps themselves.
  */
 public class FetchNewPermissions {
   private final DevicePackageProvider packageProvider;
@@ -45,12 +44,19 @@ public class FetchNewPermissions {
   public Observable<List<Permission>> fetchRequestedPermissions(App app) {
     return packageProvider.getPackageInfo(app.packageName())
         .flatMap(packageInfo -> {
-          String[] requestedPermission = packageInfo.requestedPermissions != null
+          String[] requestedPermissions = packageInfo.requestedPermissions != null
               ? packageInfo.requestedPermissions : new String[0];
-          return Observable.from(requestedPermission);
+          return Observable.from(requestedPermissions);
         })
-        .flatMap(packageProvider::getPermissionInfo)
-        .filter(permissionInfo -> permissionInfo != null)
+        .flatMap((id) -> packageProvider.getPermissionInfo(id)
+            .map(permissionInfo -> {
+              if (permissionInfo == null) {
+                // Custom permissions might not have permission info,
+                // but should still be saved in the database.
+                permissionInfo = mapCustomPermission(id);
+              }
+              return permissionInfo;
+            }))
         .map(toPermissionMapper::map)
         .toList();
   }
@@ -70,5 +76,11 @@ public class FetchNewPermissions {
         .contains(permission.id())
         .toBlocking()
         .first();
+  }
+
+  private PermissionInfo mapCustomPermission(String id) {
+    PermissionInfo permissionInfo = new PermissionInfo();
+    permissionInfo.name = id;
+    return permissionInfo;
   }
 }
