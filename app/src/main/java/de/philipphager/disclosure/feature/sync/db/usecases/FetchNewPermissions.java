@@ -53,7 +53,7 @@ public class FetchNewPermissions {
               if (permissionInfo == null) {
                 // Custom permissions might not have permission info,
                 // but should still be saved in the database.
-                permissionInfo = mapCustomPermission(id);
+                permissionInfo = createCustomPermission(id);
               }
               return permissionInfo;
             }))
@@ -78,7 +78,7 @@ public class FetchNewPermissions {
         .first();
   }
 
-  private PermissionInfo mapCustomPermission(String id) {
+  private PermissionInfo createCustomPermission(String id) {
     PermissionInfo permissionInfo = new PermissionInfo();
     permissionInfo.name = id;
     return permissionInfo;
