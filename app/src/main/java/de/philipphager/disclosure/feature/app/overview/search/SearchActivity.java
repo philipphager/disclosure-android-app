@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
+import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.feature.app.overview.list.AppRecyclerAdapter;
 import de.philipphager.disclosure.util.ui.BaseActivity;
@@ -128,16 +129,16 @@ public class SearchActivity extends BaseActivity implements AppSearchView {
     handleIntent(intent);
   }
 
-  @Override public void showApps(List<AppWithLibraries> apps) {
+  @Override public void showApps(List<AppReport> appReports) {
     dismissView.setVisibility(View.GONE);
     emptySearchView.setVisibility(View.GONE);
-    adapter.setApps(apps);
+    adapter.setAppReports(appReports);
   }
 
   @Override public void showEmptySearchView() {
     dismissView.setVisibility(View.GONE);
     emptySearchView.setVisibility(View.VISIBLE);
-    adapter.setApps(Collections.emptyList());
+    adapter.setAppReports(Collections.emptyList());
   }
 
   @Override public void hideEmptySearchView() {

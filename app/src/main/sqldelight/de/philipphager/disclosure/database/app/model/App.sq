@@ -12,6 +12,35 @@ CREATE TABLE App (
   isTrusted INTEGER AS Boolean
 );
 
+report:
+CREATE VIEW Report AS
+SELECT App.*, libraryCount, permissionCount
+FROM  App LEFT OUTER JOIN (
+	SELECT App.id, count(libraryId) AS libraryCount
+	FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
+	GROUP BY App.id
+) AS LibraryReport ON App.id = LibraryReport.id
+LEFT OUTER JOIN (
+	SELECT id, count(permissionId)  AS permissionCount
+	FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
+	LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
+	AND LibraryApp.libraryId = AppLibraryPermission.libraryId
+	GROUP BY LibraryApp.appId
+) AS PermissionReport ON App.id = PermissionReport.id;
+
+selectReport:
+SELECT *
+FROM Report;
+
+selectByQuery:
+SELECT Report.*
+FROM Report LEFT OUTER JOIN LibraryApp ON (Report.id = LibraryApp.appId)
+LEFT OUTER JOIN Library ON (LibraryApp.libraryId = Library.id)
+WHERE Report.label LIKE upper('%' || ? || '%')
+OR Report.packageName LIKE upper('%' || ? || '%')
+OR Library.title LIKE upper('%' || ? || '%')
+GROUP BY Report.id;
+
 insertApp:
 INSERT INTO App (label, packageName, process, sourceDir, flags, analyzedAt, isTrusted)
 VALUES (?, ?, ?, ?, ?, ?, ?);
@@ -76,13 +105,4 @@ selectTrusted:
 SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 WHERE App.isTrusted = ?
-GROUP BY App.id;
-
-selectByQuery:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
-FROM App LEFT OUTER JOIN LibraryApp ON (App.id = LibraryApp.appId)
-LEFT OUTER JOIN Library ON (LibraryApp.libraryId = Library.id)
-WHERE App.label LIKE upper('%' || ? || '%')
-OR App.packageName LIKE upper('%' || ? || '%')
-OR Library.packageName LIKE upper('%' || ? || '%')
 GROUP BY App.id;

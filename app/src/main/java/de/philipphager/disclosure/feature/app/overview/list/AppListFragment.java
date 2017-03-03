@@ -10,7 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
+import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.util.ui.BaseFragment;
 import java.util.List;
 import javax.inject.Inject;
@@ -52,8 +52,8 @@ public class AppListFragment extends BaseFragment implements AppListView {
     appComponent.inject(this);
   }
 
-  @Override public void show(List<AppWithLibraries> apps) {
-    adapter.setApps(apps);
+  @Override public void show(List<AppReport> appReports) {
+    adapter.setAppReports(appReports);
   }
 
   @Override public void showAppCount(int count) {
@@ -63,6 +63,6 @@ public class AppListFragment extends BaseFragment implements AppListView {
 
   @Override public void showLibraryCount(int count) {
     libraryCount.setText(getResources()
-        .getQuantityString(R.plurals.fragment_app_list_library_count, count, count));
+        .getQuantityString(R.plurals.view_app_list_item_libraries_found, count, count));
   }
 }

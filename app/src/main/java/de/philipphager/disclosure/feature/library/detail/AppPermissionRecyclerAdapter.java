@@ -73,7 +73,7 @@ public class AppPermissionRecyclerAdapter
       super(itemView);
       this.icon = (ImageView) itemView.findViewById(R.id.icon);
       this.title = (TextView) itemView.findViewById(R.id.title);
-      this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+      this.subtitle = (TextView) itemView.findViewById(R.id.library_count);
       this.context = context;
     }
 

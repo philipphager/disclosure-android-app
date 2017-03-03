@@ -77,7 +77,7 @@ public class LibraryRecyclerAdapter
     ViewHolder(View itemView) {
       super(itemView);
       this.title = (TextView) itemView.findViewById(R.id.title);
-      this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+      this.subtitle = (TextView) itemView.findViewById(R.id.library_count);
       this.permissionGroupDangerous =
           (TagGroup) itemView.findViewById(R.id.permission_group_dangerous);
       this.permissionGroupNormal = (TagGroup) itemView.findViewById(R.id.permission_group_normal);

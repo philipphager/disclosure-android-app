@@ -1,7 +1,6 @@
 package de.philipphager.disclosure.feature.app.overview.search;
 
-import de.philipphager.disclosure.database.app.model.App;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
+import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.service.app.AppService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
@@ -56,18 +55,8 @@ public class SearchPresenter {
     );
   }
 
-  public void onAppClicked(AppWithLibraries appWithLibraries) {
-    App app = App.builder()
-        .id(appWithLibraries.id())
-        .packageName(appWithLibraries.packageName())
-        .label(appWithLibraries.label())
-        .process(appWithLibraries.process())
-        .sourceDir(appWithLibraries.sourceDir())
-        .flags(appWithLibraries.flags())
-        .isTrusted(appWithLibraries.isTrusted())
-        .build();
-
-    view.navigate().toAppDetail(app);
+  public void onAppClicked(AppReport appReport) {
+    view.navigate().toAppDetail(appReport.App());
     view.finish();
   }
 

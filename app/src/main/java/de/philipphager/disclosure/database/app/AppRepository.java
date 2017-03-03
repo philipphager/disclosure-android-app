@@ -6,9 +6,11 @@ import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
+import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.library.model.LibraryApp;
+import de.philipphager.disclosure.database.permission.model.AppLibraryPermission;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.Arrays;
 import java.util.List;
@@ -127,13 +129,13 @@ public class AppRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<AppWithLibraries>> selectByQuery(BriteDatabase db, String query) {
+  public Observable<List<AppReport>> selectByQuery(BriteDatabase db, String query) {
     String likeClause = "%" + query + "%";
     SqlDelightStatement selectByQuery =
         App.FACTORY.selectByQuery(likeClause, likeClause, likeClause);
 
-    CursorToListMapper<AppWithLibraries> cursorToList =
-        new CursorToListMapper<>(AppWithLibraries.MAPPER);
+    CursorToListMapper<AppReport> cursorToList =
+        new CursorToListMapper<>(AppReport.MAPPER);
 
     return db.createQuery(selectByQuery.tables, selectByQuery.statement, selectByQuery.args)
         .map(SqlBrite.Query::run)
@@ -147,6 +149,17 @@ public class AppRepository {
         new CursorToListMapper<>(AppWithLibraries.MAPPER);
 
     return db.createQuery(selectTrusted.tables, selectTrusted.statement, selectTrusted.args)
+        .map(SqlBrite.Query::run)
+        .map(cursorToList);
+  }
+
+  public Observable<List<AppReport>> selectReport(BriteDatabase db) {
+    CursorToListMapper<AppReport> cursorToList = new CursorToListMapper<>(AppReport.MAPPER);
+
+    List<String> tables = Arrays.asList(App.TABLE_NAME, LibraryApp.TABLE_NAME, "Report",
+        AppLibraryPermission.TABLE_NAME);
+
+    return db.createQuery(tables, App.SELECTREPORT)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

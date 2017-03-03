@@ -68,7 +68,7 @@ public class LibraryListRecyclerAdapter
     ViewHolder(View itemView, Context context) {
       super(itemView);
       this.title = (TextView) itemView.findViewById(R.id.title);
-      this.subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+      this.subtitle = (TextView) itemView.findViewById(R.id.library_count);
       this.context = context;
     }
 

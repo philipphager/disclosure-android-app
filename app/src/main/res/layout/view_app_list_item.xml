@@ -37,17 +37,25 @@
           tools:text="Title"/>
 
       <TextView
+          android:id="@+id/library_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="5 libraries found"/>
+
+      <TextView
+          android:id="@+id/permission_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          tools:text="11 permission usages detected"/>
+
+      <TextView
           android:id="@+id/analyzed_at"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/text_bottom_margin_normal"
+          android:visibility="gone"
           tools:text="last analyzed 23.01.2016"/>
-
-      <TextView
-          android:id="@+id/subtitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          tools:text="A great subtitle"/>
 
     </LinearLayout>
 

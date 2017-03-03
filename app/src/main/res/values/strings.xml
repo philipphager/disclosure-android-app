@@ -23,7 +23,7 @@
   <string name="fragment_app_overview_action_sort_apps">Sort</string>
   <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
   <string name="fragment_app_overview_action_sort_library_count">Library count</string>
-  <string name="app_search_hint">Search by name and libraries</string>
+  <string name="app_search_hint">App name or used libraries</string>
   <string name="search_empty_title">No matching apps found</string>
   <string name="search_empty_subtitle">Please check your spelling and if the app is still installed</string>
 
@@ -62,9 +62,21 @@
     <item quantity="other">found %d permissions</item>
   </plurals>
 
+  <string name="view_app_list_item_no_libraries_found">No libraries detected to analyze</string>
+  <string name="view_app_list_item_not_yet_analyzed">Can be analyzed</string>
+  <string name="view_app_list_item_last_analyzed">Last analysis %s</string>
+  <plurals name="view_app_list_item_libraries_found">
+    <item quantity="one">%d library found</item>
+    <item quantity="other">%d libraries found</item>
+  </plurals>
+  <plurals name="view_app_list_item_permissions_found">
+    <item quantity="one">%d permission usage detected</item>
+    <item quantity="other">%d permission usages detected</item>
+  </plurals>
+
+
   <string name="activity_library_category_no_apps_found">not used in apps</string>
   <string name="activity_library_detail_no_permissions_found">no permissions detected</string>
-  <string name="fragment_app_list_no_libraries_found">no libraries detected</string>
   <string name="empty"/>
   <string name="app_detail_action_edit">edit</string>
   <string name="app_detail_action_uninstall">uninstall</string>
@@ -80,11 +92,6 @@
   <string name="shared_preferences">Disclosure</string>
   <string name="fragment_settings_title">Settings</string>
 
-  <plurals name="fragment_app_list_library_count">
-    <item quantity="one">%d library detected</item>
-    <item quantity="other">%d libraries detected</item>
-  </plurals>
-
   <string name="library_category_advertisement">Ads</string>
   <string name="library_category_analytics">Analytics</string>
   <string name="library_category_development">Developer</string>
@@ -97,8 +104,6 @@
   <string name="fragment_library_category_title">Library Explorer</string>
   <string name="action_open_in_browser">open website</string>
   <string name="activity_library_detail_website_unavailable">No website available</string>
-  <string name="fragment_app_list_never_analyzed">not analyzed yet</string>
-  <string name="fragment_app_list_last_analyzed_at">last analyzed %s</string>
   <string name="fragment_app_overview_action_sort_analyzed_at">Last analyzed</string>
   <string name="permission_status_granted">Granted</string>
   <string name="permission_status_not_granted">Not granted</string>

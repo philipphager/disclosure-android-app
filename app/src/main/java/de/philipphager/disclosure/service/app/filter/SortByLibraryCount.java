@@ -1,11 +1,11 @@
 package de.philipphager.disclosure.service.app.filter;
 
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
+import de.philipphager.disclosure.database.app.model.AppReport;
 import rx.functions.Func2;
 
-public class SortByLibraryCount implements Func2<AppWithLibraries, AppWithLibraries, Integer> {
+public class SortByLibraryCount implements Func2<AppReport, AppReport, Integer> {
   @Override
-  public Integer call(AppWithLibraries appWithLibraries, AppWithLibraries appWithLibraries2) {
-    return (int) (appWithLibraries2.libraryCount() - appWithLibraries.libraryCount());
+  public Integer call(AppReport appReport, AppReport appReport2) {
+    return (int) (appReport2.libraryCount() - appReport.libraryCount());
   }
 }

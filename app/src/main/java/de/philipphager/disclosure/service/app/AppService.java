@@ -6,6 +6,7 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.version.VersionRepository;
@@ -51,21 +52,14 @@ public class AppService {
     return appRepository.allInfos(db);
   }
 
-  public Observable<List<AppWithLibraries>> allWithLibraries(SortBy sortBy) {
+  public Observable<List<AppReport>> allReports(SortBy sortBy) {
     BriteDatabase db = databaseManager.get();
-    return appRepository.allWithLibraryCount(db)
-        .flatMap(appWithLibraries -> Observable.from(appWithLibraries)
-            .toSortedList(getSortingFunction(sortBy)));
+    return appRepository.selectReport(db)
+      .flatMap(appReports -> Observable.from(appReports)
+        .toSortedList(getSortingFunction(sortBy)));
   }
 
-  public Observable<List<AppWithLibraries>> allTrusted(SortBy sortBy) {
-    BriteDatabase db = databaseManager.get();
-    return appRepository.selectTrusted(db, true)
-        .flatMap(appWithLibraries -> Observable.from(appWithLibraries)
-            .toSortedList(getSortingFunction(sortBy)));
-  }
-
-  public Observable<List<AppWithLibraries>> search(String query) {
+  public Observable<List<AppReport>> search(String query) {
     BriteDatabase db = databaseManager.get();
     return appRepository.selectByQuery(db, query);
   }
@@ -149,7 +143,7 @@ public class AppService {
     }
   }
 
-  public Func2<AppWithLibraries, AppWithLibraries, Integer> getSortingFunction(SortBy sortBy) {
+  public Func2<AppReport, AppReport, Integer> getSortingFunction(SortBy sortBy) {
     switch (sortBy) {
       case NAME:
         return new SortByName();
