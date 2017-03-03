@@ -106,16 +106,17 @@
   <string name="permission_status_cannot_be_revoked">can\'t be revoked</string>
   <string name="permission_status">Status: %s</string>
   <string name="permission_status_normal">This permission can be actively used by the library, but
-    you cannot revoked it, since normal permissions are automatically granted by the system.
+    you cannot revoke it, since normal permissions are automatically granted by the system.
   </string>
   <string name="permission_status_revokable">This permission can be actively used by the library and
     can be revoked. Click on \'edit settings\' to revoke this permission in the system settings
   </string>
   <string name="permission_status_no_runtime_permissions">This permission can be actively used by
-    the library, but your device runs %s and does not support revoking permissions. You can only
+    the library, but your device runs Android %s, which does not support revoking permissions. You can only
     uninstall this app.
   </string>
-  <string name="permission_status_no_usage">This permisssion usage was detected in the library\'s
-    source code, but is not actively used, because %s does not have the permission.
+  <string name="permission_status_no_usage">This permission usage was detected in the library\'s
+    source code, but since %s does not have the permission, it cannot be actively used.
+    This permission might become active when permission settings change.
   </string>
 </resources>
