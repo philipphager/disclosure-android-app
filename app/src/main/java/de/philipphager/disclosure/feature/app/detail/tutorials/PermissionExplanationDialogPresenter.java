@@ -2,9 +2,11 @@ package de.philipphager.disclosure.feature.app.detail.tutorials;
 
 import android.content.pm.PermissionInfo;
 import android.os.Build;
+import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.service.PermissionService;
+import de.philipphager.disclosure.util.ui.StringProvider;
 import javax.inject.Inject;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
@@ -12,14 +14,17 @@ import static de.philipphager.disclosure.util.device.DeviceFeatures.supportsRunt
 
 public class PermissionExplanationDialogPresenter {
   private final PermissionService permissionService;
+  private final StringProvider stringProvider;
   private PermissionExplanationDialogView view;
   private App app;
   private Permission permission;
   private Boolean isGranted;
   private Boolean canBeRevoked;
 
-  @Inject public PermissionExplanationDialogPresenter(PermissionService permissionService) {
+  @Inject public PermissionExplanationDialogPresenter(PermissionService permissionService,
+      StringProvider stringProvider) {
     this.permissionService = permissionService;
+    this.stringProvider = stringProvider;
   }
 
   public void onCreate(PermissionExplanationDialogView view, App app,
@@ -36,20 +41,19 @@ public class PermissionExplanationDialogPresenter {
 
     if (permissionWasGrantedForApp()) {
 
-
       if (PermissionInfo.PROTECTION_NORMAL == permission.protectionLevel()) {
-        view.showHint("This permission can be actively used by the library, but you cannot revoked it, since normal permissions are automatically granted by the system.");
+        view.showHint(stringProvider.getString(R.string.permission_status_normal));
       }
 
       if (PermissionInfo.PROTECTION_DANGEROUS == permission.protectionLevel()) {
         if (permissionCanBeRevoked()) {
-          view.showHint("This permission can be actively used by the library and can be revoked. Click on 'edit settins' to revoke this permission in the system settings");
+          view.showHint(stringProvider.getString(R.string.permission_status_revokable));
         } else {
-          view.showHint("This permission can be actively used by the library, but your device runs " + Build.VERSION.RELEASE + " and does not support revoking permissions. You can only uninstall this app.");
+          view.showHint(stringProvider.getString(R.string.permission_status_no_runtime_permissions, Build.VERSION.RELEASE));
         }
       }
     } else {
-      view.showHint("This permisssion usage was detected in the library's source code, but is not actively used, because " + app.label() + " does not have the permission.");
+      view.showHint(stringProvider.getString(R.string.permission_status_no_usage, app.label()));
     }
   }
 

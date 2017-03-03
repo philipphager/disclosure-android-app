@@ -11,7 +11,7 @@ public class StringProvider {
     this.context = context;
   }
 
-  public CharSequence getString(@StringRes int resId, Object... formatArgs) {
+  public String getString(@StringRes int resId, Object... formatArgs) {
     return context.getString(resId, formatArgs);
   }
 }
