@@ -3,15 +3,20 @@ package de.philipphager.disclosure.feature.app.detail.tutorials;
 import android.app.Dialog;
 import android.content.pm.PermissionInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.util.ui.BaseDialogFragment;
+import de.philipphager.disclosure.util.ui.components.PermissionGrantedView;
 import de.philipphager.disclosure.util.ui.components.ProtectionLevelView;
 import javax.inject.Inject;
 
@@ -20,6 +25,9 @@ public class PermissionExplanationDialog extends BaseDialogFragment
   private static final String EXTRA_APP = "EXTRA_APP";
   private static final String EXTRA_PERMISSION = "EXTRA_PERMISSION";
   @Inject protected PermissionExplanationDialogPresenter presenter;
+  @BindView(R.id.txt_description) TextView txtDescription;
+  @BindView(R.id.status) PermissionGrantedView status;
+  @BindView(R.id.txt_hint) TextView txtHint;
 
   public static PermissionExplanationDialog newInstance(App app, Permission permission) {
     PermissionExplanationDialog fragment = new PermissionExplanationDialog();
@@ -34,10 +42,12 @@ public class PermissionExplanationDialog extends BaseDialogFragment
     View view = LayoutInflater.from(getContext())
         .inflate(R.layout.dialog_permission_explanation, null);
 
-    ProtectionLevelView protectionLevelView =
-        (ProtectionLevelView) view.findViewById(R.id.protectionLevel);
+    ButterKnife.bind(this, view);
 
-    TextView description = (TextView) view.findViewById(R.id.txtDescription);
+    ProtectionLevelView protectionLevelView =
+        (ProtectionLevelView) view.findViewById(R.id.protection_level);
+
+    TextView description = (TextView) view.findViewById(R.id.txt_description);
 
     Permission permission = getPermission();
     ProtectionLevelView.ProtectionLevel protectionLevel =
@@ -83,13 +93,19 @@ public class PermissionExplanationDialog extends BaseDialogFragment
         .setView(view);
 
     if (canBeRevoked) {
-      TextView hint = (TextView) view.findViewById(R.id.txtHint);
-      hint.setVisibility(View.VISIBLE);
-
       alertDialog.setPositiveButton(R.string.action_revoke_permission, (dialog, which) ->
           presenter.onRevokePermissionClicked());
     }
 
     return alertDialog.create();
+  }
+
+  @Override public void showHint(String text) {
+    txtHint.setText(text);
+    txtHint.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void showPermissionStatus(boolean isGranted, boolean canBeRevoked) {
+    status.setPermissionGranted(isGranted, canBeRevoked);
   }
 }

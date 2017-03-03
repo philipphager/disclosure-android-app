@@ -33,7 +33,7 @@ public class ProtectionLevelView extends LinearLayout {
 
     this.protectionLevel.getBackground()
         .setColorFilter(color, PorterDuff.Mode.ADD);
-    protectionLevelTitle.setText(protectionLevel.getText());
+    protectionLevelTitle.setText(String.format("Level: %s", protectionLevel.getText()));
     protectionLevelTitle.setTextColor(color);
   }
 

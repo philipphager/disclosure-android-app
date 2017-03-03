@@ -15,6 +15,9 @@
   <string name="dialog_runtime_permissions_unsupported_subtitle"><![CDATA[Your phone runs Android version <b>%s</b> which does not support editing permissions after app installation. You can only revoke permissions for an application by uninstalling it.]]></string>
   <string name="dialog_runtime_permissions_unsupported_description"><![CDATA[Note that Android supports this feature starting with <b>Android Marshmallow (6.0)</b>.]]></string>
   <string name="dialog_permission_explanation_hint_revoke_permission">You can revoke this dangerous permission in the system settings.</string>
+  <string name="dialog_permission_explanation_hint_normal_permission">Normal permissions are automatically granted by the system and cannot be revoked by the user.</string>
+  <string name="dialog_permission_explanation_status_granted">Status: Granted in %s</string>
+  <string name="dialog_permission_explanation_status_not_granted">Status: Not granted in %s</string>
   <string name="fragment_app_overview_tabs_all">installed</string>
   <string name="fragment_app_overview_tabs_trusted">trusted</string>
   <string name="fragment_app_overview_action_sort_apps">Sort</string>
@@ -97,4 +100,9 @@
   <string name="fragment_app_list_never_analyzed">not analyzed yet</string>
   <string name="fragment_app_list_last_analyzed_at">last analyzed %s</string>
   <string name="fragment_app_overview_action_sort_analyzed_at">Last analyzed</string>
+  <string name="permission_status_granted">Granted</string>
+  <string name="permission_status_not_granted">Not granted</string>
+  <string name="permission_status_can_be_revoked">can be revoked</string>
+  <string name="permission_status_cannot_be_revoked">can\'t be revoked</string>
+  <string name="permission_status">Status: %s</string>
 </resources>

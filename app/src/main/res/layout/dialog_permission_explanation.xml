@@ -13,27 +13,29 @@
       android:paddingRight="20dp">
 
     <de.philipphager.disclosure.util.ui.components.ProtectionLevelView
-        android:id="@+id/protectionLevel"
+        android:id="@+id/protection_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/txtDescription"
+        android:id="@+id/txt_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_micro"
         android:textSize="18sp"/>
 
+    <de.philipphager.disclosure.util.ui.components.PermissionGrantedView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <TextView
-        android:id="@+id/txtHint"
+        android:id="@+id/txt_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/spacing_micro"
-        android:paddingTop="@dimen/spacing_micro"
-        android:drawableLeft="@drawable/ic_lightbulb"
-        android:drawablePadding="@dimen/spacing_micro"
-        android:text="@string/dialog_permission_explanation_hint_revoke_permission"
-        android:textSize="18sp"
-        android:visibility="gone"/>
+        android:textSize="18sp"/>
+
   </LinearLayout>
+
 </ScrollView>
