@@ -11,4 +11,12 @@ public interface AppListView extends Navigates {
   void showLibraryCount(int count);
 
   void show(List<AppReport> appReports);
+
+  void startActionMode();
+
+  void showActionModeTitle(String title);
+
+  boolean hasActionMode();
+
+  void notify(String message);
 }

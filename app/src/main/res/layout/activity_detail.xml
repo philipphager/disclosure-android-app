@@ -145,7 +145,7 @@
 
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/btn_analyse_app"
-      android:src="@drawable/ic_analyze"
+      android:src="@drawable/ic_analyze_dark"
       app:fabSize="normal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

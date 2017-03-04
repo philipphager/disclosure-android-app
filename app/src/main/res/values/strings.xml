@@ -6,6 +6,7 @@
   <string name="action_back">BACK</string>
   <string name="action_cancel">CANCEL</string>
   <string name="action_got_it">GOT IT</string>
+  <string name="action_analyze">analyze</string>
   <string name="action_check_system_updates">CHECK SYSTEM UPDATES</string>
   <string name="action_revoke_permission">REVOKE PERMISSION</string>
   <string name="action_explain_hint_display">This hint will be hidden in the future. To show it again, press and hold the edit icon.</string>
@@ -30,6 +31,11 @@
   <plurals name="fragment_app_list_app_count">
       <item quantity="one">%d app</item>
       <item quantity="other">%d apps</item>
+  </plurals>
+
+  <plurals name="fragment_app_list_app_analyze_apps">
+    <item quantity="one">Analyze %d app</item>
+    <item quantity="other">Analyze %d apps</item>
   </plurals>
 
   <plurals name="fragment_library_category_library_count">

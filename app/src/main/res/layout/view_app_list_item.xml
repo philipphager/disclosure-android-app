@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<de.philipphager.disclosure.feature.app.overview.list.AppListItem
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_primary_light"
+    android:background="@drawable/app_list_item_checkable_background"
     android:foreground="?android:attr/selectableItemBackground">
 
   <LinearLayout
@@ -63,4 +63,4 @@
 
   <include layout="@layout/view_divider"/>
 
-</FrameLayout>
+</de.philipphager.disclosure.feature.app.overview.list.AppListItem>
