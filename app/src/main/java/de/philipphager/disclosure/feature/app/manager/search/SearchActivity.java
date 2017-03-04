@@ -21,7 +21,7 @@ import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.feature.app.manager.list.AppRecyclerAdapter;
+import de.philipphager.disclosure.feature.app.manager.AppRecyclerAdapter;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import java.util.Collections;
 import java.util.List;

@@ -58,7 +58,7 @@ public class LibraryDetailActivity extends BaseActivity implements LibraryDetail
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     Library library = getIntent().getParcelableExtra(EXTRA_LIBRARY);
-    ensureNotNull(library, "DetailActivity started without EXTRA_LIBRARY");
+    ensureNotNull(library, "AppDetailActivity started without EXTRA_LIBRARY");
 
     presenter.onCreate(this, library);
     adapter.setOnAppClickListener(app -> presenter.onAppClicked(app));

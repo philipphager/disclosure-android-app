@@ -37,7 +37,7 @@
     </activity>
 
     <activity
-        android:name=".feature.app.detail.DetailActivity"
+        android:name=".feature.app.detail.AppDetailActivity"
         android:parentActivityName=".feature.home.HomeActivity"
         android:screenOrientation="locked"
         android:theme="@style/AppTheme"

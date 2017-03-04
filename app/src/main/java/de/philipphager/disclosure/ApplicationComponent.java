@@ -3,11 +3,11 @@ package de.philipphager.disclosure;
 import dagger.Component;
 import de.philipphager.disclosure.api.ApiModule;
 import de.philipphager.disclosure.database.DatabaseModule;
-import de.philipphager.disclosure.feature.app.detail.DetailActivity;
+import de.philipphager.disclosure.feature.app.detail.AppDetailActivity;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplanationDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
-import de.philipphager.disclosure.feature.app.manager.list.AppManagerFragment;
+import de.philipphager.disclosure.feature.app.manager.AppManagerFragment;
 import de.philipphager.disclosure.feature.app.manager.search.SearchActivity;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
@@ -32,7 +32,7 @@ public interface ApplicationComponent {
 
   void inject(SearchActivity activity);
 
-  void inject(DetailActivity activity);
+  void inject(AppDetailActivity activity);
 
   void inject(SettingsFragment settingsFragment);
 

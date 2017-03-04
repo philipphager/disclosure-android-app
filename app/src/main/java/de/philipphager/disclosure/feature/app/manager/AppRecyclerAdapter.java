@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.manager.list;
+package de.philipphager.disclosure.feature.app.manager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

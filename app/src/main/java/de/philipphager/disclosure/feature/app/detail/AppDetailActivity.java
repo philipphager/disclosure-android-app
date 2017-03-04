@@ -40,7 +40,7 @@ import rx.schedulers.Schedulers;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
-public class DetailActivity extends BaseActivity implements DetailView {
+public class AppDetailActivity extends BaseActivity implements DetailView {
   private static final String EXTRA_APP = "EXTRA_APP";
   private static final String EDIT_PERMISSIONS_DIALOG = "EDIT_PERMISSIONS_DIALOG";
   private static final String PERMISSIONS_UNSUPPORTED_DIALOG = "PERMISSIONS_UNSUPPORTED_DIALOG";
@@ -55,11 +55,11 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @BindView(R.id.btn_analyse_app) protected FloatingActionButton btnAnalyseApp;
   @BindView(R.id.analysis_progress) protected StateProgressBar analysisProgressBar;
   @BindInt(android.R.integer.config_shortAnimTime) protected int shortAnimTime;
-  @Inject protected DetailPresenter presenter;
+  @Inject protected AppDetailPresenter presenter;
   private LibraryRecyclerAdapter adapter;
 
   public static Intent launch(Context context, App app) {
-    Intent intent = new Intent(context, DetailActivity.class);
+    Intent intent = new Intent(context, AppDetailActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     intent.putExtra(EXTRA_APP, app);
     return intent;
@@ -68,7 +68,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_detail);
+    setContentView(R.layout.activity_app_detail);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -90,7 +90,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     analysisProgressBar.setStateDescriptionData(analysisSteps);
 
     App app = getIntent().getParcelableExtra(EXTRA_APP);
-    ensureNotNull(app, "DetailActivity started without EXTRA_APP");
+    ensureNotNull(app, "AppDetailActivity started without EXTRA_APP");
     presenter.onCreate(this, app);
   }
 

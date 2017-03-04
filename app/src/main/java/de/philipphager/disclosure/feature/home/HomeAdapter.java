@@ -3,7 +3,7 @@ package de.philipphager.disclosure.feature.home;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import de.philipphager.disclosure.feature.app.manager.list.AppManagerFragment;
+import de.philipphager.disclosure.feature.app.manager.AppManagerFragment;
 import de.philipphager.disclosure.feature.library.category.LibraryCategoryFragment;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 

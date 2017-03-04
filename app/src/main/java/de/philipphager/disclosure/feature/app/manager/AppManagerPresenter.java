@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.manager.list;
+package de.philipphager.disclosure.feature.app.manager;
 
 import android.view.MenuItem;
 import android.widget.Checkable;

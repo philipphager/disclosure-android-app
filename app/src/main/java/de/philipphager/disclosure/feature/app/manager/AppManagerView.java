@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.manager.list;
+package de.philipphager.disclosure.feature.app.manager;
 
 import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.feature.navigation.Navigates;

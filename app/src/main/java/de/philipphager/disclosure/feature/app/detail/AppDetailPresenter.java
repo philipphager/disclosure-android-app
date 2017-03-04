@@ -23,7 +23,7 @@ import static android.app.Activity.RESULT_OK;
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 import static de.philipphager.disclosure.util.device.DeviceFeatures.supportsRuntimePermissions;
 
-public class DetailPresenter {
+public class AppDetailPresenter {
   private static final int UNINSTALL_REQUEST_CODE = 39857;
 
   private final AppService appService;
@@ -38,7 +38,7 @@ public class DetailPresenter {
   private DetailView view;
   private App app;
 
-  @Inject public DetailPresenter(AppService appService,
+  @Inject public AppDetailPresenter(AppService appService,
       IntentFactory intentFactory,
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial,
