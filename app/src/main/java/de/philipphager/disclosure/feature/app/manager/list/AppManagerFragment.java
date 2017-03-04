@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.overview.list;
+package de.philipphager.disclosure.feature.app.manager.list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,12 +23,12 @@ import de.philipphager.disclosure.util.ui.BaseFragment;
 import java.util.List;
 import javax.inject.Inject;
 
-public class AppListFragment extends BaseFragment implements AppListView {
+public class AppManagerFragment extends BaseFragment implements AppManagerView {
   @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.app_recycler_view) protected RecyclerView appListRecyclerView;
   @BindView(R.id.app_count) protected TextView appCount;
   @BindView(R.id.library_count) protected TextView libraryCount;
-  @Inject protected AppListPresenter presenter;
+  @Inject protected AppManagerPresenter presenter;
   private AppRecyclerAdapter adapter;
   private ActionMode actionMode;
   private final ActionMode.Callback analyzeActionModeCallback = new ActionMode.Callback() {
@@ -56,8 +56,8 @@ public class AppListFragment extends BaseFragment implements AppListView {
     }
   };
 
-  public static AppListFragment newInstance() {
-    return new AppListFragment();
+  public static AppManagerFragment newInstance() {
+    return new AppManagerFragment();
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class AppListFragment extends BaseFragment implements AppListView {
   }
 
   @Override protected int getLayout() {
-    return R.layout.fragment_app_list;
+    return R.layout.fragment_app_manager;
   }
 
   @Override protected void injectFragment(ApplicationComponent appComponent) {

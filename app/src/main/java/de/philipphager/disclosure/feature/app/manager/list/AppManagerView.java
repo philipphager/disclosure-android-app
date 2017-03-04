@@ -1,11 +1,10 @@
-package de.philipphager.disclosure.feature.app.overview.list;
+package de.philipphager.disclosure.feature.app.manager.list;
 
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.feature.navigation.Navigates;
 import java.util.List;
 
-public interface AppListView extends Navigates {
+public interface AppManagerView extends Navigates {
   void showAppCount(int count);
 
   void showLibraryCount(int count);

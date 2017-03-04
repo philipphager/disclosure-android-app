@@ -3,7 +3,7 @@ package de.philipphager.disclosure.feature.home;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import de.philipphager.disclosure.feature.app.overview.list.AppListFragment;
+import de.philipphager.disclosure.feature.app.manager.list.AppManagerFragment;
 import de.philipphager.disclosure.feature.library.category.LibraryCategoryFragment;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 
@@ -19,7 +19,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
   @Override public Fragment getItem(int position) {
     switch (position) {
       case POSITION_APP_OVERVIEW:
-        return AppListFragment.newInstance();
+        return AppManagerFragment.newInstance();
       case POSITION_LIBRARY_OVERVIEW       :
         return LibraryCategoryFragment.newInstance();
       case POSITION_SETTINGS:

@@ -7,7 +7,7 @@ import android.provider.Settings;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.app.detail.DetailActivity;
-import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
+import de.philipphager.disclosure.feature.app.manager.search.SearchActivity;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import javax.inject.Inject;

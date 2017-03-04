@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.overview.list;
+package de.philipphager.disclosure.util.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

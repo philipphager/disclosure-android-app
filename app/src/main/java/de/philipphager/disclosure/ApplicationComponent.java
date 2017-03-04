@@ -7,8 +7,8 @@ import de.philipphager.disclosure.feature.app.detail.DetailActivity;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplanationDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
-import de.philipphager.disclosure.feature.app.overview.list.AppListFragment;
-import de.philipphager.disclosure.feature.app.overview.search.SearchActivity;
+import de.philipphager.disclosure.feature.app.manager.list.AppManagerFragment;
+import de.philipphager.disclosure.feature.app.manager.search.SearchActivity;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.category.LibraryCategoryFragment;
@@ -42,7 +42,7 @@ public interface ApplicationComponent {
 
   void inject(LibraryCategoryFragment activity);
 
-  void inject(AppListFragment fragment);
+  void inject(AppManagerFragment fragment);
 
   void inject(EditPermissionsTutorialDialog fragment);
 

@@ -1,10 +1,12 @@
-package de.philipphager.disclosure.feature.app.overview.list;
+package de.philipphager.disclosure.feature.app.manager.list;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import de.philipphager.disclosure.database.app.model.AppReport;
+import de.philipphager.disclosure.util.ui.TypeSafeViewHolder;
+import de.philipphager.disclosure.util.ui.components.AppListItem;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

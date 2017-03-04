@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.overview.search;
+package de.philipphager.disclosure.feature.app.manager.search;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -21,8 +21,7 @@ import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
-import de.philipphager.disclosure.feature.app.overview.list.AppRecyclerAdapter;
+import de.philipphager.disclosure.feature.app.manager.list.AppRecyclerAdapter;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import java.util.Collections;
 import java.util.List;

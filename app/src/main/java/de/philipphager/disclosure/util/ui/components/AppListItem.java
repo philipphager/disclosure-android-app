@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.overview.list;
+package de.philipphager.disclosure.util.ui.components;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;

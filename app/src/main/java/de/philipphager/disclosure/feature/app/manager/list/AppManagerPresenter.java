@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.app.overview.list;
+package de.philipphager.disclosure.feature.app.manager.list;
 
 import android.view.MenuItem;
 import android.widget.Checkable;
@@ -21,16 +21,16 @@ import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
-public class AppListPresenter {
+public class AppManagerPresenter {
   private final AppService appService;
   private final Preference<SortBy> sortBy;
   private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final StringProvider stringProvider;
   private CompositeSubscription subscriptions;
-  private AppListView view;
+  private AppManagerView view;
   private Set<AppReport> selectedApps;
 
-  @Inject public AppListPresenter(AppService appService,
+  @Inject public AppManagerPresenter(AppService appService,
       @AppListSortBy Preference<SortBy> sortBy,
       AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       StringProvider stringProvider) {
@@ -40,7 +40,7 @@ public class AppListPresenter {
     this.stringProvider = stringProvider;
   }
 
-  public void onViewCreated(AppListView view) {
+  public void onViewCreated(AppManagerView view) {
     this.view = view;
     this.subscriptions = new CompositeSubscription();
     fetchListSortingPreference();
