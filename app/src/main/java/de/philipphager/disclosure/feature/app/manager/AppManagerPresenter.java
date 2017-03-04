@@ -10,8 +10,8 @@ import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.service.app.filter.SortBy;
 import de.philipphager.disclosure.util.ui.StringProvider;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,7 +28,7 @@ public class AppManagerPresenter {
   private final StringProvider stringProvider;
   private CompositeSubscription subscriptions;
   private AppManagerView view;
-  private Set<AppReport> selectedApps;
+  private Map<AppReport, Checkable> selectedApps;
 
   @Inject public AppManagerPresenter(AppService appService,
       @AppListSortBy Preference<SortBy> sortBy,
@@ -50,6 +50,7 @@ public class AppManagerPresenter {
   public void onDestroyView() {
     this.subscriptions.clear();
     this.view = null;
+    this.selectedApps = null;
   }
 
   private void fetchUserApps() {
@@ -83,7 +84,7 @@ public class AppManagerPresenter {
     if (!view.hasActionMode()) {
       navigateToAppDetail(appReport);
     } else {
-      if (selectedApps.contains(appReport)) {
+      if (selectedApps.containsKey(appReport)) {
         deselectApp(checkable, appReport);
       } else {
         selectApp(checkable, appReport);
@@ -94,14 +95,14 @@ public class AppManagerPresenter {
   public void onAppLongClicked(Checkable checkable, AppReport appReport) {
     if (!view.hasActionMode()) {
       view.startActionMode();
-      selectedApps = new HashSet<>();
+      selectedApps = new HashMap<>();
       selectApp(checkable, appReport);
     }
   }
 
   public void onAnalyzeAppsClicked() {
     ensureNotNull(selectedApps, "must start action mode before calling action mode menu action");
-    subscriptions.add(Observable.from(selectedApps)
+    subscriptions.add(Observable.from(selectedApps.keySet())
         .map(AppReport::App)
         .flatMap(analyseAppLibraryPermissions::run)
         .subscribeOn(Schedulers.io())
@@ -113,6 +114,13 @@ public class AppManagerPresenter {
         }));
   }
 
+  public void onEndActionMode() {
+    ensureNotNull(selectedApps, "must start action mode before ending it");
+    subscriptions.add(Observable.from(selectedApps.values())
+        .doOnNext(checkable -> checkable.setChecked(false))
+        .subscribe(checkable -> {}, throwable -> Timber.e(throwable, "while resetting items")));
+  }
+
   private void navigateToAppDetail(AppReport appReport) {
     view.navigate().toAppDetail(appReport.App());
   }
@@ -121,7 +129,7 @@ public class AppManagerPresenter {
     if (appReport.librariesDetected()) {
       ensureNotNull(selectedApps, "must start action mode before selecting app");
       checkable.setChecked(true);
-      selectedApps.add(appReport);
+      selectedApps.put(appReport, checkable);
       updateSelectedAppsTitle();
     } else {
       view.notify("Nothing to analyze in this app");
@@ -149,6 +157,9 @@ public class AppManagerPresenter {
         return true;
       case R.id.action_sort_library_count:
         sortBy.set(SortBy.LIBRARY_COUNT);
+        return true;
+      case R.id.action_sort_permission_count:
+        sortBy.set(SortBy.PERMISSION_COUNT);
         return true;
       case R.id.action_sort_analyzed_at:
         sortBy.set(SortBy.ANALYZED_AT);

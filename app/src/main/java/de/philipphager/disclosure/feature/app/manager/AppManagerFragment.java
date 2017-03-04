@@ -52,7 +52,7 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
 
     @Override public void onDestroyActionMode(ActionMode mode) {
       actionMode = null;
-      adapter.notifyDataSetChanged();
+      presenter.onEndActionMode();
     }
   };
 

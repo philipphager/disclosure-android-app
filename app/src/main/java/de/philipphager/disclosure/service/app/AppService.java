@@ -7,7 +7,6 @@ import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
@@ -16,6 +15,7 @@ import de.philipphager.disclosure.service.app.filter.SortBy;
 import de.philipphager.disclosure.service.app.filter.SortByAnalyzedAt;
 import de.philipphager.disclosure.service.app.filter.SortByLibraryCount;
 import de.philipphager.disclosure.service.app.filter.SortByName;
+import de.philipphager.disclosure.service.app.filter.SortByPermissionCount;
 import de.philipphager.disclosure.util.time.Clock;
 import java.util.List;
 import javax.inject.Inject;
@@ -55,8 +55,8 @@ public class AppService {
   public Observable<List<AppReport>> allReports(SortBy sortBy) {
     BriteDatabase db = databaseManager.get();
     return appRepository.selectReport(db)
-      .flatMap(appReports -> Observable.from(appReports)
-        .toSortedList(getSortingFunction(sortBy)));
+        .flatMap(appReports -> Observable.from(appReports)
+            .toSortedList(getSortingFunction(sortBy)));
   }
 
   public Observable<List<AppReport>> search(String query) {
@@ -151,6 +151,8 @@ public class AppService {
         return new SortByLibraryCount();
       case ANALYZED_AT:
         return new SortByAnalyzedAt();
+      case PERMISSION_COUNT:
+        return new SortByPermissionCount();
       default:
         throw new IllegalArgumentException("no sorting function for %s " + sortBy);
     }

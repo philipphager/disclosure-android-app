@@ -22,8 +22,10 @@
   <string name="fragment_app_overview_tabs_all">installed</string>
   <string name="fragment_app_overview_tabs_trusted">trusted</string>
   <string name="fragment_app_overview_action_sort_apps">Sort</string>
+  <string name="fragment_app_overview_action_search">Search</string>
   <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
   <string name="fragment_app_overview_action_sort_library_count">Library count</string>
+  <string name="fragment_app_overview_action_sort_permission_count">Permission count</string>
   <string name="app_search_hint">App name or used libraries</string>
   <string name="search_empty_title">No matching apps found</string>
   <string name="search_empty_subtitle">Please check your spelling and if the app is still installed</string>
