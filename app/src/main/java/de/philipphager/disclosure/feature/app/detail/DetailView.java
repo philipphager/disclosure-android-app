@@ -19,8 +19,6 @@ public interface DetailView extends Navigates, AnalysisProgressView {
 
   void setLibraries(List<LibraryWithPermission> libraries);
 
-  void setScore(ProtectionLevelView.ProtectionLevel protectionLevel);
-
   void showEditPermissionsTutorial(String packageName);
 
   void showRuntimePermissionsTutorial(String packageName);
@@ -29,10 +27,7 @@ public interface DetailView extends Navigates, AnalysisProgressView {
 
   void enableEditPermissions(boolean isEnabled);
 
-  void setAppIsTrusted(boolean isTrusted);
-
   void startActivityForResult(Intent intent, int requestCode);
 
   void finish();
-
 }

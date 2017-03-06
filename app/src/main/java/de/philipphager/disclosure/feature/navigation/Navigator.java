@@ -61,6 +61,13 @@ public class Navigator {
     }
   }
 
+  public void toApp(String packageName) {
+    Intent intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
+    if (intent != null) {
+      activity.startActivity(intent);
+    }
+  }
+
   public void toWebsite(String websiteUrl) {
     Uri uri = Uri.parse(websiteUrl);
     Intent intent = new Intent(Intent.ACTION_VIEW);

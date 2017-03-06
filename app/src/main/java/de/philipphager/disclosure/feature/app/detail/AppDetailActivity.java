@@ -53,7 +53,6 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
   @BindView(R.id.activity_detail) protected CoordinatorLayout rootView;
   @BindView(R.id.app_detail_libraries) protected RecyclerView libraryListRecyclerView;
   @BindView(R.id.btn_edit_settings) protected Button btnEditSettings;
-  @BindView(R.id.btn_trust) protected Button btnToggleTrust;
   @BindView(R.id.btn_analyse_app) protected FloatingActionButton btnAnalyseApp;
   @BindView(R.id.analysis_progress) protected StateProgressBar analysisProgressBar;
   @BindInt(android.R.integer.config_shortAnimTime) protected int shortAnimTime;
@@ -169,18 +168,6 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
     btnEditSettings.setTextColor(ContextCompat.getColor(this, text));
   }
 
-  @Override public void setAppIsTrusted(boolean isTrusted) {
-    int id = isTrusted ? R.drawable.ic_lock : R.drawable.ic_lock_open;
-    int textColor = isTrusted ? R.color.color_accent : R.color.color_icon;
-    String text = isTrusted ? getString(R.string.app_detail_action_trust)
-        : getString(R.string.app_detail_action_distrust);
-
-    Drawable editIcon = ResourcesCompat.getDrawable(getResources(), id, null);
-    btnToggleTrust.setCompoundDrawablesWithIntrinsicBounds(null, editIcon, null, null);
-    btnToggleTrust.setTextColor(ContextCompat.getColor(this, textColor));
-    btnToggleTrust.setText(text);
-  }
-
   @Override public void showAnalysisProgress() {
     TransitionManager.beginDelayedTransition(rootView);
     icon.setVisibility(View.GONE);
@@ -247,11 +234,6 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
     snackbar.show();
   }
 
-  @Override public void setScore(ProtectionLevelView.ProtectionLevel protectionLevel) {
-    // Might be depricated
-    // TODO: REMOVE
-  }
-
   @OnClick(R.id.btn_analyse_app) public void onAnalyseAppClicked() {
     presenter.onAnalyseAppClicked();
   }
@@ -268,7 +250,7 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
     presenter.onUninstallClicked();
   }
 
-  @OnClick(R.id.btn_trust) public void onTrustAppClicked() {
-    presenter.onTrustAppClicked();
+  @OnClick(R.id.btn_open_app) public void onTrustAppClicked() {
+    presenter.openOpenAppClicked();
   }
 }

@@ -88,6 +88,7 @@
   <string name="empty"/>
   <string name="app_detail_action_edit">edit</string>
   <string name="app_detail_action_uninstall">uninstall</string>
+  <string name="app_detail_action_open_app">open</string>
   <string name="app_detail_action_trust">trusted</string>
   <string name="app_detail_action_distrust">distrusted</string>
   <string name="activity_detail_analysis_in_progress">Analysis currently in progress!</string>

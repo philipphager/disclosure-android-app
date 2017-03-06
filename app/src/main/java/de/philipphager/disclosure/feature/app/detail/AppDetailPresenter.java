@@ -82,7 +82,6 @@ public class AppDetailPresenter {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
     view.enableEditPermissions(supportsRuntimePermissions());
-    view.setAppIsTrusted(app.isTrusted());
   }
 
   private void fetchAppUpdates() {
@@ -178,5 +177,9 @@ public class AppDetailPresenter {
     } else {
       view.navigate().toAppSystemSettings(app.packageName());
     }
+  }
+
+  public void openOpenAppClicked() {
+    view.navigate().toApp(app.packageName());
   }
 }

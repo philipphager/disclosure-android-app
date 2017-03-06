@@ -102,7 +102,7 @@
             android:layout_width="132dp"
             android:layout_height="96dp"
             android:background="?selectableItemBackgroundBorderless"
-            android:drawableTop="@drawable/ic_settings"
+            android:drawableTop="@drawable/ic_edit"
             android:drawableTint="@color/color_icon"
             android:text="@string/app_detail_action_edit"
             android:textColor="@color/color_text_primary"
@@ -122,11 +122,13 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_trust"
+            android:id="@+id/btn_open_app"
             android:layout_width="132dp"
             android:layout_height="96dp"
             android:background="?selectableItemBackgroundBorderless"
-            android:text="@string/app_detail_action_distrust"
+            android:drawableTop="@drawable/ic_exit_to_app"
+            android:drawableTint="@color/color_icon"
+            android:text="@string/app_detail_action_open_app"
             android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
