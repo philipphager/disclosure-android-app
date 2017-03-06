@@ -2,12 +2,10 @@ package de.philipphager.disclosure.feature.app.detail;
 
 import android.content.Intent;
 import com.f2prateek.rx.preferences.Preference;
-import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.feature.analyser.AppAnalyticsService;
-import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermission;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedPermissions;
 import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
@@ -15,7 +13,6 @@ import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTu
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
