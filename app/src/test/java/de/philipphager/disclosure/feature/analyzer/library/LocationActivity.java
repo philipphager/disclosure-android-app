@@ -4,7 +4,7 @@ import de.philipphager.disclosure.database.method.model.Method;
 import java.util.Arrays;
 import java.util.List;
 
-public class LocationActivity {
+public final class LocationActivity {
   public static final List<Method> INVOKED_METHODS = Arrays.asList(
       Method.builder()
           .name("<init>")
@@ -61,4 +61,8 @@ public class LocationActivity {
           .argTypes("Ljava/lang/String;JFLandroid/location/LocationListener;")
           .build()
   );
+
+  private LocationActivity() {
+    // No instances.
+  }
 }

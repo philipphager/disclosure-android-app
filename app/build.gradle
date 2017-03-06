@@ -144,7 +144,7 @@ check {
   abortOnError true
 
   checkstyle {
-    config easy()
+    config '../config/checkstyle.xml'
   }
 
   pmd {

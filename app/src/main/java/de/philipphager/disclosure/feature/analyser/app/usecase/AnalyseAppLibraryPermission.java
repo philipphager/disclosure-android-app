@@ -31,10 +31,10 @@ public class AnalyseAppLibraryPermission {
   private final FileUtils fileUtils;
   private final AppService appService;
   private final BehaviorSubject<AnalyticsProgress.State> progressSubject;
-  private App app;
   private File compiledApkDir;
 
-  @Inject public AnalyseAppLibraryPermission(DecompileApp decompileApp,
+  @Inject @SuppressWarnings("checkstyle:parameternumber")
+  public AnalyseAppLibraryPermission(DecompileApp decompileApp,
       AnalyseLibraryMethodInvocations analyseLibraryMethodInvocations,
       AnalysePermissionsFromMethodInvocations analysePermissionsFromMethodInvocations,
       LibraryService libraryService,
@@ -54,7 +54,6 @@ public class AnalyseAppLibraryPermission {
   }
 
   public Observable<List<Permission>> run(App app) {
-    this.app = app;
     this.compiledApkDir = getOutputDirForApp(app);
     progressSubject.onNext(AnalyticsProgress.State.START);
     progressSubject.onNext(AnalyticsProgress.State.DECOMPILATION);

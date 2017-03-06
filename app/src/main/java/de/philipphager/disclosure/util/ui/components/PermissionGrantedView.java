@@ -33,7 +33,8 @@ public class PermissionGrantedView extends LinearLayout {
 
     indicator.getBackground().setColorFilter(color, PorterDuff.Mode.ADD);
 
-    String status = String.format(getContext().getString(R.string.permission_status), getIsGranted(isGranted));
+    String status =
+        String.format(getContext().getString(R.string.permission_status), getIsGranted(isGranted));
 
     if (isGranted) {
       status += String.format(", %s", getCanBeRevoked(canBeRevoked));
@@ -48,16 +49,16 @@ public class PermissionGrantedView extends LinearLayout {
   }
 
   private String getIsGranted(boolean isGranted) {
-    int id = isGranted ?
-        R.string.permission_status_granted
+    int id = isGranted
+        ? R.string.permission_status_granted
         : R.string.permission_status_not_granted;
 
     return getContext().getString(id);
   }
 
   private String getCanBeRevoked(boolean canBeRevoked) {
-    int id = canBeRevoked ?
-        R.string.permission_status_can_be_revoked
+    int id = canBeRevoked
+        ? R.string.permission_status_can_be_revoked
         : R.string.permission_status_cannot_be_revoked;
 
     return getContext().getString(id);
