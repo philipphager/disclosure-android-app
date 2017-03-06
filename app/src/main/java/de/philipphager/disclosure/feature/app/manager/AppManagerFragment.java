@@ -28,6 +28,7 @@ import de.philipphager.disclosure.util.ui.BaseActivity;
 import de.philipphager.disclosure.util.ui.BaseFragment;
 import java.util.List;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 public class AppManagerFragment extends BaseFragment implements AppManagerView {
   @BindView(R.id.fragment_app_manager) protected LinearLayout rootView;
@@ -173,6 +174,9 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
         break;
       case COMPLETE:
         setAnalysisCompleted();
+        break;
+      default:
+        Timber.d("Unhandled state %s", state);
         break;
     }
 

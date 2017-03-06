@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -15,7 +14,6 @@ import de.philipphager.disclosure.util.ui.StringProvider;
 import javax.inject.Inject;
 
 public class LibraryCategoryFragment extends BaseFragment {
-  @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.category_view_pager) protected ViewPager categoryViewPager;
   @BindView(R.id.category_tab_layout) protected TabLayout categoryTabLayout;
   @Inject protected StringProvider stringProvider;

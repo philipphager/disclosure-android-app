@@ -38,6 +38,7 @@ import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.List;
 import javax.inject.Inject;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
@@ -216,6 +217,9 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
         break;
       case COMPLETE:
         setAnalysisCompleted();
+        break;
+      default:
+        Timber.d("Unhandled state %s", state);
         break;
     }
   }

@@ -23,7 +23,6 @@ public class PermissionExplanationDialog extends BaseDialogFragment
   private static final String EXTRA_APP = "EXTRA_APP";
   private static final String EXTRA_PERMISSION = "EXTRA_PERMISSION";
   @Inject protected PermissionExplanationDialogPresenter presenter;
-  @BindView(R.id.txt_description) TextView txtDescription;
   @BindView(R.id.status) PermissionGrantedView status;
   @BindView(R.id.txt_hint) TextView txtHint;
 
