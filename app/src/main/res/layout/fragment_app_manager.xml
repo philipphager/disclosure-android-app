@@ -3,6 +3,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_app_manager"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,7 +12,8 @@
       xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -20,6 +22,50 @@
         android:layout_gravity="top"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="@string/fragment_app_overview_title"/>
+
+    <LinearLayout
+        android:id="@+id/analysis_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/padding_normal">
+
+      <TextView
+          android:id="@+id/current_app_description"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/currently_analyzing_app"
+          android:textStyle="bold"
+          android:gravity="center_vertical"/>
+
+      <TextView
+          android:id="@+id/current_app_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:paddingLeft="@dimen/padding_normal"/>
+
+      <include layout="@layout/view_filler"/>
+
+      <TextView
+          android:id="@+id/pending_apps"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:paddingRight="@dimen/padding_normal"
+          android:drawablePadding="@dimen/spacing_micro"
+          android:visibility="gone"
+          android:drawableLeft="@drawable/ic_cancel"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:visibility="invisible"/>
 
   </android.support.design.widget.AppBarLayout>
 

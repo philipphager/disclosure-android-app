@@ -54,5 +54,5 @@
     <item name="atg_backgroundColor">@color/colorProtectionNormal</item>
     <item name="atg_textColor">@color/color_green_dark</item>
   </style>
-
+  
 </resources>

@@ -2,10 +2,12 @@ package de.philipphager.disclosure.feature.app.detail;
 
 import android.content.Intent;
 import com.f2prateek.rx.preferences.Preference;
+import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.permission.model.Permission;
-import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
+import de.philipphager.disclosure.feature.analyser.AppAnalyticsService;
+import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermission;
 import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedPermissions;
 import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
@@ -28,30 +30,29 @@ public class AppDetailPresenter {
 
   private final AppService appService;
   private final IntentFactory intentFactory;
-  private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
   private final Preference<Boolean> hasSeenEditPermissionsTutorial;
   private final Preference<Boolean> displayAllPermissions;
   private final AnalyseUsedPermissions analyseUsedPermissions;
   private final FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions;
+  private final AppAnalyticsService appAnalyticsService;
   private CompositeSubscription subscriptions;
-  private Subscription analyticsSubscription;
   private DetailView view;
   private App app;
 
   @Inject public AppDetailPresenter(AppService appService,
       IntentFactory intentFactory,
-      AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
       @HasSeenEditPermissionsTutorial Preference<Boolean> hasSeenEditPermissionsTutorial,
       @DisplayAllPermissions Preference<Boolean> displayAllPermissions,
       AnalyseUsedPermissions analyseUsedPermissions,
-      FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions) {
+      FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions,
+      AppAnalyticsService appAnalyticsService) {
     this.appService = appService;
     this.intentFactory = intentFactory;
-    this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
     this.displayAllPermissions = displayAllPermissions;
     this.analyseUsedPermissions = analyseUsedPermissions;
     this.fetchLibrariesForAppWithPermissions = fetchLibrariesForAppWithPermissions;
+    this.appAnalyticsService = appAnalyticsService;
   }
 
   public void onCreate(DetailView view, App app) {
@@ -101,14 +102,18 @@ public class AppDetailPresenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraryWithPermissions -> {
           view.setLibraries(libraryWithPermissions);
-        }, throwable -> Timber.e(throwable, "while observing analysis progress")));
+        }, throwable -> Timber.e(throwable, "while observing libraries")));
   }
 
   private void fetchAnalysisUpdates() {
-    subscriptions.add(analyseAppLibraryPermissions.getProgress()
+    subscriptions.add(appAnalyticsService.getProgress()
+        .filter(progress -> progress.app().equals(app))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(state -> view.setAnalysisProgress(state), Timber::e));
+        .subscribe(progress -> {
+          Timber.d("New Progress %s: %s", progress.app().label(), progress.state());
+          view.setAnalysisProgress(progress.state());
+        }, Timber::e));
   }
 
   public void onLibraryClicked(Library library) {
@@ -120,43 +125,20 @@ public class AppDetailPresenter {
   }
 
   public void onAnalyseAppClicked() {
-    view.showAnalysisProgress();
-    view.resetProgress();
-
-    if (analyticsSubscription == null) {
-      final int[] counter = {0, 0};
-
-      analyticsSubscription = analyseAppLibraryPermissions.run(app)
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnTerminate(() -> {
-            if (view != null) {
-              view.notifyAnalysisResult(app.label(), counter[0], counter[1]);
-              view.setAnalysisCompleted();
-              view.hideAnalysisProgress();
-            }
-            analyticsSubscription = null;
-          })
-          .subscribe(permissions -> {
-            // Count found permissions
-            counter[0] += permissions.size();
-
-            // Count libraries
-            counter[1]++;
-          }, Timber::e);
-
-      subscriptions.add(analyticsSubscription);
-    } else {
+    if (!appAnalyticsService.contains(app)) {
+      if (appAnalyticsService.isAnalyzing()) {
+        view.showPendingApp(app);
+      }
+      appAnalyticsService.enqueue(app);
+    } else if (app.equals(appAnalyticsService.getCurrent())) {
       view.showCancel();
+    } else {
+      view.showPendingApp(app);
     }
   }
 
   public void cancelAnalyseApp() {
-    if (analyticsSubscription != null) {
-      analyticsSubscription.unsubscribe();
-      analyticsSubscription = null;
-      view.hideAnalysisProgress();
-    }
+    appAnalyticsService.remove(app);
   }
 
   public void onEditPermissionsClicked() {

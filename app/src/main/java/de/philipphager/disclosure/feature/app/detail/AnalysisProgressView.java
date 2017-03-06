@@ -1,9 +1,12 @@
 package de.philipphager.disclosure.feature.app.detail;
 
+import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.feature.analyser.AnalyticsProgress;
+
 public interface AnalysisProgressView {
   void showAnalysisProgress();
 
-  void setAnalysisProgress(State state);
+  void setAnalysisProgress(AnalyticsProgress.State state);
 
   void setAnalysisCompleted();
 
@@ -13,7 +16,5 @@ public interface AnalysisProgressView {
 
   void showCancel();
 
-  enum State {
-    DECOMPILATION, EXTRACTION, ANALYSIS
-  }
+  void showPendingApp(App pending);
 }

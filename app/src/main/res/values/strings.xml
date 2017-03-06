@@ -132,4 +132,8 @@
     source code, but since %s does not have the permission, it cannot be actively used.
     This permission might become active when permission settings change.
   </string>
+  <string name="currently_analyzing_app">Currently analyzing</string>
+  <string name="analytics_pending_apps">%d apps pending</string>
+  <string name="notify_app_analysis_pending">Added %s to analysis queue!</string>
+  <string name="action_undo">UNDO</string>
 </resources>

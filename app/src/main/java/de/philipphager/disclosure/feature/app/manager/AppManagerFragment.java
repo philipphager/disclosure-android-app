@@ -2,6 +2,7 @@ package de.philipphager.disclosure.feature.app.manager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,19 +13,29 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
+import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppReport;
+import de.philipphager.disclosure.feature.analyser.AnalyticsProgress;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import de.philipphager.disclosure.util.ui.BaseFragment;
 import java.util.List;
 import javax.inject.Inject;
 
 public class AppManagerFragment extends BaseFragment implements AppManagerView {
+  @BindView(R.id.fragment_app_manager) protected LinearLayout rootView;
   @BindView(R.id.toolbar) protected Toolbar toolbar;
+  @BindView(R.id.current_app_label) protected TextView currentApp;
+  @BindView(R.id.pending_apps) protected TextView pendingApps;
+  @BindView(R.id.analysis_status) protected View analysisStatusView;
+  @BindView(R.id.progress_bar) protected ProgressBar progressBar;
   @BindView(R.id.app_recycler_view) protected RecyclerView appListRecyclerView;
   @BindView(R.id.app_count) protected TextView appCount;
   @BindView(R.id.library_count) protected TextView libraryCount;
@@ -43,7 +54,7 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
 
     @Override public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
       if (item.getItemId() == R.id.action_analyze) {
-        presenter.onAnalyzeAppsClicked();
+        presenter.onAnalyzeSelectedAppsClicked();
         mode.finish();
         return true;
       }
@@ -130,7 +141,82 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
     return actionMode != null;
   }
 
+  @Override public void showAnalysisProgress() {
+    if (analysisStatusView.getVisibility() == View.GONE) {
+      TransitionManager.beginDelayedTransition(rootView);
+      progressBar.setVisibility(View.VISIBLE);
+      analysisStatusView.setVisibility(View.VISIBLE);
+    }
+  }
+
+  @Override public void setAnalysisProgress(AnalyticsProgress.State state) {
+    int progress = 0;
+
+    if (state == AnalyticsProgress.State.COMPLETE || state == AnalyticsProgress.State.CANCEL) {
+      hideAnalysisProgress();
+    } else {
+      showAnalysisProgress();
+    }
+
+    switch (state) {
+      case START:
+        resetProgress();
+        break;
+      case DECOMPILATION:
+        progress = 15;
+        break;
+      case EXTRACTION:
+        progress = 45;
+        break;
+      case ANALYSIS:
+        progress = 75;
+        break;
+      case COMPLETE:
+        setAnalysisCompleted();
+        break;
+    }
+
+    progressBar.setProgress(progress);
+  }
+
+  @Override public void setAnalysisCompleted() {
+    progressBar.setProgress(100);
+  }
+
+  @Override public void hideAnalysisProgress() {
+    if (analysisStatusView.getVisibility() == View.VISIBLE) {
+      TransitionManager.beginDelayedTransition(rootView);
+      analysisStatusView.setVisibility(View.GONE);
+      progressBar.setVisibility(View.GONE);
+    }
+  }
+
+  @Override public void resetProgress() {
+    progressBar.setProgress(0);
+  }
+
+  @Override public void showCancel() {
+    // TODO
+  }
+
+  @Override public void showPendingApp(App app) {
+    // TODO
+  }
+
   @Override public void notify(String message) {
     Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void showCurrentAnalysedApp(String appLabel) {
+    currentApp.setText(appLabel);
+  }
+
+  @Override public void showCancelPendingApps(int count) {
+    pendingApps.setText(getString(R.string.analytics_pending_apps, count));
+    pendingApps.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
+  }
+
+  @OnClick(R.id.pending_apps) public void onCancelPendingAppsClicked() {
+    presenter.onCancelPendingAppsClicked();
   }
 }

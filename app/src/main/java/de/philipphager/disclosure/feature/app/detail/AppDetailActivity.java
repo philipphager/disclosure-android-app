@@ -27,6 +27,7 @@ import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
+import de.philipphager.disclosure.feature.analyser.AnalyticsProgress;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplanationDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
@@ -188,13 +189,22 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
 
   @Override public void hideAnalysisProgress() {
     TransitionManager.beginDelayedTransition(rootView);
+    analysisProgressBar.setVisibility(View.GONE);
     icon.setVisibility(View.VISIBLE);
     appTitle.setVisibility(View.VISIBLE);
-    analysisProgressBar.setVisibility(View.GONE);
   }
 
-  @Override public void setAnalysisProgress(State state) {
+  @Override public void setAnalysisProgress(AnalyticsProgress.State state) {
+    if (state == AnalyticsProgress.State.COMPLETE || state == AnalyticsProgress.State.CANCEL) {
+      hideAnalysisProgress();
+    } else {
+      showAnalysisProgress();
+    }
+
     switch (state) {
+      case START:
+        resetProgress();
+        break;
       case DECOMPILATION:
         analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
         break;
@@ -204,8 +214,9 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
       case ANALYSIS:
         analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
         break;
-      default:
-        throw new IllegalArgumentException(String.format("No progress state for %s", state));
+      case COMPLETE:
+        setAnalysisCompleted();
+        break;
     }
   }
 
@@ -222,6 +233,13 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
     Snackbar snackbar = Snackbar.make(rootView, R.string.activity_detail_analysis_in_progress,
         Snackbar.LENGTH_LONG);
     snackbar.setAction(R.string.action_cancel, v -> presenter.cancelAnalyseApp());
+    snackbar.show();
+  }
+
+  @Override public void showPendingApp(App app) {
+    String message = getString(R.string.notify_app_analysis_pending, app.label());
+    Snackbar snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
+    snackbar.setAction(R.string.action_undo, v -> presenter.cancelAnalyseApp());
     snackbar.show();
   }
 

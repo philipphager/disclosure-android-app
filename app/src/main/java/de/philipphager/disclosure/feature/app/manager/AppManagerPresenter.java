@@ -5,7 +5,7 @@ import android.widget.Checkable;
 import com.f2prateek.rx.preferences.Preference;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseAppLibraryPermissions;
+import de.philipphager.disclosure.feature.analyser.AppAnalyticsService;
 import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.service.app.filter.SortBy;
@@ -24,7 +24,7 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 public class AppManagerPresenter {
   private final AppService appService;
   private final Preference<SortBy> sortBy;
-  private final AnalyseAppLibraryPermissions analyseAppLibraryPermissions;
+  private final AppAnalyticsService appAnalyticsService;
   private final StringProvider stringProvider;
   private CompositeSubscription subscriptions;
   private AppManagerView view;
@@ -32,11 +32,11 @@ public class AppManagerPresenter {
 
   @Inject public AppManagerPresenter(AppService appService,
       @AppListSortBy Preference<SortBy> sortBy,
-      AnalyseAppLibraryPermissions analyseAppLibraryPermissions,
+      AppAnalyticsService appAnalyticsService,
       StringProvider stringProvider) {
     this.appService = appService;
     this.sortBy = sortBy;
-    this.analyseAppLibraryPermissions = analyseAppLibraryPermissions;
+    this.appAnalyticsService = appAnalyticsService;
     this.stringProvider = stringProvider;
   }
 
@@ -45,6 +45,7 @@ public class AppManagerPresenter {
     this.subscriptions = new CompositeSubscription();
     fetchListSortingPreference();
     fetchUserApps();
+    fetchAnalysisUpdates();
   }
 
   public void onDestroyView() {
@@ -100,25 +101,37 @@ public class AppManagerPresenter {
     }
   }
 
-  public void onAnalyzeAppsClicked() {
+  public void onAnalyzeSelectedAppsClicked() {
     ensureNotNull(selectedApps, "must start action mode before calling action mode menu action");
-    subscriptions.add(Observable.from(selectedApps.keySet())
-        .map(AppReport::App)
-        .flatMap(analyseAppLibraryPermissions::run)
+
+    for (AppReport appReport : selectedApps.keySet()) {
+      appAnalyticsService.enqueue(appReport.App());
+    }
+  }
+
+  private void fetchAnalysisUpdates() {
+    subscriptions.add(appAnalyticsService.getProgress()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(permissions -> {
+        .subscribe(progress -> {
+          view.showCurrentAnalysedApp(progress.app().label());
+          view.setAnalysisProgress(progress.state());
+        }, Timber::e));
 
-        }, throwable -> {
-          Timber.e(throwable, "while bulk analyzing apps");
-        }));
+    subscriptions.add(appAnalyticsService.getPendingApps()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(pendingApps -> {
+          view.showCancelPendingApps(pendingApps.size());
+        }, Timber::e));
   }
 
   public void onEndActionMode() {
     ensureNotNull(selectedApps, "must start action mode before ending it");
     subscriptions.add(Observable.from(selectedApps.values())
         .doOnNext(checkable -> checkable.setChecked(false))
-        .subscribe(checkable -> {}, throwable -> Timber.e(throwable, "while resetting items")));
+        .subscribe(checkable -> {
+        }, throwable -> Timber.e(throwable, "while resetting items")));
   }
 
   private void navigateToAppDetail(AppReport appReport) {
@@ -170,5 +183,9 @@ public class AppManagerPresenter {
       default:
         return false;
     }
+  }
+
+  public void onCancelPendingAppsClicked() {
+    appAnalyticsService.removePendingApps();
   }
 }

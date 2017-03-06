@@ -2,9 +2,9 @@ package de.philipphager.disclosure.feature.analyser.app.usecase;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
+import de.philipphager.disclosure.feature.analyser.AnalyticsProgress;
 import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseLibraryMethodInvocations;
 import de.philipphager.disclosure.feature.analyser.permission.usecase.AnalysePermissionsFromMethodInvocations;
-import de.philipphager.disclosure.feature.app.detail.AnalysisProgressView;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.service.PermissionService;
 import de.philipphager.disclosure.service.app.AppService;
@@ -16,12 +16,12 @@ import javax.inject.Inject;
 import org.threeten.bp.LocalDateTime;
 import rx.Observable;
 import rx.schedulers.Schedulers;
-import rx.subjects.PublishSubject;
+import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.rx.RxUtils.zipMap;
 
-public class AnalyseAppLibraryPermissions {
+public class AnalyseAppLibraryPermission {
   private final DecompileApp decompileApp;
   private final AnalyseLibraryMethodInvocations analyseLibraryMethodInvocations;
   private final AnalysePermissionsFromMethodInvocations analysePermissionsFromMethodInvocations;
@@ -30,9 +30,11 @@ public class AnalyseAppLibraryPermissions {
   private final StorageProvider storageProvider;
   private final FileUtils fileUtils;
   private final AppService appService;
-  private final PublishSubject<AnalysisProgressView.State> progressSubject;
+  private final BehaviorSubject<AnalyticsProgress.State> progressSubject;
+  private App app;
+  private File compiledApkDir;
 
-  @Inject public AnalyseAppLibraryPermissions(DecompileApp decompileApp,
+  @Inject public AnalyseAppLibraryPermission(DecompileApp decompileApp,
       AnalyseLibraryMethodInvocations analyseLibraryMethodInvocations,
       AnalysePermissionsFromMethodInvocations analysePermissionsFromMethodInvocations,
       LibraryService libraryService,
@@ -48,36 +50,44 @@ public class AnalyseAppLibraryPermissions {
     this.storageProvider = storageProvider;
     this.fileUtils = fileUtils;
     this.appService = appService;
-    this.progressSubject = PublishSubject.create();
+    this.progressSubject = BehaviorSubject.create();
   }
 
   public Observable<List<Permission>> run(App app) {
-    File compiledApkDir = getOutputDirForApp(app);
-    progressSubject.onNext(AnalysisProgressView.State.DECOMPILATION);
+    this.app = app;
+    this.compiledApkDir = getOutputDirForApp(app);
+    progressSubject.onNext(AnalyticsProgress.State.START);
+    progressSubject.onNext(AnalyticsProgress.State.DECOMPILATION);
 
     return zipMap(decompileApp.run(app, compiledApkDir), libraryService.byApp(app),
         (apkDir, libraries) -> {
-          progressSubject.onNext(AnalysisProgressView.State.EXTRACTION);
+          progressSubject.onNext(AnalyticsProgress.State.EXTRACTION);
           return Observable.from(libraries)
               .subscribeOn(Schedulers.computation())
               .flatMap(library -> analyseLibraryMethodInvocations.run(apkDir, library)
                   .subscribeOn(Schedulers.computation())
                   .flatMap((invokedMethods) -> {
-                    progressSubject.onNext(AnalysisProgressView.State.ANALYSIS);
+                    progressSubject.onNext(AnalyticsProgress.State.ANALYSIS);
                     return analysePermissionsFromMethodInvocations.run(invokedMethods);
                   })
-                  .doOnNext(permissions -> Timber.d("Found %s for library %s", permissions, library))
-                  .doOnNext(permissions -> permissionService.insertForAppAndLibrary(app, library, permissions))
+                  .doOnNext(
+                      permissions -> Timber.d("Found %s for library %s", permissions, library))
+                  .doOnNext(permissions -> permissionService.insertForAppAndLibrary(app, library,
+                      permissions))
               );
         }).doOnTerminate(() -> {
-
       appService.insertOrUpdate(app.withAnalyzedAt(LocalDateTime.now()));
-      deleteCompiledApk(compiledApkDir);
+      progressSubject.onNext(AnalyticsProgress.State.COMPLETE);
+      cleanUp();
     });
   }
 
-  public Observable<AnalysisProgressView.State> getProgress() {
-    return progressSubject;
+  public Observable<AnalyticsProgress.State> getProgress() {
+    return progressSubject.serialize().onBackpressureBuffer();
+  }
+
+  public void cancel() {
+    progressSubject.onNext(AnalyticsProgress.State.CANCEL);
   }
 
   private File getOutputDirForApp(App app) {
@@ -87,5 +97,9 @@ public class AnalyseAppLibraryPermissions {
 
   private void deleteCompiledApk(File apkDir) {
     fileUtils.delete(apkDir);
+  }
+
+  private void cleanUp() {
+    deleteCompiledApk(compiledApkDir);
   }
 }
