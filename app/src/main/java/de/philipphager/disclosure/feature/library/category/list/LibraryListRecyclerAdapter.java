@@ -78,8 +78,8 @@ public class LibraryListRecyclerAdapter
           : R.color.color_text_warning;
 
       String usedInApps = library.appCount() == 0
-          ? context.getResources().getString(R.string.activity_library_category_no_apps_found)
-          : context.getResources().getQuantityString(R.plurals.activity_library_category_library_app_count,
+          ? context.getResources().getString(R.string.fragment_library_category_no_apps_found)
+          : context.getResources().getQuantityString(R.plurals.fragment_library_category_app_count,
               (int) library.appCount(), library.appCount());
 
       title.setText(library.title());

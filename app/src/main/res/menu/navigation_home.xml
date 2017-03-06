@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
       android:icon="@drawable/ic_find"
-      android:title="@string/fragment_app_overview_title"/>
+      android:title="@string/fragment_app_manager"/>
 
   <item
       android:icon="@drawable/ic_explore"

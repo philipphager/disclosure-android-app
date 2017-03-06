@@ -90,7 +90,7 @@ public class LibraryDetailPresenter {
     if (library.hasWebsiteUrl()) {
       view.navigate().toWebsite(library.websiteUrl());
     } else {
-      view.notify(R.string.activity_library_detail_website_unavailable);
+      view.notify(R.string.notify_library_website_unavailable);
     }
   }
 }

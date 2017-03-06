@@ -21,7 +21,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="@string/fragment_app_overview_title"/>
+        app:title="@string/fragment_app_manager"/>
 
     <LinearLayout
         android:id="@+id/analysis_status"
@@ -35,7 +35,7 @@
           android:id="@+id/current_app_description"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/currently_analyzing_app"
+          android:text="@string/fragment_app_manager_current_app"
           android:textStyle="bold"
           android:gravity="center_vertical"/>
 

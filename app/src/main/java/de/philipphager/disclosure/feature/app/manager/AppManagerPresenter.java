@@ -151,7 +151,7 @@ public class AppManagerPresenter {
 
   private void updateSelectedAppsTitle() {
     ensureNotNull(selectedApps, "must start action mode before updating title");
-    String title = stringProvider.getPlural(R.plurals.fragment_app_list_app_analyze_apps,
+    String title = stringProvider.getPlural(R.plurals.fragment_app_manager_analyse_selected_apps,
         selectedApps.size(),
         selectedApps.size());
     view.showActionModeTitle(title);

@@ -121,12 +121,12 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
 
   @Override public void showAppCount(int count) {
     appCount.setText(getResources()
-        .getQuantityString(R.plurals.fragment_app_list_app_count, count, count));
+        .getQuantityString(R.plurals.fragment_app_manager_app_count, count, count));
   }
 
   @Override public void showLibraryCount(int count) {
     libraryCount.setText(getResources()
-        .getQuantityString(R.plurals.view_app_list_item_libraries_found, count, count));
+        .getQuantityString(R.plurals.app_list_item_libraries_found, count, count));
   }
 
   @Override public void startActionMode() {
@@ -217,7 +217,7 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
   }
 
   @Override public void showCancelPendingApps(int count) {
-    pendingApps.setText(getString(R.string.analytics_pending_apps, count));
+    pendingApps.setText(getString(R.string.fragment_app_manager_pending_apps, count));
     pendingApps.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
   }
 

@@ -38,13 +38,13 @@ public class LibraryCategoryPagerAdapter extends FragmentPagerAdapter {
   @Override public CharSequence getPageTitle(int position) {
     switch (position) {
       case POSITION_ADVERTISEMENT:
-        return stringProvider.getString(R.string.library_category_advertisement);
+        return stringProvider.getString(R.string.fragment_library_category_advertisement);
       case POSITION_ANALYTICS:
-        return stringProvider.getString(R.string.library_category_analytics);
+        return stringProvider.getString(R.string.fragment_library_category_analytics);
       case POSITION_SOCIAL:
-        return stringProvider.getString(R.string.library_category_social);
+        return stringProvider.getString(R.string.fragment_library_category_social);
       case POSITION_DEVELOPER:
-        return stringProvider.getString(R.string.library_category_development);
+        return stringProvider.getString(R.string.fragment_library_category_development);
       default:
         throw new IllegalArgumentException("No fragment for position " + position);
     }

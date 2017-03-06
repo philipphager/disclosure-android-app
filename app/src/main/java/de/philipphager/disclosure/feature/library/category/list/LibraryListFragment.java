@@ -59,7 +59,7 @@ public class LibraryListFragment extends BaseFragment implements LibraryListView
 
   @Override public void setLibraryCount(int count) {
     libraryCount.setText(getResources()
-        .getQuantityString(R.plurals.activity_library_category_library_count, count, count));
+        .getQuantityString(R.plurals.fragment_library_category_library_count, count, count));
   }
 
   @Override public void show(List<LibraryInfo> libraries) {

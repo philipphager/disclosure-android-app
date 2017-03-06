@@ -16,7 +16,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="@string/fragment_app_overview_title">
+        app:title="@string/fragment_app_manager">
 
       <android.support.v7.widget.SearchView
           android:id="@+id/search_view"

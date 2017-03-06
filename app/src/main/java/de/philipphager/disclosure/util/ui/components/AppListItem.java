@@ -60,7 +60,7 @@ public class AppListItem extends FrameLayout implements Checkable {
         analyzedAt.setVisibility(View.VISIBLE);
       } else {
         permissionCount.setText(
-            getContext().getString(R.string.view_app_list_item_not_yet_analyzed));
+            getContext().getString(R.string.app_list_item_not_yet_analyzed));
       }
 
       permissionCount.setVisibility(View.VISIBLE);
@@ -113,9 +113,9 @@ public class AppListItem extends FrameLayout implements Checkable {
     if (appReport.librariesDetected()) {
       int count = (int) appReport.libraryCount();
       return getContext().getResources()
-          .getQuantityString(R.plurals.view_app_list_item_libraries_found, count, count);
+          .getQuantityString(R.plurals.app_list_item_libraries_found, count, count);
     } else {
-      return getContext().getResources().getString(R.string.view_app_list_item_no_libraries_found);
+      return getContext().getResources().getString(R.string.app_list_item_no_libraries_found);
     }
   }
 
@@ -128,7 +128,7 @@ public class AppListItem extends FrameLayout implements Checkable {
   private String getPermissionCountText(AppReport appReport) {
     int count = (int) appReport.permissionCount();
     return getContext().getResources()
-        .getQuantityString(R.plurals.view_app_list_item_permissions_found, count, count);
+        .getQuantityString(R.plurals.app_list_item_permissions_found, count, count);
   }
 
   private @ColorRes int getPermissionCountTextColor(AppReport appReport) {
@@ -140,7 +140,7 @@ public class AppListItem extends FrameLayout implements Checkable {
   private String getAnalyzedAt(AppReport appReport) {
     String date =
         appReport.App().analyzedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-    return getContext().getResources().getString(R.string.view_app_list_item_last_analyzed, date);
+    return getContext().getResources().getString(R.string.app_list_item_last_analyzed, date);
   }
 
   public interface OnAppClickListener {

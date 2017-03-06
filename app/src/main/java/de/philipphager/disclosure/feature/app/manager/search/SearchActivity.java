@@ -84,7 +84,7 @@ public class SearchActivity extends BaseActivity implements AppSearchView {
     searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     searchView.onActionViewExpanded();
     // Hint, inputType & ime options seem to be ignored from XML! Set in code
-    searchView.setQueryHint(getString(R.string.app_search_hint));
+    searchView.setQueryHint(getString(R.string.search_apps_hint));
     searchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
     searchView.setImeOptions(searchView.getImeOptions() | EditorInfo.IME_ACTION_SEARCH
         | EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);

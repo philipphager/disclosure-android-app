@@ -82,8 +82,8 @@ public class AppPermissionRecyclerAdapter
       title.setText(appWithPermissions.label());
 
       String librariesDetected = appWithPermissions.permissionCountInt() == 0
-          ? context.getResources().getString(R.string.activity_library_detail_no_permissions_found)
-          : context.getResources().getQuantityString(R.plurals.activity_library_detail_no_permission_count,
+          ? context.getResources().getString(R.string.library_list_item_no_permissions)
+          : context.getResources().getQuantityString(R.plurals.library_list_item_permission_count,
               appWithPermissions.permissionCountInt(), appWithPermissions.permissionCount());
 
       subtitle.setText(librariesDetected);

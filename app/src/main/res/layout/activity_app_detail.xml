@@ -104,7 +104,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:drawableTop="@drawable/ic_edit"
             android:drawableTint="@color/color_icon"
-            android:text="@string/app_detail_action_edit"
+            android:text="@string/action_edit"
             android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
@@ -116,7 +116,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:drawableTop="@drawable/ic_delete_forever"
             android:drawableTint="@color/color_icon"
-            android:text="@string/app_detail_action_uninstall"
+            android:text="@string/action_uninstall"
             android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
@@ -128,7 +128,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:drawableTop="@drawable/ic_exit_to_app"
             android:drawableTint="@color/color_icon"
-            android:text="@string/app_detail_action_open_app"
+            android:text="@string/action_open_app"
             android:textColor="@color/color_text_primary"
             android:padding="24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>

@@ -138,7 +138,7 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
   @Override
   public void notifyAnalysisResult(String appLabel, int permissionCount, int libraryCount) {
     String message = String
-        .format(getString(R.string.activity_detail_analysis_result), appLabel, permissionCount,
+        .format(getString(R.string.notify_analyse_apps_result), appLabel, permissionCount,
             libraryCount);
     Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
   }
@@ -220,14 +220,14 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void showCancel() {
-    Snackbar snackbar = Snackbar.make(rootView, R.string.activity_detail_analysis_in_progress,
+    Snackbar snackbar = Snackbar.make(rootView, R.string.notify_analyse_apps_in_progress,
         Snackbar.LENGTH_LONG);
     snackbar.setAction(R.string.action_cancel, v -> presenter.cancelAnalyseApp());
     snackbar.show();
   }
 
   @Override public void showPendingApp(App app) {
-    String message = getString(R.string.notify_app_analysis_pending, app.label());
+    String message = getString(R.string.notify_analyse_app_pending, app.label());
     Snackbar snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
     snackbar.setAction(R.string.action_undo, v -> presenter.cancelAnalyseApp());
     snackbar.show();

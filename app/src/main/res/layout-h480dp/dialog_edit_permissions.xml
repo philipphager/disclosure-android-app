@@ -24,7 +24,7 @@
       android:layout_marginTop="32dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/action_explain_hint_display"
+      android:text="@string/action_explain_hint"
       android:drawableLeft="@drawable/ic_touch_app"
       android:drawablePadding="8dp"
       android:textSize="18sp"/>

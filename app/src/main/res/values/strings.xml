@@ -1,140 +1,130 @@
 <resources>
+  <!-- App -->
   <string name="app_name">Disclosure</string>
-  <string name="fragment_app_overview_title">App Analyzer</string>
-  <string name="app_list_item_image_content_description">app icon</string>
-  <string name="button_app_overview_analyse_all">analyse all</string>
-  <string name="action_back">BACK</string>
-  <string name="action_cancel">CANCEL</string>
-  <string name="action_got_it">GOT IT</string>
-  <string name="action_analyze">analyze</string>
-  <string name="action_check_system_updates">CHECK SYSTEM UPDATES</string>
-  <string name="action_revoke_permission">REVOKE PERMISSION</string>
-  <string name="action_explain_hint_display">This hint will be hidden in the future. To show it again, press and hold the edit icon.</string>
-  <string name="dialog_edit_permissions_tutorial_title">Edit Permission Settings</string>
-  <string name="dialog_edit_permissions_tutorial_subtitle"><![CDATA[Navigate to <b>Permissions</b> to grant or revoke permissions for an application]]></string>
-  <string name="dialog_runtime_permissions_unsupported_title">Revoking Permissions Unsupported</string>
-  <string name="dialog_runtime_permissions_unsupported_subtitle"><![CDATA[Your phone runs Android version <b>%s</b> which does not support editing permissions after app installation. You can only revoke permissions for an application by uninstalling it.]]></string>
-  <string name="dialog_runtime_permissions_unsupported_description"><![CDATA[Note that Android supports this feature starting with <b>Android Marshmallow (6.0)</b>.]]></string>
-  <string name="dialog_permission_explanation_hint_revoke_permission">You can revoke this dangerous permission in the system settings.</string>
-  <string name="dialog_permission_explanation_hint_normal_permission">Normal permissions are automatically granted by the system and cannot be revoked by the user.</string>
-  <string name="dialog_permission_explanation_status_granted">Status: Granted in %s</string>
-  <string name="dialog_permission_explanation_status_not_granted">Status: Not granted in %s</string>
-  <string name="fragment_app_overview_tabs_all">installed</string>
-  <string name="fragment_app_overview_tabs_trusted">trusted</string>
-  <string name="fragment_app_overview_action_sort_apps">Sort</string>
-  <string name="fragment_app_overview_action_search">Search</string>
-  <string name="fragment_app_overview_action_sort_alphabetical">Alphabetical</string>
-  <string name="fragment_app_overview_action_sort_library_count">Library count</string>
-  <string name="fragment_app_overview_action_sort_permission_count">Permission count</string>
-  <string name="app_search_hint">App name or used libraries</string>
-  <string name="search_empty_title">No matching apps found</string>
-  <string name="search_empty_subtitle">Please check your spelling and if the app is still installed</string>
 
-  <plurals name="fragment_app_list_app_count">
-      <item quantity="one">%d app</item>
-      <item quantity="other">%d apps</item>
+  <!-- Actions -->
+  <string name="action_analyze">analyse</string>
+  <string name="action_back">back</string>
+  <string name="action_cancel">cancel</string>
+  <string name="action_edit">edit</string>
+  <string name="action_explain_hint">This hint will be hidden in the future. To show it again, press and hold the edit icon.</string>
+  <string name="action_filter">filter</string>
+  <string name="action_got_it">got it</string>
+  <string name="action_check_system_updates">check system updates</string>
+  <string name="action_open_app">open</string>
+  <string name="action_revoke_permission">revoke permission</string>
+  <string name="action_search_apps">search</string>
+  <string name="action_libraries_only_used">show only used</string>
+  <string name="action_open_in_browser">open website</string>
+  <string name="action_sort_apps">sort</string>
+  <string name="action_sort_apps_alphabetical">alphabetical</string>
+  <string name="action_sort_apps_library_count">library count</string>
+  <string name="action_sort_apps_permission_count">permission count</string>
+  <string name="action_sort_apps_last_analysed">Last analysed</string>
+  <string name="action_undo">undo</string>
+  <string name="action_uninstall">uninstall</string>
+
+  <!-- Shared preference -->
+  <string name="shared_preferences">Disclosure</string>
+  <string name="pref_display_all_permissions">displayAllPermissions</string>
+
+  <!-- Settings -->
+  <string name="fragment_settings_title">Settings</string>
+  <string name="settings_category_appearance">Appearance</string>
+  <string name="settings_appearance">Appearance</string>
+  <string name="setting_display_all_permissions_title">Display all found permissions</string>
+  <string name="setting_display_all_permissions_summary">Show analyzed but not granted permissions</string>
+
+  <!-- App manager -->
+  <string name="fragment_app_manager">App Analyser</string>
+  <string name="fragment_app_manager_current_app">Currently analyzing</string>
+  <string name="fragment_app_manager_pending_apps">%d apps pending</string>
+  <plurals name="fragment_app_manager_app_count">
+    <item quantity="one">%d app</item>
+    <item quantity="other">%d apps</item>
   </plurals>
-
-  <plurals name="fragment_app_list_app_analyze_apps">
+  <plurals name="fragment_app_manager_analyse_selected_apps">
     <item quantity="one">Analyze %d app</item>
     <item quantity="other">Analyze %d apps</item>
   </plurals>
 
-  <plurals name="fragment_library_category_library_count">
-    <item quantity="one">%d library</item>
-    <item quantity="other">%d libraries</item>
-  </plurals>
-
-  <plurals name="fragment_library_category_usage_count">
-    <item quantity="one">%d usage found</item>
-    <item quantity="other">%d usages found</item>
-  </plurals>
-
-  <plurals name="activity_library_category_usage_count">
-    <item quantity="one">%d total usages</item>
-    <item quantity="other">%d total usages</item>
-  </plurals>
-
-  <plurals name="activity_library_category_library_count">
-    <item quantity="one">%d libraries</item>
-    <item quantity="other">%d libraries</item>
-  </plurals>
-
-  <plurals name="activity_library_category_library_app_count">
-    <item quantity="one">used in %d app</item>
-    <item quantity="other">used in %d apps</item>
-  </plurals>
-
-  <plurals name="activity_library_detail_no_permission_count">
-    <item quantity="one">found %d permission</item>
-    <item quantity="other">found %d permissions</item>
-  </plurals>
-
-  <string name="view_app_list_item_no_libraries_found">No libraries detected to analyze</string>
-  <string name="view_app_list_item_not_yet_analyzed">Can be analyzed</string>
-  <string name="view_app_list_item_last_analyzed">Last analysis %s</string>
-  <plurals name="view_app_list_item_libraries_found">
+  <!-- App list item -->
+  <string name="app_list_item_icon_description">app icon</string>
+  <string name="app_list_item_no_libraries_found">No libraries detected to analyze</string>
+  <string name="app_list_item_not_yet_analyzed">Can be analyzed</string>
+  <string name="app_list_item_last_analyzed">Last analysis %s</string>
+  <plurals name="app_list_item_libraries_found">
     <item quantity="one">%d library found</item>
     <item quantity="other">%d libraries found</item>
   </plurals>
-  <plurals name="view_app_list_item_permissions_found">
+  <plurals name="app_list_item_permissions_found">
     <item quantity="one">%d permission usage detected</item>
     <item quantity="other">%d permission usages detected</item>
   </plurals>
 
+  <!-- App search -->
+  <string name="search_apps_hint">App name or used libraries</string>
+  <string name="search_apps_empty_result_title">No matching apps found</string>
+  <string name="search_apps_empty_result_subtitle">Please check your spelling and if the app is still installed</string>
 
-  <string name="activity_library_category_no_apps_found">not used in apps</string>
-  <string name="activity_library_detail_no_permissions_found">no permissions detected</string>
-  <string name="empty"/>
-  <string name="app_detail_action_edit">edit</string>
-  <string name="app_detail_action_uninstall">uninstall</string>
-  <string name="app_detail_action_open_app">open</string>
-  <string name="app_detail_action_trust">trusted</string>
-  <string name="app_detail_action_distrust">distrusted</string>
-  <string name="activity_detail_analysis_in_progress">Analysis currently in progress!</string>
-  <string name="activity_detail_analysis_result">%1$s analyzed! Found %2$d permission usages in %3$d libraries.</string>
-  <string name="pref_appearance">Appearance</string>
-  <string name="settings_category_appearance">Appearance</string>
-  <string name="pref_display_all_permissions">displayAllPermissions</string>
-  <string name="setting_display_all_permissions_title">Display all found permissions</string>
-  <string name="setting_display_all_permissions_summary">Show analyzed but not granted permissions</string>
-  <string name="shared_preferences">Disclosure</string>
-  <string name="fragment_settings_title">Settings</string>
-
-  <string name="library_category_advertisement">Ads</string>
-  <string name="library_category_analytics">Analytics</string>
-  <string name="library_category_development">Developer</string>
-  <string name="library_category_social">Social</string>
-  <string name="fragment_library_list_show_only_used">only show used</string>
-  <string name="fragment_library_list_sort_alphabetical">Alphabetical</string>
-  <string name="fragment_library_list_sort_usage_count">Usage count</string>
-  <string name="fragment_library_list_action_only_used">Show only used</string>
-  <string name="fragment_library_list_action_filter">Filter</string>
+  <!-- Library category -->
   <string name="fragment_library_category_title">Library Explorer</string>
-  <string name="action_open_in_browser">open website</string>
-  <string name="activity_library_detail_website_unavailable">No website available</string>
-  <string name="fragment_app_overview_action_sort_analyzed_at">Last analyzed</string>
+  <string name="fragment_library_category_no_apps_found">not used in apps</string>
+  <string name="fragment_library_category_show_only_used">only show used</string>
+  <string name="fragment_library_category_advertisement">Ads</string>
+  <string name="fragment_library_category_analytics">Analytics</string>
+  <string name="fragment_library_category_development">Developer</string>
+  <string name="fragment_library_category_social">Social</string>
+  <plurals name="fragment_library_category_app_count">
+    <item quantity="one">used in %d app</item>
+    <item quantity="other">used in %d apps</item>
+  </plurals>
+  <plurals name="fragment_library_category_library_count">
+    <item quantity="one">%d libraries</item>
+    <item quantity="other">%d libraries</item>
+  </plurals>
+  <plurals name="fragment_library_category_usage_count">
+    <item quantity="one">%d total usages</item>
+    <item quantity="other">%d total usages</item>
+  </plurals>
+
+  <!-- Library list item -->
+  <string name="library_list_item_no_permissions">no permissions detected</string>
+  <plurals name="library_list_item_permission_count">
+    <item quantity="one">found %d permission</item>
+    <item quantity="other">found %d permissions</item>
+  </plurals>
+
+  <!-- Dialogs -->
+  <string name="dialog_edit_permissions_tutorial_title">Edit Permission Settings</string>
+  <string name="dialog_edit_permissions_tutorial_subtitle"><![CDATA[Navigate to <b>Permissions</b> to grant or revoke permissions for an application]]></string>
+
+  <string name="dialog_runtime_permissions_unsupported_title">Revoking Permissions Unsupported</string>
+  <string name="dialog_runtime_permissions_unsupported_subtitle"><![CDATA[Your phone runs Android version <b>%s</b> which does not support editing permissions after app installation. You can only revoke permissions for an application by uninstalling it.]]></string>
+  <string name="dialog_runtime_permissions_unsupported_description"><![CDATA[Note that Android supports this feature starting with <b>Android Marshmallow (6.0)</b>.]]></string>
+
+  <string name="dialog_permission_explanation_hint_revoke_permission">You can revoke this dangerous permission in the system settings.</string>
+  <string name="dialog_permission_explanation_hint_normal_permission">Normal permissions are automatically granted by the system and cannot be revoked by the user.</string>
+  <string name="dialog_permission_explanation_status_granted">Status: Granted in %s</string>
+  <string name="dialog_permission_explanation_status_not_granted">Status: Not granted in %s</string>
+
+  <!-- Permission status -->
   <string name="permission_status_granted">Granted</string>
   <string name="permission_status_not_granted">Not granted</string>
   <string name="permission_status_can_be_revoked">can be revoked</string>
   <string name="permission_status_cannot_be_revoked">can\'t be revoked</string>
   <string name="permission_status">Status: %s</string>
-  <string name="permission_status_normal">This permission can be actively used by the library, but
-    you cannot revoke it, since normal permissions are automatically granted by the system.
-  </string>
-  <string name="permission_status_revokable">This permission can be actively used by the library and
-    can be revoked. Click on \'edit settings\' to revoke this permission in the system settings
-  </string>
-  <string name="permission_status_no_runtime_permissions">This permission can be actively used by
-    the library, but your device runs Android %s, which does not support revoking permissions. You can only
-    uninstall this app.
-  </string>
-  <string name="permission_status_no_usage">This permission usage was detected in the library\'s
-    source code, but since %s does not have the permission, it cannot be actively used.
-    This permission might become active when permission settings change.
-  </string>
-  <string name="currently_analyzing_app">Currently analyzing</string>
-  <string name="analytics_pending_apps">%d apps pending</string>
-  <string name="notify_app_analysis_pending">Added %s to analysis queue!</string>
-  <string name="action_undo">UNDO</string>
+  <string name="permission_status_normal">This permission can be actively used by the library, but you cannot revoke it, since normal permissions are automatically granted by the system. </string>
+  <string name="permission_status_revokable">This permission can be actively used by the library and can be revoked. Click on \'edit settings\' to revoke this permission in the system settings</string>
+  <string name="permission_status_no_runtime_permissions">This permission can be actively used by the library, but your device runs Android %s, which does not support revoking permissions. You can only uninstall this app.</string>
+  <string name="permission_status_no_usage">This permission usage was detected in the library\'s source code, but since %s does not have the permission, it cannot be actively used. This permission might become active when permission settings change.</string>
+
+  <!-- Notifications -->
+  <string name="notify_analyse_apps_in_progress">Analysis currently in progress!</string>
+  <string name="notify_analyse_apps_result">%1$s analyzed! Found %2$d permission usages in %3$d libraries.</string>
+  <string name="notify_analyse_app_pending">Added %s to analysis queue!</string>
+  <string name="notify_library_website_unavailable">No website available</string>
+
+  <!-- Util strings -->
+  <string name="empty"/>
 </resources>
