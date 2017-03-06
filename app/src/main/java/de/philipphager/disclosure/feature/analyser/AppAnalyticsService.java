@@ -105,7 +105,7 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
     List<App> pendingApps = new ArrayList<>(this.apps);
 
     // Has pending apps
-    if (pendingApps.size() > 0) {
+    if (!pendingApps.isEmpty()) {
       pendingApps.remove(0);
     }
     return pendingApps;

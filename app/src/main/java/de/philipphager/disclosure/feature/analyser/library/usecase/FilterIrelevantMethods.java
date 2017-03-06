@@ -10,7 +10,8 @@ public class FilterIrelevantMethods implements Func1<Method, Boolean> {
   private static final List<String> ANDROID_ORIGIN =
       Arrays.asList("Landroid", "Lcom/android", "Lcom/google", "Ljava", "Lorg/apache");
 
-  @Inject public FilterIrelevantMethods() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public FilterIrelevantMethods() {
+    // Needed for dagger injection.
   }
 
   @Override public Boolean call(Method method) {
