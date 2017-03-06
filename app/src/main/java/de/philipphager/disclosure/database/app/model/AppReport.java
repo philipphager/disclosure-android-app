@@ -10,6 +10,13 @@ import com.google.auto.value.AutoValue;
     return new AutoValue_AppReport((App) app, libraryCount, permissionCount);
   }
 
+  /**
+   * SqlDelight 0.6.0 alias bug in projection.
+   * Tracked in Github issue 592.
+   * Rename to lower case method name if fixed!
+   * https://github.com/square/sqldelight/issues/592
+   */
+  @SuppressWarnings("PMD.MethodNamingConventions")
   public abstract App App();
 
   public abstract long libraryCount();
