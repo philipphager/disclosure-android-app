@@ -192,13 +192,13 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
       case START:
         resetProgress();
         break;
-      case DECOMPILATION:
+      case EXTRACT_APK:
         analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
         break;
-      case EXTRACTION:
+      case FILTER_METHODS:
         analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
         break;
-      case ANALYSIS:
+      case ANALYSE_METHODS:
         analysisProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
         break;
       case COMPLETE:

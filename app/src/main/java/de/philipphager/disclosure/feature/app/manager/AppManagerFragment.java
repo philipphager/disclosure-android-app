@@ -164,13 +164,13 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
       case START:
         resetProgress();
         break;
-      case DECOMPILATION:
+      case EXTRACT_APK:
         progress = 15;
         break;
-      case EXTRACTION:
+      case FILTER_METHODS:
         progress = 45;
         break;
-      case ANALYSIS:
+      case ANALYSE_METHODS:
         progress = 75;
         break;
       case COMPLETE:

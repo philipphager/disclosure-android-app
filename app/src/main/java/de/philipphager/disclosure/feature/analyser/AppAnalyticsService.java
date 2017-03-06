@@ -84,7 +84,7 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
     currentAnalysis = analyseAppLibraryPermission.run(app)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnTerminate(() -> endAnalysis(app))
+        .doOnTerminate(() -> completeAnalysis(app))
         .subscribe(permissions -> {
 
         }, throwable -> {
@@ -104,14 +104,19 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
   private List<App> filterPendingApps() {
     List<App> pendingApps = new ArrayList<>(this.apps);
 
-    // Has pending apps
+    // Remove currently analyzed item.
     if (!pendingApps.isEmpty()) {
       pendingApps.remove(0);
     }
     return pendingApps;
   }
 
-  private void endAnalysis(App app) {
+  private void dequeue(App app) {
+    this.apps.remove(app);
+    this.onQueueChanged();
+  }
+
+  private void completeAnalysis(App app) {
     currentAnalysis.unsubscribe();
     currentAnalysis = null;
     dequeue(app);
@@ -119,11 +124,6 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 
   private void cancelAnalysis(App app) {
     analyseAppLibraryPermission.cancel();
-    endAnalysis(app);
-  }
-
-  private void dequeue(App app) {
-    this.apps.remove(app);
-    this.onQueueChanged();
+    completeAnalysis(app);
   }
 }

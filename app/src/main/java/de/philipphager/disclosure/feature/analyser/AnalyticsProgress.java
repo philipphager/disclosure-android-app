@@ -13,6 +13,6 @@ import de.philipphager.disclosure.database.app.model.App;
   public abstract State state();
 
   public enum State {
-    START, DECOMPILATION, EXTRACTION, ANALYSIS, COMPLETE, CANCEL
+    START, EXTRACT_APK, FILTER_METHODS, ANALYSE_METHODS, COMPLETE, CANCEL
   }
 }

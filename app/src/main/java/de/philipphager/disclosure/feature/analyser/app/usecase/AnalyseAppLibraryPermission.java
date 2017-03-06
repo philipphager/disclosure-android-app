@@ -56,17 +56,17 @@ public class AnalyseAppLibraryPermission {
   public Observable<List<Permission>> run(App app) {
     this.compiledApkDir = getOutputDirForApp(app);
     progressSubject.onNext(AnalyticsProgress.State.START);
-    progressSubject.onNext(AnalyticsProgress.State.DECOMPILATION);
+    progressSubject.onNext(AnalyticsProgress.State.EXTRACT_APK);
 
     return zipMap(decompileApp.run(app, compiledApkDir), libraryService.byApp(app),
         (apkDir, libraries) -> {
-          progressSubject.onNext(AnalyticsProgress.State.EXTRACTION);
+          progressSubject.onNext(AnalyticsProgress.State.FILTER_METHODS);
           return Observable.from(libraries)
               .subscribeOn(Schedulers.computation())
               .flatMap(library -> analyseLibraryMethodInvocations.run(apkDir, library)
                   .subscribeOn(Schedulers.computation())
                   .flatMap((invokedMethods) -> {
-                    progressSubject.onNext(AnalyticsProgress.State.ANALYSIS);
+                    progressSubject.onNext(AnalyticsProgress.State.ANALYSE_METHODS);
                     return analysePermissionsFromMethodInvocations.run(invokedMethods);
                   })
                   .doOnNext(
