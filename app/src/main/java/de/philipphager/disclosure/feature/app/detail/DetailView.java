@@ -5,7 +5,6 @@ import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
 import de.philipphager.disclosure.feature.navigation.Navigates;
-import de.philipphager.disclosure.util.ui.components.ProtectionLevelView;
 import java.util.List;
 
 public interface DetailView extends Navigates, AnalysisProgressView {

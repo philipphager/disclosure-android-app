@@ -33,7 +33,6 @@ import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplana
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
 import de.philipphager.disclosure.util.ui.BaseActivity;
-import de.philipphager.disclosure.util.ui.components.ProtectionLevelView;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.List;
 import javax.inject.Inject;
