@@ -38,7 +38,7 @@ public class LibraryCategoryFragment extends BaseFragment {
     appComponent.inject(this);
   }
 
-  @OnClick(R.id.ic_filter) void onShowOnlyUsedLibrariesClicked() {
+  @OnClick(R.id.ic_filter) public void onShowOnlyUsedLibrariesClicked() {
     presenter.onShowOnlyUsedLibrariesClicked();
   }
 }

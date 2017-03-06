@@ -4,7 +4,7 @@ import de.philipphager.disclosure.database.app.model.AppReport;
 import rx.functions.Func2;
 
 /**
- * Sort apps by their analysed permission count. If both apps weren't analyzed 
+ * Sort apps by their analysed permission count. If both apps weren't analyzed
  * yet, sort them by library count.
  */
 public class SortByPermissionCount implements Func2<AppReport, AppReport, Integer> {

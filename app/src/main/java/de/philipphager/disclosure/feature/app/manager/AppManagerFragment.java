@@ -30,6 +30,7 @@ import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class AppManagerFragment extends BaseFragment implements AppManagerView {
   @BindView(R.id.fragment_app_manager) protected LinearLayout rootView;
   @BindView(R.id.toolbar) protected Toolbar toolbar;
