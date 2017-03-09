@@ -90,7 +90,7 @@ public class AppDetailPresenter {
         .subscribe(app -> {
           this.app = app;
           initView(app);
-        }));
+        }, throwable -> Timber.d(throwable, "while fetching apps")));
   }
 
   private void fetchLibraries() {

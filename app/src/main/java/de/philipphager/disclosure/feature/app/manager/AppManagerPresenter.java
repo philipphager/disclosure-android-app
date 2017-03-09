@@ -78,7 +78,7 @@ public class AppManagerPresenter {
         .subscribeOn(Schedulers.io())
         .subscribe(option -> {
           fetchUserApps();
-        }));
+        }, throwable -> Timber.d(throwable, "while fetching apps")));
   }
 
   public void onAppClicked(Checkable checkable, AppReport appReport) {
