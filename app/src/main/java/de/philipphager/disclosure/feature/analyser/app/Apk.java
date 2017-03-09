@@ -2,9 +2,7 @@ package de.philipphager.disclosure.feature.analyser.app;
 
 import de.philipphager.disclosure.database.app.model.App;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import net.dongliu.apk.parser.ApkParser;
 import net.dongliu.apk.parser.bean.DexClass;
