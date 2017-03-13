@@ -13,7 +13,7 @@ import de.philipphager.disclosure.util.ui.BaseFragment;
 import de.philipphager.disclosure.util.ui.StringProvider;
 import javax.inject.Inject;
 
-public class LibraryCategoryFragment extends BaseFragment {
+public class LibraryCategoryFragment extends BaseFragment implements LibraryCategoryView {
   @BindView(R.id.category_view_pager) protected ViewPager categoryViewPager;
   @BindView(R.id.category_tab_layout) protected TabLayout categoryTabLayout;
   @Inject protected StringProvider stringProvider;
@@ -28,6 +28,7 @@ public class LibraryCategoryFragment extends BaseFragment {
 
     categoryViewPager.setAdapter(new LibraryCategoryPagerAdapter(getChildFragmentManager(), stringProvider));
     categoryTabLayout.setupWithViewPager(categoryViewPager);
+    presenter.onCreate(this);
   }
 
   @Override protected int getLayout() {
@@ -40,5 +41,9 @@ public class LibraryCategoryFragment extends BaseFragment {
 
   @OnClick(R.id.ic_filter) public void onShowOnlyUsedLibrariesClicked() {
     presenter.onShowOnlyUsedLibrariesClicked();
+  }
+
+  @OnClick(R.id.ic_add) public void onAddLibraryClicked() {
+    presenter.onAddLibraryClicked();
   }
 }

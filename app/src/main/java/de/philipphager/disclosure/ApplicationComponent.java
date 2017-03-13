@@ -13,6 +13,7 @@ import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.category.LibraryCategoryFragment;
 import de.philipphager.disclosure.feature.library.category.list.LibraryListFragment;
+import de.philipphager.disclosure.feature.library.create.CreateLibraryActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
@@ -41,6 +42,8 @@ public interface ApplicationComponent {
   void inject(LibraryListFragment fragment);
 
   void inject(LibraryCategoryFragment activity);
+
+  void inject(CreateLibraryActivity activity);
 
   void inject(AppManagerFragment fragment);
 
