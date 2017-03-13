@@ -97,6 +97,13 @@
     <item quantity="other">found %d permissions</item>
   </plurals>
 
+  <!-- Library create -->
+  <string name="activity_library_create_done">done</string>
+  <string name="activity_library_create_title_invalid">Title cannot be empty, e.g. Google Analytics</string>
+  <string name="activity_library_create_package_name_invalid">Package name is invalid, i.e. com.google.android.gms</string>
+  <string name="activity_library_create_url_invalid">URL is invalid</string>
+  <string name="activity_library_create_error_duplicate">Library not created, might already exist</string>
+
   <!-- Dialogs -->
   <string name="dialog_edit_permissions_tutorial_title">Edit Permission Settings</string>
   <string name="dialog_edit_permissions_tutorial_subtitle"><![CDATA[Navigate to <b>Permissions</b> to grant or revoke permissions for an application]]></string>
@@ -129,4 +136,8 @@
 
   <!-- Util strings -->
   <string name="empty"/>
+  <string name="activity_library_create">Add a library</string>
+  <string name="library_package_name_hint">Package name</string>
+  <string name="library_title_hint">Title</string>
+  <string name="library_website_hint">Website Url (optional)</string>
 </resources>
