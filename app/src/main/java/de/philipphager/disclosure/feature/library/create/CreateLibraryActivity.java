@@ -56,6 +56,11 @@ public class CreateLibraryActivity extends BaseActivity implements CreateLibrary
     presenter.onCreate(this);
   }
 
+  @Override protected void onDestroy() {
+    presenter.onDestroy();
+    super.onDestroy();
+  }
+
   @Override protected void injectActivity(ApplicationComponent appComponent) {
     appComponent.inject(this);
   }

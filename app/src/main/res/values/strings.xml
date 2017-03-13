@@ -72,6 +72,7 @@
   <string name="fragment_library_category_title">Library Explorer</string>
   <string name="fragment_library_category_no_apps_found">not used in apps</string>
   <string name="fragment_library_category_show_only_used">only show used</string>
+  <string name="fragment_library_category_refresh">refresh</string>
   <string name="fragment_library_category_add_library">add new library</string>
   <string name="fragment_library_category_advertisement">Ads</string>
   <string name="fragment_library_category_analytics">Analytics</string>

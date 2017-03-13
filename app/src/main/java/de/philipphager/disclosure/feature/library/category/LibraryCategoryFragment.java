@@ -31,6 +31,11 @@ public class LibraryCategoryFragment extends BaseFragment implements LibraryCate
     presenter.onCreate(this);
   }
 
+  @Override public void onDestroy() {
+    presenter.onDestroy();
+    super.onDestroy();
+  }
+
   @Override protected int getLayout() {
     return R.layout.fragment_library_category;
   }
@@ -45,5 +50,9 @@ public class LibraryCategoryFragment extends BaseFragment implements LibraryCate
 
   @OnClick(R.id.ic_add) public void onAddLibraryClicked() {
     presenter.onAddLibraryClicked();
+  }
+
+  @OnClick(R.id.ic_refresh) public void onRefreshClicked() {
+    presenter.onRefreshClicked();
   }
 }

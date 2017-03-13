@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
 public class CreateLibraryPresenter {
@@ -24,6 +25,7 @@ public class CreateLibraryPresenter {
   private String packageName = "";
   private String websiteUrl = "";
   private Library.Type type;
+  private CompositeSubscription subscriptions;
 
   @Inject public CreateLibraryPresenter(AddLibraryLocally addLibraryLocally) {
     this.addLibraryLocally = addLibraryLocally;
@@ -31,7 +33,13 @@ public class CreateLibraryPresenter {
 
   public void onCreate(CreateLibraryView view) {
     this.view = view;
+    this.subscriptions = new CompositeSubscription();
+
     initUi();
+  }
+
+  public void onDestroy() {
+    this.subscriptions.clear();
   }
 
   private void initUi() {
@@ -41,7 +49,7 @@ public class CreateLibraryPresenter {
   public void onDoneClicked() {
     if (validateAll()) {
 
-      addLibraryLocally.run(title, packageName, websiteUrl, type)
+      subscriptions.add(addLibraryLocally.run(title, packageName, websiteUrl, type)
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(library -> {
@@ -49,7 +57,7 @@ public class CreateLibraryPresenter {
           }, throwable -> {
             Timber.e(throwable, "while adding local library");
             view.showError();
-          });
+          }));
     } else {
       displayErrors();
     }
