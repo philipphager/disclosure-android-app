@@ -61,9 +61,12 @@ public class AppListItem extends FrameLayout implements Checkable {
       } else {
         permissionCount.setText(
             getContext().getString(R.string.app_list_item_not_yet_analyzed));
+        analyzedAt.setVisibility(GONE);
       }
 
       permissionCount.setVisibility(View.VISIBLE);
+    } else {
+      permissionCount.setVisibility(View.GONE);
     }
 
     permissionCount.setTextColor(
@@ -76,13 +79,13 @@ public class AppListItem extends FrameLayout implements Checkable {
 
     setOnClickListener(view -> {
       if (listener != null) {
-        listener.onItemClick(this, appReport);
+        listener.onItemClick(appReport);
       }
     });
 
     setOnLongClickListener(view -> {
       if (longClickListener != null) {
-        longClickListener.onItemClick(this, appReport);
+        longClickListener.onItemClick(appReport);
       }
       return true;
     });
@@ -144,10 +147,10 @@ public class AppListItem extends FrameLayout implements Checkable {
   }
 
   public interface OnAppClickListener {
-    void onItemClick(Checkable checkable, AppReport app);
+    void onItemClick(AppReport app);
   }
 
   public interface OnAppLongClickListener {
-    void onItemClick(Checkable checkable, AppReport app);
+    void onItemClick(AppReport app);
   }
 }

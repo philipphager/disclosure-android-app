@@ -23,4 +23,10 @@ public interface AppManagerView extends Navigates, AnalysisProgressView {
   boolean hasActionMode();
 
   void notify(String message);
+
+  void toggleSelect(AppReport appReport);
+
+  void clearSelection();
+
+  List<AppReport> getSelectedApps();
 }

@@ -196,6 +196,18 @@ public class AppManagerFragment extends BaseFragment implements AppManagerView {
     }
   }
 
+  @Override public void toggleSelect(AppReport appReport) {
+    adapter.toggleSelection(appReport);
+  }
+
+  @Override public void clearSelection() {
+    adapter.clearSelections();
+  }
+
+  @Override public List<AppReport> getSelectedApps() {
+    return adapter.getSelectedApps();
+  }
+
   @Override public void resetProgress() {
     progressBar.setProgress(0);
   }

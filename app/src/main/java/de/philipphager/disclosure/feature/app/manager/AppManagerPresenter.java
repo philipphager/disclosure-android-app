@@ -10,10 +10,8 @@ import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.service.app.filter.SortBy;
 import de.philipphager.disclosure.util.ui.StringProvider;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -28,7 +26,6 @@ public class AppManagerPresenter {
   private final StringProvider stringProvider;
   private CompositeSubscription subscriptions;
   private AppManagerView view;
-  private Map<AppReport, Checkable> selectedApps;
 
   @Inject public AppManagerPresenter(AppService appService,
       @AppListSortBy Preference<SortBy> sortBy,
@@ -51,7 +48,6 @@ public class AppManagerPresenter {
   public void onDestroyView() {
     this.subscriptions.clear();
     this.view = null;
-    this.selectedApps = null;
   }
 
   private void fetchUserApps() {
@@ -81,30 +77,25 @@ public class AppManagerPresenter {
         }, throwable -> Timber.d(throwable, "while fetching apps")));
   }
 
-  public void onAppClicked(Checkable checkable, AppReport appReport) {
+  public void onAppClicked(AppReport appReport) {
     if (!view.hasActionMode()) {
       navigateToAppDetail(appReport);
     } else {
-      if (selectedApps.containsKey(appReport)) {
-        deselectApp(checkable, appReport);
-      } else {
-        selectApp(checkable, appReport);
-      }
+      toggleSelectApp(appReport);
     }
   }
 
-  public void onAppLongClicked(Checkable checkable, AppReport appReport) {
+  public void onAppLongClicked(AppReport appReport) {
     if (!view.hasActionMode()) {
       view.startActionMode();
-      selectedApps = new HashMap<>();
-      selectApp(checkable, appReport);
+      toggleSelectApp(appReport);
     }
   }
 
   public void onAnalyzeSelectedAppsClicked() {
-    ensureNotNull(selectedApps, "must start action mode before calling action mode menu action");
+    List<AppReport> selectedApps = view.getSelectedApps();
 
-    for (AppReport appReport : selectedApps.keySet()) {
+    for (AppReport appReport : selectedApps) {
       appAnalyticsService.enqueue(appReport.App());
     }
   }
@@ -127,39 +118,24 @@ public class AppManagerPresenter {
   }
 
   public void onEndActionMode() {
-    ensureNotNull(selectedApps, "must start action mode before ending it");
-    subscriptions.add(Observable.from(selectedApps.values())
-        .doOnNext(checkable -> checkable.setChecked(false))
-        .subscribe(checkable -> {
-        }, throwable -> Timber.e(throwable, "while resetting items")));
+    view.clearSelection();
   }
 
   private void navigateToAppDetail(AppReport appReport) {
     view.navigate().toAppDetail(appReport.App());
   }
 
-  private void selectApp(Checkable checkable, AppReport appReport) {
-    if (appReport.librariesDetected()) {
-      ensureNotNull(selectedApps, "must start action mode before selecting app");
-      checkable.setChecked(true);
-      selectedApps.put(appReport, checkable);
-      updateSelectedAppsTitle();
-    } else {
-      view.notify("Nothing to analyze in this app");
-    }
-  }
-
   private void updateSelectedAppsTitle() {
-    ensureNotNull(selectedApps, "must start action mode before updating title");
+    List<AppReport> selectedApps = view.getSelectedApps();
+
     String title = stringProvider.getPlural(R.plurals.fragment_app_manager_analyse_selected_apps,
         selectedApps.size(),
         selectedApps.size());
     view.showActionModeTitle(title);
   }
 
-  private void deselectApp(Checkable checkable, AppReport appReport) {
-    selectedApps.remove(appReport);
-    checkable.setChecked(false);
+  private void toggleSelectApp(AppReport appReport) {
+    view.toggleSelect(appReport);
     updateSelectedAppsTitle();
   }
 

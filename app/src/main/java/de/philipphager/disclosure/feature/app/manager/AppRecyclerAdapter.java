@@ -8,11 +8,14 @@ import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.util.ui.TypeSafeViewHolder;
 import de.philipphager.disclosure.util.ui.components.AppListItem;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 
 public class AppRecyclerAdapter extends RecyclerView.Adapter<TypeSafeViewHolder<AppListItem>> {
   private final List<AppReport> appReports;
+  private final Set<AppReport> selectedAppReports;
   private final Context context;
   private AppListItem.OnAppClickListener listener;
   private AppListItem.OnAppLongClickListener longClickListener;
@@ -21,6 +24,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<TypeSafeViewHolder<
     super();
     this.context = context;
     this.appReports = new ArrayList<>();
+    this.selectedAppReports = new HashSet<>();
   }
 
   @Override
@@ -33,6 +37,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<TypeSafeViewHolder<
     AppReport appReport = appReports.get(position);
     AppListItem appListItem = holder.getView();
     appListItem.bind(appReport, listener, longClickListener);
+    appListItem.setChecked(selectedAppReports.contains(appReport));
   }
 
   @Override public int getItemCount() {
@@ -48,6 +53,31 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<TypeSafeViewHolder<
   public void clear() {
     this.appReports.clear();
     notifyDataSetChanged();
+  }
+
+  public int getIndexOf(AppReport appReport) {
+    return appReports.indexOf(appReport);
+  }
+
+  public void toggleSelection(AppReport appReport) {
+    if (selectedAppReports.contains(appReport)) {
+      selectedAppReports.remove(appReport);
+    } else {
+      selectedAppReports.add(appReport);
+    }
+
+    notifyItemChanged(getIndexOf(appReport));
+  }
+
+  public void clearSelections() {
+    for (AppReport appReport: selectedAppReports) {
+      notifyItemChanged(getIndexOf(appReport));
+    }
+    selectedAppReports.clear();
+  }
+
+  public List<AppReport> getSelectedApps() {
+    return new ArrayList<>(selectedAppReports);
   }
 
   public void setOnAppClickListener(AppListItem.OnAppClickListener listener) {

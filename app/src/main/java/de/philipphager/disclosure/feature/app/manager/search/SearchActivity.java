@@ -57,7 +57,7 @@ public class SearchActivity extends BaseActivity implements AppSearchView {
     searchResult.setLayoutManager(new LinearLayoutManager(this));
     searchResult.setItemAnimator(new DefaultItemAnimator());
 
-    adapter.setOnAppClickListener((checkable, app) -> {
+    adapter.setOnAppClickListener(app -> {
       presenter.onAppClicked(app);
     });
 
