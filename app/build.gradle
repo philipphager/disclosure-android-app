@@ -60,7 +60,7 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
   // Database
-  compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
+  compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
   compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
   // Design
@@ -80,7 +80,7 @@ dependencies {
   testCompile 'org.threeten:threetenbp:1.3.2'
 
   // Functional reactive
-  compile 'io.reactivex:rxjava:1.1.10'
+  compile 'io.reactivex:rxjava:1.2.7'
   compile 'io.reactivex:rxandroid:1.2.1'
   compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
 
