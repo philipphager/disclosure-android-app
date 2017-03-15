@@ -54,7 +54,7 @@ def autovalueGsonVersion = '0.4.4'
 def autovalueParcelVersion = '0.2.5'
 def butterknifeVersion = '8.4.0'
 def daggerVersion = '2.8'
-def retrofitVersion = '2.1.0'
+def retrofitVersion = '2.2.0'
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -88,7 +88,7 @@ dependencies {
   compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
   compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
   compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}";
-  compile 'com.squareup.okhttp3:okhttp:3.4.2'
+  compile 'com.squareup.okhttp3:okhttp:3.6.0'
   compile 'com.google.code.gson:gson:2.8.0'
 
   // Value classes and serialization helpers
