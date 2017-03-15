@@ -1,7 +1,6 @@
 package de.philipphager.disclosure.feature.app.manager;
 
 import android.view.MenuItem;
-import android.widget.Checkable;
 import com.f2prateek.rx.preferences.Preference;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppReport;
@@ -12,12 +11,11 @@ import de.philipphager.disclosure.service.app.filter.SortBy;
 import de.philipphager.disclosure.util.ui.StringProvider;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
-
-import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
 public class AppManagerPresenter {
   private final AppService appService;
@@ -93,11 +91,12 @@ public class AppManagerPresenter {
   }
 
   public void onAnalyzeSelectedAppsClicked() {
-    List<AppReport> selectedApps = view.getSelectedApps();
-
-    for (AppReport appReport : selectedApps) {
-      appAnalyticsService.enqueue(appReport.App());
-    }
+    subscriptions.add(Observable.from(view.getSelectedApps())
+        .subscribeOn(Schedulers.io())
+        .doOnNext(appReport -> appAnalyticsService.enqueue(appReport.App()))
+        .subscribe(appReport -> {}, throwable -> {
+          Timber.e(throwable, "while adding apps to analytics queue");
+        }));
   }
 
   private void fetchAnalysisUpdates() {

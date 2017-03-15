@@ -31,7 +31,9 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
   }
 
   public void enqueue(App app) {
-    this.apps.add(app);
+    if (!contains(app)) {
+      this.apps.add(app);
+    }
     onQueueChanged();
   }
 
