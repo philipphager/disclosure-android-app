@@ -14,4 +14,22 @@
 
   </PreferenceCategory>
 
+  <PreferenceCategory
+      android:key="@string/settings_about"
+      android:title="@string/settings_about_title">
+
+    <PreferenceScreen
+        android:key="@string/settings_license"
+        android:title="@string/settings_license_title"
+        android:summary=""
+        android:checked="false"/>
+
+    <Preference
+        android:key="@string/settings_version"
+        android:title="@string/settings_version_title"
+        android:summary=""
+        android:checked="false"/>
+
+  </PreferenceCategory>
+
 </PreferenceScreen>
