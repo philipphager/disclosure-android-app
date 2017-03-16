@@ -13,7 +13,7 @@ public final class LocationActivity {
           .argTypes("")
           .build(),
       Method.builder()
-          .name("onStart")
+          .name("onCreate")
           .declaringType("Landroid/support/v7/app/AppCompatActivity;")
           .returnType("V")
           .argTypes("Landroid/os/Bundle;")
