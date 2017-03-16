@@ -17,6 +17,7 @@ import rx.Observable;
 import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.check;
+import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
 public class LibraryParser {
   private static final int ESTIMATED_METHODS_PER_LIBRARY = 500;
@@ -44,7 +45,7 @@ public class LibraryParser {
   }
 
   private void traverseClassesAndFindInvocations(File dir, List<Method> methods) {
-    File[] smaliFiles = dir.listFiles();
+    File[] smaliFiles = ensureNotNull(dir.listFiles(), "Could not list files in directory " + dir);
 
     for (File smaliFile : smaliFiles) {
       if (smaliFile.isFile()) {

@@ -10,13 +10,13 @@ public class FileUtils {
   }
 
   public void delete(File file) {
-    if (file.isDirectory()) {
+    if (file != null && file.isDirectory()) {
       for (File c : file.listFiles()) {
         delete(c);
       }
     }
 
-    if (!file.delete()) {
+    if (file != null && !file.delete()) {
       Timber.e("failed to delete file %s", file);
     }
   }
