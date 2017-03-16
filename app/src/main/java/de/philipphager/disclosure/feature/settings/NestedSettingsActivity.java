@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
-import android.support.v7.widget.Toolbar;
-import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.feature.settings.screens.ContactFragment;
@@ -17,7 +15,6 @@ public class NestedSettingsActivity extends BaseActivity {
   public static final String LICENSE = "LICENSE";
   public static final String CONTACT = "CONTACT";
   private static final String EXTRA_SETTINGS_SCREEN = "EXTRA_SETTINGS_SCREEN";
-  @BindView(R.id.toolbar) Toolbar toolbar;
 
   public static Intent launch(Context context, @SettingsScreen String screen) {
     Intent intent = new Intent(context, NestedSettingsActivity.class);
@@ -29,21 +26,16 @@ public class NestedSettingsActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_nested_settings);
 
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     if (savedInstanceState == null) {
       String screenId = getIntent().getStringExtra(EXTRA_SETTINGS_SCREEN);
       switch (screenId) {
         case LICENSE:
-          getSupportActionBar().setTitle(R.string.fragment_license_title);
           getSupportFragmentManager()
               .beginTransaction()
               .add(R.id.content_frame, LicenseFragment.newInstance(), LICENSE)
               .commit();
           break;
         case CONTACT:
-          getSupportActionBar().setTitle(R.string.fragment_license_title);
           getSupportFragmentManager()
               .beginTransaction()
               .add(R.id.content_frame, ContactFragment.newInstance(), CONTACT)
