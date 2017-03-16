@@ -29,4 +29,8 @@
     <Class name="de.philipphager.disclosure.database.library.model.LibraryModel$Factory"/>
     <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
   </Match>
+  <Match>
+    <Class name="~.*\.R\$.*"/>
+    <Bug pattern="NM_CLASS_NAMING_CONVENTION"/>
+  </Match>
 </FindBugsFilter>
