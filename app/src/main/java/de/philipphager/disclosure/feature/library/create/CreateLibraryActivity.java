@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -26,7 +25,6 @@ import javax.inject.Inject;
 
 public class CreateLibraryActivity extends BaseActivity implements CreateLibraryView {
   @Inject protected CreateLibraryPresenter presenter;
-  @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.ic_done) protected ImageView done;
   @BindView(R.id.library_title) protected EditText title;
   @BindView(R.id.library_package_name) protected EditText packageName;
@@ -45,7 +43,6 @@ public class CreateLibraryActivity extends BaseActivity implements CreateLibrary
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_library_create);
 
-    setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear);
 

@@ -11,7 +11,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -31,7 +30,6 @@ import rx.subjects.PublishSubject;
 
 public class SearchActivity extends BaseActivity implements AppSearchView {
   @Inject protected SearchPresenter presenter;
-  @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.dismiss_activity) protected View dismissView;
   @BindView(R.id.search_view) protected SearchView searchView;
   @BindView(R.id.search_results) protected RecyclerView searchResult;

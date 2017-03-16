@@ -12,7 +12,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +27,6 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 
 public class LibraryDetailActivity extends BaseActivity implements LibraryDetailView {
   private static final String EXTRA_LIBRARY = "EXTRA_LIBRARY";
-  @BindView(R.id.toolbar) protected Toolbar toolbar;
   @BindView(R.id.overview_app_list) protected RecyclerView recyclerView;
   @BindView(R.id.btn_open_website) protected AppCompatButton btnOpenWebsite;
   @Inject protected LibraryDetailPresenter presenter;
@@ -49,7 +47,6 @@ public class LibraryDetailActivity extends BaseActivity implements LibraryDetail
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_library_detail);
 
-    setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     adapter = new AppPermissionRecyclerAdapter(this);
     recyclerView.setAdapter(adapter);
