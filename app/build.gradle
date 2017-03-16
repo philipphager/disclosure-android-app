@@ -15,7 +15,7 @@ def versionBuild = 0
 
 android {
   compileSdkVersion 25
-  buildToolsVersion '25.0.0'
+  buildToolsVersion '25.0.2'
   defaultConfig {
     applicationId 'de.philipphager.disclosure'
     minSdkVersion 21
