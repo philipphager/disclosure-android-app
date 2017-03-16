@@ -30,9 +30,37 @@
     <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
   </Match>
   <Match>
+    <Class name="de.philipphager.disclosure.database.method.model.ProtectedMethodModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.permission.model.AppPermissionModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.permission.model.PermissionGroupModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.permission.model.PermissionModel$Factory"/>
+    <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+  </Match>
+
+  <!--
+  Generated resource files start with a lowercase letter.
+  Since we cannot change this, ignore generated files.
+  -->
+  <Match>
     <Class name="~.*\.R\$.*"/>
     <Bug pattern="NM_CLASS_NAMING_CONVENTION"/>
   </Match>
+
+  <!--
+   SqlDelight 0.6.0 alias bug in SQL projection.
+   Delete if fixed!
+   Tracked in Github issue 592.
+   https://github.com/square/sqldelight/issues/592
+   -->
   <Match>
     <Class name="de.philipphager.disclosure.database.app.model.AppReport"/>
     <Method name="App"/>
