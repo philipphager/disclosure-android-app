@@ -6,6 +6,22 @@
       android:key="@string/settings_thanks"
       android:title="@string/settings_thanks_title">
 
+    <Preference
+        android:title="Theodore Book"
+        android:summary="For the inspiration for this app and his academic guidance.">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://www.theodorebook.com/"/>
+    </Preference>
+
+    <Preference
+        android:title="Kathy Wain Yee Au, Yi Fan Zhou, Zhen Huang et al."
+        android:summary="For their research on the Android permission system and the PScout project.">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://pscout.csl.toronto.edu/index.php"/>
+    </Preference>
+
   </PreferenceCategory>
 
   <PreferenceCategory
@@ -161,7 +177,7 @@
         android:summary="By CLS Toronto">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://github.com/zd2100/PScout"/>
+          android:data="http://pscout.csl.toronto.edu/index.php"/>
     </Preference>
 
     <Preference
