@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 import de.philipphager.disclosure.R;
 
 public class LicenseFragment extends PreferenceFragmentCompat {
-  @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.toolbar) protected Toolbar toolbar;
 
   public static LicenseFragment newInstance() {
     return new LicenseFragment();

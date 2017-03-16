@@ -26,15 +26,15 @@ import javax.inject.Inject;
 
 public class CreateLibraryActivity extends BaseActivity implements CreateLibraryView {
   @Inject protected CreateLibraryPresenter presenter;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.ic_done) ImageView done;
-  @BindView(R.id.library_title) EditText title;
-  @BindView(R.id.library_package_name) EditText packageName;
-  @BindView(R.id.library_website) EditText websiteUrl;
-  @BindView(R.id.library_type) Spinner type;
-  @BindView(R.id.library_layout_title) TextInputLayout titleLayout;
-  @BindView(R.id.library_layout_package_name) TextInputLayout packageNameLayout;
-  @BindView(R.id.library_layout_website) TextInputLayout websiteUrlLayout;
+  @BindView(R.id.toolbar) protected Toolbar toolbar;
+  @BindView(R.id.ic_done) protected ImageView done;
+  @BindView(R.id.library_title) protected EditText title;
+  @BindView(R.id.library_package_name) protected EditText packageName;
+  @BindView(R.id.library_website) protected EditText websiteUrl;
+  @BindView(R.id.library_type) protected Spinner type;
+  @BindView(R.id.library_layout_title) protected TextInputLayout titleLayout;
+  @BindView(R.id.library_layout_package_name) protected TextInputLayout packageNameLayout;
+  @BindView(R.id.library_layout_website) protected TextInputLayout websiteUrlLayout;
   private ArrayAdapter<String> typeAdapter;
 
   public static Intent launch(Context context) {
