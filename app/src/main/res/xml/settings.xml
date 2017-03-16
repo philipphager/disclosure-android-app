@@ -18,9 +18,9 @@
       android:key="@string/settings_about"
       android:title="@string/settings_about_title">
 
-    <PreferenceScreen
-        android:key="@string/settings_license"
-        android:title="@string/settings_license_title"
+    <Preference
+        android:key="@string/settings_license_and_thanks"
+        android:title="@string/settings_license_and_thanks_title"
         android:summary=""
         android:checked="false"/>
 

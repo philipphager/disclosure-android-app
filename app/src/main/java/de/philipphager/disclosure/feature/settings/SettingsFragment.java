@@ -7,8 +7,13 @@ import android.view.View;
 import de.philipphager.disclosure.BuildConfig;
 import de.philipphager.disclosure.DisclosureApp;
 import de.philipphager.disclosure.R;
+import de.philipphager.disclosure.feature.navigation.Navigates;
+import de.philipphager.disclosure.feature.navigation.Navigator;
+import javax.inject.Inject;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompat implements Navigates {
+  @Inject protected Navigator navigator;
+
   public static SettingsFragment newInstance() {
     return new SettingsFragment();
   }
@@ -24,14 +29,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     inject();
 
     setupLicense();
+    setupVersion();
+  }
+
+  @Override public Navigator navigate() {
+    return navigator;
   }
 
   private void inject() {
     DisclosureApp application = (DisclosureApp) getActivity().getApplication();
     application.getApplicationComponent().inject(this);
+    navigator.setActivity(getActivity());
   }
 
   private void setupLicense() {
+    Preference preference = findPreference(getString(R.string.settings_license_and_thanks));
+    preference.setOnPreferenceClickListener(pref -> {
+      navigate().toNestedSystemSetting(NestedSettingsActivity.LICENSE);
+      return true;
+    });
+  }
+
+  private void setupVersion() {
     Preference preference = findPreference(getString(R.string.settings_version));
     preference.setSummary(BuildConfig.VERSION_NAME);
   }

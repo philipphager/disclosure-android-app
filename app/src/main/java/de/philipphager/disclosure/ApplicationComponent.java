@@ -16,6 +16,7 @@ import de.philipphager.disclosure.feature.library.category.list.LibraryListFragm
 import de.philipphager.disclosure.feature.library.create.CreateLibraryActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
+import de.philipphager.disclosure.feature.settings.NestedSettingsActivity;
 import de.philipphager.disclosure.feature.settings.SettingsFragment;
 import de.philipphager.disclosure.feature.sync.db.broadcasts.PackageManagerBroadcastReceiver;
 import javax.inject.Singleton;
@@ -36,6 +37,8 @@ public interface ApplicationComponent {
   void inject(AppDetailActivity activity);
 
   void inject(SettingsFragment settingsFragment);
+
+  void inject(NestedSettingsActivity nestedSettingsActivity);
 
   void inject(LibraryDetailActivity activity);
 

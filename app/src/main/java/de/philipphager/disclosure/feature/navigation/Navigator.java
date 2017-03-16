@@ -11,6 +11,7 @@ import de.philipphager.disclosure.feature.app.manager.search.SearchActivity;
 import de.philipphager.disclosure.feature.home.HomeActivity;
 import de.philipphager.disclosure.feature.library.create.CreateLibraryActivity;
 import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
+import de.philipphager.disclosure.feature.settings.NestedSettingsActivity;
 import javax.inject.Inject;
 
 public class Navigator {
@@ -49,6 +50,10 @@ public class Navigator {
         Uri.fromParts("package", packageName, null));
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     activity.startActivity(intent);
+  }
+
+  public void toNestedSystemSetting(@NestedSettingsActivity.SettingsScreen String screen) {
+    activity.startActivity(NestedSettingsActivity.launch(activity, screen));
   }
 
   public void toSystemUpdates() {
