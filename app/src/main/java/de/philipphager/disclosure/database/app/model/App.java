@@ -4,16 +4,20 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.squareup.sqldelight.RowMapper;
+import de.philipphager.disclosure.database.util.adapters.LocalDateTimeColumnAdapter;
+import org.threeten.bp.LocalDateTime;
 
 @AutoValue public abstract class App implements AppModel, Parcelable {
   public static final Factory<App> FACTORY = new Factory<>(
-      (id, label, packageName, process, sourceDir, flags) -> builder().id(id)
+      (id, label, packageName, process, sourceDir, flags, analyzedAt, isTrusted) -> builder().id(id)
           .label(label)
           .packageName(packageName)
           .process(process)
           .sourceDir(sourceDir)
           .flags(flags)
-          .build());
+          .analyzedAt(analyzedAt)
+          .isTrusted(isTrusted)
+          .build(), new LocalDateTimeColumnAdapter());
 
   public static Builder builder() {
     return new AutoValue_App.Builder();
@@ -31,9 +35,13 @@ import com.squareup.sqldelight.RowMapper;
 
   public abstract Integer flags();
 
-  public boolean hasLabel() {
-    return label() != null;
-  }
+  @Nullable public abstract LocalDateTime analyzedAt();
+
+  public abstract Boolean isTrusted();
+
+  public abstract App withIsTrusted(Boolean isTrusted);
+
+  public abstract App withAnalyzedAt(LocalDateTime analyzedAt);
 
   @AutoValue.Builder public interface Builder {
     @SuppressWarnings("PMD.ShortMethodName") Builder id(Long id);
@@ -47,6 +55,10 @@ import com.squareup.sqldelight.RowMapper;
     Builder sourceDir(String path);
 
     Builder flags(Integer flags);
+
+    Builder analyzedAt(@Nullable LocalDateTime analyzedAt);
+
+    Builder isTrusted(Boolean isTrusted);
 
     App build();
   }

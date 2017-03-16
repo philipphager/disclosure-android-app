@@ -22,3 +22,9 @@ Thumbs.db
 .idea/codeStyleSettings.xml
 # Not recommended to ignore, but damn are they annoying, and should be autogeneratable
 *.iml
+
+.idea/markdown-exported-files.xml
+
+.idea/markdown-navigator.xml
+
+.idea/markdown-navigator/profiles_settings.xml

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      android:orientation="vertical"
+      android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:contentScrim="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:layout_marginBottom="80dp"
+          android:title="@string/empty"
+          app:layout_collapseMode="pin"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingBottom="@dimen/spacing_normal"
+          android:gravity="center"
+          android:orientation="vertical"
+          app:layout_collapseMode="parallax">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/icon_large_width"
+            android:layout_height="@dimen/icon_large_height"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_headline"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/spacing_micro"
+            tools:text="App Label"/>
+
+        <com.kofigyan.stateprogressbar.StateProgressBar
+            android:id="@+id/analysis_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:spb_currentStateNumber="one"
+            app:spb_maxStateNumber="three"
+            app:spb_stateBackgroundColor="@color/state_progress_bar_state_background_color"
+            app:spb_stateForegroundColor="@color/state_progress_bar_state_foreground_color"
+            app:spb_stateNumberBackgroundColor="@color/state_progress_bar_state_number_background_color"
+            app:spb_stateNumberForegroundColor="@color/state_progress_bar_state_number_foreground_color"
+            app:spb_currentStateDescriptionColor="@color/state_progress_bar_state_current_state_description_color"
+            app:spb_stateDescriptionColor="@color/state_progress_bar_state_description_color"
+            app:spb_descriptionTopSpaceIncrementer="@dimen/spacing_normal"
+            app:spb_animateToCurrentProgressState="true"
+            app:spb_checkStateCompleted="true"/>
+
+      </LinearLayout>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <android.support.v4.widget.NestedScrollView
+      android:id="@+id/nestedScrollView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_behavior="@string/appbar_scrolling_view_behavior"
+          android:orientation="horizontal"
+          android:gravity="center_horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_edit_settings"
+            android:layout_width="132dp"
+            android:layout_height="96dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/ic_edit"
+            android:drawableTint="@color/color_icon"
+            android:text="@string/action_edit"
+            android:textColor="@color/color_text_primary"
+            android:padding="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_uninstall"
+            android:layout_width="132dp"
+            android:layout_height="96dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/ic_delete_forever"
+            android:drawableTint="@color/color_icon"
+            android:text="@string/action_uninstall"
+            android:textColor="@color/color_text_primary"
+            android:padding="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_open_app"
+            android:layout_width="132dp"
+            android:layout_height="96dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/ic_exit_to_app"
+            android:drawableTint="@color/color_icon"
+            android:text="@string/action_open_app"
+            android:textColor="@color/color_text_primary"
+            android:padding="24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+      </LinearLayout>
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/app_detail_libraries"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          tools:listitem="@layout/view_library_list_item"/>
+
+    </LinearLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/btn_analyse_app"
+      android:src="@drawable/ic_analyze_dark"
+      app:fabSize="normal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/spacing_large"
+      android:scaleType="center"
+      app:layout_anchor="@id/nestedScrollView"
+      app:layout_anchorGravity="bottom|right|end"/>
+
+</android.support.design.widget.CoordinatorLayout>

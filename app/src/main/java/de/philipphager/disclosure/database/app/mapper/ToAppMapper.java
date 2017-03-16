@@ -25,6 +25,7 @@ public class ToAppMapper implements Mapper<ApplicationInfo, App> {
         .process(from.processName)
         .sourceDir(from.sourceDir)
         .flags(from.flags)
+        .isTrusted(false)
         .build();
   }
 }

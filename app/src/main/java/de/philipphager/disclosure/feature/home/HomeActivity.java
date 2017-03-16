@@ -54,9 +54,10 @@ public class HomeActivity extends BaseActivity implements HomeView {
     AHBottomNavigationAdapter adapter = new AHBottomNavigationAdapter(this, R.menu.navigation_home);
     adapter.setupWithBottomNavigation(bottomNavigation, null);
 
-    bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-    bottomNavigation.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
-    bottomNavigation.setBehaviorTranslationEnabled(false);
+    bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.bottom_navigation_background));
+    bottomNavigation.setAccentColor(ContextCompat.getColor(this, R.color.bottom_navigation_item));
+    bottomNavigation.setInactiveColor(ContextCompat.getColor(this, R.color.bottom_navigation_item_inactive));
+    bottomNavigation.setForceTitlesHide(true);
     bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
       presenter.onTabSelected(position, wasSelected);
       return true;

@@ -1,0 +1,23 @@
+CREATE TABLE PermissionGroup (
+  id TEXT PRIMARY KEY NOT NULL,
+  title TEXT,
+  description TEXT
+);
+
+insertPermissionGroup:
+INSERT INTO PermissionGroup (id, title, description)
+VALUES (?, ?, ?);
+
+updatePermissionGroup:
+UPDATE PermissionGroup
+SET title = ?, description = ?
+WHERE id = ?;
+
+selectAll:
+SELECT *
+FROM PermissionGroup;
+
+selectById:
+SELECT *
+FROM PermissionGroup
+WHERE id = ?;

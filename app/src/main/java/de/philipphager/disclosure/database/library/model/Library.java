@@ -15,10 +15,11 @@ import org.threeten.bp.OffsetDateTime;
   private static final ColumnAdapter<Type, String> TYPE_ADAPTER =
       EnumColumnAdapter.create(Type.class);
   public static final Factory<Library> FACTORY = new LibraryModel.Factory<>(
-      (id, packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt) ->
+      (id, packageName, sourceDir, title, subtitle, description, websiteUrl, type, createdAt, updatedAt) ->
           builder()
               .id(id)
               .packageName(packageName)
+              .sourceDir(sourceDir)
               .title(title)
               .subtitle(subtitle)
               .description(description)
@@ -42,6 +43,8 @@ import org.threeten.bp.OffsetDateTime;
 
   public abstract String packageName();
 
+  public abstract String sourceDir();
+
   public abstract String title();
 
   public abstract String subtitle();
@@ -57,7 +60,11 @@ import org.threeten.bp.OffsetDateTime;
   public abstract OffsetDateTime updatedAt();
 
   public enum Type {
-    ANALYTICS, ADVERTISMENT, DEVELOPER, SOCIAL
+    ANALYTICS, ADVERTISEMENT, DEVELOPER, SOCIAL
+  }
+
+  public boolean hasWebsiteUrl() {
+    return !websiteUrl().isEmpty();
   }
 
   @AutoValue.Builder public interface Builder {
@@ -70,6 +77,8 @@ import org.threeten.bp.OffsetDateTime;
     Builder subtitle(String subtitle);
 
     Builder description(String description);
+
+    Builder sourceDir(String sourceDir);
 
     Builder websiteUrl(String websiteUrl);
 

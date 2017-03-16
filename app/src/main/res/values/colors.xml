@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#242D39</color>
-  <color name="colorPrimaryDark">#182129</color>
-  <color name="colorAccent">#F5A623</color>
+  <color name="color_grey_dark">#191919</color>
+  <color name="color_grey_medium">#303030</color>
+  <color name="color_grey_light">#424242</color>
+  <color name="color_grey_bright">#707070</color>
+  <color name="color_white">#ffffff</color>
+  <color name="color_white_dark">#e6e6e6</color>
+  <color name="color_green">#69F0AE</color>
+  <color name="color_green_dark">#306E50</color>
+  <color name="color_orange">#FFD740</color>
+  <color name="color_orange_dark">#806b20</color>
+  <color name="transparent">#00000000</color>
 
-  <color name="colorScoreLow">#7ED321</color>
-  <color name="colorScoreMedium">#f5c123</color>
-  <color name="colorScoreHigh">#D31D33</color>
+  <color name="color_primary">@color/color_grey_medium</color>
+  <color name="color_primary_dark">@color/color_grey_dark</color>
+  <color name="color_primary_light">@color/color_grey_light</color>
+  <color name="color_accent">@color/color_green</color>
+  <color name="color_text_primary">@color/color_white</color>
+  <color name="color_text_secondary">@color/color_white_dark</color>
+  <color name="color_text_warning">@color/color_orange</color>
+  <color name="window_background">@color/color_primary_light</color>
+  <color name="color_divider">@color/color_grey_bright</color>
 
-  <color name="background_light">#fafafa</color>
-  <color name="background_lightish">#e0e0e0</color>
-  <color name="background_disabled">#707070</color>
+  <color name="color_icon">@color/color_white</color>
+  <color name="color_icon_disabled">@color/color_grey_bright</color>
+
+  <color name="colorProtectionNormal">@color/color_green</color>
+  <color name="colorProtectionDangerous">@color/color_orange</color>
+  <color name="colorProtectionSignature">@color/color_grey_dark</color>
+
+  <color name="bottom_navigation_background">@color/color_primary</color>
+  <color name="bottom_navigation_item">@color/color_accent</color>
+  <color name="bottom_navigation_item_inactive">@color/color_text_secondary</color>
+
+  <color name="state_progress_bar_state_background_color">@color/color_white</color>
+  <color name="state_progress_bar_state_foreground_color">@color/color_green</color>
+  <color name="state_progress_bar_state_current_state_description_color">@color/color_green</color>
+  <color name="state_progress_bar_state_number_background_color">@color/color_green_dark</color>
+  <color name="state_progress_bar_state_number_foreground_color">@color/color_green_dark</color>
+  <color name="state_progress_bar_state_description_color">@color/color_text_primary</color>
 </resources>

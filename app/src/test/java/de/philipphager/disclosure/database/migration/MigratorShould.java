@@ -71,15 +71,4 @@ public class MigratorShould {
     verify(database).setTransactionSuccessful();
     verify(database).endTransaction();
   }
-
-  @Test(expected = IllegalStateException.class) public
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  void throwErrorIfOldDatabaseVersionIsHigherThanTheNewVersion() {
-    migrator.migrate(database, 1, 0);
-
-    verify(database, never()).beginTransaction();
-    verify(database, never()).execSQL(MockMigration.MOCK_SQL);
-    verify(database, never()).setTransactionSuccessful();
-    verify(database, never()).endTransaction();
-  }
 }

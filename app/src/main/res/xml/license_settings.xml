@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+      android:key="@string/settings_thanks"
+      android:title="@string/settings_thanks_title">
+
+    <Preference
+        android:title="Theodore Book"
+        android:summary="For the inspiration for this app and his academic guidance.">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://www.theodorebook.com/"/>
+    </Preference>
+
+    <Preference
+        android:title="Kathy Wain Yee Au, Yi Fan Zhou, Zhen Huang et al."
+        android:summary="For their research on the Android permission system and the PScout project.">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://pscout.csl.toronto.edu/index.php"/>
+    </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:key="@string/settings_license"
+      android:title="@string/settings_license_title">
+
+    <Preference
+        android:title="Android"
+        android:summary="Android Open Source Project (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://source.android.com/source/"/>
+    </Preference>
+
+    <Preference
+        android:title="Android libcore Dex Library"
+        android:summary="Android Open Source Project, Repackaged by Jake Wharton (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/JakeWharton/libcore-dex"/>
+    </Preference>
+
+    <Preference
+        android:title="Android SQLiteAssetHelper"
+        android:summary="By ReadyState Software Ltd (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/jgilfelt/android-sqlite-asset-helper"/>
+    </Preference>
+
+    <Preference
+        android:title="Android Support v7 Preference Fix"
+        android:summary="By Gergely Kőrössy">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/Gericop/Android-Support-Preference-V7-Fix"/>
+    </Preference>
+
+    <Preference
+        android:title="AndroidTagGroup"
+        android:summary="By Jun Gu (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/2dxgujun/AndroidTagGroup"/>
+    </Preference>
+
+    <Preference
+        android:title="AHBottomNavigation"
+        android:summary="By Aurelien Hubert (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/aurelhubert/ahbottomnavigation"/>
+    </Preference>
+
+    <Preference
+        android:title="AutoValue"
+        android:summary="By Google (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/google/auto"/>
+    </Preference>
+
+    <Preference
+        android:title="AutoValue Gson Extension"
+        android:summary="By Ryan Harter (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/rharter/auto-value-gson"/>
+    </Preference>
+
+    <Preference
+        android:title="AutoValue Parcel Extension"
+        android:summary="By Ryan Harter (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/rharter/auto-value-parcel"/>
+    </Preference>
+
+    <Preference
+        android:title="AutoValue With Extension"
+        android:summary="By Gabriel Ittner (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/gabrielittner/auto-value-with"/>
+    </Preference>
+
+    <Preference
+        android:title="Baksmali"
+        android:summary="By Jesus Freke">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/JesusFreke/smali"/>
+    </Preference>
+
+    <Preference
+        android:title="Butterknife"
+        android:summary="By Jake Wharton (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/JakeWharton/butterknife"/>
+    </Preference>
+
+    <Preference
+        android:title="Common Libraries"
+        android:summary="By Li Li, Tegawendé F. Bissyandé, Jacques Klein, Yves Le Traon">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/serval-snt-uni-lu/CommonLibraries"/>
+    </Preference>
+
+    <Preference
+        android:title="Dagger 2"
+        android:summary="By Googel (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://google.github.io/dagger/"/>
+    </Preference>
+
+    <Preference
+        android:title="Stetho"
+        android:summary="By Facebook (BSD-3-Clause)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://facebook.github.io/stetho/"/>
+    </Preference>
+
+    <Preference
+        android:title="Gson"
+        android:summary="By Google (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/google/gson"/>
+    </Preference>
+
+    <Preference
+        android:title="LeakCanary"
+        android:summary="By Square (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/square/leakcanary"/>
+    </Preference>
+
+    <Preference
+        android:title="OkHttp"
+        android:summary="By Square (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://square.github.io/okhttp/"/>
+    </Preference>
+
+    <Preference
+        android:title="Pscout"
+        android:summary="By CLS Toronto">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://pscout.csl.toronto.edu/index.php"/>
+    </Preference>
+
+    <Preference
+        android:title="Pscout Legacy Parser"
+        android:summary="By Philipp Hager (MIT)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/philipphager/pscout-legacy-parser"/>
+    </Preference>
+
+    <Preference
+        android:title="Retrofit 2"
+        android:summary="By Square (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="http://square.github.io/retrofit/"/>
+    </Preference>
+
+    <Preference
+        android:title="RxAndroid"
+        android:summary="By ReactiveX (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/ReactiveX/RxAndroid"/>
+    </Preference>
+
+    <Preference
+        android:title="RxJava"
+        android:summary="By ReactiveX (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/ReactiveX/RxJava"/>
+    </Preference>
+
+    <Preference
+        android:title="Rx Preference"
+        android:summary="By Prateek Srivastava (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/f2prateek/rx-preferences"/>
+    </Preference>
+
+    <Preference
+        android:title="SQLDelight"
+        android:summary="By Square (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/square/sqldelight/"/>
+    </Preference>
+
+    <Preference
+        android:title="SQLBrite"
+        android:summary="By Square (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/square/sqlbrite"/>
+    </Preference>
+
+    <Preference
+        android:title="StateProgressBar"
+        android:summary="By Kofi Gyan (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/kofigyan/StateProgressBar/"/>
+    </Preference>
+
+    <Preference
+        android:title="ThreeTen Android Backport"
+        android:summary="By Jake Wharton (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/JakeWharton/ThreeTenABP"/>
+    </Preference>
+
+    <Preference
+        android:title="Timber"
+        android:summary="By Jake Wharton (APACHE 2.0)">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/JakeWharton/timber"/>
+    </Preference>
+
+  </PreferenceCategory>
+
+</PreferenceScreen>

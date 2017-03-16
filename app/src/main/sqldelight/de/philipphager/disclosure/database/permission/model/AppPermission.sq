@@ -1,0 +1,17 @@
+CREATE TABLE AppPermission (
+  appId INTEGER,
+  permissionId TEXT,
+  isGranted INTEGER AS Boolean DEFAULT 0,
+  PRIMARY KEY (appId, permissionId),
+  FOREIGN KEY(appId) REFERENCES App(id) ON DELETE CASCADE,
+  FOREIGN KEY(permissionId) REFERENCES Permission(id) ON DELETE CASCADE
+);
+
+insertPermissionApp:
+INSERT OR REPLACE INTO AppPermission
+VALUES (?, ?, ?);
+
+selectByApp:
+SELECT *
+FROM AppPermission
+WHERE appId = ?;

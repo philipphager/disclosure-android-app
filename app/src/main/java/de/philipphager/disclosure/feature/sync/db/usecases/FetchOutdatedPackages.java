@@ -2,7 +2,7 @@ package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
-import de.philipphager.disclosure.service.AppService;
+import de.philipphager.disclosure.service.app.AppService;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -10,6 +10,11 @@ import rx.schedulers.Schedulers;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
+/**
+ * Find apps, that are saved in the database,
+ * that are not present on the devices,
+ * because they were uninstalled etc.
+ */
 public class FetchOutdatedPackages {
   private final DevicePackageProvider appProvider;
   private final AppService appService;

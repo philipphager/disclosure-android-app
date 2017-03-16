@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+      android:key="@string/pref_appearance"
+      android:title="@string/settings_category_appearance">
+
+    <CheckBoxPreference
+        android:key="@string/pref_appearance_display_all_permissions"
+        android:title="@string/setting_display_all_permissions_title"
+        android:summary="@string/setting_display_all_permissions_summary"
+        android:checked="false"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:key="@string/settings_about"
+      android:title="@string/settings_about_title">
+
+    <Preference
+        android:key="@string/settings_changelog"
+        android:title="@string/settings_changelog_title">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data=""/>
+    </Preference>
+
+    <Preference
+        android:key="@string/settings_contact"
+        android:title="@string/settings_contact_title"
+        android:summary=""
+        android:checked="false"/>
+
+    <Preference
+        android:key="@string/settings_license_and_thanks"
+        android:title="@string/settings_license_and_thanks_title"
+        android:summary=""
+        android:checked="false"/>
+
+    <Preference
+        android:key="@string/settings_version"
+        android:title="@string/settings_version_title"
+        android:summary=""
+        android:checked="false"/>
+
+  </PreferenceCategory>
+
+</PreferenceScreen>

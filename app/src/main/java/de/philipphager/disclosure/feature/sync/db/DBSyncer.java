@@ -2,7 +2,7 @@ package de.philipphager.disclosure.feature.sync.db;
 
 import de.philipphager.disclosure.feature.sync.db.usecases.FetchOutdatedPackages;
 import de.philipphager.disclosure.feature.sync.db.usecases.FetchUpdatedPackages;
-import de.philipphager.disclosure.service.AppService;
+import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.time.Stopwatch;
 import javax.inject.Inject;
 import rx.Observable;

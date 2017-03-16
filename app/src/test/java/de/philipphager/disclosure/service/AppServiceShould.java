@@ -7,6 +7,7 @@ import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.version.VersionRepository;
+import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.time.Clock;
 import java.util.Arrays;
 import java.util.Collections;

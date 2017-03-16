@@ -8,6 +8,7 @@ public final class MockLibrary {
   public static final Library TEST = Library.builder()
       .id("jfhsakdfhlasdjkf")
       .packageName("com.mixpanel.android")
+      .sourceDir("com/mixpanel/android/")
       .title("Mixpanel")
       .subtitle("Tracks app interaction and user behaviour")
       .description("• Tracks actions, like button clicks \n"

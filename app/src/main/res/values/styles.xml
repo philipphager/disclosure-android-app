@@ -1,11 +1,58 @@
 <resources>
 
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="BaseAppTheme" parent="Theme.AppCompat.NoActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorPrimaryDark">@color/color_primary</item>
+    <item name="android:textColorPrimary">@color/color_text_primary</item>
+    <item name="android:textColorSecondary">@color/color_text_secondary</item>
+    <item name="android:textColor">@color/color_text_primary</item>
+    <item name="android:navigationBarColor">@color/color_primary_dark</item>
+    <item name="colorAccent">@color/color_accent</item>
+    <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
   </style>
 
+  <style name="AppTheme" parent="BaseAppTheme">
+    <item name="android:windowBackground">@color/window_background</item>
+    <item name="windowActionModeOverlay">true</item>
+  </style>
+
+  <style name="AppTheme.SearchActivity" parent="BaseAppTheme">
+    <item name="android:windowBackground">@color/transparent</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style>
+
+  <style name="AppTheme.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay.v14.Material">
+    <item name="android:layout">@layout/fragment_settings</item>
+  </style>
+
+  <style name="TabLayout" parent="Widget.Design.TabLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">56dp</item>
+    <item name="android:fillViewport">false</item>
+    <item name="tabBackground">@color/color_primary</item>
+    <item name="android:background">@color/color_primary</item>
+    <item name="tabGravity">fill</item>
+    <item name="tabIndicatorHeight">3dp</item>
+    <item name="tabMode">fixed</item>
+    <item name="tabMaxWidth">2048dp</item>
+    <item name="tabSelectedTextColor">?colorAccent</item>
+  </style>
+
+  <style name="PermissionGroupDangerous" parent="TagGroup">
+    <item name="atg_borderColor">@color/colorProtectionDangerous</item>
+    <item name="atg_backgroundColor">@color/colorProtectionDangerous</item>
+    <item name="atg_textColor">@color/color_orange_dark</item>
+  </style>
+
+  <style name="PermissionGroupNormal" parent="TagGroup">
+    <item name="atg_borderColor">@color/colorProtectionNormal</item>
+    <item name="atg_backgroundColor">@color/colorProtectionNormal</item>
+    <item name="atg_textColor">@color/color_green_dark</item>
+  </style>
+  
 </resources>

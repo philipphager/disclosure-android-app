@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <Preference
+      android:title="Open Source Project"
+      android:summary="This app is developed open-source. All contributions are welcome!">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:data="https://git.it-sec.medien.hs-duesseldorf.de/hschmidt/hager-bsc"/>
+  </Preference>
+
+  <Preference
+      android:title="Issue Tracker"
+      android:summary="Found a bug? Report it here.">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:data="https://git.it-sec.medien.hs-duesseldorf.de/hschmidt/hager-bsc"/>
+  </Preference>
+
+  <Preference
+      android:title="Email"
+      android:summary="philipp.hager@fh-duesseldorf.de">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:data="mailto:philipp.hager@fh-duesseldorf.de"/>
+  </Preference>
+
+</PreferenceScreen>

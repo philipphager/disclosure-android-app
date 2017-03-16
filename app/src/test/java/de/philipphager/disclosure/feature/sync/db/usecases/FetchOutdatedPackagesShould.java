@@ -4,7 +4,7 @@ import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
-import de.philipphager.disclosure.service.AppService;
+import de.philipphager.disclosure.service.app.AppService;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

@@ -4,6 +4,7 @@ import org.threeten.bp.OffsetDateTime;
 CREATE TABLE Library (
   id TEXT PRIMARY KEY,
   packageName TEXT UNIQUE NOT NULL,
+  sourceDir TEXT NOT NULL,
   title TEXT NOT NULL,
   subtitle TEXT NOT NULL,
   description TEXT NOT NULL,
@@ -14,12 +15,12 @@ CREATE TABLE Library (
 );
 
 insertLibrary:
-INSERT INTO Library (id, packageName, title, subtitle, description, websiteUrl, type, createdAt, updatedAt)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO Library (id, packageName, sourceDir, title, subtitle, description, websiteUrl, type, createdAt, updatedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 updateLibrary:
 UPDATE Library
-SET packageName = ?, title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
+SET packageName = ?, sourceDir = ?, title = ?, subtitle = ?, description = ?, websiteUrl = ?, type = ?, createdAt = ?, updatedAt = ?
 WHERE id = ?;
 
 selectAll:
@@ -31,17 +32,40 @@ SELECT *
 FROM Library
 WHERE packageName = ?;
 
+selectById:
+SELECT *
+FROM Library
+WHERE id = ?;
+
 selectByApp:
 SELECT Library.*
 FROM LibraryApp, Library
 WHERE LibraryApp.libraryId = Library.id
 AND LibraryApp.appId = ?;
 
+selectByAppUpdateOnNewPermission:
+SELECT Library.*
+FROM Library LEFT OUTER JOIN LibraryApp ON Library.id = LibraryApp.libraryId
+LEFT OUTER JOIN AppLibraryPermission ON Library.id = AppLibraryPermission.libraryId
+WHERE LibraryApp.appId = ?;
+
 selectByFeature:
 SELECT Library.*
 FROM LibraryFeature, Library
 WHERE LibraryFeature.libraryId = Library.id
 AND LibraryFeature.featureId = ?;
+
+selectByType:
+SELECT Library.*
+FROM Library
+WHERE type = ?;
+
+selectByTypeWithAppCount:
+SELECT Library.id, Library.title, Count(appId) AS appCount
+FROM Library LEFT OUTER JOIN LibraryApp
+ON Library.id = LibraryApp.libraryId
+WHERE Library.type = ?
+GROUP BY Library.id;
 
 selectLastUpdated:
 SELECT updatedAt
@@ -50,3 +74,14 @@ WHERE updatedAt = (
   SELECT Max(updatedAt)
   FROM Library
 );
+
+countByType:
+SELECT Count(*)
+FROM Library
+WHERE type = ?;
+
+countUsedLibrariesByType:
+SELECT Count(*)
+FROM Library, LibraryApp
+WHERE Library.id = LibraryApp.libraryId
+AND type = ?;

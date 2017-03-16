@@ -17,7 +17,6 @@
     <activity
         android:name=".feature.home.HomeActivity"
         android:launchMode="singleTop">
-
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -25,15 +24,42 @@
     </activity>
 
     <activity
-        android:name=".feature.app.detail.DetailActivity"
+        android:name=".feature.app.manager.search.SearchActivity"
         android:parentActivityName=".feature.home.HomeActivity"
-        android:launchMode="standard">
+        android:launchMode="singleTop"
+        android:theme="@style/AppTheme.SearchActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.SEARCH"/>
+      </intent-filter>
+      <meta-data
+          android:name="android.app.searchable"
+          android:resource="@xml/searchable"/>
     </activity>
 
     <activity
-        android:name=".feature.library.detail.LibraryOverviewActivity"
+        android:name=".feature.app.detail.AppDetailActivity"
         android:parentActivityName=".feature.home.HomeActivity"
-        android:launchMode="standard">
+        android:theme="@style/AppTheme"
+        android:launchMode="singleTop">
+    </activity>
+
+    <activity
+        android:name=".feature.library.detail.LibraryDetailActivity"
+        android:parentActivityName=".feature.home.HomeActivity"
+        android:launchMode="singleTop">
+    </activity>
+
+    <activity
+        android:name=".feature.library.create.CreateLibraryActivity"
+        android:parentActivityName=".feature.home.HomeActivity"
+        android:theme="@style/AppTheme"
+        android:launchMode="singleTop">
+    </activity>
+
+    <activity
+        android:name=".feature.settings.NestedSettingsActivity"
+        android:parentActivityName=".feature.home.HomeActivity"
+        android:theme="@style/AppTheme">
     </activity>
 
     <receiver android:name=".feature.sync.db.broadcasts.PackageManagerBroadcastReceiver">

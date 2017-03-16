@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     Library library = Library.builder()
         .id(MockLibrary.TEST.id())
         .packageName(MockLibrary.TEST.packageName())
+        .sourceDir(MockLibrary.TEST.sourceDir())
         .title(MockLibrary.TEST.title())
         .subtitle(MockLibrary.TEST.subtitle())
         .description(MockLibrary.TEST.description())
@@ -27,6 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
   @Test(expected = IllegalStateException.class) public void throwErrorIfIdIsNull() {
     Library.builder()
         .packageName(MockLibrary.TEST.packageName())
+        .sourceDir(MockLibrary.TEST.sourceDir())
         .title(MockLibrary.TEST.title())
         .subtitle(MockLibrary.TEST.subtitle())
         .description(MockLibrary.TEST.description())
@@ -40,6 +42,22 @@ import static org.assertj.core.api.Assertions.assertThat;
   @Test(expected = IllegalStateException.class) public void throwErrorIfPackageNameIsNull() {
     Library.builder()
         .id(MockLibrary.TEST.id())
+        .sourceDir(MockLibrary.TEST.sourceDir())
+        .title(MockLibrary.TEST.title())
+        .subtitle(MockLibrary.TEST.subtitle())
+        .description(MockLibrary.TEST.description())
+        .websiteUrl(MockLibrary.TEST.websiteUrl())
+        .type(MockLibrary.TEST.type())
+        .createdAt(MockLibrary.TEST.createdAt())
+        .updatedAt(MockLibrary.TEST.updatedAt())
+        .build();
+  }
+
+
+  @Test(expected = IllegalStateException.class) public void throwErrorIfSourceDirIsNull() {
+    Library.builder()
+        .id(MockLibrary.TEST.id())
+        .packageName(MockLibrary.TEST.packageName())
         .title(MockLibrary.TEST.title())
         .subtitle(MockLibrary.TEST.subtitle())
         .description(MockLibrary.TEST.description())

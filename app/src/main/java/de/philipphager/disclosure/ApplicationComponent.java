@@ -3,14 +3,21 @@ package de.philipphager.disclosure;
 import dagger.Component;
 import de.philipphager.disclosure.api.ApiModule;
 import de.philipphager.disclosure.database.DatabaseModule;
-import de.philipphager.disclosure.feature.app.detail.DetailActivity;
+import de.philipphager.disclosure.feature.app.detail.AppDetailActivity;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
+import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplanationDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
-import de.philipphager.disclosure.feature.app.overview.AppOverviewFragment;
+import de.philipphager.disclosure.feature.app.manager.AppManagerFragment;
+import de.philipphager.disclosure.feature.app.manager.search.SearchActivity;
 import de.philipphager.disclosure.feature.device.DeviceModule;
 import de.philipphager.disclosure.feature.home.HomeActivity;
-import de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity;
+import de.philipphager.disclosure.feature.library.category.LibraryCategoryFragment;
+import de.philipphager.disclosure.feature.library.category.list.LibraryListFragment;
+import de.philipphager.disclosure.feature.library.create.CreateLibraryActivity;
+import de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity;
 import de.philipphager.disclosure.feature.preference.PreferenceModule;
+import de.philipphager.disclosure.feature.settings.NestedSettingsActivity;
+import de.philipphager.disclosure.feature.settings.SettingsFragment;
 import de.philipphager.disclosure.feature.sync.db.broadcasts.PackageManagerBroadcastReceiver;
 import javax.inject.Singleton;
 
@@ -25,15 +32,29 @@ import javax.inject.Singleton;
 public interface ApplicationComponent {
   void inject(HomeActivity activity);
 
-  void inject(DetailActivity activity);
+  void inject(SearchActivity activity);
 
-  void inject(LibraryOverviewActivity activity);
+  void inject(AppDetailActivity activity);
 
-  void inject(AppOverviewFragment fragment);
+  void inject(SettingsFragment settingsFragment);
+
+  void inject(NestedSettingsActivity nestedSettingsActivity);
+
+  void inject(LibraryDetailActivity activity);
+
+  void inject(LibraryListFragment fragment);
+
+  void inject(LibraryCategoryFragment activity);
+
+  void inject(CreateLibraryActivity activity);
+
+  void inject(AppManagerFragment fragment);
 
   void inject(EditPermissionsTutorialDialog fragment);
 
   void inject(RuntimePermissionsTutorialDialog fragment);
+
+  void inject(PermissionExplanationDialog fragment);
 
   void inject(PackageManagerBroadcastReceiver broadcastReceiver);
 }

@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="1dp"
     android:layout_gravity="bottom"
-    android:background="#D1D6D5"
+    android:background="@color/color_divider"
     android:layout_marginLeft="@dimen/margin_normal"
     android:layout_marginRight="@dimen/margin_normal"/>

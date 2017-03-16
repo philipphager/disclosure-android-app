@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+  <View
+      android:id="@+id/indicator"
+      android:layout_width="12dp"
+      android:layout_height="12dp"
+      android:layout_margin="8dp"
+      android:background="@drawable/drawable_circle"/>
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textStyle="bold"
+      android:layout_margin="4dp"
+      tools:text="normal"/>
+
+</merge>

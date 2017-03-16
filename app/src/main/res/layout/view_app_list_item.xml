@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<de.philipphager.disclosure.util.ui.components.AppListItem
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/app_list_item_checkable_background"
     android:foreground="?android:attr/selectableItemBackground">
 
   <LinearLayout
@@ -16,13 +17,13 @@
         android:id="@+id/icon"
         android:layout_width="@dimen/app_list_item_image_width"
         android:layout_height="@dimen/app_list_item_image_height"
-        android:contentDescription="@string/app_list_item_image_content_description"
+        android:contentDescription="@string/app_list_item_icon_description"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:orientation="vertical">
@@ -36,11 +37,25 @@
           tools:text="Title"/>
 
       <TextView
-          android:id="@+id/subtitle"
+          android:id="@+id/library_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="5 libraries found"/>
+
+      <TextView
+          android:id="@+id/permission_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          tools:text="11 permission usages detected"/>
+
+      <TextView
+          android:id="@+id/analyzed_at"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/text_bottom_margin_normal"
-          tools:text="A great subtitle"/>
+          android:visibility="gone"
+          tools:text="last analyzed 23.01.2016"/>
 
     </LinearLayout>
 
@@ -48,4 +63,4 @@
 
   <include layout="@layout/view_divider"/>
 
-</FrameLayout>
+</de.philipphager.disclosure.util.ui.components.AppListItem>

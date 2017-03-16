@@ -4,7 +4,7 @@ import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
-import de.philipphager.disclosure.service.AppService;
+import de.philipphager.disclosure.service.app.AppService;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -13,6 +13,10 @@ import timber.log.Timber;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
 
+/**
+ * Fetch newly installed apps,
+ * that are not yet saved in the db.
+ */
 public class FetchUpdatedPackages {
   private final DevicePackageProvider appProvider;
   private final AppService appService;

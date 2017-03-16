@@ -45,7 +45,7 @@ import static org.mockito.Mockito.verify;
 
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getComponent().getClassName())
-        .isEqualTo("de.philipphager.disclosure.feature.app.detail.DetailActivity");
+        .isEqualTo("de.philipphager.disclosure.feature.app.detail.AppDetailActivity");
   }
 
   @Test public void navigateToDetailActivityPassesAppParcelable() {
@@ -57,24 +57,24 @@ import static org.mockito.Mockito.verify;
 
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getComponent().getClassName())
-        .isEqualTo("de.philipphager.disclosure.feature.app.detail.DetailActivity");
+        .isEqualTo("de.philipphager.disclosure.feature.app.detail.AppDetailActivity");
   }
 
   @Test public void navigateToLibraryOverviewActivity() {
     Library mockLibrary = MockLibrary.TEST;
-    navigator.toLibraryOverview(mockLibrary);
+    navigator.toLibraryDetail(mockLibrary);
 
     ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
     verify(activity).startActivity(intentCaptor.capture());
 
     Intent intent = intentCaptor.getValue();
     assertThat(intent.getComponent().getClassName())
-        .isEqualTo("de.philipphager.disclosure.feature.library.detail.LibraryOverviewActivity");
+        .isEqualTo("de.philipphager.disclosure.feature.library.detail.LibraryDetailActivity");
   }
 
   @Test public void navigateToLibraryOverviewActivityPassesLibraryParcelable() {
     Library mockLibrary = MockLibrary.TEST;
-    navigator.toLibraryOverview(mockLibrary);
+    navigator.toLibraryDetail(mockLibrary);
 
     ArgumentCaptor<Intent> intentCaptor = ArgumentCaptor.forClass(Intent.class);
     verify(activity).startActivity(intentCaptor.capture());

@@ -5,30 +5,34 @@ apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'com.noveogroup.android.check'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'findbugs'
+apply plugin: 'com.getkeepsafe.dexcount'
+
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 1
+def versionPatch = 3
 def versionBuild = 0
 
 android {
   compileSdkVersion 25
-  buildToolsVersion '25.0.0'
+  buildToolsVersion '25.0.2'
   defaultConfig {
     applicationId 'de.philipphager.disclosure'
     minSdkVersion 21
-    targetSdkVersion 24
+    targetSdkVersion 25
     versionCode versionMajor * 100000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     release {
-      minifyEnabled false
+      minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
 
     debug {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix "-dev"
     }
@@ -44,25 +48,28 @@ android {
   }
 }
 
-def supportVersion = '25.0.0'
+def supportVersion = '25.1.1'
 def autovalueVersion = '1.2'
 def autovalueGsonVersion = '0.4.4'
 def autovalueParcelVersion = '0.2.5'
 def butterknifeVersion = '8.4.0'
 def daggerVersion = '2.8'
-def retrofitVersion = '2.1.0'
+def retrofitVersion = '2.2.0'
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
   // Database
-  compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
+  compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
+  compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
   // Design
   compile "com.android.support:appcompat-v7:${supportVersion}"
-  compile "com.android.support:design:${supportVersion}"
   compile "com.android.support:support-annotations:${supportVersion}"
-  compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
+  compile "com.android.support:cardview-v7:${supportVersion}"
+  compile "com.android.support:preference-v7:${supportVersion}"
+  compile "com.android.support:transition:${supportVersion}"
+  compile 'com.takisoft.fix:preference-v7:25.1.1.0'
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"
@@ -73,7 +80,7 @@ dependencies {
   testCompile 'org.threeten:threetenbp:1.3.2'
 
   // Functional reactive
-  compile 'io.reactivex:rxjava:1.1.10'
+  compile 'io.reactivex:rxjava:1.2.7'
   compile 'io.reactivex:rxandroid:1.2.1'
   compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
 
@@ -81,24 +88,27 @@ dependencies {
   compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
   compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
   compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}";
-  compile 'com.squareup.okhttp3:okhttp:3.4.2'
+  compile 'com.squareup.okhttp3:okhttp:3.6.0'
   compile 'com.google.code.gson:gson:2.8.0'
 
   // Value classes and serialization helpers
-  provided "com.google.auto.value:auto-value:${autovalueVersion}"
+  compile "com.google.auto.value:auto-value:${autovalueVersion}"
   apt "com.google.auto.value:auto-value:${autovalueVersion}"
-  provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   apt "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   apt "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
-  compile "com.ryanharter.auto.value:auto-value-parcel-adapter:${autovalueParcelVersion}"
+  apt 'com.gabrielittner.auto.value:auto-value-with:1.0.0'
 
   // View
   apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
   compile "com.jakewharton:butterknife:${butterknifeVersion}"
-  compile 'net.cachapa.expandablelayout:expandablelayout:2.3'
+  compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
+  compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.3'
+  compile 'me.gujun.android.taggroup:library:1.4@aar'
 
   // APK parser
-  compile 'net.dongliu:apk-parser:2.1.6'
+  compile 'org.smali:baksmali:2.1.3'
+  compile 'com.jakewharton.android.repackaged:libcore-dex:7.1.0_r7'
 
   // Memory leak detection
   debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -133,7 +143,7 @@ check {
   abortOnError true
 
   checkstyle {
-    config easy()
+    config '../config/checkstyle.xml'
   }
 
   pmd {
