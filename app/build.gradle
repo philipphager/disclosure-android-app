@@ -161,7 +161,6 @@ task androidFindbugs(type: FindBugs, overwrite: true) {
   source = fileTree('src/main/java')
   classpath = files()
 
-  ignoreFailures = true
   effort = "default"
   reportLevel = "medium"
 
