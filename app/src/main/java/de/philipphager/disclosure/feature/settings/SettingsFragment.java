@@ -28,6 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Naviga
 
     inject();
 
+    setupContact();
     setupLicense();
     setupVersion();
   }
@@ -40,6 +41,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Naviga
     DisclosureApp application = (DisclosureApp) getActivity().getApplication();
     application.getApplicationComponent().inject(this);
     navigator.setActivity(getActivity());
+  }
+
+  private void setupContact() {
+    Preference preference = findPreference(getString(R.string.settings_contact));
+    preference.setOnPreferenceClickListener(pref -> {
+      navigate().toNestedSystemSetting(NestedSettingsActivity.CONTACT);
+      return true;
+    });
   }
 
   private void setupLicense() {

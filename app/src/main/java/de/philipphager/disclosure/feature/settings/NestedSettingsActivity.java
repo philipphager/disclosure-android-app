@@ -9,16 +9,14 @@ import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import de.philipphager.disclosure.ApplicationComponent;
 import de.philipphager.disclosure.R;
-import de.philipphager.disclosure.feature.settings.nested.LicenseFragment;
+import de.philipphager.disclosure.feature.settings.screens.ContactFragment;
+import de.philipphager.disclosure.feature.settings.screens.LicenseFragment;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 
 public class NestedSettingsActivity extends BaseActivity {
-  private static final String EXTRA_SETTINGS_SCREEN = "EXTRA_SETTINGS_SCREEN";
   public static final String LICENSE = "LICENSE";
-  @StringDef(value = {LICENSE})
-  public @interface SettingsScreen {
-  }
-
+  public static final String CONTACT = "CONTACT";
+  private static final String EXTRA_SETTINGS_SCREEN = "EXTRA_SETTINGS_SCREEN";
   @BindView(R.id.toolbar) Toolbar toolbar;
 
   public static Intent launch(Context context, @SettingsScreen String screen) {
@@ -44,6 +42,13 @@ public class NestedSettingsActivity extends BaseActivity {
               .add(R.id.content_frame, LicenseFragment.newInstance(), LICENSE)
               .commit();
           break;
+        case CONTACT:
+          getSupportActionBar().setTitle(R.string.fragment_license_title);
+          getSupportFragmentManager()
+              .beginTransaction()
+              .add(R.id.content_frame, ContactFragment.newInstance(), CONTACT)
+              .commit();
+          break;
         default:
           throw new RuntimeException(String.format("No settings screen for %s", screenId));
       }
@@ -52,5 +57,9 @@ public class NestedSettingsActivity extends BaseActivity {
 
   @Override protected void injectActivity(ApplicationComponent appComponent) {
     appComponent.inject(this);
+  }
+
+  @StringDef(value = {LICENSE, CONTACT})
+  public @interface SettingsScreen {
   }
 }

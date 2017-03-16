@@ -19,6 +19,12 @@
       android:title="@string/settings_about_title">
 
     <Preference
+        android:key="@string/settings_contact"
+        android:title="@string/settings_contact_title"
+        android:summary=""
+        android:checked="false"/>
+
+    <Preference
         android:key="@string/settings_license_and_thanks"
         android:title="@string/settings_license_and_thanks_title"
         android:summary=""

@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.settings.nested;
+package de.philipphager.disclosure.feature.settings.screens;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
