@@ -42,7 +42,7 @@ public class NestedSettingsActivity extends BaseActivity {
               .commit();
           break;
         default:
-          throw new RuntimeException(String.format("No settings screen for %s", screenId));
+          throw new IllegalStateException(String.format("No settings screen for %s", screenId));
       }
     }
   }
