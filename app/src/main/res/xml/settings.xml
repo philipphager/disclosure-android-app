@@ -19,6 +19,14 @@
       android:title="@string/settings_about_title">
 
     <Preference
+        android:key="@string/settings_changelog"
+        android:title="@string/settings_changelog_title">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data=""/>
+    </Preference>
+
+    <Preference
         android:key="@string/settings_contact"
         android:title="@string/settings_contact_title"
         android:summary=""

@@ -42,6 +42,8 @@
   <string name="settings_license_and_thanks_title">Licenses &amp; Thanks</string>
   <string name="settings_thanks">Thanks</string>
   <string name="settings_thanks_title">Thanks</string>
+  <string name="settings_changelog">Changelog</string>
+  <string name="settings_changelog_title">Changelog</string>
   <string name="settings_contact">Contact</string>
   <string name="settings_contact_title">Contact</string>
   <string name="settings_license">Licenses</string>
