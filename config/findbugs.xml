@@ -33,4 +33,9 @@
     <Class name="~.*\.R\$.*"/>
     <Bug pattern="NM_CLASS_NAMING_CONVENTION"/>
   </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.app.model.AppReport"/>
+    <Method name="App"/>
+    <Bug pattern="NM_METHOD_NAMING_CONVENTION"/>
+  </Match>
 </FindBugsFilter>
