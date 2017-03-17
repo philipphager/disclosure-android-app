@@ -6,9 +6,7 @@ import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
 import dagger.Provides;
 import de.philipphager.disclosure.database.app.AppModule;
-import de.philipphager.disclosure.database.feature.FeatureModule;
 import de.philipphager.disclosure.database.library.modules.LibraryAppModule;
-import de.philipphager.disclosure.database.library.modules.LibraryFeatureModule;
 import de.philipphager.disclosure.database.library.modules.LibraryModule;
 import de.philipphager.disclosure.database.method.modules.ProtectedMethodModule;
 import de.philipphager.disclosure.database.migration.Migration;
@@ -20,13 +18,11 @@ import javax.inject.Singleton;
 
 @Module(includes = {
     AppModule.class,
-    FeatureModule.class,
     LibraryAppModule.class,
     LibraryModule.class,
     PermissionModule.class,
     ProtectedMethodModule.class,
     VersionModule.class,
-    LibraryFeatureModule.class
 })
 public class DatabaseModule {
   @Provides @Singleton

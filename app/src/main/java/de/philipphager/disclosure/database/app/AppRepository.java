@@ -90,16 +90,6 @@ public class AppRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<App>> byFeature(BriteDatabase db, String featureId) {
-    SqlDelightStatement selectByFeature = App.FACTORY.selectByFeature(featureId);
-    CursorToListMapper<App> cursorToList =
-        new CursorToListMapper<>(App.FACTORY.selectByFeatureMapper());
-
-    return db.createQuery(selectByFeature.tables, selectByFeature.statement, selectByFeature.args)
-        .map(SqlBrite.Query::run)
-        .map(cursorToList);
-  }
-
   public Observable<List<App.Info>> allInfos(BriteDatabase db) {
     CursorToListMapper<App.Info> cursorToList = new CursorToListMapper<>(App.Info.MAPPER);
 
