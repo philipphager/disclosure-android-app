@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'com.noveogroup.android.check'
@@ -49,7 +48,7 @@ android {
 }
 
 def supportVersion = '25.3.0'
-def autovalueVersion = '1.2'
+def autovalueVersion = '1.4'
 def autovalueGsonVersion = '0.4.4'
 def autovalueParcelVersion = '0.2.5'
 def butterknifeVersion = '8.4.0'
@@ -73,7 +72,7 @@ dependencies {
 
   // Dependency injection with dagger 2
   compile "com.google.dagger:dagger:${daggerVersion}"
-  apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+  annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 
   // Datetime
   compile 'com.jakewharton.threetenabp:threetenabp:1.0.3'
@@ -92,15 +91,15 @@ dependencies {
   compile 'com.google.code.gson:gson:2.8.0'
 
   // Value classes and serialization helpers
-  compile "com.google.auto.value:auto-value:${autovalueVersion}"
-  apt "com.google.auto.value:auto-value:${autovalueVersion}"
-  apt "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
+  annotationProcessor "com.google.auto.value:auto-value:${autovalueVersion}"
+  provided "com.jakewharton.auto.value:auto-value-annotations:${autovalueVersion}"
+  annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
   provided "com.ryanharter.auto.value:auto-value-gson:${autovalueGsonVersion}"
-  apt "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
-  apt 'com.gabrielittner.auto.value:auto-value-with:1.0.0'
+  annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autovalueParcelVersion}"
+  annotationProcessor 'com.gabrielittner.auto.value:auto-value-with:1.0.0'
 
   // View
-  apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+  annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
   compile "com.jakewharton:butterknife:${butterknifeVersion}"
   compile 'com.aurelhubert:ahbottomnavigation:1.5.1'
   compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.3'
