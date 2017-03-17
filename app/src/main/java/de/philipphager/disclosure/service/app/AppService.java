@@ -79,11 +79,6 @@ public class AppService {
     return appRepository.byLibraryWithPermissionCount(db, libraryId);
   }
 
-  public Observable<List<App>> byFeature(String featureId) {
-    BriteDatabase db = databaseManager.get();
-    return appRepository.byFeature(db, featureId);
-  }
-
   public void insertOrUpdate(App app) {
     BriteDatabase db = databaseManager.get();
     try (BriteDatabase.Transaction transaction = db.newTransaction()) {

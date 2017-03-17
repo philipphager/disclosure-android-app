@@ -85,11 +85,6 @@ public class LibraryService {
     return libraryRepository.byAppWithPermissionUpdate(db, app.id());
   }
 
-  public Observable<List<Library>> byFeature(String featureId) {
-    BriteDatabase db = databaseManager.get();
-    return libraryRepository.byFeature(db, featureId);
-  }
-
   public Observable<List<Library>> byType(Library.Type type) {
     BriteDatabase db = databaseManager.get();
     return libraryRepository.byType(db, type);

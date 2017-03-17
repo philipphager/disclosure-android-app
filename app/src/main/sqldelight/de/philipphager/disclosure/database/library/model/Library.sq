@@ -49,12 +49,6 @@ FROM Library LEFT OUTER JOIN LibraryApp ON Library.id = LibraryApp.libraryId
 LEFT OUTER JOIN AppLibraryPermission ON Library.id = AppLibraryPermission.libraryId
 WHERE LibraryApp.appId = ?;
 
-selectByFeature:
-SELECT Library.*
-FROM LibraryFeature, Library
-WHERE LibraryFeature.libraryId = Library.id
-AND LibraryFeature.featureId = ?;
-
 selectByType:
 SELECT Library.*
 FROM Library

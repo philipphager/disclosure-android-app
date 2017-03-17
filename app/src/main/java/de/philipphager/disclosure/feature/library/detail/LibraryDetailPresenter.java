@@ -3,7 +3,6 @@ package de.philipphager.disclosure.feature.library.detail;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.service.FeatureService;
 import de.philipphager.disclosure.service.app.AppService;
 import javax.inject.Inject;
 import rx.Observable;
@@ -16,15 +15,12 @@ import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull
 
 public class LibraryDetailPresenter {
   private final AppService appService;
-  private final FeatureService featureService;
   private CompositeSubscription subscriptions;
   private LibraryDetailView view;
   private Library library;
 
-  @Inject public LibraryDetailPresenter(AppService appService,
-      FeatureService featureService) {
+  @Inject public LibraryDetailPresenter(AppService appService) {
     this.appService = appService;
-    this.featureService = featureService;
   }
 
   public void onCreate(LibraryDetailView view, Library library) {
@@ -33,7 +29,6 @@ public class LibraryDetailPresenter {
     this.subscriptions = new CompositeSubscription();
 
     initUi();
-    loadFeatures();
     loadApps();
   }
 
@@ -57,17 +52,6 @@ public class LibraryDetailPresenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(apps -> {
           view.showApps(apps);
-        }, throwable -> {
-          Timber.e(throwable, "while loading apps by library");
-        }));
-  }
-
-  private void loadFeatures() {
-    subscriptions.add(featureService.byLibrary(library.id())
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(features -> {
-          Timber.d("library %s has following features %s", library, features);
         }, throwable -> {
           Timber.e(throwable, "while loading apps by library");
         }));

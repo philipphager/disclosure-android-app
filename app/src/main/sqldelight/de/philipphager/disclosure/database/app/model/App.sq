@@ -80,14 +80,6 @@ FROM App, LibraryApp
 WHERE App.id = LibraryApp.appId
 AND LibraryApp.libraryId = ?;
 
-selectByFeature:
-SELECT App.*
-FROM App, LibraryApp, Library, LibraryFeature
-WHERE App.id = LibraryApp.appId
-AND LibraryApp.libraryId = Library.id
-AND Library.id = LibraryFeature.libraryId
-AND LibraryFeature.featureId = ?;
-
 selectAllWithLibraryCount:
 SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
