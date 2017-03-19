@@ -10,7 +10,8 @@ public final class RxUtils {
   }
 
   public static Observable<Integer> infRange(int start) {
-    return Observable.range(start, Integer.MAX_VALUE);
+    int end = Integer.MAX_VALUE - start;
+    return Observable.range(start, end);
   }
 
   private RxUtils() {

@@ -11,6 +11,7 @@ import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAp
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.util.device.DeviceFeatures;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,7 +21,6 @@ import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
-import static de.philipphager.disclosure.util.device.DeviceFeatures.supportsRuntimePermissions;
 
 public class AppDetailPresenter {
   private static final int UNINSTALL_REQUEST_CODE = 39857;
@@ -32,6 +32,7 @@ public class AppDetailPresenter {
   private final AnalyseUsedPermissions analyseUsedPermissions;
   private final FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions;
   private final AppAnalyticsService appAnalyticsService;
+  private final DeviceFeatures deviceFeatures;
   private CompositeSubscription subscriptions;
   private DetailView view;
   private App app;
@@ -42,7 +43,8 @@ public class AppDetailPresenter {
       @DisplayAllPermissions Preference<Boolean> displayAllPermissions,
       AnalyseUsedPermissions analyseUsedPermissions,
       FetchLibrariesForAppWithPermissions fetchLibrariesForAppWithPermissions,
-      AppAnalyticsService appAnalyticsService) {
+      AppAnalyticsService appAnalyticsService,
+      DeviceFeatures deviceFeatures) {
     this.appService = appService;
     this.intentFactory = intentFactory;
     this.hasSeenEditPermissionsTutorial = hasSeenEditPermissionsTutorial;
@@ -50,6 +52,7 @@ public class AppDetailPresenter {
     this.analyseUsedPermissions = analyseUsedPermissions;
     this.fetchLibrariesForAppWithPermissions = fetchLibrariesForAppWithPermissions;
     this.appAnalyticsService = appAnalyticsService;
+    this.deviceFeatures = deviceFeatures;
   }
 
   public void onCreate(DetailView view, App app) {
@@ -81,7 +84,7 @@ public class AppDetailPresenter {
   private void initView(App app) {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
-    view.enableEditPermissions(supportsRuntimePermissions());
+    view.enableEditPermissions(deviceFeatures.supportsRuntimePermissions());
   }
 
   private void fetchAppUpdates() {
@@ -138,7 +141,7 @@ public class AppDetailPresenter {
   }
 
   public void onEditPermissionsClicked() {
-    if (supportsRuntimePermissions()) {
+    if (deviceFeatures.supportsRuntimePermissions()) {
       editPermissions();
     } else {
       view.showRuntimePermissionsTutorial(app.packageName());
