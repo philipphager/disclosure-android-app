@@ -50,8 +50,9 @@ public class PermissionRepository {
   public Observable<List<Permission>> all(BriteDatabase db) {
     CursorToListMapper<Permission> cursorToList =
         new CursorToListMapper<>(Permission.FACTORY.selectAllMapper());
+    SqlDelightStatement selectAll = Permission.FACTORY.selectAll();
 
-    return db.createQuery(Permission.TABLE_NAME, Permission.SELECTALL)
+    return db.createQuery(selectAll.tables, selectAll.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

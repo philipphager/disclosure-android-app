@@ -9,10 +9,7 @@ import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
-import de.philipphager.disclosure.database.library.model.LibraryApp;
-import de.philipphager.disclosure.database.permission.model.AppLibraryPermission;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
@@ -63,8 +60,9 @@ public class AppRepository {
 
   public Observable<List<App>> all(BriteDatabase db) {
     CursorToListMapper<App> cursorToList = new CursorToListMapper<>(App.FACTORY.selectAllMapper());
+    SqlDelightStatement selectAll = App.FACTORY.selectAll();
 
-    return db.createQuery(App.TABLE_NAME, App.SELECTALL)
+    return db.createQuery(selectAll.tables, selectAll.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
@@ -92,8 +90,9 @@ public class AppRepository {
 
   public Observable<List<App.Info>> allInfos(BriteDatabase db) {
     CursorToListMapper<App.Info> cursorToList = new CursorToListMapper<>(App.Info.MAPPER);
+    SqlDelightStatement selectAllInfos = App.FACTORY.selectAllInfos();
 
-    return db.createQuery(App.TABLE_NAME, App.SELECTALLINFOS)
+    return db.createQuery(selectAllInfos.tables, selectAllInfos.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
@@ -101,9 +100,9 @@ public class AppRepository {
   public Observable<List<AppWithLibraries>> allWithLibraryCount(BriteDatabase db) {
     CursorToListMapper<AppWithLibraries> cursorToList =
         new CursorToListMapper<>(AppWithLibraries.MAPPER);
+    SqlDelightStatement selectAllWithLibraryCount = App.FACTORY.selectAllWithLibraryCount();
 
-    return db.createQuery(Arrays.asList(App.TABLE_NAME, LibraryApp.TABLE_NAME),
-        App.SELECTALLWITHLIBRARYCOUNT)
+    return db.createQuery(selectAllWithLibraryCount.tables, selectAllWithLibraryCount.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
@@ -145,11 +144,9 @@ public class AppRepository {
 
   public Observable<List<AppReport>> selectReport(BriteDatabase db) {
     CursorToListMapper<AppReport> cursorToList = new CursorToListMapper<>(AppReport.MAPPER);
+    SqlDelightStatement selectReport = App.FACTORY.selectReport();
 
-    List<String> tables = Arrays.asList(App.TABLE_NAME, LibraryApp.TABLE_NAME, "Report",
-        AppLibraryPermission.TABLE_NAME);
-
-    return db.createQuery(tables, App.SELECTREPORT)
+    return db.createQuery(selectReport.tables, selectReport.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

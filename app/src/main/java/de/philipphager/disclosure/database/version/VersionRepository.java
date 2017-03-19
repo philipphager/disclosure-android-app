@@ -56,8 +56,9 @@ public class VersionRepository {
   public Observable<List<Version>> all(BriteDatabase db) {
     CursorToListMapper<Version> cursorToList =
         new CursorToListMapper<>(Version.FACTORY.selectAllMapper());
+    SqlDelightStatement selectAll = Version.FACTORY.selectAll();
 
-    return db.createQuery(Version.TABLE_NAME, Version.SELECTALL)
+    return db.createQuery(selectAll.tables, selectAll.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
