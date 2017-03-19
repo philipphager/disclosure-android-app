@@ -14,12 +14,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FileUtilsShould {
-  @Mock File mockFile;
-  @Mock File mockFileTwo;
-  @Mock File mockFileThree;
-  @Mock File mockDirectory;
-  @Mock File mockDirectoryTwo;
-  @InjectMocks FileUtils fileUtils;
+  @Mock protected File mockFile;
+  @Mock protected File mockFileTwo;
+  @Mock protected File mockFileThree;
+  @Mock protected File mockDirectory;
+  @Mock protected File mockDirectoryTwo;
+  @InjectMocks protected FileUtils fileUtils;
 
   @Before public void setUp() {
     when(mockDirectory.isDirectory()).thenReturn(true);
