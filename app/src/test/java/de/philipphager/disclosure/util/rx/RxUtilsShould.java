@@ -50,11 +50,9 @@ public class RxUtilsShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void intRangeFromStartValue() {
-    Observable<Integer> observable = RxUtils.infRange(10);
-
     TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
 
-    observable
+    RxUtils.infRange(10)
         .take(5)
         .toBlocking()
         .subscribe(testSubscriber);
@@ -64,11 +62,9 @@ public class RxUtilsShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void notEmitEndItem() {
-    Observable<Integer> observable = RxUtils.infRange(Integer.MAX_VALUE - 1);
-
     TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
 
-    observable
+    RxUtils.infRange(Integer.MAX_VALUE - 1)
         .take(5)
         .toBlocking()
         .subscribe(testSubscriber);
@@ -78,11 +74,9 @@ public class RxUtilsShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void emitNoValuesIfStartEqualsEnd() {
-    Observable<Integer> observable = RxUtils.infRange(Integer.MAX_VALUE);
-
     TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
 
-    observable
+    RxUtils.infRange(Integer.MAX_VALUE)
         .take(5)
         .toBlocking()
         .subscribe(testSubscriber);
