@@ -6,15 +6,16 @@ import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.service.PermissionService;
+import de.philipphager.disclosure.util.device.DeviceFeatures;
 import de.philipphager.disclosure.util.ui.StringProvider;
 import javax.inject.Inject;
 
 import static de.philipphager.disclosure.util.assertion.Assertions.ensureNotNull;
-import static de.philipphager.disclosure.util.device.DeviceFeatures.supportsRuntimePermissions;
 
 public class PermissionExplanationDialogPresenter {
   private final PermissionService permissionService;
   private final StringProvider stringProvider;
+  private final DeviceFeatures deviceFeatures;
   private PermissionExplanationDialogView view;
   private App app;
   private Permission permission;
@@ -22,9 +23,11 @@ public class PermissionExplanationDialogPresenter {
   private Boolean canBeRevoked;
 
   @Inject public PermissionExplanationDialogPresenter(PermissionService permissionService,
-      StringProvider stringProvider) {
+      StringProvider stringProvider,
+      DeviceFeatures deviceFeatures) {
     this.permissionService = permissionService;
     this.stringProvider = stringProvider;
+    this.deviceFeatures = deviceFeatures;
   }
 
   public void onCreate(PermissionExplanationDialogView view, App app,
@@ -64,7 +67,7 @@ public class PermissionExplanationDialogPresenter {
   public boolean permissionCanBeRevoked() {
     if (canBeRevoked == null) {
       canBeRevoked = permission.protectionLevel() == PermissionInfo.PROTECTION_DANGEROUS
-          && supportsRuntimePermissions()
+          && deviceFeatures.supportsRuntimePermissions()
           && permissionWasGrantedForApp();
     }
 
