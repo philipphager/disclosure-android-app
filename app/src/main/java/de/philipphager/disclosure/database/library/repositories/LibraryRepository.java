@@ -3,7 +3,6 @@ package de.philipphager.disclosure.database.library.repositories;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
-import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
@@ -62,8 +61,9 @@ public class LibraryRepository {
   public Observable<List<Library>> all(BriteDatabase db) {
     CursorToListMapper<Library> cursorToList =
         new CursorToListMapper<>(Library.FACTORY.selectAllMapper());
+    SqlDelightStatement selectAll = Library.FACTORY.selectAll();
 
-    return db.createQuery(App.TABLE_NAME, Library.SELECTALL)
+    return db.createQuery(selectAll.tables, selectAll.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
@@ -119,7 +119,9 @@ public class LibraryRepository {
   }
 
   public Observable<OffsetDateTime> lastUpdated(BriteDatabase db) {
-    return db.createQuery(Library.TABLE_NAME, Library.SELECTLASTUPDATED)
+    SqlDelightStatement selectLastUpdated = Library.FACTORY.selectLastUpdated();
+
+    return db.createQuery(selectLastUpdated.tables, selectLastUpdated.statement)
         .map(SqlBrite.Query::run)
         .map(cursor -> {
           if (cursor != null && cursor.getCount() > 0) {

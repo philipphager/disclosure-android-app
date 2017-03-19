@@ -36,8 +36,9 @@ public class MethodRepository {
     public Observable<List<ProtectedMethod>> all(BriteDatabase db) {
       CursorToListMapper<ProtectedMethod> cursorToList =
           new CursorToListMapper<>(ProtectedMethod.FACTORY.selectAllMapper());
+      SqlDelightStatement selectAll = ProtectedMethod.FACTORY.selectAll();
 
-      return db.createQuery(ProtectedMethod.TABLE_NAME, ProtectedMethod.SELECTALL)
+      return db.createQuery(selectAll.tables, selectAll.statement)
           .map(SqlBrite.Query::run)
           .map(cursorToList);
     }
