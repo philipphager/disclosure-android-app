@@ -13,6 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class FileUtilsShould {
   @Mock protected File mockFile;
   @Mock protected File mockFileTwo;
