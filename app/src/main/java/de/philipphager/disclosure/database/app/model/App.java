@@ -9,14 +9,13 @@ import org.threeten.bp.LocalDateTime;
 
 @AutoValue public abstract class App implements AppModel, Parcelable {
   public static final Factory<App> FACTORY = new Factory<>(
-      (id, label, packageName, process, sourceDir, flags, analyzedAt, isTrusted) -> builder().id(id)
+      (id, label, packageName, process, sourceDir, flags, analyzedAt) -> builder().id(id)
           .label(label)
           .packageName(packageName)
           .process(process)
           .sourceDir(sourceDir)
           .flags(flags)
           .analyzedAt(analyzedAt)
-          .isTrusted(isTrusted)
           .build(), new LocalDateTimeColumnAdapter());
 
   public static Builder builder() {
@@ -37,10 +36,6 @@ import org.threeten.bp.LocalDateTime;
 
   @Nullable public abstract LocalDateTime analyzedAt();
 
-  public abstract Boolean isTrusted();
-
-  public abstract App withIsTrusted(Boolean isTrusted);
-
   public abstract App withAnalyzedAt(LocalDateTime analyzedAt);
 
   @AutoValue.Builder public interface Builder {
@@ -57,8 +52,6 @@ import org.threeten.bp.LocalDateTime;
     Builder flags(Integer flags);
 
     Builder analyzedAt(@Nullable LocalDateTime analyzedAt);
-
-    Builder isTrusted(Boolean isTrusted);
 
     App build();
   }

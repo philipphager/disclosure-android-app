@@ -9,14 +9,13 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
 
 @AutoValue public abstract class AppWithLibraries implements App.SelectAllWithLibraryCountModel {
   public static final RowMapper<AppWithLibraries> MAPPER = FACTORY.selectAllWithLibraryCountMapper(
-      (id, label, packageName, process, sourceDir, flags, analyzedAt, isTrusted, libraryCount) -> builder().id(
+      (id, label, packageName, process, sourceDir, flags, analyzedAt, libraryCount) -> builder().id(
           id)
           .label(label)
           .packageName(packageName)
           .process(process)
           .sourceDir(sourceDir)
           .flags(flags)
-          .isTrusted(isTrusted)
           .analyzedAt(analyzedAt)
           .libraryCount(libraryCount)
           .build());

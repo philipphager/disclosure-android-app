@@ -8,8 +8,7 @@ CREATE TABLE App (
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,
   flags INTEGER AS Integer,
-  analyzedAt INTEGER AS LocalDateTime,
-  isTrusted INTEGER AS Boolean
+  analyzedAt INTEGER AS LocalDateTime
 );
 
 report:
@@ -42,12 +41,12 @@ OR Library.title LIKE upper('%' || ? || '%')
 GROUP BY Report.id;
 
 insertApp:
-INSERT INTO App (label, packageName, process, sourceDir, flags, analyzedAt, isTrusted)
-VALUES (?, ?, ?, ?, ?, ?, ?);
+INSERT INTO App (label, packageName, process, sourceDir, flags, analyzedAt)
+VALUES (?, ?, ?, ?, ?, ?);
 
 updateApp:
 UPDATE App
-SET label = ?, process = ?, sourceDir = ?, flags = ?, analyzedAt = ?, isTrusted = ?
+SET label = ?, process = ?, sourceDir = ?, flags = ?, analyzedAt = ?
 WHERE packageName = ?;
 
 selectAll:
@@ -81,20 +80,14 @@ WHERE App.id = LibraryApp.appId
 AND LibraryApp.libraryId = ?;
 
 selectAllWithLibraryCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(libraryId) AS libraryCount
 FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
 GROUP BY App.id;
 
 selectAllWithPermissionCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(permissionId) AS permissionCount
+SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(permissionId) AS permissionCount
 FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
 LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
 AND LibraryApp.libraryId = AppLibraryPermission.libraryId
 WHERE LibraryApp.libraryId = ?
 GROUP BY LibraryApp.appId;
-
-selectTrusted:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, App.isTrusted, count(libraryId) AS libraryCount
-FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
-WHERE App.isTrusted = ?
-GROUP BY App.id;

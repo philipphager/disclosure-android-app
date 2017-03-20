@@ -148,12 +148,6 @@ public class AppDetailPresenter {
     }
   }
 
-  public void onTrustAppClicked() {
-    App tempApp = this.app.withIsTrusted(!app.isTrusted());
-    appService.insertOrUpdate(tempApp);
-    app = tempApp;
-  }
-
   public boolean onEditPermissionsLongClicked() {
     view.showEditPermissionsTutorial(app.packageName());
     return true;
