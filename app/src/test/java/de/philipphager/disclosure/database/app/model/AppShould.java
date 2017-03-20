@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         .flags(MockApp.TEST.flags())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
-        .isTrusted(MockApp.TEST.isTrusted())
         .build();
 
     assertThat(app).isEqualTo(MockApp.TEST);
@@ -29,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         .flags(MockApp.TEST.flags())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
-        .isTrusted(MockApp.TEST.isTrusted())
         .build();
 
     assertThat(app.id()).isNull();
@@ -41,7 +39,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         .flags(MockApp.TEST.flags())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
-        .isTrusted(MockApp.TEST.isTrusted())
         .build();
   }
 

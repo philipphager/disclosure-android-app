@@ -30,7 +30,6 @@ import static org.mockito.Mockito.when;
         .process(MockApp.TEST2.process())
         .sourceDir(MockApp.TEST2.sourceDir())
         .flags(MockApp.TEST2.flags())
-        .isTrusted(MockApp.TEST2.isTrusted())
         .build();
 
     App app = toAppMapper.map(MockApplicationInfo.TEST2);
