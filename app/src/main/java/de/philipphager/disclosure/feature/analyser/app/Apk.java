@@ -11,23 +11,20 @@ import rx.Observable;
 
 public class Apk {
   private final App app;
+  private final DexFile dexFile;
 
   public Apk(App app) throws IOException {
     this.app = app;
+    this.dexFile = new DexFile(new File(app.sourceDir()));
   }
 
   public App getApp() {
     return app;
   }
 
-  public Observable<List<String>> getUsedClasses() throws IOException {
-    File file = new File(app.sourceDir());
+  public Observable<List<String>> getUsedClasses() {
     List<String> classNames = new ArrayList<>();
-
-    if (file.exists()) {
-      DexFile dexFile = new DexFile(app.sourceDir());
-      classNames.addAll(Collections.list(dexFile.entries()));
-    }
+    classNames.addAll(Collections.list(dexFile.entries()));
 
     return Observable.from(classNames)
         .distinct()
