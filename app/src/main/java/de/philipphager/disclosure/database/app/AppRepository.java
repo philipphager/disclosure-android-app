@@ -25,16 +25,16 @@ public class AppRepository {
 
   public long insert(BriteDatabase db, App app) {
     synchronized (this) {
-      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags(),
-          app.analyzedAt());
+      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(),
+          app.targetSdk(), app.flags(), app.analyzedAt());
       return db.executeInsert(App.TABLE_NAME, insertApp.program);
     }
   }
 
   public int update(BriteDatabase db, App app) {
     synchronized (this) {
-      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.analyzedAt(),
-          app.packageName());
+      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(),
+          app.analyzedAt(), app.packageName());
       return db.executeUpdateDelete(App.TABLE_NAME, updateApp.program);
     }
   }

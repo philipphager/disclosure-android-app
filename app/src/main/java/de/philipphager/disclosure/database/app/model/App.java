@@ -9,11 +9,12 @@ import org.threeten.bp.LocalDateTime;
 
 @AutoValue public abstract class App implements AppModel, Parcelable {
   public static final Factory<App> FACTORY = new Factory<>(
-      (id, label, packageName, process, sourceDir, flags, analyzedAt) -> builder().id(id)
+      (id, label, packageName, process, sourceDir, targetSdk, flags, analyzedAt) -> builder().id(id)
           .label(label)
           .packageName(packageName)
           .process(process)
           .sourceDir(sourceDir)
+          .targetSdk(targetSdk)
           .flags(flags)
           .analyzedAt(analyzedAt)
           .build(), new LocalDateTimeColumnAdapter());
@@ -32,6 +33,8 @@ import org.threeten.bp.LocalDateTime;
 
   public abstract String sourceDir();
 
+  public abstract Integer targetSdk();
+
   public abstract Integer flags();
 
   @Nullable public abstract LocalDateTime analyzedAt();
@@ -48,6 +51,8 @@ import org.threeten.bp.LocalDateTime;
     Builder process(String name);
 
     Builder sourceDir(String path);
+
+    Builder targetSdk(Integer targetSdk);
 
     Builder flags(Integer flags);
 
