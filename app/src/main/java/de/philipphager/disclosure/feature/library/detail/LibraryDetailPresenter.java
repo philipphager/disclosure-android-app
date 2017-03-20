@@ -58,7 +58,7 @@ public class LibraryDetailPresenter {
   }
 
   public void onAppClicked(AppWithPermissions appWithPermissions) {
-    subscriptions.add(appService.byPackageName(appWithPermissions.packageName())
+    subscriptions.add(appService.byPackageName(appWithPermissions.App().packageName())
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(app -> {

@@ -80,7 +80,7 @@ WHERE App.id = LibraryApp.appId
 AND LibraryApp.libraryId = ?;
 
 selectAllWithPermissionCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(permissionId) AS permissionCount
+SELECT App.*, count(permissionId) AS permissionCount
 FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
 LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
 AND LibraryApp.libraryId = AppLibraryPermission.libraryId

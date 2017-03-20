@@ -79,7 +79,7 @@ public class AppPermissionRecyclerAdapter
 
     public void bind(final AppWithPermissions appWithPermissions,
         final OnAppClickListener listener) {
-      title.setText(appWithPermissions.label());
+      title.setText(appWithPermissions.App().label());
 
       String librariesDetected = appWithPermissions.permissionCountInt() == 0
           ? context.getResources().getString(R.string.library_list_item_no_permissions)
@@ -95,7 +95,7 @@ public class AppPermissionRecyclerAdapter
       subtitle.setTextColor(ContextCompat.getColor(context, textColor));
 
       new AppIconLoader.Builder(context)
-          .load(appWithPermissions.packageName())
+          .load(appWithPermissions.App().packageName())
           .onThread(Schedulers.io())
           .into(icon);
 
