@@ -6,11 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.functions.Func1;
 
-public class FilterIrelevantMethods implements Func1<Method, Boolean> {
+public class FilterIrrelevantMethods implements Func1<Method, Boolean> {
   private static final List<String> ANDROID_ORIGIN =
       Arrays.asList("Landroid", "Lcom/android", "Lcom/google", "Ljava", "Lorg/apache");
 
-  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public FilterIrelevantMethods() {
+  @Inject @SuppressWarnings("PMD.UnnecessaryConstructor") public FilterIrrelevantMethods() {
     // Needed for dagger injection.
   }
 
