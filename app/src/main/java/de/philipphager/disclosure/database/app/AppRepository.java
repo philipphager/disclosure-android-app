@@ -27,8 +27,7 @@ public class AppRepository {
   public long insert(BriteDatabase db, App app) {
     synchronized (this) {
       insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags(),
-          app.analyzedAt(),
-          app.isTrusted());
+          app.analyzedAt());
       return db.executeInsert(App.TABLE_NAME, insertApp.program);
     }
   }
@@ -36,7 +35,7 @@ public class AppRepository {
   public int update(BriteDatabase db, App app) {
     synchronized (this) {
       updateApp.bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.analyzedAt(),
-          app.isTrusted(), app.packageName());
+          app.packageName());
       return db.executeUpdateDelete(App.TABLE_NAME, updateApp.program);
     }
   }
@@ -127,17 +126,6 @@ public class AppRepository {
         new CursorToListMapper<>(AppReport.MAPPER);
 
     return db.createQuery(selectByQuery.tables, selectByQuery.statement, selectByQuery.args)
-        .map(SqlBrite.Query::run)
-        .map(cursorToList);
-  }
-
-  public Observable<List<AppWithLibraries>> selectTrusted(BriteDatabase db, boolean isTrusted) {
-    SqlDelightStatement selectTrusted = App.FACTORY.selectTrusted(isTrusted);
-
-    CursorToListMapper<AppWithLibraries> cursorToList =
-        new CursorToListMapper<>(AppWithLibraries.MAPPER);
-
-    return db.createQuery(selectTrusted.tables, selectTrusted.statement, selectTrusted.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

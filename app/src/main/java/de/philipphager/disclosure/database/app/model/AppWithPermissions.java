@@ -11,7 +11,7 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
     implements App.SelectAllWithPermissionCountModel {
   public static final RowMapper<AppWithPermissions> MAPPER =
       FACTORY.selectAllWithPermissionCountMapper(
-          (id, label, packageName, process, sourceDir, flags, analyzedAt, isTrusted, permissionCount) -> builder()
+          (id, label, packageName, process, sourceDir, flags, analyzedAt, permissionCount) -> builder()
               .id(id)
               .label(label)
               .packageName(packageName)
@@ -19,7 +19,6 @@ import static de.philipphager.disclosure.database.app.model.App.FACTORY;
               .sourceDir(sourceDir)
               .flags(flags)
               .analyzedAt(analyzedAt)
-              .isTrusted(isTrusted)
               .permissionCount(permissionCount)
               .build());
 
