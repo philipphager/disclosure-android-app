@@ -1,6 +1,5 @@
 package de.philipphager.disclosure.feature.analyser.app;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import timber.log.Timber;
@@ -12,7 +11,7 @@ public class ApkAnalyzer {
   private final List<String> classes;
   private final Apk apk;
 
-  public ApkAnalyzer(Apk apk) throws IOException {
+  public ApkAnalyzer(Apk apk) {
     ensureNotNull(apk, "must provide apk");
     this.apk = apk;
     this.classes = apk.getUsedClasses()
@@ -22,7 +21,8 @@ public class ApkAnalyzer {
 
   public boolean usesLibrary(String packageName) {
     String currentThread = Thread.currentThread().getName();
-    Timber.v("%s : Searching for package %s in app %s", currentThread, packageName, apk.getApp().label());
+    Timber.v("%s : Searching for package %s in app %s", currentThread, packageName,
+        apk.getApp().label());
 
     int index = Collections.binarySearch(classes, packageName, (currentItem, key) -> {
       if (currentItem.startsWith(key)) {
