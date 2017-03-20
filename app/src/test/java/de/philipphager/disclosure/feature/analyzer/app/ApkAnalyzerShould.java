@@ -19,10 +19,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApkAnalyzerShould {
-  private final String mockClass = "com.facebook.android.sdk";
-  private final String mockClassTwo = "com.mixpanel.android";
-  private final String mockClassThree = "com.mixpanel.android.MainClass";
-  private final List<String> classes = Arrays.asList(mockClass, mockClassTwo, mockClassThree);
+  private static final String MOCK_CLASS = "com.facebook.android.sdk";
+  private static final String MOCK_CLASS_TWO = "com.mixpanel.android";
+  private static final String MOCK_CLASS_THREE = "com.mixpanel.android.MainClass";
+  private final List<String> classes = Arrays.asList(MOCK_CLASS, MOCK_CLASS_TWO, MOCK_CLASS_THREE);
   @Mock protected Apk mockApk;
 
   @Before public void setUp() throws Exception {
@@ -32,7 +32,7 @@ public class ApkAnalyzerShould {
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void loadApkClassesOnInit() {
     when(mockApk.getUsedClasses()).thenReturn(Observable.just(classes));
-    ApkAnalyzer apkAnalyzer = new ApkAnalyzer(mockApk);
+    new ApkAnalyzer(mockApk);
 
     verify(mockApk).getUsedClasses();
   }
@@ -41,14 +41,14 @@ public class ApkAnalyzerShould {
     when(mockApk.getUsedClasses()).thenReturn(Observable.just(classes));
     ApkAnalyzer apkAnalyzer = new ApkAnalyzer(mockApk);
 
-    assertThat(apkAnalyzer.usesLibrary(mockClass)).isTrue();
+    assertThat(apkAnalyzer.usesLibrary(MOCK_CLASS)).isTrue();
   }
 
   @Test public void findLibraryIfApkContainsClassThatStartsWithName() {
     when(mockApk.getUsedClasses()).thenReturn(Observable.just(classes));
     ApkAnalyzer apkAnalyzer = new ApkAnalyzer(mockApk);
 
-    String classPrefix = mockClass.substring(0, 10);
+    String classPrefix = MOCK_CLASS.substring(0, 10);
 
     assertThat(apkAnalyzer.usesLibrary(classPrefix)).isTrue();
   }
@@ -66,6 +66,6 @@ public class ApkAnalyzerShould {
     when(mockApk.getUsedClasses()).thenReturn(Observable.just(Collections.EMPTY_LIST));
     ApkAnalyzer apkAnalyzer = new ApkAnalyzer(mockApk);
 
-    assertThat(apkAnalyzer.usesLibrary(mockClass)).isFalse();
+    assertThat(apkAnalyzer.usesLibrary(MOCK_CLASS)).isFalse();
   }
 }
