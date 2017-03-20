@@ -7,7 +7,6 @@ import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.List;
@@ -92,16 +91,6 @@ public class AppRepository {
     SqlDelightStatement selectAllInfos = App.FACTORY.selectAllInfos();
 
     return db.createQuery(selectAllInfos.tables, selectAllInfos.statement)
-        .map(SqlBrite.Query::run)
-        .map(cursorToList);
-  }
-
-  public Observable<List<AppWithLibraries>> allWithLibraryCount(BriteDatabase db) {
-    CursorToListMapper<AppWithLibraries> cursorToList =
-        new CursorToListMapper<>(AppWithLibraries.MAPPER);
-    SqlDelightStatement selectAllWithLibraryCount = App.FACTORY.selectAllWithLibraryCount();
-
-    return db.createQuery(selectAllWithLibraryCount.tables, selectAllWithLibraryCount.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

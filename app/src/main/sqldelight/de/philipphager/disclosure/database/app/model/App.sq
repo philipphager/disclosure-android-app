@@ -79,11 +79,6 @@ FROM App, LibraryApp
 WHERE App.id = LibraryApp.appId
 AND LibraryApp.libraryId = ?;
 
-selectAllWithLibraryCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(libraryId) AS libraryCount
-FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
-GROUP BY App.id;
-
 selectAllWithPermissionCount:
 SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(permissionId) AS permissionCount
 FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
