@@ -4,7 +4,7 @@ import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
 import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;

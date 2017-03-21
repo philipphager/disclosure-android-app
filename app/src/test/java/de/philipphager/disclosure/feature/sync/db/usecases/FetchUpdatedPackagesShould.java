@@ -6,7 +6,7 @@ import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

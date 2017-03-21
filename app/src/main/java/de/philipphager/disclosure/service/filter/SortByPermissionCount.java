@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.service.app.filter;
+package de.philipphager.disclosure.service.filter;
 
 import de.philipphager.disclosure.database.app.model.AppReport;
 import rx.functions.Func2;

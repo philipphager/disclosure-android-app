@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.service.app;
+package de.philipphager.disclosure.service;
 
 import android.content.pm.PackageInfo;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -12,11 +12,11 @@ import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
-import de.philipphager.disclosure.service.app.filter.SortBy;
-import de.philipphager.disclosure.service.app.filter.SortByAnalyzedAt;
-import de.philipphager.disclosure.service.app.filter.SortByLibraryCount;
-import de.philipphager.disclosure.service.app.filter.SortByName;
-import de.philipphager.disclosure.service.app.filter.SortByPermissionCount;
+import de.philipphager.disclosure.service.filter.SortBy;
+import de.philipphager.disclosure.service.filter.SortByAnalyzedAt;
+import de.philipphager.disclosure.service.filter.SortByLibraryCount;
+import de.philipphager.disclosure.service.filter.SortByName;
+import de.philipphager.disclosure.service.filter.SortByPermissionCount;
 import de.philipphager.disclosure.util.time.Clock;
 import java.util.List;
 import javax.inject.Inject;

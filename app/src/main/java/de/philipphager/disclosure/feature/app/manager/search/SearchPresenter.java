@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.app.manager.search;
 
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;

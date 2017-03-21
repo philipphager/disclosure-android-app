@@ -4,7 +4,7 @@ import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
 import de.philipphager.disclosure.feature.sync.db.DBSyncer;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
