@@ -2,7 +2,7 @@ package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
-import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.app.AppService;
 import java.util.List;
@@ -21,7 +21,7 @@ public class FetchUpdatedPackages {
   private final DevicePackageProvider appProvider;
   private final AppService appService;
   private final ToInfoMapper toInfoMapper;
-  private Observable<App.Info> savedApps;
+  private Observable<AppInfo> savedApps;
 
   @Inject public FetchUpdatedPackages(DevicePackageProvider appProvider,
       AppService appService,
@@ -53,7 +53,7 @@ public class FetchUpdatedPackages {
         .cache();
   }
 
-  private boolean appIsSaved(App.Info app) {
+  private boolean appIsSaved(AppInfo app) {
     return ensureNotNull(savedApps, "call loadInstalledApps() first!")
         .contains(app)
         .toBlocking()

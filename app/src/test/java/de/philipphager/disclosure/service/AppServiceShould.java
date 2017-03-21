@@ -5,6 +5,7 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.service.app.AppService;
@@ -67,11 +68,11 @@ public class AppServiceShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchAllAppInfos() {
-    List<App.Info> testInfos = Arrays.asList(MockApp.TEST_INFO, MockApp.TEST2_INFO);
+    List<AppInfo> testInfos = Arrays.asList(MockApp.TEST_INFO, MockApp.TEST2_INFO);
     when(appRepository.allInfos(any(BriteDatabase.class)))
         .thenReturn(Observable.just(testInfos));
 
-    TestSubscriber<List<App.Info>> subscriber = new TestSubscriber<>();
+    TestSubscriber<List<AppInfo>> subscriber = new TestSubscriber<>();
 
     appService.allInfos()
         .toBlocking()

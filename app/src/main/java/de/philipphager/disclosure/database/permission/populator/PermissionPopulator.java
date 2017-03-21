@@ -15,7 +15,9 @@ public class PermissionPopulator {
   }
 
   public void populate(SQLiteDatabase db) {
-    PermissionGroup personalInformation = PermissionGroup.create("fksjdfhksjdhf", "Personal Information", "Abilities to collect personal infos");
+    PermissionGroup personalInformation =
+        PermissionGroup.create("fksjdfhksjdhf", "Personal Information",
+            "Abilities to collect personal infos");
 
     List<Permission> permissions = new ArrayList<>();
     permissions.add(Permission.builder().id("android.permission.INTERNET")

@@ -6,6 +6,7 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.version.VersionRepository;
@@ -47,7 +48,7 @@ public class AppService {
     return appRepository.all(db);
   }
 
-  public Observable<List<App.Info>> allInfos() {
+  public Observable<List<AppInfo>> allInfos() {
     BriteDatabase db = databaseManager.get();
     return appRepository.allInfos(db);
   }

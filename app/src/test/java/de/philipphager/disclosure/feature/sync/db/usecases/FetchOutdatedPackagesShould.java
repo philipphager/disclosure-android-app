@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import android.content.pm.PackageInfo;
-import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
 import de.philipphager.disclosure.service.app.AppService;
@@ -26,17 +26,17 @@ public class FetchOutdatedPackagesShould {
   @Mock protected DevicePackageProvider appProvider;
   @Mock protected AppService appService;
   @InjectMocks protected FetchOutdatedPackages fetchOutdatedPackages;
-  private App.Info facebookInfo;
-  private App.Info facebookInfoVersion2;
-  private App.Info instagramInfo;
+  private AppInfo facebookInfo;
+  private AppInfo facebookInfoVersion2;
+  private AppInfo instagramInfo;
 
   @Before public void setUp() throws Exception {
     facebookInfo =
-        App.Info.create(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST.versionCode);
+        AppInfo.create(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST.versionCode);
     facebookInfoVersion2 =
-        App.Info.create(MockPackageInfo.TEST.packageName, 2);
+        AppInfo.create(MockPackageInfo.TEST.packageName, 2);
     instagramInfo =
-        App.Info.create(MockPackageInfo.TEST2.packageName, MockPackageInfo.TEST2.versionCode);
+        AppInfo.create(MockPackageInfo.TEST2.packageName, MockPackageInfo.TEST2.versionCode);
   }
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
@@ -55,7 +55,7 @@ public class FetchOutdatedPackagesShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchAllOutdatedPackagesThatWereUninstalled() {
-    List<App.Info> savedPackages = Arrays.asList(facebookInfo, instagramInfo);
+    List<AppInfo> savedPackages = Arrays.asList(facebookInfo, instagramInfo);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
@@ -73,7 +73,7 @@ public class FetchOutdatedPackagesShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void doNotFetchPackagesThatAreStillInstalled() {
-    List<App.Info> savedPackages = Collections.singletonList(facebookInfo);
+    List<AppInfo> savedPackages = Collections.singletonList(facebookInfo);
     List<PackageInfo> installedPackages = Collections.singletonList(MockPackageInfo.TEST);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
@@ -91,7 +91,7 @@ public class FetchOutdatedPackagesShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void fetchOnlyOnePackageIfMoreVersionsOfAnAppHaveBeenSaved() {
-    List<App.Info> savedPackages = Arrays.asList(facebookInfo, facebookInfoVersion2);
+    List<AppInfo> savedPackages = Arrays.asList(facebookInfo, facebookInfoVersion2);
     List<PackageInfo> installedPackages = Collections.emptyList();
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));

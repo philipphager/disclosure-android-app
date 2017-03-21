@@ -77,12 +77,15 @@ public class PermissionRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<Permission>> byAppAndLibrary(BriteDatabase db, long appId, String libraryId) {
-    SqlDelightStatement selectByAppAndLibrary = Permission.FACTORY.selectByAppAndLibrary(appId, libraryId);
+  public Observable<List<Permission>> byAppAndLibrary(BriteDatabase db, long appId,
+      String libraryId) {
+    SqlDelightStatement selectByAppAndLibrary =
+        Permission.FACTORY.selectByAppAndLibrary(appId, libraryId);
     CursorToListMapper<Permission> cursorToList =
         new CursorToListMapper<>(Permission.FACTORY.selectByAppAndLibraryMapper());
 
-    return db.createQuery(selectByAppAndLibrary.tables, selectByAppAndLibrary.statement, selectByAppAndLibrary.args)
+    return db.createQuery(selectByAppAndLibrary.tables, selectByAppAndLibrary.statement,
+        selectByAppAndLibrary.args)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }

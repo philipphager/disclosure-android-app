@@ -5,6 +5,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
@@ -86,8 +87,8 @@ public class AppRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<App.Info>> allInfos(BriteDatabase db) {
-    CursorToListMapper<App.Info> cursorToList = new CursorToListMapper<>(App.Info.MAPPER);
+  public Observable<List<AppInfo>> allInfos(BriteDatabase db) {
+    CursorToListMapper<AppInfo> cursorToList = new CursorToListMapper<>(AppInfo.MAPPER);
     SqlDelightStatement selectAllInfos = App.FACTORY.selectAllInfos();
 
     return db.createQuery(selectAllInfos.tables, selectAllInfos.statement)
