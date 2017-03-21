@@ -1,8 +1,8 @@
-package de.philipphager.disclosure.feature.app.detail.usecase;
+package de.philipphager.disclosure.database.library.model;
 
 import com.google.auto.value.AutoValue;
-import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.permission.model.Permission;
+import de.philipphager.disclosure.feature.app.detail.usecase.AutoValue_LibraryWithPermission;
 import java.util.List;
 
 @AutoValue public abstract class LibraryWithPermission {

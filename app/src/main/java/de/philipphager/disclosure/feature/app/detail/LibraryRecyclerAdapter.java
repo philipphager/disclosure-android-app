@@ -9,7 +9,7 @@ import android.widget.TextView;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.permission.model.Permission;
-import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
+import de.philipphager.disclosure.database.library.model.LibraryWithPermission;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
