@@ -16,6 +16,7 @@
   <string name="action_search_apps">search</string>
   <string name="action_libraries_only_used">show only used</string>
   <string name="action_open_in_browser">open website</string>
+  <string name="show_all_permissions">Show all found permissions</string>
   <string name="action_sort_apps">sort</string>
   <string name="action_sort_apps_alphabetical">alphabetical</string>
   <string name="action_sort_apps_library_count">library count</string>

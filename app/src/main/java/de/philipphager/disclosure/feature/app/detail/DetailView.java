@@ -18,6 +18,8 @@ public interface DetailView extends Navigates, AnalysisProgressView {
 
   void setLibraries(List<LibraryWithPermission> libraries);
 
+  void setShowAllLibraries(boolean isChecked);
+
   void showEditPermissionsTutorial(String packageName);
 
   void showRuntimePermissionsTutorial(String packageName);

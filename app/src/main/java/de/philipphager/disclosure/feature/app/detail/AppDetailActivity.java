@@ -14,12 +14,14 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindInt;
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.kofigyan.stateprogressbar.StateProgressBar;
@@ -53,6 +55,7 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
   @BindView(R.id.app_detail_libraries) protected RecyclerView libraryListRecyclerView;
   @BindView(R.id.btn_edit_settings) protected Button btnEditSettings;
   @BindView(R.id.btn_analyse_app) protected FloatingActionButton btnAnalyseApp;
+  @BindView(R.id.btn_show_all_permissions) protected SwitchCompat btnShowAllPermissions;
   @BindView(R.id.analysis_progress) protected StateProgressBar analysisProgressBar;
   @BindInt(android.R.integer.config_shortAnimTime) protected int shortAnimTime;
   @Inject protected AppDetailPresenter presenter;
@@ -129,6 +132,10 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
 
   @Override public void setLibraries(List<LibraryWithPermission> libraries) {
     adapter.setLibraries(libraries);
+  }
+
+  @Override public void setShowAllLibraries(boolean isChecked) {
+    btnShowAllPermissions.setChecked(isChecked);
   }
 
   @Override public void notify(String message) {
@@ -251,5 +258,10 @@ public class AppDetailActivity extends BaseActivity implements DetailView {
 
   @OnClick(R.id.btn_open_app) public void onTrustAppClicked() {
     presenter.openOpenAppClicked();
+  }
+
+  @OnCheckedChanged(R.id.btn_show_all_permissions)
+  public void onToggleShowAllPermissions(boolean isChecked) {
+    presenter.onToggleShowAllPermissions(isChecked);
   }
 }

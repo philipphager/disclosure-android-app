@@ -135,6 +135,31 @@
 
       </LinearLayout>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"
+            android:text="@string/show_all_permissions"/>
+
+        <include layout="@layout/view_filler"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/btn_show_all_permissions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"/>
+
+      </LinearLayout>
+
       <android.support.v7.widget.RecyclerView
           android:id="@+id/app_detail_libraries"
           android:layout_width="match_parent"

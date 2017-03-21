@@ -14,6 +14,7 @@ import de.philipphager.disclosure.service.app.AppService;
 import de.philipphager.disclosure.util.device.DeviceFeatures;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -34,6 +35,7 @@ public class AppDetailPresenter {
   private final AppAnalyticsService appAnalyticsService;
   private final DeviceFeatures deviceFeatures;
   private CompositeSubscription subscriptions;
+  private Subscription librarySubscription;
   private DetailView view;
   private App app;
 
@@ -84,6 +86,7 @@ public class AppDetailPresenter {
   private void initView(App app) {
     view.setToolbarTitle(app.label());
     view.setAppIcon(app.packageName());
+    view.setShowAllLibraries(displayAllPermissions.get());
     view.enableEditPermissions(deviceFeatures.supportsRuntimePermissions());
   }
 
@@ -97,11 +100,13 @@ public class AppDetailPresenter {
   }
 
   private void fetchLibraries() {
-    subscriptions.add(fetchLibrariesForAppWithPermissions.run(app, displayAllPermissions.get())
+    librarySubscription = fetchLibrariesForAppWithPermissions.run(app, displayAllPermissions.get())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(libraryWithPermissions -> {
           view.setLibraries(libraryWithPermissions);
-        }, throwable -> Timber.e(throwable, "while observing libraries")));
+        }, throwable -> Timber.e(throwable, "while observing libraries"));
+
+    subscriptions.add(librarySubscription);
   }
 
   private void fetchAnalysisUpdates() {
@@ -178,5 +183,14 @@ public class AppDetailPresenter {
 
   public void openOpenAppClicked() {
     view.navigate().toApp(app.packageName());
+  }
+
+  public void onToggleShowAllPermissions(boolean isChecked) {
+    if (librarySubscription != null) {
+      librarySubscription.unsubscribe();
+    }
+
+    displayAllPermissions.set(isChecked);
+    fetchLibraries();
   }
 }
