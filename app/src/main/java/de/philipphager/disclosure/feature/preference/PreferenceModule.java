@@ -33,7 +33,7 @@ public class PreferenceModule {
 
   @Provides @Singleton @DisplayAllPermissions
   public Preference<Boolean> provideDisplayAllPermissions(RxSharedPreferences rxPreferences) {
-    return rxPreferences.getBoolean("displayAllPermissions", true);
+    return rxPreferences.getBoolean("displayAllPermissions", false);
   }
 
   @Provides @Singleton @AppListSortBy
