@@ -66,4 +66,9 @@
     <Method name="App"/>
     <Bug pattern="NM_METHOD_NAMING_CONVENTION"/>
   </Match>
+  <Match>
+    <Class name="de.philipphager.disclosure.database.app.model.AppWithPermissions"/>
+    <Method name="App"/>
+    <Bug pattern="NM_METHOD_NAMING_CONVENTION"/>
+  </Match>
 </FindBugsFilter>
