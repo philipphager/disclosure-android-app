@@ -24,6 +24,7 @@ public class ToAppMapper implements Mapper<ApplicationInfo, App> {
         .packageName(from.packageName)
         .process(from.processName)
         .sourceDir(from.sourceDir)
+        .targetSdk(from.targetSdkVersion)
         .flags(from.flags)
         .build();
   }

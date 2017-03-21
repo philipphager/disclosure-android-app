@@ -21,6 +21,8 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
  * SmaliDecoder.java">SmaliDecoder.java</a>
  */
 public class DecompileApp {
+  private static final int BAKSMALI_MIN_SDK = 15;
+
   @SuppressWarnings("PMD.UnnecessaryConstructor") @Inject public DecompileApp() {
     // Needed for dagger injection.
   }
@@ -43,8 +45,10 @@ public class DecompileApp {
         options.jobs = 6;
       }
 
-      // TODO: Replace 15 with actual targetSDKNumber of apk.
-      DexBackedDexFile dexFile = DexFileFactory.loadDexFile(apkFile, "classes.dex", 15, false);
+      int targetSdk = app.targetSdk() != null ? app.targetSdk() : BAKSMALI_MIN_SDK;
+
+      DexBackedDexFile dexFile =
+          DexFileFactory.loadDexFile(apkFile, "classes.dex", targetSdk, false);
 
       if (dexFile instanceof DexBackedOdexFile) {
         options.inlineResolver = InlineMethodResolver.createInlineMethodResolver(

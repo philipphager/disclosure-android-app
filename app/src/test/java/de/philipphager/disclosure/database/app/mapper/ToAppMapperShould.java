@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
         .packageName(MockApp.TEST2.packageName())
         .process(MockApp.TEST2.process())
         .sourceDir(MockApp.TEST2.sourceDir())
+        .targetSdk(MockApp.TEST2.targetSdk())
         .flags(MockApp.TEST2.flags())
         .build();
 
