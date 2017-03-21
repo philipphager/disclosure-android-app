@@ -1,6 +1,7 @@
 package de.philipphager.disclosure.feature.library.category.usecase;
 
 import de.philipphager.disclosure.database.library.model.Library;
+import de.philipphager.disclosure.database.library.model.LibraryCategory;
 import de.philipphager.disclosure.service.LibraryService;
 import java.util.Arrays;
 import java.util.List;
