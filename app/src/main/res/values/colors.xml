@@ -26,7 +26,9 @@
   <color name="color_icon_disabled">@color/color_grey_bright</color>
 
   <color name="colorProtectionNormal">@color/color_green</color>
+  <color name="colorProtectionNormalSelected">#56c790</color>
   <color name="colorProtectionDangerous">@color/color_orange</color>
+  <color name="colorProtectionDangerousSelected">#dcb834</color>
   <color name="colorProtectionSignature">@color/color_grey_dark</color>
 
   <color name="bottom_navigation_background">@color/color_primary</color>

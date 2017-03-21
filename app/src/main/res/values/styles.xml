@@ -46,12 +46,14 @@
   <style name="PermissionGroupDangerous" parent="TagGroup">
     <item name="atg_borderColor">@color/colorProtectionDangerous</item>
     <item name="atg_backgroundColor">@color/colorProtectionDangerous</item>
+    <item name="atg_pressedBackgroundColor">@color/colorProtectionDangerousSelected</item>
     <item name="atg_textColor">@color/color_orange_dark</item>
   </style>
 
   <style name="PermissionGroupNormal" parent="TagGroup">
     <item name="atg_borderColor">@color/colorProtectionNormal</item>
     <item name="atg_backgroundColor">@color/colorProtectionNormal</item>
+    <item name="atg_pressedBackgroundColor">@color/colorProtectionNormalSelected</item>
     <item name="atg_textColor">@color/color_green_dark</item>
   </style>
   
