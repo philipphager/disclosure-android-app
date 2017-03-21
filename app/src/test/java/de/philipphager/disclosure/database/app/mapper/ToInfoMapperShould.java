@@ -1,6 +1,6 @@
 package de.philipphager.disclosure.database.app.mapper;
 
-import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
   @InjectMocks protected ToInfoMapper toInfoMapper;
 
   @Test public void mapApplicationInfoToAppInfo() {
-    App.Info app = toInfoMapper.map(MockPackageInfo.TEST);
+    AppInfo app = toInfoMapper.map(MockPackageInfo.TEST);
 
     assertThat(app).isEqualTo(MockApp.TEST_INFO);
   }
