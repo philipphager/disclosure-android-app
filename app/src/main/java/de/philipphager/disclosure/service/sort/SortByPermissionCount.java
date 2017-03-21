@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.service.filter;
+package de.philipphager.disclosure.service.sort;
 
 import de.philipphager.disclosure.database.app.model.AppReport;
 import rx.functions.Func2;

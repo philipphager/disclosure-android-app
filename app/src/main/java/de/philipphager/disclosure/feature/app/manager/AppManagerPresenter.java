@@ -7,7 +7,7 @@ import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.feature.analyser.AppAnalyticsService;
 import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.service.AppService;
-import de.philipphager.disclosure.service.filter.SortBy;
+import de.philipphager.disclosure.service.sort.SortBy;
 import de.philipphager.disclosure.util.ui.StringProvider;
 import java.util.List;
 import javax.inject.Inject;

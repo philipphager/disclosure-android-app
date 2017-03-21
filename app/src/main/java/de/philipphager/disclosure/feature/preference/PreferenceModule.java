@@ -11,7 +11,7 @@ import de.philipphager.disclosure.feature.preference.ui.AppListSortBy;
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
 import de.philipphager.disclosure.feature.preference.ui.OnlyShowUsedLibraries;
-import de.philipphager.disclosure.service.filter.SortBy;
+import de.philipphager.disclosure.service.sort.SortBy;
 import javax.inject.Singleton;
 
 @Module
