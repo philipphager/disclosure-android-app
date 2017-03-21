@@ -24,6 +24,6 @@ import com.google.auto.value.AutoValue;
   public abstract long permissionCount();
 
   public int permissionCountInt() {
-    return Long.valueOf(permissionCount()).intValue();
+    return (int) permissionCount();
   }
 }
