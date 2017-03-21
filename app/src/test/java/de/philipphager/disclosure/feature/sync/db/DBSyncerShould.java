@@ -44,7 +44,7 @@ public class DBSyncerShould {
   public void insertUpdatedPackages() {
     newPackages.addAll(Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2));
 
-    TestSubscriber<Integer> subscriber = new TestSubscriber<>();
+    TestSubscriber<Void> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
     List<PackageInfo> expectedPackages = Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
@@ -56,7 +56,7 @@ public class DBSyncerShould {
   public void deleteOutdatedPackages() {
     oldPackages.addAll(Arrays.asList(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST2.packageName));
 
-    TestSubscriber<Integer> subscriber = new TestSubscriber<>();
+    TestSubscriber<Void> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
     List<String> expectedPackages =
@@ -67,7 +67,7 @@ public class DBSyncerShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void trackSyncTime() {
-    TestSubscriber<Integer> subscriber = new TestSubscriber<>();
+    TestSubscriber<Void> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
     verify(stopwatch).start();
@@ -76,7 +76,7 @@ public class DBSyncerShould {
 
   @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   public void stopsTimerOnError() {
-    TestSubscriber<Integer> subscriber = new TestSubscriber<>();
+    TestSubscriber<Void> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
 
     verify(stopwatch).start();
@@ -88,7 +88,7 @@ public class DBSyncerShould {
     newPackages.addAll(Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2));
     oldPackages.addAll(Arrays.asList(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST2.packageName));
 
-    TestSubscriber<Integer> subscriber = new TestSubscriber<>();
+    TestSubscriber<Void> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
     subscriber.assertCompleted();
   }

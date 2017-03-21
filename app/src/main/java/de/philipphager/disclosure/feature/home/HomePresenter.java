@@ -1,11 +1,9 @@
 package de.philipphager.disclosure.feature.home;
 
-import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
 import de.philipphager.disclosure.feature.sync.db.DBSyncer;
 import de.philipphager.disclosure.service.AppService;
-import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -57,11 +55,11 @@ public class HomePresenter {
         }));
   }
 
-  private Observable<Integer> syncDBWithDevice() {
+  private Observable<Void> syncDBWithDevice() {
     return dbSyncer.sync();
   }
 
-  private Observable<List<Library>> syncWithServerApi() {
+  private Observable<Void> syncWithServerApi() {
     return apiSyncer.sync();
   }
 

@@ -1,12 +1,10 @@
 package de.philipphager.disclosure.feature.library.category;
 
 import com.f2prateek.rx.preferences.Preference;
-import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.preference.ui.OnlyShowUsedLibraries;
 import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
 import de.philipphager.disclosure.service.AppService;
-import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -63,11 +61,11 @@ public class LibraryCategoryPresenter {
         }));
   }
 
-  private Observable<List<Library>> syncWithServerApi() {
+  private Observable<Void> syncWithServerApi() {
     return apiSyncer.sync();
   }
 
-  private Observable<?> analyzeUsedLibrariesAndPermissions() {
+  private Observable<Void> analyzeUsedLibrariesAndPermissions() {
     return appService.all()
         .first()
         .flatMap(Observable::from)

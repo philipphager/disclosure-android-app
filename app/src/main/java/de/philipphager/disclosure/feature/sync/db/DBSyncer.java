@@ -24,7 +24,7 @@ public class DBSyncer {
     this.appService = appService;
   }
 
-  public Observable<Integer> sync() {
+  public Observable<Void> sync() {
     stopwatch.start();
 
     return Observable.concat(
@@ -36,6 +36,6 @@ public class DBSyncer {
     }).doOnCompleted(() -> {
       stopwatch.stop();
       Timber.d("db sync finished, %s ", stopwatch);
-    });
+    }).map(ignored -> null);
   }
 }
