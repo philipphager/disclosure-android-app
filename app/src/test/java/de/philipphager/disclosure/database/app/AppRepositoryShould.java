@@ -38,7 +38,7 @@ public class AppRepositoryShould {
     appRepository.insert(database, app);
 
     verify(insertApp)
-        .bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags(), app.analyzedAt());
+        .bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(), app.analyzedAt());
     verify(database).executeInsert(App.TABLE_NAME, insertApp.program);
   }
 
@@ -48,7 +48,7 @@ public class AppRepositoryShould {
     appRepository.update(database, app);
 
     verify(updateApp)
-        .bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.analyzedAt(), app.packageName());
+        .bind(app.label(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(), app.analyzedAt(), app.packageName());
     verify(database).executeUpdateDelete(App.TABLE_NAME, updateApp.program);
   }
 

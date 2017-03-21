@@ -43,8 +43,8 @@ public class DecompileApp {
         options.jobs = 6;
       }
 
-      // TODO: Replace 15 with actual targetSDKNumber of apk.
-      DexBackedDexFile dexFile = DexFileFactory.loadDexFile(apkFile, "classes.dex", 15, false);
+      DexBackedDexFile dexFile =
+          DexFileFactory.loadDexFile(apkFile, "classes.dex", app.targetSdk(), false);
 
       if (dexFile instanceof DexBackedOdexFile) {
         options.inlineResolver = InlineMethodResolver.createInlineMethodResolver(

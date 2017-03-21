@@ -7,6 +7,7 @@ CREATE TABLE App (
   packageName TEXT UNIQUE NOT NULL,
   process TEXT NOT NULL,
   sourceDir TEXT NOT NULL,
+  targetSdk INTEGER AS Integer,
   flags INTEGER AS Integer,
   analyzedAt INTEGER AS LocalDateTime
 );
@@ -41,12 +42,12 @@ OR Library.title LIKE upper('%' || ? || '%')
 GROUP BY Report.id;
 
 insertApp:
-INSERT INTO App (label, packageName, process, sourceDir, flags, analyzedAt)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO App (label, packageName, process, sourceDir, targetSdk, flags, analyzedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 updateApp:
 UPDATE App
-SET label = ?, process = ?, sourceDir = ?, flags = ?, analyzedAt = ?
+SET label = ?, process = ?, sourceDir = ?, targetSdk = ?, flags = ?, analyzedAt = ?
 WHERE packageName = ?;
 
 selectAll:
@@ -79,13 +80,8 @@ FROM App, LibraryApp
 WHERE App.id = LibraryApp.appId
 AND LibraryApp.libraryId = ?;
 
-selectAllWithLibraryCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(libraryId) AS libraryCount
-FROM App LEFT OUTER JOIN LibraryApp ON App.id = LibraryApp.appId
-GROUP BY App.id;
-
 selectAllWithPermissionCount:
-SELECT App.id, App.label, App.packageName, App.process, App.sourceDir, App.flags, App.analyzedAt, count(permissionId) AS permissionCount
+SELECT App.*, count(permissionId) AS permissionCount
 FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
 LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
 AND LibraryApp.libraryId = AppLibraryPermission.libraryId

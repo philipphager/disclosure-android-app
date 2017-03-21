@@ -9,6 +9,7 @@ public final class MockApp {
         .label("facebook")
         .packageName("com.facebook.android")
         .process("com.facebook")
+        .targetSdk(21)
         .flags(0)
         .sourceDir("/")
         .build();
@@ -17,6 +18,7 @@ public final class MockApp {
       .label("instagram")
       .packageName("com.instagram.android")
       .process("com.instagram")
+      .targetSdk(21)
       .flags(0)
       .sourceDir("/")
       .build();

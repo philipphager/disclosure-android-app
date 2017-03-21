@@ -7,7 +7,6 @@ import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppReport;
-import de.philipphager.disclosure.database.app.model.AppWithLibraries;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.util.mapper.CursorToListMapper;
 import java.util.List;
@@ -26,16 +25,16 @@ public class AppRepository {
 
   public long insert(BriteDatabase db, App app) {
     synchronized (this) {
-      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.flags(),
-          app.analyzedAt());
+      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(),
+          app.targetSdk(), app.flags(), app.analyzedAt());
       return db.executeInsert(App.TABLE_NAME, insertApp.program);
     }
   }
 
   public int update(BriteDatabase db, App app) {
     synchronized (this) {
-      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.flags(), app.analyzedAt(),
-          app.packageName());
+      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(),
+          app.analyzedAt(), app.packageName());
       return db.executeUpdateDelete(App.TABLE_NAME, updateApp.program);
     }
   }
@@ -92,16 +91,6 @@ public class AppRepository {
     SqlDelightStatement selectAllInfos = App.FACTORY.selectAllInfos();
 
     return db.createQuery(selectAllInfos.tables, selectAllInfos.statement)
-        .map(SqlBrite.Query::run)
-        .map(cursorToList);
-  }
-
-  public Observable<List<AppWithLibraries>> allWithLibraryCount(BriteDatabase db) {
-    CursorToListMapper<AppWithLibraries> cursorToList =
-        new CursorToListMapper<>(AppWithLibraries.MAPPER);
-    SqlDelightStatement selectAllWithLibraryCount = App.FACTORY.selectAllWithLibraryCount();
-
-    return db.createQuery(selectAllWithLibraryCount.tables, selectAllWithLibraryCount.statement)
         .map(SqlBrite.Query::run)
         .map(cursorToList);
   }
