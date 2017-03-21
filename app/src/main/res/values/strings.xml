@@ -152,6 +152,7 @@
   <string name="notify_analyse_apps_result">%1$s analyzed! Found %2$d permission usages in %3$d libraries.</string>
   <string name="notify_analyse_app_pending">Added %s to analysis queue!</string>
   <string name="notify_library_website_unavailable">No website available</string>
+  <string name="notify_feature_missing">Not available yet</string>
 
   <!-- Util strings -->
   <string name="empty"/>
