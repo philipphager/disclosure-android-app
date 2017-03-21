@@ -21,8 +21,6 @@ import static de.philipphager.disclosure.util.assertion.Assertions.check;
  * SmaliDecoder.java">SmaliDecoder.java</a>
  */
 public class DecompileApp {
-  private static final int BAKSMALI_MIN_SDK = 15;
-
   @SuppressWarnings("PMD.UnnecessaryConstructor") @Inject public DecompileApp() {
     // Needed for dagger injection.
   }
