@@ -72,6 +72,7 @@ public class LibraryCategoryPresenter {
         .flatMap(app -> Observable.just(app)
             .subscribeOn(Schedulers.computation())
             .flatMap(analyseUsedLibraries::analyse))
-        .toList();
+        .toList()
+        .map(ignored -> null);
   }
 }
