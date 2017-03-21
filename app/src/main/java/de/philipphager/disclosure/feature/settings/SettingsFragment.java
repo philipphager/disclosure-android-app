@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
+import android.widget.Toast;
 import de.philipphager.disclosure.BuildConfig;
 import de.philipphager.disclosure.DisclosureApp;
 import de.philipphager.disclosure.R;
@@ -30,6 +31,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Naviga
 
     setupContact();
     setupLicense();
+    setupChangelog();
     setupVersion();
   }
 
@@ -55,6 +57,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Naviga
     Preference preference = findPreference(getString(R.string.settings_license_and_thanks));
     preference.setOnPreferenceClickListener(pref -> {
       navigate().toNestedSystemSetting(NestedSettingsActivity.LICENSE);
+      return true;
+    });
+  }
+
+  private void setupChangelog() {
+    Preference preference = findPreference(getString(R.string.settings_changelog));
+    preference.setOnPreferenceClickListener(pref -> {
+      Toast.makeText(getContext(), R.string.notify_feature_missing, Toast.LENGTH_LONG).show();
       return true;
     });
   }

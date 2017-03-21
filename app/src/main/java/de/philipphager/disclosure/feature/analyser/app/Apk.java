@@ -38,7 +38,7 @@ public class Apk {
 
   public boolean containsPackage(String packageName) {
     String currentThread = Thread.currentThread().getName();
-    Timber.d("%s : Searching for package %s in app %s", currentThread, packageName, app.label());
+    Timber.v("%s : Searching for package %s in app %s", currentThread, packageName, app.label());
 
     int index = Collections.binarySearch(sortedClassNames, packageName, (currentItem, key) -> {
       if (currentItem.startsWith(key)) {
