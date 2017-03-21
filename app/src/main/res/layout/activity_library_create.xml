@@ -18,8 +18,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="@string/activity_library_create"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title="@string/activity_library_create">
 
       <LinearLayout
           android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-      <EditText
+      <android.support.design.widget.TextInputEditText
           android:id="@+id/library_title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_normal">
 
-      <EditText
+      <android.support.design.widget.TextInputEditText
           android:id="@+id/library_package_name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_normal">
 
-      <EditText
+      <android.support.design.widget.TextInputEditText
           android:id="@+id/library_website"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
