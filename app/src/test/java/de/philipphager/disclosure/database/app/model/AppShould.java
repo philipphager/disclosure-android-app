@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         .id(MockApp.TEST.id())
         .label(MockApp.TEST.label())
         .packageName(MockApp.TEST.packageName())
+        .targetSdk(MockApp.TEST.targetSdk())
         .flags(MockApp.TEST.flags())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     App app = App.builder()
         .label(MockApp.TEST.label())
         .packageName(MockApp.TEST.packageName())
+        .targetSdk(MockApp.TEST.targetSdk())
         .flags(MockApp.TEST.flags())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
@@ -37,6 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     App.builder()
         .packageName(MockApp.TEST.packageName())
         .flags(MockApp.TEST.flags())
+        .targetSdk(MockApp.TEST.targetSdk())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
         .build();
@@ -45,6 +48,7 @@ import static org.assertj.core.api.Assertions.assertThat;
   @Test(expected = IllegalStateException.class) public void throwErrorIfPackageNameIsNull() {
     App.builder()
         .label(MockApp.TEST.label())
+        .targetSdk(MockApp.TEST.targetSdk())
         .flags(MockApp.TEST.flags())
         .process(MockApp.TEST.process())
         .sourceDir(MockApp.TEST.sourceDir())
