@@ -45,10 +45,8 @@ public class DecompileApp {
         options.jobs = 6;
       }
 
-      int targetSdk = app.targetSdk() != null ? app.targetSdk() : BAKSMALI_MIN_SDK;
-
       DexBackedDexFile dexFile =
-          DexFileFactory.loadDexFile(apkFile, "classes.dex", targetSdk, false);
+          DexFileFactory.loadDexFile(apkFile, "classes.dex", app.targetSdk(), false);
 
       if (dexFile instanceof DexBackedOdexFile) {
         options.inlineResolver = InlineMethodResolver.createInlineMethodResolver(
