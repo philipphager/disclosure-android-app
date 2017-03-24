@@ -32,6 +32,8 @@ android {
     debug {
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
+              'proguard-test-rules.pro'
       applicationIdSuffix ".dev"
       versionNameSuffix "-dev"
     }
@@ -133,9 +135,25 @@ dependencies {
   compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
   compile 'com.jakewharton.timber:timber:4.3.1'
 
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+  // Espresso UI tests
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile('com.android.support.test:runner:0.5') {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.2') {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+  androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+  androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+    exclude module: 'support-annotations'
+    exclude module: 'support-v4'
+    exclude module: 'support-v13'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'design'
+  }
 }
 
 check {
