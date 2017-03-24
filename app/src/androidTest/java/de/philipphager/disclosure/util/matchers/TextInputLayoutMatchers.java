@@ -6,7 +6,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class TextInputLayoutMatchers {
+public final class TextInputLayoutMatchers {
   public static Matcher<View> hasTextInputLayoutHintText(final String expectedHintText) {
     return new TypeSafeMatcher<View>() {
 
@@ -83,5 +83,9 @@ public class TextInputLayoutMatchers {
         description.appendText("Expected: TextInputLayout to have error, but was null or empty'");
       }
     };
+  }
+
+  private TextInputLayoutMatchers() {
+    // No instances.
   }
 }
