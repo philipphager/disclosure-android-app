@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+
 public class DBSyncerShould {
   @Mock protected Stopwatch stopwatch;
   @Mock protected FetchUpdatedPackages fetchUpdatedPackages;
@@ -40,7 +40,7 @@ public class DBSyncerShould {
     when(fetchOutdatedApps.get()).thenReturn(Observable.just(oldPackages));
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void insertUpdatedPackages() {
     newPackages.addAll(Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2));
 
@@ -52,9 +52,10 @@ public class DBSyncerShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void deleteOutdatedPackages() {
-    oldPackages.addAll(Arrays.asList(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST2.packageName));
+    oldPackages.addAll(
+        Arrays.asList(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST2.packageName));
 
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
@@ -65,7 +66,7 @@ public class DBSyncerShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void trackSyncTime() {
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
@@ -74,7 +75,7 @@ public class DBSyncerShould {
     verify(stopwatch).stop();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void stopsTimerOnError() {
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);
@@ -83,10 +84,11 @@ public class DBSyncerShould {
     verify(stopwatch).stop();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void syncAlwaysCompletes() {
     newPackages.addAll(Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2));
-    oldPackages.addAll(Arrays.asList(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST2.packageName));
+    oldPackages.addAll(
+        Arrays.asList(MockPackageInfo.TEST.packageName, MockPackageInfo.TEST2.packageName));
 
     TestSubscriber<Integer> subscriber = new TestSubscriber<>();
     dbSyncer.sync().toBlocking().subscribe(subscriber);

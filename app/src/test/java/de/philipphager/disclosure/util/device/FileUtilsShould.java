@@ -13,7 +13,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class FileUtilsShould {
   @Mock protected File mockFile;
   @Mock protected File mockFileTwo;
@@ -27,14 +26,12 @@ public class FileUtilsShould {
     when(mockDirectoryTwo.isDirectory()).thenReturn(true);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void deleteSingleFile() {
+  @Test public void deleteSingleFile() {
     fileUtils.delete(mockFile);
     verify(mockFile, times(1)).delete();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void deleteAllFilesInDirectory() {
+  @Test public void deleteAllFilesInDirectory() {
     when(mockDirectory.listFiles()).thenReturn(new File[] {mockFile, mockFileTwo, mockFileThree});
 
     fileUtils.delete(mockDirectory);
@@ -45,8 +42,7 @@ public class FileUtilsShould {
     verify(mockDirectory, times(1)).delete();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void deleteAllFilesInNestedDirectoryStructure() {
+  @Test public void deleteAllFilesInNestedDirectoryStructure() {
     when(mockDirectoryTwo.listFiles()).thenReturn(new File[] {mockFileThree});
     when(mockDirectory.listFiles()).thenReturn(
         new File[] {mockFile, mockFileTwo, mockDirectoryTwo});
@@ -60,8 +56,7 @@ public class FileUtilsShould {
     verify(mockDirectoryTwo, times(1)).delete();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void doNotFailWhenSubdirectoriesAreNull() {
+  @Test public void doNotFailWhenSubdirectoriesAreNull() {
     when(mockDirectory.listFiles()).thenReturn(null);
 
     fileUtils.delete(mockDirectory);
