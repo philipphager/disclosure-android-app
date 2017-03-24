@@ -164,7 +164,7 @@ check {
   }
 
   pmd {
-    config hard()
+    config '../config/pmd.xml'
   }
 }
 
