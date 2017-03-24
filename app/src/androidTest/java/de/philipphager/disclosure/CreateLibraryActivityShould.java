@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class CreateLibraryActivityShould {
   @Rule public ActivityTestRule<CreateLibraryActivity> activityRule =
-      new ActivityTestRule(CreateLibraryActivity.class);
+      new ActivityTestRule<>(CreateLibraryActivity.class);
   private String titleErrorHint;
   private String packageNameErrorHint;
   private String websiteUrlErrorHint;
