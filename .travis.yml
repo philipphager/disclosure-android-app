@@ -1,8 +1,14 @@
 language: android
 android:
   components:
+    # This porject uses Java 8 language features
+    jdk: oraclejdk8
+
     # The BuildTools version used by this project
     - build-tools-25.0.2
 
     # The SDK version used to compile this project
     - android-25
+
+    - platform-tools
+    - tools
