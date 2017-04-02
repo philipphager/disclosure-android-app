@@ -10,10 +10,8 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class RxUtilsShould {
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void zipTheOutputsOfTwoStreamsAndSubscribeToTheResultingStream() {
+  @Test public void zipTheOutputsOfTwoStreamsAndSubscribeToTheResultingStream() {
     String mockItemOne = "mockItemOne";
     String mockItemTwo = "mockItemTwo";
 
@@ -32,8 +30,7 @@ public class RxUtilsShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void failZipMapIfStreamFails() {
+  @Test public void failZipMapIfStreamFails() {
     String mockItemOne = "mockItemOne";
 
     Observable<String> streamOne = Observable.just(mockItemOne);
@@ -48,8 +45,7 @@ public class RxUtilsShould {
     testSubscriber.assertError(IllegalStateException.class);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void intRangeFromStartValue() {
+  @Test public void intRangeFromStartValue() {
     TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
 
     RxUtils.infRange(10)
@@ -60,8 +56,7 @@ public class RxUtilsShould {
     testSubscriber.assertReceivedOnNext(Arrays.asList(10, 11, 12, 13, 14));
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void notEmitEndItem() {
+  @Test public void notEmitEndItem() {
     TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
 
     RxUtils.infRange(Integer.MAX_VALUE - 1)
@@ -72,8 +67,7 @@ public class RxUtilsShould {
     testSubscriber.assertReceivedOnNext(Arrays.asList((Integer.MAX_VALUE - 1)));
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void emitNoValuesIfStartEqualsEnd() {
+  @Test public void emitNoValuesIfStartEqualsEnd() {
     TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
 
     RxUtils.infRange(Integer.MAX_VALUE)

@@ -4,7 +4,7 @@ import org.threeten.bp.LocalDateTime;
 CREATE TABLE Version (
   appId INTEGER NOT NULL,
   versionCode INTEGER AS Integer NOT NULL,
-  versionName TEXT NOT NULL,
+  versionName TEXT,
   createdAt INTEGER AS LocalDateTime NOT NULL,
   PRIMARY KEY(appId, versionCode),
   FOREIGN KEY(appId) REFERENCES App(id) ON DELETE CASCADE

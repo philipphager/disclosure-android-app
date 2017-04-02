@@ -14,7 +14,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @PrepareForTest({
     BriteDatabase.class,
     LibraryApp.InsertLibraryApp.class,
@@ -30,8 +29,7 @@ public class LibraryAppRepositoryShould {
     libraryAppRepository = new LibraryAppRepository(insertLibraryApp);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void insertLibraryAppIntoDatabase() {
+  @Test public void insertLibraryAppIntoDatabase() {
     libraryAppRepository.insert(database, MockLibrary.TEST.id(), MockApp.TEST.id());
 
     verify(insertLibraryApp).bind(MockApp.TEST.id(), MockLibrary.TEST.id());

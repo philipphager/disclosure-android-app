@@ -13,7 +13,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @PrepareForTest({
     BriteDatabase.class,
     Version.InsertVersion.class,
@@ -32,8 +31,7 @@ public class VersionRepositoryShould {
     versionRepository = new VersionRepository(insertVersion, updateVersion);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void insertVersionIntoDatabase() {
+  @Test public void insertVersionIntoDatabase() {
     Version version = MockVersion.TEST;
     versionRepository.insert(database, version);
 
@@ -44,8 +42,7 @@ public class VersionRepositoryShould {
     verify(database).executeInsert(insertVersion.table, insertVersion.program);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void updateVersionInDatabase() {
+  @Test public void updateVersionInDatabase() {
     Version version = MockVersion.TEST;
     versionRepository.update(database, version);
 

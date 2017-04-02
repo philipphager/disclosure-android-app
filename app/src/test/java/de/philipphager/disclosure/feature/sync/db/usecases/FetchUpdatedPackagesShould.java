@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+
 public class FetchUpdatedPackagesShould {
   @Mock protected DevicePackageProvider appProvider;
   @Mock protected AppService appService;
@@ -35,7 +35,7 @@ public class FetchUpdatedPackagesShould {
     when(toInfoMapper.map(MockPackageInfo.TEST2)).thenReturn(MockApp.TEST2_INFO);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchNoAppsIfNoneInstalledOnDevice() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
@@ -47,9 +47,10 @@ public class FetchUpdatedPackagesShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchAllAppsFromDeviceIfNoneAreSavedInDB() {
-    List<PackageInfo> installedPackages = Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
+    List<PackageInfo> installedPackages =
+        Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
@@ -63,9 +64,10 @@ public class FetchUpdatedPackagesShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchOnlyNewAppsFromDevice() {
-    List<PackageInfo> installedPackages = Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
+    List<PackageInfo> installedPackages =
+        Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
     List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
@@ -80,7 +82,7 @@ public class FetchUpdatedPackagesShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchUpdatedAppVersions() {
     int newVersion = MockPackageInfo.TEST.versionCode + 1;
 
@@ -104,7 +106,7 @@ public class FetchUpdatedPackagesShould {
     testSubscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
