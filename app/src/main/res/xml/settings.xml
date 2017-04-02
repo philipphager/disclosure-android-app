@@ -20,7 +20,11 @@
 
     <Preference
         android:key="@string/settings_changelog"
-        android:title="@string/settings_changelog_title"/>
+        android:title="@string/settings_changelog_title">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/philipphager/disclosure-android-app/blob/master/CHANGELOG.md"/>
+    </Preference>
 
     <Preference
         android:key="@string/settings_contact"
