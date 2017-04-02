@@ -1,1 +1,1 @@
-# Bachelorarbeit Android App - Disclosure
+# Disclosure Android App
