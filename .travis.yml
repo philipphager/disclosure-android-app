@@ -25,4 +25,4 @@ env:
   global:
     - ADB_INSTALL_TIMEOUT=8
 
-sudo: false
+sudo: required
