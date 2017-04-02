@@ -19,4 +19,4 @@ android:
     - extra-android-m2repository
     - addon-google_apis-google-19
 
-     sys-img-armeabi-v7a-android-24
+    - sys-img-armeabi-v7a-android-24
