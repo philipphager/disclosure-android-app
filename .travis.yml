@@ -22,7 +22,7 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew build check connectedCheck
+  - ./gradlew build connectedCheck check
 
 env:
   global:
