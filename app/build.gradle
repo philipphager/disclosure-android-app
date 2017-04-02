@@ -182,12 +182,6 @@ task androidFindbugs(type: FindBugs, overwrite: true) {
   reportLevel = "medium"
 
   excludeFilter = file("../config/findbugs.xml")
-
-  reports {
-    xml.enabled = false
-    html.enabled = !xml.enabled
-    html.destination new File(project.buildDir, 'reports/findbugs.html')
-  }
 }
 androidFindbugs.dependsOn 'assembleDebug'
 
