@@ -157,7 +157,7 @@ dependencies {
 }
 
 check {
-  abortOnError true
+  abortOnError false
 
   checkstyle {
     config '../config/checkstyle.xml'
