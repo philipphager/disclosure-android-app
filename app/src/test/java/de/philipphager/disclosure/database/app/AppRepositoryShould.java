@@ -13,7 +13,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @PrepareForTest({
     BriteDatabase.class,
     App.InsertApp.class,
@@ -32,28 +31,27 @@ public class AppRepositoryShould {
     appRepository = new AppRepository(insertApp, updateApp);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void insertAppIntoDatabase() {
+  @Test public void insertAppIntoDatabase() {
     App app = MockApp.TEST;
     appRepository.insert(database, app);
 
     verify(insertApp)
-        .bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(), app.analyzedAt());
+        .bind(app.label(), app.packageName(), app.process(), app.sourceDir(), app.targetSdk(),
+            app.flags(), app.analyzedAt());
     verify(database).executeInsert(App.TABLE_NAME, insertApp.program);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void updateAppInDatabase() {
+  @Test public void updateAppInDatabase() {
     App app = MockApp.TEST;
     appRepository.update(database, app);
 
     verify(updateApp)
-        .bind(app.label(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(), app.analyzedAt(), app.packageName());
+        .bind(app.label(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(),
+            app.analyzedAt(), app.packageName());
     verify(database).executeUpdateDelete(App.TABLE_NAME, updateApp.program);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void deleteAppFromDatabase() {
+  @Test public void deleteAppFromDatabase() {
     String testWhere = "id = 1";
     appRepository.delete(database, testWhere);
 

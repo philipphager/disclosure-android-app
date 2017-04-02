@@ -13,7 +13,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class MigratorShould {
   @Mock protected SQLiteDatabase database;
   private Migrator migrator;
@@ -27,8 +26,7 @@ public class MigratorShould {
     migrator = new Migrator(migrations);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void runAllExistingMigrationsBetweenVersions() {
+  @Test public void runAllExistingMigrationsBetweenVersions() {
     migrator.migrate(database, 0, 3);
 
     verify(database).beginTransaction();
@@ -37,8 +35,7 @@ public class MigratorShould {
     verify(database).endTransaction();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void ignoreMissingMigrationsBetweenVersions() {
+  @Test public void ignoreMissingMigrationsBetweenVersions() {
     migrations = new SparseArray<>();
     migrations.put(1, MockMigration.class);
     migrations.put(3, MockMigration.class);
@@ -52,8 +49,7 @@ public class MigratorShould {
     verify(database).endTransaction();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void runNoMigrationIfNewVersionIsHigherThanLatestMigration() {
+  @Test public void runNoMigrationIfNewVersionIsHigherThanLatestMigration() {
     migrator.migrate(database, 5, 7);
 
     verify(database).beginTransaction();
@@ -62,8 +58,7 @@ public class MigratorShould {
     verify(database).endTransaction();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void runNoMigrationIfVersionsAreEqual() {
+  @Test public void runNoMigrationIfVersionsAreEqual() {
     migrator.migrate(database, 1, 1);
 
     verify(database).beginTransaction();

@@ -11,7 +11,7 @@ import com.squareup.sqldelight.RowMapper;
     return new AutoValue_LibraryInfo(id, title, appCount);
   }
 
-  @SuppressWarnings("PMD.ShortMethodName") public abstract String id();
+  public abstract String id();
 
   public abstract String title();
 

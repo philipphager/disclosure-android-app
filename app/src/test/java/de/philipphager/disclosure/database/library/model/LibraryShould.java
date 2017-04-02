@@ -53,7 +53,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         .build();
   }
 
-
   @Test(expected = IllegalStateException.class) public void throwErrorIfSourceDirIsNull() {
     Library.builder()
         .id(MockLibrary.TEST.id())

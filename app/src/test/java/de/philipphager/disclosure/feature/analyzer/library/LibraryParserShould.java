@@ -18,7 +18,7 @@ public class LibraryParserShould {
     new LibraryParser(nonExistingFile);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void findAllMethodInvocationsInLocationActivity() {
     File locationActivityFolder = getFolder("de/philipphager/disclosure/smali/apk");
     LibraryParser libraryParser = new LibraryParser(locationActivityFolder);
@@ -34,7 +34,7 @@ public class LibraryParserShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void iterateAllFilesInApkDirectory() {
     File locationActivityFolder = getFolder("de/philipphager/disclosure/smali/apkWithSubdirs");
     LibraryParser libraryParser = new LibraryParser(locationActivityFolder);
@@ -56,7 +56,7 @@ public class LibraryParserShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void findNoMethodsInEmptySmaliFile() {
     File locationActivityFolder = getFolder("de/philipphager/disclosure/smali/empty");
     LibraryParser libraryParser = new LibraryParser(locationActivityFolder);
