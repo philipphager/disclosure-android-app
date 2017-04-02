@@ -22,7 +22,7 @@ allprojects {
   repositories {
     jcenter()
     mavenCentral()
-    maven {url "https://clojars.org/repo/"}
+    maven { url "https://clojars.org/repo/" }
   }
 }
 
