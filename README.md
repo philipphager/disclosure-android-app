@@ -35,7 +35,7 @@ The video is cut, analysis time is usually around 15-60 seconds per app.
 Privacy Disclaimer
 ------------------
 **The Disclosure app operates completely on the device. No detected libraries
-or any other data is synced or tracked online. Every thing is local and can be
+or any other data is synced or tracked online. Everything is local and can be
 completely deleted.**
 
 License
