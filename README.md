@@ -30,6 +30,8 @@ via the app.**
 
 ![Demo GIF](disclosure-demo.gif)
 
+The video is cut, analysis time is usually around 15-60 seconds per app.
+
 ## Disclaimer
 **The Disclosure app operates completely on the device. No detected libraries
 or any other data is synced or tracked online. Every thing is local and can be
