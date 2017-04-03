@@ -2,7 +2,7 @@ package de.philipphager.disclosure.feature.sync.db;
 
 import de.philipphager.disclosure.feature.sync.db.usecases.FetchOutdatedPackages;
 import de.philipphager.disclosure.feature.sync.db.usecases.FetchUpdatedPackages;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import de.philipphager.disclosure.util.time.Stopwatch;
 import javax.inject.Inject;
 import rx.Observable;
@@ -24,7 +24,7 @@ public class DBSyncer {
     this.appService = appService;
   }
 
-  public Observable<Integer> sync() {
+  public Observable<Void> sync() {
     stopwatch.start();
 
     return Observable.concat(
@@ -36,6 +36,6 @@ public class DBSyncer {
     }).doOnCompleted(() -> {
       stopwatch.stop();
       Timber.d("db sync finished, %s ", stopwatch);
-    });
+    }).map(ignored -> null);
   }
 }

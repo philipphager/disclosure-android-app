@@ -5,6 +5,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import com.squareup.sqldelight.SqlDelightStatement;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.app.model.AppModel;
 import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
@@ -25,16 +26,28 @@ public class AppRepository {
 
   public long insert(BriteDatabase db, App app) {
     synchronized (this) {
-      insertApp.bind(app.label(), app.packageName(), app.process(), app.sourceDir(),
-          app.targetSdk(), app.flags(), app.analyzedAt());
+      insertApp.bind(
+          app.label(),
+          app.packageName(),
+          app.process(),
+          app.sourceDir(),
+          app.targetSdk(),
+          app.flags(),
+          app.analyzedAt());
       return db.executeInsert(App.TABLE_NAME, insertApp.program);
     }
   }
 
   public int update(BriteDatabase db, App app) {
     synchronized (this) {
-      updateApp.bind(app.label(), app.process(), app.sourceDir(), app.targetSdk(), app.flags(),
-          app.analyzedAt(), app.packageName());
+      updateApp.bind(
+          app.label(),
+          app.process(),
+          app.sourceDir(),
+          app.targetSdk(),
+          app.flags(),
+          app.analyzedAt(),
+          app.packageName());
       return db.executeUpdateDelete(App.TABLE_NAME, updateApp.program);
     }
   }
@@ -86,8 +99,8 @@ public class AppRepository {
         .map(cursorToList);
   }
 
-  public Observable<List<App.Info>> allInfos(BriteDatabase db) {
-    CursorToListMapper<App.Info> cursorToList = new CursorToListMapper<>(App.Info.MAPPER);
+  public Observable<List<AppInfo>> allInfos(BriteDatabase db) {
+    CursorToListMapper<AppInfo> cursorToList = new CursorToListMapper<>(AppInfo.MAPPER);
     SqlDelightStatement selectAllInfos = App.FACTORY.selectAllInfos();
 
     return db.createQuery(selectAllInfos.tables, selectAllInfos.statement)

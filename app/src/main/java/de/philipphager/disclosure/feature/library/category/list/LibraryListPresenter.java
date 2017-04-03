@@ -3,7 +3,7 @@ package de.philipphager.disclosure.feature.library.category.list;
 import com.f2prateek.rx.preferences.Preference;
 import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.database.library.model.LibraryInfo;
-import de.philipphager.disclosure.feature.library.category.filter.SortByAppCount;
+import de.philipphager.disclosure.feature.library.category.sort.SortByAppCount;
 import de.philipphager.disclosure.feature.preference.ui.OnlyShowUsedLibraries;
 import de.philipphager.disclosure.service.LibraryService;
 import javax.inject.Inject;

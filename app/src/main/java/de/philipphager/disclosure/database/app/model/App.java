@@ -3,7 +3,6 @@ package de.philipphager.disclosure.database.app.model;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
-import com.squareup.sqldelight.RowMapper;
 import de.philipphager.disclosure.database.util.adapters.LocalDateTimeColumnAdapter;
 import org.threeten.bp.LocalDateTime;
 
@@ -59,14 +58,5 @@ import org.threeten.bp.LocalDateTime;
     Builder analyzedAt(@Nullable LocalDateTime analyzedAt);
 
     App build();
-  }
-
-  @AutoValue public static abstract class Info implements SelectAllInfosModel {
-    public static final RowMapper<Info> MAPPER =
-        FACTORY.selectAllInfosMapper(AutoValue_App_Info::create);
-
-    public static Info create(String packageName, int versionCode) {
-      return new AutoValue_App_Info(packageName, versionCode);
-    }
   }
 }

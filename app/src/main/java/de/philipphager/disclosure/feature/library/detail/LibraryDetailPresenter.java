@@ -3,7 +3,7 @@ package de.philipphager.disclosure.feature.library.detail;
 import de.philipphager.disclosure.R;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.library.model.Library;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

@@ -1,9 +1,7 @@
 package de.philipphager.disclosure.feature.sync.api;
 
-import de.philipphager.disclosure.database.library.model.Library;
 import de.philipphager.disclosure.feature.sync.api.usecases.SyncLibraries;
 import de.philipphager.disclosure.util.time.Stopwatch;
-import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import timber.log.Timber;
@@ -18,7 +16,7 @@ public class ApiSyncer {
     this.stopwatch = stopwatch;
   }
 
-  public Observable<List<Library>> sync() {
+  public Observable<Void> sync() {
     stopwatch.start();
 
     return syncLibraries.run()
@@ -28,6 +26,7 @@ public class ApiSyncer {
         }).doOnCompleted(() -> {
           stopwatch.stop();
           Timber.d("api sync finished, %s ", stopwatch);
-        }).ignoreElements();
+        })
+        .map(ignored -> null);
   }
 }

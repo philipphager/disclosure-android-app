@@ -22,7 +22,8 @@ public class PermissionGroupRepository {
 
   public long insert(BriteDatabase db, PermissionGroup permissionGroup) {
     synchronized (this) {
-      insertGroup.bind(permissionGroup.id(),
+      insertGroup.bind(
+          permissionGroup.id(),
           permissionGroup.title(),
           permissionGroup.description());
 
@@ -32,7 +33,8 @@ public class PermissionGroupRepository {
 
   public int update(BriteDatabase db, PermissionGroup permissionGroup) {
     synchronized (this) {
-      updateGroup.bind(permissionGroup.title(),
+      updateGroup.bind(
+          permissionGroup.title(),
           permissionGroup.description(),
           permissionGroup.id());
 

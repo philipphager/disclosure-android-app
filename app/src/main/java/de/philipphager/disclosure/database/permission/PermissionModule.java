@@ -21,12 +21,14 @@ import javax.inject.Singleton;
   }
 
   @Provides @Singleton
-  public PermissionGroup.InsertPermissionGroup getInsertPermissionGroupStatement(DatabaseManager databaseManager) {
+  public PermissionGroup.InsertPermissionGroup getInsertPermissionGroupStatement(
+      DatabaseManager databaseManager) {
     return new PermissionGroup.InsertPermissionGroup(databaseManager.getSQLite());
   }
 
   @Provides @Singleton
-  public PermissionGroup.UpdatePermissionGroup getUpdatePermissionGroupStatement(DatabaseManager databaseManager) {
+  public PermissionGroup.UpdatePermissionGroup getUpdatePermissionGroupStatement(
+      DatabaseManager databaseManager) {
     return new PermissionGroup.UpdatePermissionGroup(databaseManager.getSQLite());
   }
 

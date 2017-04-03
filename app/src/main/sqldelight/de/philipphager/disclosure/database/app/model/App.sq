@@ -12,6 +12,53 @@ CREATE TABLE App (
   analyzedAt INTEGER AS LocalDateTime
 );
 
+insertApp:
+INSERT INTO App (label, packageName, process, sourceDir, targetSdk, flags, analyzedAt)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+updateApp:
+UPDATE App
+SET label = ?, process = ?, sourceDir = ?, targetSdk = ?, flags = ?, analyzedAt = ?
+WHERE packageName = ?;
+
+selectAll:
+SELECT *
+FROM App;
+
+selectByName:
+SELECT *
+FROM App
+WHERE label like ?;
+
+selectByPackage:
+SELECT *
+FROM App
+WHERE packageName = ?;
+
+selectByLibrary:
+SELECT App.*
+FROM App, LibraryApp
+WHERE App.id = LibraryApp.appId
+AND LibraryApp.libraryId = ?;
+
+selectAllInfos:
+SELECT packageName, versionCode
+FROM App, Version
+WHERE id = appId;
+
+selectAppId:
+SELECT id
+FROM App
+WHERE packageName = ?;
+
+selectAllWithPermissionCount:
+SELECT App.*, count(permissionId) AS permissionCount
+FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
+LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
+AND LibraryApp.libraryId = AppLibraryPermission.libraryId
+WHERE LibraryApp.libraryId = ?
+GROUP BY LibraryApp.appId;
+
 report:
 CREATE VIEW Report AS
 SELECT App.*, libraryCount, permissionCount
@@ -40,50 +87,3 @@ WHERE Report.label LIKE upper('%' || ? || '%')
 OR Report.packageName LIKE upper('%' || ? || '%')
 OR Library.title LIKE upper('%' || ? || '%')
 GROUP BY Report.id;
-
-insertApp:
-INSERT INTO App (label, packageName, process, sourceDir, targetSdk, flags, analyzedAt)
-VALUES (?, ?, ?, ?, ?, ?, ?);
-
-updateApp:
-UPDATE App
-SET label = ?, process = ?, sourceDir = ?, targetSdk = ?, flags = ?, analyzedAt = ?
-WHERE packageName = ?;
-
-selectAll:
-SELECT *
-FROM App;
-
-selectByName:
-SELECT *
-FROM App
-WHERE label like ?;
-
-selectByPackage:
-SELECT *
-FROM App
-WHERE packageName = ?;
-
-selectAllInfos:
-SELECT packageName, versionCode
-FROM App, Version
-WHERE id = appId;
-
-selectAppId:
-SELECT id
-FROM App
-WHERE packageName = ?;
-
-selectByLibrary:
-SELECT App.*
-FROM App, LibraryApp
-WHERE App.id = LibraryApp.appId
-AND LibraryApp.libraryId = ?;
-
-selectAllWithPermissionCount:
-SELECT App.*, count(permissionId) AS permissionCount
-FROM App INNER JOIN LibraryApp ON App.id = LibraryApp.appId
-LEFT OUTER JOIN AppLibraryPermission ON LibraryApp.appId = AppLibraryPermission.appId
-AND LibraryApp.libraryId = AppLibraryPermission.libraryId
-WHERE LibraryApp.libraryId = ?
-GROUP BY LibraryApp.appId;

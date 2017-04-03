@@ -10,7 +10,7 @@ import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedPermis
 import de.philipphager.disclosure.feature.app.detail.usecase.FetchLibrariesForAppWithPermissions;
 import de.philipphager.disclosure.feature.preference.ui.DisplayAllPermissions;
 import de.philipphager.disclosure.feature.preference.ui.HasSeenEditPermissionsTutorial;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import de.philipphager.disclosure.util.device.DeviceFeatures;
 import de.philipphager.disclosure.util.device.IntentFactory;
 import javax.inject.Inject;

@@ -3,7 +3,7 @@ package de.philipphager.disclosure.feature.app.detail;
 import android.content.Intent;
 import de.philipphager.disclosure.database.app.model.App;
 import de.philipphager.disclosure.database.permission.model.Permission;
-import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
+import de.philipphager.disclosure.database.library.model.LibraryWithPermission;
 import de.philipphager.disclosure.feature.navigation.Navigates;
 import java.util.List;
 

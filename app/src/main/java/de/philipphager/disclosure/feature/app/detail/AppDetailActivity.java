@@ -33,7 +33,7 @@ import de.philipphager.disclosure.feature.analyser.AnalyticsProgress;
 import de.philipphager.disclosure.feature.app.detail.tutorials.EditPermissionsTutorialDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.PermissionExplanationDialog;
 import de.philipphager.disclosure.feature.app.detail.tutorials.RuntimePermissionsTutorialDialog;
-import de.philipphager.disclosure.feature.app.detail.usecase.LibraryWithPermission;
+import de.philipphager.disclosure.database.library.model.LibraryWithPermission;
 import de.philipphager.disclosure.util.ui.BaseActivity;
 import de.philipphager.disclosure.util.ui.image.AppIconLoader;
 import java.util.List;

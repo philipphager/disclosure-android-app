@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.service.app;
+package de.philipphager.disclosure.service;
 
 import android.content.pm.PackageInfo;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -6,16 +6,17 @@ import de.philipphager.disclosure.database.DatabaseManager;
 import de.philipphager.disclosure.database.app.AppRepository;
 import de.philipphager.disclosure.database.app.mapper.ToAppMapper;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.app.model.AppReport;
 import de.philipphager.disclosure.database.app.model.AppWithPermissions;
 import de.philipphager.disclosure.database.version.VersionRepository;
 import de.philipphager.disclosure.database.version.mapper.ToVersionMapper;
 import de.philipphager.disclosure.database.version.model.Version;
-import de.philipphager.disclosure.service.app.filter.SortBy;
-import de.philipphager.disclosure.service.app.filter.SortByAnalyzedAt;
-import de.philipphager.disclosure.service.app.filter.SortByLibraryCount;
-import de.philipphager.disclosure.service.app.filter.SortByName;
-import de.philipphager.disclosure.service.app.filter.SortByPermissionCount;
+import de.philipphager.disclosure.service.sort.SortBy;
+import de.philipphager.disclosure.service.sort.SortByAnalyzedAt;
+import de.philipphager.disclosure.service.sort.SortByLibraryCount;
+import de.philipphager.disclosure.service.sort.SortByName;
+import de.philipphager.disclosure.service.sort.SortByPermissionCount;
 import de.philipphager.disclosure.util.time.Clock;
 import java.util.List;
 import javax.inject.Inject;
@@ -47,7 +48,7 @@ public class AppService {
     return appRepository.all(db);
   }
 
-  public Observable<List<App.Info>> allInfos() {
+  public Observable<List<AppInfo>> allInfos() {
     BriteDatabase db = databaseManager.get();
     return appRepository.allInfos(db);
   }

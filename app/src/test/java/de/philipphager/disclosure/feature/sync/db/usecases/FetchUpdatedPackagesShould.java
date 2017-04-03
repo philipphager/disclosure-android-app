@@ -2,11 +2,11 @@ package de.philipphager.disclosure.feature.sync.db.usecases;
 
 import android.content.pm.PackageInfo;
 import de.philipphager.disclosure.database.app.mapper.ToInfoMapper;
-import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 import de.philipphager.disclosure.database.mocks.MockApp;
 import de.philipphager.disclosure.database.mocks.MockPackageInfo;
 import de.philipphager.disclosure.feature.device.DevicePackageProvider;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -68,7 +68,7 @@ public class FetchUpdatedPackagesShould {
   public void fetchOnlyNewAppsFromDevice() {
     List<PackageInfo> installedPackages =
         Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
-    List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
+    List<AppInfo> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
@@ -88,10 +88,10 @@ public class FetchUpdatedPackagesShould {
 
     PackageInfo testPackageVersion2 = MockPackageInfo.TEST;
     testPackageVersion2.versionCode = newVersion;
-    App.Info testAppInfoVersion2 = App.Info.create(testPackageVersion2.packageName, newVersion);
+    AppInfo testAppInfoVersion2 = AppInfo.create(testPackageVersion2.packageName, newVersion);
 
     List<PackageInfo> installedPackages = Collections.singletonList(testPackageVersion2);
-    List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
+    List<AppInfo> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appService.allInfos()).thenReturn(Observable.just(savedPackages));

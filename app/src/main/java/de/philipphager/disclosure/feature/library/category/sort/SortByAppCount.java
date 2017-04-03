@@ -1,4 +1,4 @@
-package de.philipphager.disclosure.feature.library.category.filter;
+package de.philipphager.disclosure.feature.library.category.sort;
 
 import de.philipphager.disclosure.database.library.model.LibraryInfo;
 import rx.functions.Func2;

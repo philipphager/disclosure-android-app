@@ -7,7 +7,7 @@ import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseLibrar
 import de.philipphager.disclosure.feature.analyser.permission.usecase.AnalysePermissionsFromMethodInvocations;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.service.PermissionService;
-import de.philipphager.disclosure.service.app.AppService;
+import de.philipphager.disclosure.service.AppService;
 import de.philipphager.disclosure.util.device.FileUtils;
 import de.philipphager.disclosure.util.device.StorageProvider;
 import java.io.File;

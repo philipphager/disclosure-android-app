@@ -1,6 +1,7 @@
 package de.philipphager.disclosure.feature.app.detail.usecase;
 
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.library.model.LibraryWithPermission;
 import de.philipphager.disclosure.database.permission.model.Permission;
 import de.philipphager.disclosure.service.LibraryService;
 import de.philipphager.disclosure.service.PermissionService;

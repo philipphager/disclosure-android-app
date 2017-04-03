@@ -2,6 +2,7 @@ package de.philipphager.disclosure.database.mocks;
 
 import android.content.ContentValues;
 import de.philipphager.disclosure.database.app.model.App;
+import de.philipphager.disclosure.database.app.model.AppInfo;
 
 public final class MockApp {
   public static final App TEST = App.builder()
@@ -22,8 +23,8 @@ public final class MockApp {
       .flags(0)
       .sourceDir("/")
       .build();
-  public static final App.Info TEST_INFO = App.Info.create(TEST.packageName(), 1001);
-  public static final App.Info TEST2_INFO = App.Info.create(TEST2.packageName(), 2001);
+  public static final AppInfo TEST_INFO = AppInfo.create(TEST.packageName(), 1001);
+  public static final AppInfo TEST2_INFO = AppInfo.create(TEST2.packageName(), 2001);
 
   @SuppressWarnings("PMD.UnnecessaryConstructor") private MockApp() {
     //No instances of helper classes.

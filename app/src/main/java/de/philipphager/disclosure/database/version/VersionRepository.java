@@ -22,7 +22,8 @@ public class VersionRepository {
 
   public long insert(BriteDatabase db, Version version) {
     synchronized (this) {
-      insertVersion.bind(version.appId(),
+      insertVersion.bind(
+          version.appId(),
           version.versionCode(),
           version.versionName(),
           version.createdAt());
@@ -33,7 +34,8 @@ public class VersionRepository {
 
   public int update(BriteDatabase db, Version version) {
     synchronized (this) {
-      updateVersion.bind(version.versionName(),
+      updateVersion.bind(
+          version.versionName(),
           version.createdAt(),
           version.appId(),
           version.versionCode());

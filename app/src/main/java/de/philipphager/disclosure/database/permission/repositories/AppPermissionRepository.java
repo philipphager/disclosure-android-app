@@ -14,7 +14,8 @@ public class AppPermissionRepository {
 
   public long insert(BriteDatabase db, AppPermission appPermission) {
     synchronized (this) {
-      insertPermissionApp.bind(appPermission.appId(),
+      insertPermissionApp.bind(
+          appPermission.appId(),
           appPermission.permissionId(),
           appPermission.isGranted());
 

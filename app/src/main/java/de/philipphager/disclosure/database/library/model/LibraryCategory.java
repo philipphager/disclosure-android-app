@@ -1,8 +1,7 @@
-package de.philipphager.disclosure.feature.library.category.usecase;
+package de.philipphager.disclosure.database.library.model;
 
 import android.os.Parcelable;
 import com.google.auto.value.AutoValue;
-import de.philipphager.disclosure.database.library.model.Library;
 
 @AutoValue public abstract class LibraryCategory implements Parcelable {
   public static LibraryCategory create(Library.Type type, Long allLibraries, Long usedLibraries) {
