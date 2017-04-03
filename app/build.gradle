@@ -9,7 +9,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 3
+def versionPatch = 4
 def versionBuild = 0
 
 android {

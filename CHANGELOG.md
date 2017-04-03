@@ -1,7 +1,14 @@
 # Changelog
 
 - Latest production version: -
-- Latest beta version: v0.0.3.0
+- Latest beta version: v0.0.4.0
+
+## Disclosure [v0.0.4.0] 03.04.2017
+### Miscellaneous
+- Added: Travis CI build support for unit testing and instrumentation tests.
+- Added: Github issue tracker and changelog in settings.
+- Added: Instrumentation tests using Espresso.
+- Improved: Housekeeping, removed unused features and files.
 
 ## Disclosure [v0.0.3.0] 16.03.2017
 ### Analyzer
