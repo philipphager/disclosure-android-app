@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
-import android.widget.Toast;
 import de.philipphager.disclosure.BuildConfig;
 import de.philipphager.disclosure.DisclosureApp;
 import de.philipphager.disclosure.R;
