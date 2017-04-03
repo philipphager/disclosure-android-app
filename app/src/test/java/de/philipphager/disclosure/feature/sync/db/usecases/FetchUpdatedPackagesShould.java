@@ -68,11 +68,7 @@ public class FetchUpdatedPackagesShould {
   public void fetchOnlyNewAppsFromDevice() {
     List<PackageInfo> installedPackages =
         Arrays.asList(MockPackageInfo.TEST, MockPackageInfo.TEST2);
-<<<<<<< HEAD
     List<AppInfo> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
-=======
-    List<App.Info> savedPackages = Collections.singletonList(MockApp.TEST_INFO);
->>>>>>> master
 
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(installedPackages));
     when(appService.allInfos()).thenReturn(Observable.just(savedPackages));
