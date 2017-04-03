@@ -21,7 +21,7 @@ public class AnalyseLibraryMethodInvocations {
         .flatMap(LibraryParser::findMethodInvocations)
         .flatMap(Observable::from)
         .distinct()
-        .filter(new FilterIrelevantMethods())
+        .filter(new FilterIrrelevantMethods())
         .toList();
   }
 

@@ -29,7 +29,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({BriteDatabase.class})
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AppServiceShould {
   @Mock protected AppRepository appRepository;
   @Mock protected VersionRepository versionRepository;
@@ -48,8 +47,7 @@ public class AppServiceShould {
         clock);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void fetchAllApps() {
+  @Test public void fetchAllApps() {
     List<App> testApps = Arrays.asList(MockApp.TEST, MockApp.TEST2);
     when(appRepository.all(any(BriteDatabase.class)))
         .thenReturn(Observable.just(testApps));
@@ -65,8 +63,7 @@ public class AppServiceShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-  public void fetchAllAppInfos() {
+  @Test public void fetchAllAppInfos() {
     List<AppInfo> testInfos = Arrays.asList(MockApp.TEST_INFO, MockApp.TEST2_INFO);
     when(appRepository.allInfos(any(BriteDatabase.class)))
         .thenReturn(Observable.just(testInfos));

@@ -7,7 +7,7 @@
       android:summary="This app is developed open-source. All contributions are welcome!">
     <intent
         android:action="android.intent.action.VIEW"
-        android:data="https://git.it-sec.medien.hs-duesseldorf.de/hschmidt/hager-bsc"/>
+        android:data="https://github.com/philipphager/disclosure-android-app"/>
   </Preference>
 
   <Preference
@@ -15,7 +15,7 @@
       android:summary="Found a bug? Report it here.">
     <intent
         android:action="android.intent.action.VIEW"
-        android:data="https://git.it-sec.medien.hs-duesseldorf.de/hschmidt/hager-bsc"/>
+        android:data="https://github.com/philipphager/disclosure-android-app/issues"/>
   </Preference>
 
   <Preference

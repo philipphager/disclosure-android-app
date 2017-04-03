@@ -21,7 +21,7 @@ import rx.observers.TestSubscriber;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+
 public class FetchOutdatedPackagesShould {
   @Mock protected DevicePackageProvider appProvider;
   @Mock protected AppService appService;
@@ -39,7 +39,7 @@ public class FetchOutdatedPackagesShould {
         AppInfo.create(MockPackageInfo.TEST2.packageName, MockPackageInfo.TEST2.versionCode);
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void loadNoPackagesIfNoneAreInstalled() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));
@@ -53,7 +53,7 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchAllOutdatedPackagesThatWereUninstalled() {
     List<AppInfo> savedPackages = Arrays.asList(facebookInfo, instagramInfo);
 
@@ -71,7 +71,7 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void doNotFetchPackagesThatAreStillInstalled() {
     List<AppInfo> savedPackages = Collections.singletonList(facebookInfo);
     List<PackageInfo> installedPackages = Collections.singletonList(MockPackageInfo.TEST);
@@ -89,7 +89,7 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchOnlyOnePackageIfMoreVersionsOfAnAppHaveBeenSaved() {
     List<AppInfo> savedPackages = Arrays.asList(facebookInfo, facebookInfoVersion2);
     List<PackageInfo> installedPackages = Collections.emptyList();
@@ -107,7 +107,7 @@ public class FetchOutdatedPackagesShould {
     subscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void alwaysCompleteAFetch() {
     when(appProvider.getInstalledPackages()).thenReturn(Observable.just(Collections.emptyList()));
     when(appService.allInfos()).thenReturn(Observable.just(Collections.emptyList()));

@@ -31,7 +31,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Naviga
 
     setupContact();
     setupLicense();
-    setupChangelog();
     setupVersion();
   }
 
@@ -57,14 +56,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Naviga
     Preference preference = findPreference(getString(R.string.settings_license_and_thanks));
     preference.setOnPreferenceClickListener(pref -> {
       navigate().toNestedSystemSetting(NestedSettingsActivity.LICENSE);
-      return true;
-    });
-  }
-
-  private void setupChangelog() {
-    Preference preference = findPreference(getString(R.string.settings_changelog));
-    preference.setOnPreferenceClickListener(pref -> {
-      Toast.makeText(getContext(), R.string.notify_feature_missing, Toast.LENGTH_LONG).show();
       return true;
     });
   }

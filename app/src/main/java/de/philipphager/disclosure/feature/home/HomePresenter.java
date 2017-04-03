@@ -1,6 +1,6 @@
 package de.philipphager.disclosure.feature.home;
 
-import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
+import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
 import de.philipphager.disclosure.feature.sync.db.DBSyncer;
 import de.philipphager.disclosure.service.AppService;

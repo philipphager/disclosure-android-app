@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
   @Mock protected LibraryService libraryService;
   @InjectMocks protected SyncLibraries syncLibraries;
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void fetchLibrariesFromApiAndSaveThem() {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(libraryService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
@@ -51,13 +51,14 @@ import static org.mockito.Mockito.when;
     testSubscriber.assertCompleted();
   }
 
-  @Test @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @Test
   public void callOnErrorIfApiReturnsAnError() {
     OffsetDateTime lastUpdated = OffsetDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
     when(libraryService.lastUpdated()).thenReturn(Observable.just(lastUpdated));
 
     Throwable apiError = new Throwable();
-    when(disclosureApi.allLibraries(any(), anyInt(), anyInt())).thenReturn(Observable.error(apiError));
+    when(disclosureApi.allLibraries(any(), anyInt(), anyInt())).thenReturn(
+        Observable.error(apiError));
 
     TestSubscriber<List<Library>> testSubscriber = new TestSubscriber<>();
     syncLibraries.run()

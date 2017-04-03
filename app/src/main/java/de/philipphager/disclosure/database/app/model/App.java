@@ -22,7 +22,7 @@ import org.threeten.bp.LocalDateTime;
     return new AutoValue_App.Builder();
   }
 
-  @SuppressWarnings("PMD.ShortMethodName") @Nullable public abstract Long id();
+  @Nullable public abstract Long id();
 
   public abstract String label();
 
@@ -41,7 +41,7 @@ import org.threeten.bp.LocalDateTime;
   public abstract App withAnalyzedAt(LocalDateTime analyzedAt);
 
   @AutoValue.Builder public interface Builder {
-    @SuppressWarnings("PMD.ShortMethodName") Builder id(Long id);
+    Builder id(Long id);
 
     Builder label(String label);
 

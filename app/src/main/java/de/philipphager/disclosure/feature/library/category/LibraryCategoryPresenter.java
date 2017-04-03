@@ -1,7 +1,7 @@
 package de.philipphager.disclosure.feature.library.category;
 
 import com.f2prateek.rx.preferences.Preference;
-import de.philipphager.disclosure.feature.analyser.library.usecase.AnalyseUsedLibraries;
+import de.philipphager.disclosure.feature.analyser.app.usecase.AnalyseUsedLibraries;
 import de.philipphager.disclosure.feature.preference.ui.OnlyShowUsedLibraries;
 import de.philipphager.disclosure.feature.sync.api.ApiSyncer;
 import de.philipphager.disclosure.service.AppService;

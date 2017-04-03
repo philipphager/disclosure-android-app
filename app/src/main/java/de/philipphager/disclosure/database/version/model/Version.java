@@ -1,6 +1,7 @@
 package de.philipphager.disclosure.database.version.model;
 
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import de.philipphager.disclosure.database.util.adapters.LocalDateTimeColumnAdapter;
 import org.threeten.bp.LocalDateTime;
@@ -18,7 +19,7 @@ import org.threeten.bp.LocalDateTime;
 
   public abstract int versionCode();
 
-  public abstract String versionName();
+  @Nullable public abstract String versionName();
 
   public abstract LocalDateTime createdAt();
 }
